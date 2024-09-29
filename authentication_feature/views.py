@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import AccountTypeForm, RegistrationForm, CustomUserChangeForm
+from .models import AccountType
 
 def account_type_selection(request):
     if request.method == 'POST':
@@ -15,6 +16,12 @@ def account_type_selection(request):
     return render(request, 'account_type_selection.html', {'form': form})
 
 def register(request, account_type):
+    try:
+        # Raises ValueError if the account type is invalid
+        account_type = AccountType(account_type).label
+    except ValueError:
+        return redirect('account_type_selection')
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():

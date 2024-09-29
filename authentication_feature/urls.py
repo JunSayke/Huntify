@@ -1,11 +1,11 @@
-from django.urls import path, re_path
+from django.urls import path
 from django.contrib.auth.views import LoginView
 from . import views
 
 urlpatterns = [
     path('', views.home, name='home'), 
     path('select-account-type/', views.account_type_selection, name='account_type_selection'),
-    re_path(r'^register/(?P<account_type>(?i:tenant|landlord))/$', views.register, name='register'),
+    path('register/<str:account_type>/', views.register, name='register'),
     path('update-user-info/', views.update_user_info, name='update_user_info'),
     path('profile/', views.profile, name='profile'),
     path('login/', LoginView.as_view(template_name='login.html', next_page='profile'), name='login'),
