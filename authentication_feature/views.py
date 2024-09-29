@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .forms import AccountTypeForm, TenantRegistrationForm, LandlordRegistrationForm, CustomUserChangeForm
-from .models import AccountType
+from django.contrib.auth.forms import PasswordChangeForm
+from .forms import AccountTypeForm, RegistrationForm, CustomUserChangeForm
 
 def account_type_selection(request):
     if request.method == 'POST':
@@ -15,31 +15,26 @@ def account_type_selection(request):
     return render(request, 'account_type_selection.html', {'form': form})
 
 def register(request, account_type):
-    if account_type.casefold() == AccountType.TENANT.casefold():
-        form_class = TenantRegistrationForm
-    elif account_type.casefold() == AccountType.LANDLORD.casefold():
-        form_class = LandlordRegistrationForm
-    else:
-        return redirect('account_type_selection')
-
     if request.method == 'POST':
-        form = form_class(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
+            user = form.save(commit=False)
+            user.account_type = account_type
             user = form.save()
             login(request, user)
             return redirect('home')
     else:
-        form = form_class()
+        form = RegistrationForm()
     
     return render(request, 'register.html', {'form': form, 'account_type': account_type})
 
 @login_required
 def update_user_info(request):
     if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('profile')  # Redirect to a profile page or any other page
+            return redirect('profile')
     else:
         form = CustomUserChangeForm(instance=request.user)
     
@@ -54,5 +49,18 @@ def custom_logout(request):
     logout(request)
     return redirect('home')
 
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            return redirect('profile')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
+
 def home(request):
     return render(request, 'home.html')
+
