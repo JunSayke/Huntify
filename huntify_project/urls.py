@@ -1,5 +1,5 @@
 """
-URL configuration for huntify_main_app project.
+URL configuration for huntify_project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
