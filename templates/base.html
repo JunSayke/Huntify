@@ -1,29 +1,9 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0" />
-		<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-		<title>{% block title %}Huntify{% endblock %}</title>
-	</head>
+	{% include 'partials/head.html' %}
 	<body>
-		<header>
-			<h1>My Site</h1>
-			<nav>
-				<ul>
-					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="{% url 'account_type_selection' %}">Register</a></li>
-					<li><a href="{% url 'login' %}">Login</a></li>
-					<li><a href="{% url 'profile' %}">Profile</a></li>
-					<li><a href="{% url 'logout' %}">Logout</a></li>
-				</ul>
-			</nav>
-		</header>
+		{% include 'partials/header.html' %}
 		<main>{% block content %}{% endblock %}</main>
-		<footer>
-			<p>&copy; 2024 My Site</p>
-		</footer>
+		{% include 'partials/footer.html' %}
 	</body>
 </html>
