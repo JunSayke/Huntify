@@ -35,7 +35,6 @@ def register(request, account_type):
     
     return render(request, 'register.html', {'form': form, 'account_type': account_type})
 
-@login_required
 def update_user_info(request):
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
@@ -47,16 +46,13 @@ def update_user_info(request):
     
     return render(request, 'update_user_info.html', {'form': form})
 
-@login_required
 def profile(request):
     return render(request, 'profile.html')
 
-@login_required
 def custom_logout(request):
     logout(request)
     return redirect('home')
 
-@login_required
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
