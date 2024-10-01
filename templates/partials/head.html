@@ -4,7 +4,38 @@
 	<meta
 		name="viewport"
 		content="width=device-width, initial-scale=1.0" />
+	<!-- Tailwind CSS CDN -->
 	<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+		rel="stylesheet" />
+	<!-- Tailwind CSS Configuration -->
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						"huntify-black": "#000000",
+						"huntify-black-1": "#17252A",
+						"huntify-cyan-1": "#2B7A78",
+						"huntify-cyan-2": "#3AAFA9",
+						"huntify-white": "#FFFFFF",
+						"huntify-white-1": "#DEF2F1",
+						"huntify-white-2": "#FEFFFF",
+						"huntify-brown": "#964734",
+						"huntify-gray-1": "#3E3D3D",
+						"huntify-gray-2": "#696969",
+						"huntify-gray-3": "#F5F5F5",
+					},
+					fontFamily: {
+						sans: ["Inter", "sans-serif"],
+						poppins: ["Poppins", "sans-serif"],
+					},
+				},
+			},
+		}
+	</script>
 	<title>{% block title %}Huntify{% endblock %}</title>
 </head>
 {% endblock %}
