@@ -1,21 +1,54 @@
-{% block content %}
 <header>
-	<h1>My Site</h1>
-	<nav>
-		<ul>
-			<li><a href="{% url 'home' %}">Home</a></li>
-			<li><a href="{% url 'account_type_selection' %}">Register</a></li>
-			<li><a href="{% url 'login' %}">Login</a></li>
-			<li><a href="{% url 'profile' %}">Profile</a></li>
-			<li>
-				<form
-					action="{% url 'logout' %}"
-					method="post">
-					{% csrf_token %}
-					<button type="submit">Logout</button>
-				</form>
-			</li>
-		</ul>
-	</nav>
+	<div class="h-[87px] px-20 bg-white flex items-center">
+		<div class="flex-shrink-0">
+			{% include 'svgs/company_logo3.html' with class="w-[338px] h-[85px]" %}
+		</div>
+
+		<div class="flex-grow flex justify-center gap-[30px] mx-6">
+			<a href="#home">
+				<div
+					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
+					Home
+				</div>
+			</a>
+			<a href="#about">
+				<div
+					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
+					About Us
+				</div>
+			</a>
+			<a href="#toprooms">
+				<div
+					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
+					Top Rooms
+				</div>
+			</a>
+			<a href="#process">
+				<div
+					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
+					Bookings
+				</div>
+			</a>
+		</div>
+
+		<div class="flex items-center gap-4">
+			<a href="">
+				<div
+					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
+					Account
+				</div>
+			</a>
+			<a href="">
+				<div class="rounded-lg">
+					<div
+						class="px-[18px] py-2.5 bg-white rounded-lg shadow border border-[#cfd4dc] hover:bg-[#DEF2F1] flex justify-center items-center gap-2">
+						<div
+							class="text-[#344053] text-base font-semibold font-['Plus Jakarta Sans'] leading-normal">
+							Rent a Room
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
 </header>
-{% endblock %}

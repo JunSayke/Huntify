@@ -1,6 +1,161 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %}
-<!-- prettier-ignore -->
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %}
 {% block content %}
-<h1>Welcome to My Site</h1>
-<p>This is the home page.</p>
+
+<div class="flex flex-col">
+    <div id="home" class="h-[709px] bg-white rounded-[10px] relative">
+    <div class="w-[736px] pl-20 pt-[50px] pb-5 left-[20px] top-[138px] absolute justify-start items-center gap-3 inline-flex">
+        <div class="w-[642.50px] flex-col justify-start items-start gap-10 inline-flex">
+            <div class="w-[642.50px] h-[136px] relative">
+                <div class="w-[642px] h-[129px] left-0 top-0 absolute text-[#3aafa9] text-[79px] font-semibold font-['Open Sans'] capitalize">Huntify</div>
+                <div class="w-[642.50px] left-0 top-[86px] absolute text-[#1d2838] text-[40px] font-semibold font-['Plus Jakarta Sans'] capitalize">Where Home Begins</div>
+            </div>
+            <div class="w-[584px] text-[#484848]/80 text-2xl font-normal font-['Plus Jakarta Sans']">Looking for a place to stay? We are here to assist you in finding your new home</div>
+            <div class="w-[634.51px] h-[88px] relative">
+                <div class="w-[59px] h-[33px] left-[26.50px] top-[45px] absolute text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans']">Rooms</div>
+                <div class="w-[271px] h-[52px] left-[363.51px] top-[45px] absolute text-center text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans']">Students</div>
+                <div class="w-[314.50px] h-[33px] left-[116.20px] top-[46px] absolute text-center text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans']">Reservations</div>
+                <div class="w-[123.14px] h-[43px] left-0 top-0 absolute text-center">
+                    <span class="text-[#17242a] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">2673</span>
+                    <span class="text-[#964734] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">+</span>
+                </div>
+                <div class="w-[123.14px] h-[43px] left-[217px] top-0 absolute text-center">
+                    <span class="text-[#17242a] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">535</span>
+                    <span class="text-[#964734] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">+</span>
+                </div>
+                <div class="w-[123.14px] h-[43px] left-[437px] top-0 absolute text-center">
+                    <span class="text-[#17242a] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">3467</span>
+                    <span class="text-[#964734] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img class="w-[684px] h-[711px] left-[827px] top-0 absolute" src="https://static.wixstatic.com/media/59fa67_65338961d23f4e57a3c225c4ed24a41c~mv2.jpg/v1/fill/w_740,h_740,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/59fa67_65338961d23f4e57a3c225c4ed24a41c~mv2.jpg" />
+
+    <!-- Search Bar -->
+<div class="w-[1180px] h-[130px] p-5 left-[50%] transform -translate-x-1/2 top-[572px] absolute bg-white rounded-[5px] border border-[#a1a7b0] flex flex-col justify-start items-center gap-2.5">
+    <div class="self-stretch flex ">
+        <div class="text-[#1d2838] text-xl font-semibold font-['Plus Jakarta Sans']">Find Your New Home</div>
+    </div>
+    <div class="self-stretch flex justify-between items-center gap-0">
+        <!-- Location -->
+        <div class="flex-grow h-11">
+            <select class="w-full h-full px-3.5 bg-white rounded-lg shadow border border-[#a1a7b0] text-[#a1a7b0] leading-normal focus:outline-none focus:border-[#3aafa9]">
+                <option value="" disabled selected>Select Location</option>
+                <option value="abarangay">Abaranga</option>
+                <option value="adlaon">Adlaon</option>
+                <option value="apao">Apas</option>
+                <option value="babag">Babag</option>
+                <option value="banilad">Banilad</option>
+                <option value="basak">Basak</option>
+                <option value="buhisan">Buhisan</option>
+                <option value="buhangin">Buhangin</option>
+                <option value="calamba">Calamba</option>
+                <option value="camputhaw">Camputhaw</option>
+                <option value="carreta">Carreta</option>
+                <option value="caytano">Caytano</option>
+                <option value="central">Central</option>
+                <option value="dawes">Dawes</option>
+                <option value="day-as">Day-as</option>
+                <option value="guba">Guba</option>
+                <option value="gun-ob">Gun-ob</option>
+                <option value="hagdan">Hagdan</option>
+                <option value="hapitan">Hapitan</option>
+                <option value="hacienda">Hacienda</option>
+                <option value="ibus">Ibus</option>
+                <option value="ibuyon">Ibunyon</option>
+                <option value="inayawan">Inayawan</option>
+                <option value="intosan">Intosan</option>
+                <option value="kamputhaw">Kamputhaw</option>
+                <option value="kasambagan">Kasambagan</option>
+                <option value="kasilayan">Kasilayan</option>
+                <option value="labangon">Labangon</option>
+                <option value="lamac">Lamac</option>
+                <option value="langtad">Langtad</option>
+                <option value="luz">Luz</option>
+                <option value="mabolo">Mabolo</option>
+                <option value="maguikay">Maguikay</option>
+                <option value="malubog">Malubog</option>
+                <option value="mambaling">Mambaling</option>
+                <option value="mandalagan">Mandalagan</option>
+                <option value="mangga">Mangga</option>
+                <option value="mangub">Mangub</option>
+                <option value="maribago">Maribago</option>
+                <option value="masambong">Masambong</option>
+                <option value="n. bisaya">N. Bisaya</option>
+                <option value="pahina">Pahina</option>
+                <option value="poblacion">Poblacion</option>
+                <option value="pontevedra">Pontevedra</option>
+                <option value="punta">Punta Princesa</option>
+                <option value="quizon">Quizon</option>
+                <option value="sapangdaku">Sapang Daku</option>
+                <option value="sapangdako">Sapang Dako</option>
+                <option value="sampaguita">Sampaguita</option>
+                <option value="san jose">San Jose</option>
+                <option value="san nicolas">San Nicolas</option>
+                <option value="san roque">San Roque</option>
+                <option value="santo niño">Santo Niño</option>
+                <option value="santo domingo">Santo Domingo</option>
+                <option value="santo tomas">Santo Tomas</option>
+                <option value="sudlon">Sudlon</option>
+                <option value="tabok">Tabok</option>
+                <option value="tejero">Tejero</option>
+                <option value="tisa">Tisa</option>
+                <option value="tuburan">Tuburan</option>
+                <option value="tuyan">Tuyan</option>
+                <option value="urdaneta">Urdaneta</option>
+                <option value="v. l. lazo">V. L. Lazo</option>
+            </select>
+        </div>
+        
+        <!-- Budget -->
+        <div class="flex-grow h-11">
+            <div class="flex h-full items-center">
+                <div class="flex-grow px-3.5 bg-white rounded-lg shadow border border-[#a1a7b0] flex items-center h-full">
+                    <div class="text-[#667084] text-base font-normal leading-normal">Budget (₱)</div>
+                    <input type="number" class="border border-gray-300 rounded-lg w-full mx-2 h-full" placeholder="Min" max="50000" min="0" />
+                    <span class="mx-1">to</span>
+                    <input type="number" class="border border-gray-300 rounded-lg w-full h-full" placeholder="Max" max="50000" min="0" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Date -->
+        <div class="flex-grow h-11">
+            <div class="flex h-full items-center">
+                <input type="date" class="border border-gray-300 rounded-lg leading-normal w-full h-full px-3 focus:outline-none focus:border-[#3aafa9]" />
+            </div>
+        </div>
+
+        <!-- Search Button -->
+        <button class="h-11 px-5 py-2.5 bg-[#3aafa9] hover:bg-[#2b7a78] rounded-lg shadow border border-[#c2cae3] flex justify-center items-center text-white text-base font-semibold font-['Plus Jakarta Sans']">
+            Search
+        </button> 
+    </div>
+</div>
+</div>
+
+<!--About Us-->
+
+<div id="about" class="bg-white h-[300px]">
+    <h2 class="text-4xl font-semibold text-[#3aafa9]">About Us</h2>
+    <p class="text-lg text-[#484848]">[Add content ]</p>
+</div>
+<!--Top Rooms-->
+<div id="toprooms" class="bg-black h-[300px]">
+    <h2 class="text-4xl font-semibold text-[#3aafa9]">Reserve the Finest Rooms</h2>
+    <p class="text-lg text-[#484848]">[Add content ]</p>
+</div>
+<!--Process-->
+<div id="process" class="bg-white h-[300px]">
+    <h2 class="text-4xl font-semibold text-[#3aafa9]">Booking Process</h2>
+    <p class="text-lg text-[#484848]">[Add content ]</p>
+</div>
+
+
+
+
+    
+    
+
 {% endblock %}
