@@ -1,0 +1,71 @@
+<form
+	method="POST"
+	class="font-inter">
+	{% csrf_token %}
+	<div class="bg-huntify-gray-3 px-20 py-10 my-10 rounded-lg font-inter">
+		<div class="flex space-x-16 rounded-lg">
+			<!-- Iterate over the choices of the account_type field -->
+			{% for subwidget in form.account_type.subwidgets %}
+			<div class="select-none">
+				<!-- Customize the input element -->
+				<input
+					type="radio"
+					id="{{ subwidget.id_for_label }}"
+					value="{{ subwidget.data.value }}"
+					name="{{ form.account_type.name }}"
+					class="hidden peer" />
+				<!-- Customize the label element -->
+				{% if subwidget.data.value == 'tenant' %}
+				<label
+					for="{{ subwidget.id_for_label }}"
+					class="bg-huntify-cyan-2 h-40 w-48 rounded flex flex-col space-y-4 items-center justify-center peer-checked:scale-95 peer-checked:ring-2 transform active:scale-90 transition-transform">
+					<svg
+						width="66"
+						height="67"
+						class="mx-auto"
+						viewBox="0 0 66 67"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M65.1024 57.9258L52.2495 44.8804C51.6694 44.2916 50.883 43.9645 50.058 43.9645H47.9566C51.5147 39.3456 53.6289 33.536 53.6289 27.2161C53.6289 12.1818 41.6269 0 26.8145 0C12.002 0 0 12.1818 0 27.2161C0 42.2504 12.002 54.4322 26.8145 54.4322C33.0411 54.4322 38.7649 52.2863 43.3157 48.6749V50.8077C43.3157 51.6452 43.638 52.4433 44.2181 53.0321L57.071 66.0775C58.2828 67.3075 60.2423 67.3075 61.4412 66.0775L65.0895 62.3746C66.3013 61.1446 66.3013 59.1558 65.1024 57.9258ZM26.8145 43.9645C17.7001 43.9645 10.3133 36.48 10.3133 27.2161C10.3133 17.9652 17.6872 10.4677 26.8145 10.4677C35.9288 10.4677 43.3157 17.9522 43.3157 27.2161C43.3157 36.4669 35.9417 43.9645 26.8145 43.9645Z"
+							fill="white" />
+					</svg>
+					<span class="text-huntify-white">{{ subwidget.choice_label }}</span>
+				</label>
+				{% elif subwidget.data.value == 'landlord' %}
+				<label
+					for="{{ subwidget.id_for_label }}"
+					class="bg-huntify-white h-40 w-48 rounded flex flex-col space-y-4 items-center justify-center peer-checked:scale-95 peer-checked:ring-2 transform active:scale-90 transition-transform">
+					<svg
+						width="88"
+						height="73"
+						viewBox="0 0 88 73"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M42.8333 18.9381L14.6678 43.6843V70.3926C14.6678 71.0841 14.9253 71.7473 15.3837 72.2363C15.8421 72.7253 16.4638 73 17.1121 73L34.231 72.9527C34.8772 72.9493 35.4957 72.6731 35.9515 72.1844C36.4072 71.6958 36.6631 71.0346 36.6631 70.3453V54.748C36.6631 54.0564 36.9206 53.3932 37.379 52.9042C37.8374 52.4152 38.4591 52.1405 39.1073 52.1405H48.8844C49.5326 52.1405 50.1543 52.4152 50.6127 52.9042C51.0711 53.3932 51.3286 54.0564 51.3286 54.748V70.3339C51.3276 70.677 51.3901 71.0169 51.5125 71.3342C51.6349 71.6515 51.8147 71.9399 52.0418 72.1829C52.2689 72.4259 52.5387 72.6187 52.8357 72.7502C53.1328 72.8818 53.4512 72.9495 53.7729 72.9495L70.8857 73C71.534 73 72.1557 72.7253 72.6141 72.2363C73.0725 71.7473 73.33 71.0841 73.33 70.3926V43.6664L45.1706 18.9381C44.8396 18.6535 44.4272 18.4982 44.002 18.4982C43.5767 18.4982 43.1643 18.6535 42.8333 18.9381ZM87.3233 35.7577L74.5521 24.5278V1.95558C74.5521 1.43692 74.359 0.939517 74.0152 0.572775C73.6714 0.206034 73.2051 0 72.7189 0H64.164C63.6778 0 63.2115 0.206034 62.8677 0.572775C62.524 0.939517 62.3308 1.43692 62.3308 1.95558V13.7884L48.6537 1.78446C47.3411 0.632269 45.6941 0.00230325 43.9943 0.00230325C42.2945 0.00230325 40.6475 0.632269 39.335 1.78446L0.665294 35.7577C0.479664 35.9214 0.326085 36.1225 0.213331 36.3495C0.100578 36.5765 0.0308599 36.825 0.008161 37.0807C-0.0145379 37.3365 0.0102272 37.5945 0.0810412 37.8401C0.151855 38.0856 0.26733 38.3139 0.420868 38.5118L4.3164 43.5637C4.46952 43.7623 4.65786 43.9268 4.87063 44.0476C5.08341 44.1685 5.31644 44.2434 5.55639 44.2681C5.79634 44.2928 6.0385 44.2667 6.269 44.1914C6.49949 44.1161 6.71381 43.9931 6.89967 43.8293L42.8333 12.2566C43.1643 11.9719 43.5767 11.8167 44.002 11.8167C44.4272 11.8167 44.8396 11.9719 45.1706 12.2566L81.1058 43.8293C81.2913 43.9931 81.5053 44.1163 81.7355 44.1918C81.9656 44.2674 82.2075 44.2938 82.4473 44.2696C82.687 44.2454 82.92 44.171 83.1328 44.0507C83.3456 43.9304 83.5341 43.7666 83.6875 43.5686L87.583 38.5167C87.7364 38.3176 87.8514 38.0882 87.9214 37.8416C87.9914 37.5949 88.015 37.336 87.9908 37.0796C87.9667 36.8232 87.8953 36.5744 87.7807 36.3476C87.6662 36.1207 87.5107 35.9203 87.3233 35.7577Z"
+							fill="#3AAFA9" />
+					</svg>
+					<span class="text-huntify-gray-1">{{ subwidget.choice_label }}</span>
+				</label>
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+		<p class="text-huntify-gray-2 mt-6">
+			Book and view property listings that you like!
+		</p>
+	</div>
+	{% if form.account_type.errors %}
+	<div
+		class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+		role="alert">
+		{{ form.account_type.errors }}
+	</div>
+	{% endif %}
+	<button
+		type="submit"
+		class="bg-huntify-cyan-2 w-48 h-12 rounded mt-8 font-bold text-lg text-huntify-white transform active:scale-90 transition-transform">
+		Continue
+	</button>
+</form>

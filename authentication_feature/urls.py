@@ -1,8 +1,8 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
+from utilities.decorators import anonymous_required
 from . import views
-from .decorators import anonymous_required
 
 urlpatterns = [
     # Home page

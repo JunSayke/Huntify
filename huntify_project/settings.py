@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication_feature',
+    'utilities',
 ]
 
 LOGIN_URL = 'login'

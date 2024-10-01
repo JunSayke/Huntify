@@ -8,11 +8,14 @@ from .models import AccountType
 def account_type_selection(request):
     if request.method == 'POST':
         form = AccountTypeForm(request.POST)
+        print(form.errors)
         if form.is_valid():
+            
             account_type = form.cleaned_data['account_type']
             return redirect('register', account_type=account_type)
     else:
         form = AccountTypeForm()
+
     return render(request, 'account_type_selection.html', {'form': form})
 
 def register(request, account_type):
