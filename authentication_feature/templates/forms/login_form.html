@@ -14,9 +14,7 @@
 				name="{{ form.username.name }}"
 				id="{{ form.username.id_for_label }}"
 				placeholder="Username"
-				{{
-				form.username|insert_field_attrs
-				}} />
+				{{ form.username|insert_field_attrs }} />
 		</div>
 		<div>
 			<label
@@ -30,11 +28,36 @@
 				name="{{ form.password.name }}"
 				placeholder="8+ Character"
 				id="{{ form.password.id_for_label }}"
-				{{
-				form.password|insert_field_attrs
-				}} />
+				{{ form.password|insert_field_attrs }} />
 		</div>
 	</div>
+	{% if form.errors %}
+	<div
+		class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+		role="alert">
+		<svg
+			class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]"
+			aria-hidden="true"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="currentColor"
+			viewBox="0 0 20 20">
+			<path
+				d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+		</svg>
+		<span class="sr-only">Danger</span>
+		<div class="flex-1">
+			<span class="font-medium">Ensure that these requirements are met:</span>
+			<ul class="text-red-500 list-disc list-inside">
+				{% for field, errors in form.errors.items %}
+					{% for error in errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	{% endif %}
 	<div class="text-center w-fit mx-auto">
 		<p class="text-sm mt-5 text-nowrap">
 			By signing up you agree to the
