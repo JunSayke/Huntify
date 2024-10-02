@@ -1,0 +1,58 @@
+{% load custom_tags %}
+<form method="POST">
+	{% csrf_token %}
+	<div class="flex flex-col justify-center gap-4 my-10">
+		<div>
+			<label
+				for="{{ form.username.id_for_label }}"
+				class="block mb-2 text-md font-poppins text-gray-900 dark:text-white">
+				{{ form.username.label }}
+			</label>
+			<input
+				class="bg-gray-50 font-poppins border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				type="text"
+				name="{{ form.username.name }}"
+				id="{{ form.username.id_for_label }}"
+				placeholder="Username"
+				{{
+				form.username|insert_field_attrs
+				}} />
+		</div>
+		<div>
+			<label
+				for="{{ form.password.id_for_label }}"
+				class="block mb-2 text-md font-poppins text-gray-900 dark:text-white">
+				{{ form.password.label }}
+			</label>
+			<input
+				class="bg-gray-50 font-poppins border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				type="password"
+				name="{{ form.password.name }}"
+				placeholder="8+ Character"
+				id="{{ form.password.id_for_label }}"
+				{{
+				form.password|insert_field_attrs
+				}} />
+		</div>
+	</div>
+	<div class="text-center w-fit mx-auto">
+		<p class="text-sm mt-5 text-nowrap">
+			By signing up you agree to the
+			<a
+				href="#"
+				class="text-huntify-cyan-1">
+				terms and conditions .
+			</a>
+		</p>
+		<button
+			type="submit"
+			class="bg-huntify-cyan-2 min-w-full h-12 rounded mt-2 mb-5 font-bold text-lg text-huntify-white transform active:scale-90 transition-transform">
+			Login
+		</button>
+		<a
+			href="{% url 'account_type_selection' %}"
+			class="text-huntify-gray-1 underline">
+			Register
+		</a>
+	</div>
+</form>

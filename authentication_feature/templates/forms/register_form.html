@@ -15,7 +15,9 @@
 				id="{{ form.email.id_for_label }}"
 				class="bg-gray-50 font-poppins border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 				placeholder="name@gmail.com"
-				{{ form.email|insert_field_attrs }} />
+				{{
+				form.email|insert_field_attrs
+				}} />
 		</div>
 		<div>
 			<label
@@ -31,7 +33,9 @@
 				name="{{ form.username.name }}"
 				id="{{ form.username.id_for_label }}"
 				placeholder="Username"
-				{{ form.username|insert_field_attrs }} />
+				{{
+				form.username|insert_field_attrs
+				}} />
 			<div
 				data-popover
 				id="popover-username"
@@ -54,7 +58,9 @@
 				name="{{ form.password1.name }}"
 				placeholder="8+ Character"
 				id="{{ form.password1.id_for_label }}"
-				{{ form.password1|insert_field_attrs }} />
+				{{
+				form.password1|insert_field_attrs
+				}} />
 			<div
 				data-popover
 				id="popover-password"
@@ -76,8 +82,10 @@
 				type="password"
 				name="{{ form.password2.name }}"
 				placeholder="8+ Character"
-				id="{{ form.password2.id_for_label }}" 
-				{{ form.password2|insert_field_attrs }}/>
+				id="{{ form.password2.id_for_label }}"
+				{{
+				form.password2|insert_field_attrs
+				}} />
 			<div
 				data-popover
 				id="popover-password2"
@@ -93,7 +101,7 @@
 			class="text-sm text-huntify-gray-2">
 			Select a different account type
 		</a>
-		<p class="text-sm mt-5">
+		<p class="text-sm mt-5 text-nowrap">
 			By signing up you agree to the
 			<a
 				href="#"
