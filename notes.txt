@@ -24,3 +24,12 @@ Added Flowbite CDN.
 Added DarkMode in progress.
 
 --- UNCHECKED
+[Hunyo] Working with UI
+Fixed company_logo's having the same svg.
+Designing register.html.
+Added register_form.html.
+Removed render_account_type_form in custom_tags.py due to redundancy.
+Directly used include for rendering custom forms instead of making a template tags.
+Added new template tags insert_field_attrs for dynamically get the attrs of a form.field.
+Register UI finished.
+Login UI in progress.

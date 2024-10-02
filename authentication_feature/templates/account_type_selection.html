@@ -1,8 +1,7 @@
-{% extends "base1.html" %} {% load custom_tags %} {% block title %}Select
-Account Type{% endblock %}
+{% extends "base1.html" %} {% block title %}Select Account Type{% endblock %}
 <!-- prettier-ignore -->
 {% block content %}
-<div class="flex justify-center mt-24">
+<div class="flex justify-center mt-16">
 	<div class="text-center">
 		<!-- Logo -->
 		<!-- prettier-ignore -->
@@ -12,7 +11,7 @@ Account Type{% endblock %}
 			Select user type
 		</h2>
 		<!-- User Type Selection -->
-		{% render_account_type_form form %}
+		{% include 'forms/account_type_form.html' %}
 	</div>
 </div>
 {% endblock %}

@@ -8,7 +8,6 @@ from .models import AccountType
 def account_type_selection(request):
     if request.method == 'POST':
         form = AccountTypeForm(request.POST)
-        print(form.errors)
         if form.is_valid():
             
             account_type = form.cleaned_data['account_type']
@@ -27,6 +26,7 @@ def register(request, account_type):
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
+        print(form)
         if form.is_valid():
             user = form.save(commit=False)
             user.account_type = account_type
