@@ -33,5 +33,22 @@ Added new template tags insert_field_attrs for dynamically get the attrs of a fo
 Register UI finished.
 Login UI in progress.
 
---- UNCHECKED
 Login UI finished.
+
+--- UNCHECKED
+[Hunyo] Working with Booking Feature and Small adjustment in authentication_feature
+- authentication_feature -
+Refactoring RegistrationForm and CustomUserChangeForm.
+Created empty change_password_form.html and edit_profile_form.html in authentication_feature/templates/forms.
+- booking_feature -
+Installed Faker for generating dummy data in models.
+Created booking_feature app.
+Created BoardingHouse and Booking models.
+Created BoardingHouse and Booking forms.
+Added boarding-house/create url route.
+Added boarding-house/update/<id> url route.
+Created add_boarding_house.html, boarding_house_details.html, edit_boarding_house.html.
+Created add_boarding_house_form.html, edit_boarding_house_form.html.
+Implemented ModelAdmin to customize layout in admin site (BoardingHouseAdmin, BookingAdmin, BookingInline, CustomUserAdmin).
+Utilized UUID as a primary key for each model instead of incremential count.
+

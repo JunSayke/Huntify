@@ -13,4 +13,5 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     birthdate = models.DateField(_('birthdate'), blank=True, null=True)
     address = models.CharField(_('address'), max_length=255, blank=True, null=True)
-    account_type = models.CharField(max_length=10, choices=AccountType.choices, default=AccountType.TENANT)
+    account_type = models.CharField(_('account type'), max_length=10, choices=AccountType.choices, default=AccountType.TENANT)
+    updated_at = models.DateTimeField(_('updated at'), auto_now=True)
