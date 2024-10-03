@@ -1,0 +1,85 @@
+{% block content %}
+<footer>
+	<div class="h-[278px] px-[300px] py-[50px] bg-[#3aafa9] rounded-[5px] flex-col justify-center items-center gap-[30px] flex">
+		<div class="self-stretch text-center text-white/80 text-[32px] font-semibold font-['Plus Jakarta Sans'] leading-[48px]">Have questions or doubts?</div>
+		<div class="self-stretch text-center text-white text-lg font-normal font-['Plus Jakarta Sans'] capitalize leading-relaxed">Don’t hesitate to contact us</div>
+
+		
+		<form action="/submit-form" method="POST" class="self-stretch justify-center items-center gap-2.5 inline-flex">
+			<!-- Full Name Input -->
+			<div class="grow shrink basis-0 h-11 rounded-[5px] flex-col justify-start items-start inline-flex">
+				<div class="self-stretch h-11 flex-col justify-start items-start gap-1.5 flex">
+					<div class="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-[#cfd4dc] justify-start items-center gap-2 inline-flex">
+						<input type="text" name="fullname" placeholder="Full Name" class="self-stretch h-6 text-[#667084] text-base font-normal font-['Plus Jakarta Sans'] leading-normal outline-none border-none bg-white"/>
+					</div>
+				</div>
+			</div>
+
+			<!-- Question Input -->
+			<div class="grow shrink basis-0 h-11 rounded-[5px] flex-col justify-start items-start inline-flex">
+				<div class="self-stretch h-11 flex-col justify-start items-start gap-1.5 flex">
+					<div class="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow border border-[#cfd4dc] justify-start items-center gap-2 inline-flex">
+						<input type="text" name="question" placeholder="Enter your Question..." class="self-stretch h-6 text-[#667084] text-base font-normal font-['Plus Jakarta Sans'] leading-normal outline-none border-none bg-white"/>
+					</div>
+				</div>
+			</div>
+
+			<!-- Send Button -->
+			<div class="w-[124px] h-11 bg-white/80 rounded-[5px] border border-[#fffdfd]  justify-start items-start flex">
+				<button type="submit" class="grow shrink basis-0 h-11 px-[18px] py-2.5 bg-[#def2f1] rounded-lg shadow border border-[#def2f1] hover:bg-[#2b7a78]  justify-center items-center gap-2 flex">
+					<div class="text-[#17252a] hover:text-[#000000] text-base font-semibold font-['Plus Jakarta Sans'] leading-normal">Send</div>
+				</button>
+			</div>
+		</form>
+		
+	</div>
+
+	<!--Start of bottom-->
+
+	<div class="h-[283px] pl-[55px] pr-[70px] pt-[35px] pb-[30px] bg-[#def2f1] justify-center items-start gap-40 flex">
+		<div class="w-[170px] h-[73px] flex-col justify-start items-center gap-[15px] inline-flex">
+			<div class="self-stretch text-center text-zinc-600 text-base font-normal font-['Plus Jakarta Sans'] leading-snug"><br/>Where Home Begins</div>
+			<div class="w-[148px] h-[17px] relative">
+				<div class="w-[17px] h-4 left-[131px] top-0 absolute"></div>
+				<div class="w-3.5 h-3.5 left-[44px] top-[1px] absolute">
+					<div class="w-[13px] h-[13px] left-[1px] top-[1px] absolute"></div>
+				</div>
+				<div class="w-[15px] h-[15px] left-[88px] top-[1px] absolute"></div>
+				<div class="w-[17px] h-4 left-0 top-[1px] absolute"></div>
+			</div>
+		</div>
+	
+		<div class="w-[195.25px] flex-col justify-start items-start gap-5 inline-flex">
+			<div class="self-stretch text-[#964834] text-[13px] font-semibold font-['Plus Jakarta Sans'] uppercase leading-[18px] tracking-wide">Navigation</div>
+			<div class="self-stretch text-[#1d2838] text-sm font-normal font-['Plus Jakarta Sans'] leading-snug">
+				<a href="#" class="hover:underline">About Us</a><br/><br/>
+				<a href="#" class="hover:underline">FAQ</a><br/><br/>
+				<a href="#" class="hover:underline">Guide</a><br/><br/>
+				<a href="#" class="hover:underline">Apply For Internship</a>
+			</div>
+		</div>
+	
+		<div class="w-[195.25px] flex-col justify-start items-start gap-5 inline-flex">
+			<div class="self-stretch text-[#964834] text-[13px] font-semibold font-['Plus Jakarta Sans'] uppercase leading-[18px] tracking-wide">Quick Links</div>
+			<div class="self-stretch text-[#1d2838] text-sm font-normal font-['Plus Jakarta Sans'] leading-snug">
+				<a href="#" class="hover:underline">Questions</a><br/><br/>
+				<a href="#" class="hover:underline">Housing Guide</a><br/><br/>
+				<a href="#" class="hover:underline">Terms & Conditions</a><br/><br/>
+				<a href="#" class="hover:underline">Privacy Policy</a>
+			</div>
+		</div>
+	
+		<div class="w-[195.25px] flex-col justify-start items-start gap-5 inline-flex">
+			<div class="self-stretch text-[#964834] text-[13px] font-semibold font-['Plus Jakarta Sans'] uppercase leading-[18px] tracking-wide">Resources</div>
+			<div class="self-stretch text-zinc-600 text-sm font-medium font-['Plus Jakarta Sans'] leading-[18px]">
+				Tres De Abril, Cebu City, Cebu 6000<br/><br/>
+				+63912345678<br/><br/>
+				huntifyhomes@gmail.com.com<br/><br/><br/>
+			</div>
+		</div>
+	</div>
+	
+
+
+</footer>
+{% endblock %}

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+	{% include 'partials/head.html' %}
+	<body>
+		{% include 'partials/header.html' %}
+		<main>{% block content %}{% endblock %}</main>
+		{% include 'partials/footer.html' %}
+		<!-- Flowbite JS CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,140 @@
+{% load custom_tags %}
+<form method="POST">
+	{% csrf_token %}
+	<div
+		class="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 sm:w-full lg:w-[500px] my-10">
+		<div>
+			<label
+				for="{{ form.email.id_for_label }}"
+				class="block mb-2 text-md font-poppins text-gray-900 dark:text-white">
+				{{ form.email.label }}
+			</label>
+			<input
+				type="email"
+				name="{{ form.email.name }}"
+				id="{{ form.email.id_for_label }}"
+				class="bg-gray-50 font-poppins border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				placeholder="name@gmail.com"
+				{{ form.email|insert_field_attrs }} />
+		</div>
+		<div>
+			<label
+				for="{{ form.username.id_for_label }}"
+				class="block mb-2 text-md font-poppins text-gray-900 dark:text-white">
+				{{ form.username.label }}
+			</label>
+			<input
+				data-popover-target="popover-username"
+				data-popover-placement="bottom"
+				class="bg-gray-50 font-poppins border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				type="text"
+				name="{{ form.username.name }}"
+				id="{{ form.username.id_for_label }}"
+				placeholder="Username"
+				{{ form.username|insert_field_attrs }} />
+			<div
+				data-popover
+				id="popover-username"
+				role="tooltip"
+				class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+				<div class="p-3 space-y-2">{{ form.username.help_text }}</div>
+			</div>
+		</div>
+		<div>
+			<label
+				for="{{ form.password1.id_for_label }}"
+				class="block mb-2 text-md font-poppins text-gray-900 dark:text-white">
+				{{ form.password1.label }}
+			</label>
+			<input
+				data-popover-target="popover-password"
+				data-popover-placement="bottom"
+				class="bg-gray-50 font-poppins border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				type="password"
+				name="{{ form.password1.name }}"
+				placeholder="8+ Character"
+				id="{{ form.password1.id_for_label }}"
+				{{ form.password1|insert_field_attrs }} />
+			<div
+				data-popover
+				id="popover-password"
+				role="tooltip"
+				class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+				<div class="p-3 space-y-2">{{ form.password1.help_text }}</div>
+			</div>
+		</div>
+		<div>
+			<label
+				for="{{ form.password2.id_for_label }}"
+				class="block mb-2 text-md font-poppins text-gray-900 dark:text-white">
+				{{ form.password2.label }}
+			</label>
+			<input
+				data-popover-target="popover-password2"
+				data-popover-placement="bottom"
+				class="bg-gray-50 font-poppins border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				type="password"
+				name="{{ form.password2.name }}"
+				placeholder="8+ Character"
+				id="{{ form.password2.id_for_label }}"
+				{{ form.password2|insert_field_attrs }} />
+			<div
+				data-popover
+				id="popover-password2"
+				role="tooltip"
+				class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+				<div class="p-3 space-y-2">{{ form.password2.help_text }}</div>
+			</div>
+		</div>
+	</div>
+	{% if form.errors %}
+	<div
+		class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+		role="alert">
+		<svg
+			class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]"
+			aria-hidden="true"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="currentColor"
+			viewBox="0 0 20 20">
+			<path
+				d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+		</svg>
+		<span class="sr-only">Danger</span>
+		<div>
+			<span class="font-medium">Ensure that these requirements are met:</span>
+			<ul class="text-red-500 list-disc list-inside">
+				{% for field, errors in form.errors.items %} {% for error in errors %}
+				<li>{{ error }}</li>
+				{% endfor %} {% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	{% endif %}
+	<div class="text-center w-fit mx-auto">
+		<a
+			href="{% url 'account_type_selection' %}"
+			class="text-sm text-huntify-gray-2">
+			Select a different account type
+		</a>
+		<p class="text-sm mt-5 text-nowrap">
+			By signing up you agree to the
+			<a
+				href="#"
+				class="text-huntify-cyan-1">
+				terms and conditions .
+			</a>
+		</p>
+		<button
+			type="submit"
+			class="bg-huntify-cyan-2 min-w-full h-12 rounded mt-2 mb-5 font-bold text-lg text-huntify-white transform active:scale-90 transition-transform">
+			Register
+		</button>
+		<a
+			href="{% url 'login' %}"
+			class="text-huntify-gray-1 underline">
+			Login
+		</a>
+	</div>
+</form>

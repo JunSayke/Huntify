@@ -1,0 +1,37 @@
+Optimizations and Additional Functionalities.
+Created decorators.py.
+Added anonymous_required.py to decorators.py.
+Moved the usage of decorators (login_required, anonymous_required) to urls.py.
+Refactor urls.py to make it more readable.
+Added company logo svgs in templates/svgs but stored as html extension for flexibility.
+Specified LOGIN_URL, HOME_URL in settings for cleaner code.
+Removed the custom logout view and instead utilized django built in LogoutView.
+Utilized HOME_URL in decorators/anonymous_required as redirect url parameter.
+
+[Hunyo] Working with UI
+Imported google fonts (Poppins, Inter)
+Added tailwind configurations (color[huntify color scheme], fonts[Poppins, Inter])
+Design work in progress for account_type_selection.html
+
+Optimizations and Additional Functionalities.
+Added utilities app.
+Created custom_tags.py in utilities app.
+Moved decorators.py in utilities app.
+Allows addition of classes for svgs (company_logo1, company_logo2, company_logo3).
+Separate the rendering of account type forms from the account_type_selection.html.
+Added render_account_type_form template tags in custom_tags.py.
+Added Flowbite CDN.
+Added DarkMode in progress.
+
+[Hunyo] Working with UI
+Fixed company_logo's having the same svg.
+Designing register.html.
+Added register_form.html.
+Removed render_account_type_form in custom_tags.py due to redundancy.
+Directly used include for rendering custom forms instead of making a template tags.
+Added new template tags insert_field_attrs for dynamically get the attrs of a form.field.
+Register UI finished.
+Login UI in progress.
+
+--- UNCHECKED
+Login UI finished.

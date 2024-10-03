@@ -1,0 +1,17 @@
+{% extends "base1.html" %} {% block title %}Select Account Type{% endblock %}
+<!-- prettier-ignore -->
+{% block content %}
+<div class="flex justify-center mt-16">
+	<div class="text-center">
+		<!-- Logo -->
+		<!-- prettier-ignore -->
+		{% include 'svgs/company_logo1.html' with class="w-[198px] h-[192px] mx-auto" %}
+		<!-- Header -->
+		<h2 class="text-4xl font-bold mt-12 font-poppins text-huntify-gray-1">
+			Select user type
+		</h2>
+		<!-- User Type Selection -->
+		{% include 'forms/account_type_form.html' %}
+	</div>
+</div>
+{% endblock %}

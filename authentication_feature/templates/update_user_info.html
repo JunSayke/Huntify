@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block title %}Update User Information{% endblock %}
+<!-- prettier-ignore -->
+{% block content %}
+<h1>Update User Information</h1>
+<form
+	method="post"
+	enctype="multipart/form-data">
+	{% csrf_token %} {{ form.as_p }}
+	<button type="submit">Update</button>
+</form>
+<a href="{% url 'change_password' %}">Change Password</a>
+{% endblock %}

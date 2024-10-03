@@ -1,0 +1,21 @@
+{% extends "base1.html" %} {% block title %}Login{% endblock %}
+<!-- prettier-ignore -->
+{% block content %}
+<div class="flex flex-col lg:flex-row h-screen">
+	<div class="flex justify-center items-center w-full lg:w-1/2">
+		<div>
+			{% include "svgs/company_logo2.html" with class="mx-auto" %}
+			<h2
+				class="text-4xl text-center font-bold mt-2 font-poppins text-huntify-gray-1">
+				Login Account
+			</h2>
+			{% include "forms/login_form.html" %}
+		</div>
+	</div>
+	<div class="hidden lg:block lg:w-1/2 h-full">
+		<img
+			class="object-cover h-full w-full"
+			src="https://www.chuzailiving.com/wp-content/uploads/2019/02/Modern-Fusion-Interior-Home.jpg" />
+	</div>
+</div>
+{% endblock %}
