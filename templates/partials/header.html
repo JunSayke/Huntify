@@ -32,12 +32,20 @@
 		</div>
 
 		<div class="flex items-center gap-4">
-			<a href="">
+			{% if user.is_authenticated %}
+				<h1>Welcome, {{ user.username }}!</h1>
+				<form method="POST" action="{% url 'logout' %}">
+					{% csrf_token %}
+					<button type="submit">Logout</button>
+				</form>
+			{% else %}
+			<a href="{% url 'login' %}">
 				<div
 					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
-					Account
+					Log In
 				</div>
 			</a>
+			{% endif %}
 			<a href="">
 				<div class="rounded-lg">
 					<div
