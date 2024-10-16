@@ -21,7 +21,7 @@ urlpatterns = [
     path('profile/', login_required(views.profile), name='profile'),
     
     # Login
-    path('login/', anonymous_required(LoginView.as_view(template_name='login.html', next_page='home')), name='login'),
+    path('login/', anonymous_required(views.CustomLoginView.as_view()), name='login'),
     
     # Logout
     path('logout/', login_required(LogoutView.as_view(template_name=None, next_page='home'), redirect_field_name=None), name='logout'),

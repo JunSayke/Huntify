@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, UsernameField
 from django.utils.translation import gettext_lazy as _
 from .models import CustomUser, AccountType
 
@@ -8,36 +8,44 @@ class AccountTypeForm(forms.Form):
             'required': 'Please select an account type.'
         })
         
-
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].required = True  # Ensure email is required
+        self.fields['email'].required = True
         
 class CustomUserChangeForm(UserChangeForm):
+    password = None # Does not include password field
+
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'first_name', 'last_name', 'phone_number', 'address', 'birthdate', 'profile_picture', 'account_type']
         widgets = {
             'birthdate': forms.DateInput(attrs={'type': 'date'}),
+            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'email': forms.EmailInput(attrs={'readonly': 'readonly'}),
         }
+        exclude = ['account_type']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-         # Remove the password field
-        if 'password' in self.fields:
-            del self.fields['password']
-         # Remove the account type field
-        if 'account_type' in self.fields:
-            del self.fields['account_type']
-        # Make specific fields read-only
-        self.fields['username'].disabled = True
-        self.fields['email'].disabled = True
-        # Add more fields as needed
+class CustomAuthenticationForm(AuthenticationForm):
+    username = UsernameField(
+        widget=forms.TextInput(attrs={"autofocus": True}),
+        error_messages={
+            'required': _('Username is required.')
+        }
+    )
+    
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
+        error_messages={
+            'required': _('Password is required.')
+        }
+    )
+
+
 

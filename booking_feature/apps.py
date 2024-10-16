@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AuthenticationFeatureConfig(AppConfig):
+class BookingFeatureConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'authentication_feature'
+    name = 'booking_feature'

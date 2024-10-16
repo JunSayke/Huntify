@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from .forms import AccountTypeForm, RegistrationForm, CustomUserChangeForm
+from django.contrib.auth.views import LoginView
+from .forms import AccountTypeForm, RegistrationForm, CustomUserChangeForm, CustomAuthenticationForm
 from .models import AccountType
 
 def account_type_selection(request):
     if request.method == 'POST':
         form = AccountTypeForm(request.POST)
         if form.is_valid():
-            
             account_type = form.cleaned_data['account_type']
             return redirect('register', account_type=account_type)
     else:
@@ -20,17 +19,20 @@ def account_type_selection(request):
 def register(request, account_type):
     try:
         # Raises ValueError if the account type is invalid
-        account_type = AccountType(account_type).label
+        print(account_type)
+        account_type = AccountType(account_type).value
+        print(account_type)
     except ValueError:
         return redirect('account_type_selection')
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-        print(form)
+
         if form.is_valid():
             user = form.save(commit=False)
             user.account_type = account_type
             user = form.save()
+            print(user.account_type)
             login(request, user)
             return redirect('home')
     else:
@@ -43,7 +45,7 @@ def update_user_info(request):
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            return redirect('profile')  
     else:
         form = CustomUserChangeForm(instance=request.user)
     
@@ -51,10 +53,6 @@ def update_user_info(request):
 
 def profile(request):
     return render(request, 'profile.html')
-
-def custom_logout(request):
-    logout(request)
-    return redirect('home')
 
 def change_password(request):
     if request.method == 'POST':
@@ -70,3 +68,7 @@ def change_password(request):
 def home(request):
     return render(request, 'home.html')
 
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+    authentication_form = CustomAuthenticationForm
+    next_page = "home"

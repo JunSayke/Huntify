@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 pillow = "*"
+django-multiupload = "*"
+faker = "*"
 
 [dev-packages]
 

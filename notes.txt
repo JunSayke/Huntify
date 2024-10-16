@@ -33,5 +33,44 @@ Added new template tags insert_field_attrs for dynamically get the attrs of a fo
 Register UI finished.
 Login UI in progress.
 
---- UNCHECKED
 Login UI finished.
+
+[Hunyo] Working with Booking Feature and Small adjustment in authentication_feature
+- authentication_feature -
+Refactoring RegistrationForm and CustomUserChangeForm.
+Created empty change_password_form.html and edit_profile_form.html in authentication_feature/templates/forms.
+- booking_feature -
+Installed Faker for generating dummy data in models.
+Created booking_feature app.
+Created BoardingHouse and Booking models.
+Created BoardingHouse and Booking forms.
+Added boarding-house/create url route.
+Added boarding-house/update/<id> url route.
+Created add_boarding_house.html, boarding_house_details.html, edit_boarding_house.html.
+Created add_boarding_house_form.html, edit_boarding_house_form.html.
+Implemented ModelAdmin to customize layout in admin site (BoardingHouseAdmin, BookingAdmin, BookingInline, CustomUserAdmin).
+Utilized UUID as a primary key for each model instead of incremential count.
+
+--- UNCHECKED
+-- authentication_feature --
+Removed unused custom_logout view.
+Added verbose name for each model fields.
+Implementd CustomLoginView and CustomAuthenticationForm.
+
+-- booking_feature --
+Added command for populating boarding houses "py manage.py populate_boardinghouses <num_entries>".
+Added BoardingHouseListView, boarding_house_list.html, boarding_houses url route.
+Refactor edit_boarding_house.html, boarding_house_detail.html.
+Added Room model.
+Refactor Boarding House model and Booking model due to the addition of Room model.
+Added command for populating rooms "py manage.py populate_rooms <num_entries>".
+Added RoomForm.
+Removing price and is available from BoardingHouse model.
+Deriving price, total rooms, and available rooms field from Room model to BoardingHouse model.
+Refactor BoardingHouseForm.
+Refactor BoardingHouseAdmin to adapt changes due to adding Room model.
+Added RoomInline and RoomAdmin in admin.py.
+Registered RoomAdmin in admin.site.
+
+
+

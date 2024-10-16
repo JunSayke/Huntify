@@ -1,5 +1,7 @@
 {% load custom_tags %}
-<form method="POST">
+<form
+	method="POST"
+	class="max-w-sm">
 	{% csrf_token %}
 	<div class="flex flex-col justify-center gap-4 my-10">
 		<div>
@@ -14,7 +16,10 @@
 				name="{{ form.username.name }}"
 				id="{{ form.username.id_for_label }}"
 				placeholder="Username"
-				{{ form.username|insert_field_attrs }} />
+				{{
+				form.username|insert_field_attrs
+				}}
+				required />
 		</div>
 		<div>
 			<label
@@ -28,7 +33,10 @@
 				name="{{ form.password.name }}"
 				placeholder="8+ Character"
 				id="{{ form.password.id_for_label }}"
-				{{ form.password|insert_field_attrs }} />
+				{{
+				form.password|insert_field_attrs
+				}}
+				required />
 		</div>
 	</div>
 	{% if form.errors %}
@@ -48,11 +56,9 @@
 		<div class="flex-1">
 			<span class="font-medium">Ensure that these requirements are met:</span>
 			<ul class="text-red-500 list-disc list-inside">
-				{% for field, errors in form.errors.items %}
-					{% for error in errors %}
-						<li>{{ error }}</li>
-					{% endfor %}
-				{% endfor %}
+				{% for field, errors in form.errors.items %} {% for error in errors %}
+				<li>{{ error }}</li>
+				{% endfor %} {% endfor %}
 			</ul>
 		</div>
 	</div>
