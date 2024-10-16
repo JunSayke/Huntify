@@ -33,7 +33,7 @@
 
 		<div class="flex items-center gap-4">
 			{% if user.is_authenticated %}
-				<h1>Welcome, {{ user.username }}!</h1>
+				<h1>Welcome, {{ user.username }}!</h1> 
 				<form method="POST" action="{% url 'logout' %}">
 					{% csrf_token %}
 					<button type="submit">Logout</button>
