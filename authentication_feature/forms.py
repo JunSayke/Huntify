@@ -1,6 +1,5 @@
-from typing import Any
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, UsernameField
 from django.utils.translation import gettext_lazy as _
 from .models import CustomUser, AccountType
 
@@ -9,9 +8,7 @@ class AccountTypeForm(forms.Form):
             'required': 'Please select an account type.'
         })
         
-
 class RegistrationForm(UserCreationForm):
-
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2']
@@ -32,4 +29,23 @@ class CustomUserChangeForm(UserChangeForm):
             'email': forms.EmailInput(attrs={'readonly': 'readonly'}),
         }
         exclude = ['account_type']
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = UsernameField(
+        widget=forms.TextInput(attrs={"autofocus": True}),
+        error_messages={
+            'required': _('Username is required.')
+        }
+    )
+    
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
+        error_messages={
+            'required': _('Password is required.')
+        }
+    )
+
+
 

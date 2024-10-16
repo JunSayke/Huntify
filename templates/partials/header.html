@@ -5,7 +5,7 @@
 		</div>
 
 		<div class="flex-grow flex justify-center gap-[30px] mx-6">
-			<a href="#home">
+			<a href="{% url 'home' %}">
 				<div
 					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
 					Home
@@ -23,21 +23,27 @@
 					Top Rooms
 				</div>
 			</a>
-			<a href="#process">
+			<a href="{% url 'boarding_house_list' %}">
 				<div
 					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
-					Bookings
+					Boarding Houses
 				</div>
 			</a>
 		</div>
 
 		<div class="flex items-center gap-4">
 			{% if user.is_authenticated %}
-				<h1>Welcome, {{ user.username }}!</h1>
-				<form method="POST" action="{% url 'logout' %}">
-					{% csrf_token %}
-					<button type="submit">Logout</button>
-				</form>
+			<h1>
+				Welcome,
+				<a href="{% url 'profile' %}">{{ user.username }}</a>
+				!
+			</h1>
+			<form
+				method="POST"
+				action="{% url 'logout' %}">
+				{% csrf_token %}
+				<button type="submit">Logout</button>
+			</form>
 			{% else %}
 			<a href="{% url 'login' %}">
 				<div
@@ -45,6 +51,11 @@
 					Log In
 				</div>
 			</a>
+			<a href="{% url 'account_type_selection' %}">
+				<div
+					class="text-center text-[#a7a7a7] hover:text-[#7b7a7a] text-base font-semibold font-['Plus Jakarta Sans']">
+					Register
+				</div>
 			{% endif %}
 			<a href="">
 				<div class="rounded-lg">

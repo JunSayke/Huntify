@@ -1,34 +1,48 @@
-<!-- templates/details/boarding_house_detail.html -->
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Boarding House Details</title>
-	</head>
-	<body>
-		<h1>{{ boarding_house.name }}</h1>
-		<p>
-			<strong>Description:</strong>
-			{{ boarding_house.description }}
-		</p>
-		<p>
-			<strong>Address:</strong>
-			{{ boarding_house.address }}
-		</p>
-		<p>
-			<strong>Price:</strong>
-			{{ boarding_house.price }}
-		</p>
-		<p>
-			<strong>Available:</strong>
-			{{ boarding_house.available }}
-		</p>
-		<p>
-			<strong>Created At:</strong>
-			{{ boarding_house.created_at }}
-		</p>
-		<p>
-			<strong>Updated At:</strong>
-			{{ boarding_house.updated_at }}
-		</p>
-	</body>
-</html>
+{% extends "base.html" %}
+<!-- prettier-ignore -->
+{% block title %}{{ boarding_house.name }}{% endblock %}
+{% block content %}
+<h1>{{ boarding_house.name }}</h1>
+<p>
+	<strong>Description:</strong>
+	{{ boarding_house.description }}
+</p>
+<p>
+	<strong>Address:</strong>
+	{{ boarding_house.address }}
+</p>
+<p>
+	<strong>Price Range:</strong>
+	{{ boarding_house.price_range }}
+</p>
+<p>
+	<strong>Total Rooms:</strong>
+	{{ boarding_house.total_rooms }}
+</p>
+<p>
+	<strong>Available Rooms:</strong>
+	{{ boarding_house.available_rooms }}
+</p>
+<p>
+	<strong>Created At:</strong>
+	{{ boarding_house.created_at }}
+</p>
+<p>
+	<strong>Updated At:</strong>
+	{{ boarding_house.updated_at }}
+</p>
+
+<!-- New section for images -->
+<h2>Images</h2>
+<div>
+	{% for boarding_house_image in boarding_house.images.all %}
+	<img
+		src="{{ boarding_house_image.image.url }}"
+		alt="Image of {{ boarding_house.name }}" />
+	{% endfor %}
+</div>
+
+{% if user.id == boarding_house.account_id.id %}
+<a href="{% url 'edit_boarding_house' boarding_house.id %}">Edit</a>
+<a href="{% url 'add_room' boarding_house.id %}">Add Room</a>
+{% endif %} {% endblock %}
