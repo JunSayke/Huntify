@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+<!-- prettier-ignore -->
+{% block title %}Add Room{% endblock %}
+{% block content %}
+<h2>Add Room</h2>
+{% include "boarding_room/forms/add_room_form.html" %}
+<a href="{% url 'room_list' boarding_house.id %}">Cancel</a>
+{% endblock %}

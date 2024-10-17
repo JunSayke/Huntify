@@ -4,4 +4,6 @@
 <!-- prettier-ignore -->
 {% block content %}
 <h1>Create a New Boarding House</h1>
-{% include "forms/add_boarding_house_form.html" %} {% endblock %}
+{% include "boarding_house/forms/add_boarding_house_form.html" %}
+<a href="{% url 'boarding_house_list' %}">Cancel</a>
+{% endblock %}

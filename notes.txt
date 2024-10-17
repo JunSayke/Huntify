@@ -51,7 +51,9 @@ Created add_boarding_house_form.html, edit_boarding_house_form.html.
 Implemented ModelAdmin to customize layout in admin site (BoardingHouseAdmin, BookingAdmin, BookingInline, CustomUserAdmin).
 Utilized UUID as a primary key for each model instead of incremential count.
 
---- UNCHECKED
+Replaced booking in header.html with boarding houses.
+Refactor header.html added register.
+
 -- authentication_feature --
 Removed unused custom_logout view.
 Added verbose name for each model fields.
@@ -71,6 +73,20 @@ Refactor BoardingHouseForm.
 Refactor BoardingHouseAdmin to adapt changes due to adding Room model.
 Added RoomInline and RoomAdmin in admin.py.
 Registered RoomAdmin in admin.site.
+Installed django multiupload.
+Implemented utilies/fields.py ValidateMultiImageField due to error " 'list' object has no attribute 'name' " of django multiupload.
+Added images for Boarding Houses and Rooms.
+
+Etc . . .
+
+--- UNCHECKED
+[Hunyo] Minor Updates
+Etc . . .
+
+I have no time to write changes :D.
+However this updates revolves around Fixing, Handle Edge-Cases, Refactoring, Optimizing and Adding Features due to the addition of Room Model and mixing CRUD for Boarding House.
+I plan to separate the boarding house, room, booking into different apps.
+
 
 
 
