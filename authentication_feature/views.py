@@ -4,6 +4,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import LoginView
 from .forms import AccountTypeForm, RegistrationForm, CustomUserChangeForm, CustomAuthenticationForm
 from .models import AccountType
+from django.contrib.auth.models import Group
 
 def account_type_selection(request):
     if request.method == 'POST':
@@ -19,9 +20,7 @@ def account_type_selection(request):
 def register(request, account_type):
     try:
         # Raises ValueError if the account type is invalid
-        print(account_type)
         account_type = AccountType(account_type).value
-        print(account_type)
     except ValueError:
         return redirect('account_type_selection')
 
@@ -32,7 +31,16 @@ def register(request, account_type):
             user = form.save(commit=False)
             user.account_type = account_type
             user = form.save()
-            print(user.account_type)
+
+            # Assign user to group based on account type
+            if account_type == 'landlord':
+                group = Group.objects.get(name='landlord')
+            elif account_type == 'tenant':
+                group = Group.objects.get(name='tenant')
+
+            if group:
+                user.groups.add(group)
+                
             login(request, user)
             return redirect('home')
     else:

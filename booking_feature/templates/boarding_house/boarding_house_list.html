@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+<!-- prettier-ignore -->
+{% block title %}Boarding House List{% endblock %}
+{% block content %}
+<h1>Boarding House List</h1>
+<!-- prettier-ignore -->
+{% if user.is_authenticated and perms.booking_feature.add_boardinghouse %}
+<a href="{% url 'add_boarding_house' %}">Add New Boarding House</a>
+<hr />
+{% endif %}
+<ul>
+	{% for boarding_house in boarding_houses %}
+	<li>
+		<a href="{% url 'boarding_house_detail' boarding_house.id %}">
+			{{ boarding_house }}
+		</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}

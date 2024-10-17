@@ -8,37 +8,25 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Create a new group
-        group, created = Group.objects.get_or_create(name='landlord')
+        group, created = Group.objects.get_or_create(name='tenant')
 
         if created:
-            self.stdout.write(self.style.SUCCESS('Group "landlord" created successfully'))
+            self.stdout.write(self.style.SUCCESS('Group "tenant" created successfully'))
         else:
-            self.stdout.write(self.style.WARNING('Group "landlord" already exists'))
+            self.stdout.write(self.style.WARNING('Group "tenant" already exists'))
 
         # List of models and their permissions to assign
         models_permissions = {
             BoardingHouse: [
-                'add_boardinghouse',
-                'change_boardinghouse',
-                'delete_boardinghouse',
                 'view_boardinghouse',
             ],
             Room: [
-                'add_room',
-                'change_room',
-                'delete_room',
                 'view_room',
             ],
             BoardingHouseImage: [
-                'add_boardinghouseimage',
-                'change_boardinghouseimage',
-                'delete_boardinghouseimage',
                 'view_boardinghouseimage',
             ],
             RoomImage: [
-                'add_roomimage',
-                'change_roomimage',
-                'delete_roomimage',
                 'view_roomimage',
             ],
         }
@@ -52,4 +40,4 @@ class Command(BaseCommand):
 
         # Save the group
         group.save()
-        self.stdout.write(self.style.SUCCESS('Permissions assigned to group "landlord"'))
+        self.stdout.write(self.style.SUCCESS('Permissions assigned to group "tenant"'))

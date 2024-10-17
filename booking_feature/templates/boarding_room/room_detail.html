@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block content %}
+<h1>{{ room.name }}</h1>
+<p>
+	<strong>Price:</strong>
+	{{ room.price }}
+</p>
+<p>
+	<strong>Available:</strong>
+	{{ room.is_available }}
+</p>
+<p>
+	<strong>Description:</strong>
+	{{ room.description }}
+</p>
+
+<h2>Images</h2>
+<div>
+	{% for room_image in room.images.all %}
+	<img
+		src="{{ room_image.image.url }}"
+		alt="Image of {{ room.name }}" />
+	{% endfor %}
+</div>
+
+{% if user.id == room.boarding_house_id.account_id.id or user.is_superuser %}
+<a href="{% url 'edit_room' room.id %}">Edit</a>
+<br />
+{% include 'boarding_room/forms/delete_room_modal.html' %}
+<hr />
+{% endif %}
+<a href="{% url 'room_list' room.boarding_house_id.id %}">Back to Room List</a>
+{% endblock %}

@@ -32,6 +32,8 @@
 	{{ boarding_house.updated_at }}
 </p>
 
+<hr />
+
 <!-- New section for images -->
 <h2>Images</h2>
 <div>
@@ -42,7 +44,13 @@
 	{% endfor %}
 </div>
 
-{% if user.id == boarding_house.account_id.id %}
+{% if user.id == boarding_house.account_id.id or user.is_superuser %}
 <a href="{% url 'edit_boarding_house' boarding_house.id %}">Edit</a>
-<a href="{% url 'add_room' boarding_house.id %}">Add Room</a>
-{% endif %} {% endblock %}
+<br />
+{% include 'boarding_house/forms/delete_boarding_house_modal.html' %}
+<hr />
+{% endif %}
+<a href="{% url 'room_list' boarding_house.id %}">View Rooms</a>
+<br />
+<a href="{% url 'boarding_house_list' %}">Back to Boarding House List</a>
+{% endblock %}

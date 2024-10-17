@@ -42,33 +42,3 @@ def ownership_required(get_object_func, owner_field, redirect_url=None, allow_st
             return view_func(request, *args, **kwargs)
         return _wrapped_view
     return decorator
-
-def group_required(group_name, redirect_url=None):
-    """
-    Decorator for views that checks that the user belongs to a specific group.
-    """
-    def decorator(view_func):
-        @wraps(view_func)
-        def _wrapped_view(request, *args, **kwargs):
-            current_user = request.user
-            # Check if the user is authenticated and belongs to the required group
-            if not current_user.is_authenticated or not current_user.groups.filter(name=group_name).exists():
-                if redirect_url:
-                    return redirect(redirect_url)
-                else:
-                    raise PermissionDenied
-            return view_func(request, *args, **kwargs)
-        return _wrapped_view
-    return decorator
-
-def tenant_required(view_func=None, redirect_url=None):
-    """
-    Decorator for views that checks that the user is a tenant.
-    """
-    return group_required('Tenant', redirect_url)(view_func)
-
-def landlord_required(view_func=None, redirect_url=None):
-    """
-    Decorator for views that checks that the user is a landlord.
-    """
-    return group_required('Landlord', redirect_url)(view_func)
