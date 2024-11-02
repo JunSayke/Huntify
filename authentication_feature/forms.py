@@ -22,7 +22,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'first_name', 'last_name', 'phone_number', 'address', 'birthdate', 'profile_picture', 'account_type']
+        fields = ['username', 'email', 'first_name', 'last_name', 'phone_number', 'address', 'birthdate', 'profile_picture', 'account_type', 'gender']
         widgets = {
             'birthdate': forms.DateInput(attrs={'type': 'date'}),
             'username': forms.TextInput(attrs={'readonly': 'readonly'}),

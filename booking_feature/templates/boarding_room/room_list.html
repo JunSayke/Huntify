@@ -9,7 +9,8 @@
 	</li>
 	{% endfor %}
 </ul>
-{% if user.id == boarding_house_id.account_id.id or user.is_superuser %}
+
+{% if user.id == boarding_house.account_id.id or user.is_superuser %}
 <a href="{% url 'add_room' boarding_house.id %}">Add New Room</a>
 <br />
 {% endif %}

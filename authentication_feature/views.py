@@ -6,6 +6,8 @@ from .forms import AccountTypeForm, RegistrationForm, CustomUserChangeForm, Cust
 from .models import AccountType
 from django.contrib.auth.models import Group
 
+from django.http import HttpResponseForbidden
+
 def account_type_selection(request):
     if request.method == 'POST':
         form = AccountTypeForm(request.POST)
@@ -19,7 +21,7 @@ def account_type_selection(request):
 
 def register(request, account_type):
     try:
-        # Raises ValueError if the account type is invalid
+        # This will validate and raise ValueError if the account type is invalid
         account_type = AccountType(account_type).value
     except ValueError:
         return redirect('account_type_selection')
@@ -32,10 +34,11 @@ def register(request, account_type):
             user.account_type = account_type
             user = form.save()
 
-            # Assign user to group based on account type
-            if account_type == 'landlord':
+            # Assign user to group based on account type using the AccountType enum
+            group = None
+            if account_type == AccountType.LANDLORD:
                 group = Group.objects.get(name='landlord')
-            elif account_type == 'tenant':
+            elif account_type == AccountType.TENANT:
                 group = Group.objects.get(name='tenant')
 
             if group:
@@ -59,8 +62,8 @@ def update_user_info(request):
     
     return render(request, 'update_user_info.html', {'form': form})
 
-def profile(request):
-    return render(request, 'profile.html')
+
+
 
 def change_password(request):
     if request.method == 'POST':
@@ -80,3 +83,16 @@ class CustomLoginView(LoginView):
     template_name = 'login.html'
     authentication_form = CustomAuthenticationForm
     next_page = "home"
+
+
+def profile(request):
+    if request.user.account_type == AccountType.TENANT:
+        return render(request, 'profile.html')
+    else:
+        return HttpResponseForbidden("You are not allowed to access this page.")
+
+def landlord_account(request):
+    if request.user.account_type == AccountType.LANDLORD:
+        return render(request, 'landlord_account.html')
+    else:
+        return HttpResponseForbidden("You are not allowed to access this page.")

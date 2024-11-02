@@ -26,7 +26,7 @@ class RoomForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(RoomForm, self).save(commit)
         for each in self.cleaned_data['images']:
-            RoomImage.objects.create(image=each, room=instance)
+            RoomImage.objects.create(image=each, room_id=instance)
 
         return instance
 

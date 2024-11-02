@@ -17,26 +17,40 @@
 
         {% endif %}
     </div>
+    
+      <div class="w-[207px] h-[43px] left-[1153px] top-[254px] absolute bg-[#964834] rounded-lg"></div>
+      <div class="left-[1202px] top-[263px] absolute text-[#feffff] text-[21px] font-semibold font-['Plus Jakarta Sans']"><a href="{% url 'update_user_info' %}">Edit Profile</a></div>
+
+      <div class="w-[207px] h-[43px] left-[933px] top-[254px] absolute bg-[#964834] rounded-lg"></div>
+      <div class="left-[982px] top-[263px] absolute text-[#feffff] text-[21px] font-semibold font-['Plus Jakarta Sans']"><a href="{% url 'update_user_info' %}">Dashboard</a></div>
+
+      <img class="w-[200px] h-[200px] left-[250px] top-[115px] absolute rounded-full" src="https://tinyurl.com/mhe3eu7f" />
+    </div>
 
 <!-- BOOKINGS-->
 
-        <div class="w-36 h-[37px] left-[474px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
+        <div class="w-36 h-[37px] left-[484px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
+            <a href="" onclick="moveSlider('pending')">Pending</a>
+        </div>
+        <div class="w-[206px] h-[37px] left-[627px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
             <a href="" onclick="moveSlider('upcoming')">Upcoming</a>
         </div>
-        <div class="w-[206px] h-[37px] left-[617px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
+        <div class="w-[206px] h-[37px] left-[800px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
             <a href="" onclick="moveSlider('completed')">Completed</a>
         </div>
         <div class="w-[857px] h-[0px] left-[468px] top-[500px] absolute border border-[#e8eaec]"></div>
         <div id="slider" class="w-[107px] h-1 left-[469px] top-[500px] absolute bg-[#964834]"></div>
         <div class="w-[272px] h-[65px] left-[468px] top-[400px] absolute text-black text-[32px] font-extrabold font-['Plus Jakarta Sans']">Bookings</div>
-
+        <!-- NO REDDIRECTION YET-->
         <script>
             function moveSlider(type) {
                 const slider = document.getElementById('slider');
-                if (type === 'upcoming') {
-                    slider.style.left = '469px'; // Position for "Upcoming"
-                } else if (type === 'completed') {
-                    slider.style.left = '617px'; // Position for "Completed"
+                if (type === 'pending') {
+                    slider.style.left = '484px'; 
+                } else if (type === 'upcoming') {
+                    slider.style.left = '627px'; 
+                }else if (type === 'completed') {
+                    slider.style.left = '800px';
                 }
             }
         </script>
@@ -49,6 +63,9 @@
     <img class="w-[107px] h-[107px] left-[469px] top-[550px] absolute rounded-md" src="https://tinyurl.com/29vu8vc6" />
     <div class="w-[138px] h-[47px] left-[1169px] top-[570px] absolute bg-[#964834] rounded-[10px]"></div>
     <div class="w-[104px] h-[29px] left-[1185px] top-[580px] absolute text-center text-[#f7f6fe] text-[19px] font-semibold font-['Plus Jakarta Sans']">Cancel</div>
+    
+    <div class="w-[138px] h-[47px] left-[999px] top-[570px] absolute bg-[#964834] rounded-[10px]"></div>
+    <div class="w-[104px] h-[29px] left-[1010px] top-[580px] absolute text-center text-[#f7f6fe] text-[19px] font-semibold font-['Plus Jakarta Sans']">Accept</div>
     
     
     <!--Left Grey Box -->

@@ -28,4 +28,8 @@ urlpatterns = [
     
     # Change password
     path('change-password/', login_required(views.change_password), name='change_password'),
+
+    # Landlord Account
+    path('landlord-account/', login_required(views.landlord_account), name='landlord_account'),
+
 ]
