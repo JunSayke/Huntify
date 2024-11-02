@@ -1,0 +1,129 @@
+{% extends "html/base.html" %}
+{% block title %}Update User Information{% endblock %}
+
+{% block content %}
+    {% include 'html/header.html' %}
+    <!-- Top Profile, banner, name, update -->
+    <div class="w-full h-[1100px] relative bg-white">
+        <div class="w-full h-[238px] left-0 right-0 absolute bg-[#3aafa9]"></div>
+        <div class="w-[1440px] h-[357px] left-[-11px] absolute">
+            <div
+                class="left-[470px] top-[231px] absolute text-black text-[37px] font-normal font-['Plus Jakarta Sans']">{{ user.username }}</div>
+            <div class="w-full h-[1500px] relative bg-white">
+                <div class="w-full h-[238px] left-0 right-0 absolute bg-[#3aafa9]"></div>
+                <div class="w-[1440px] h-[357px] left-[-11px]  absolute">
+                    <div
+                        class="left-[470px] top-[231px] absolute text-black text-[37px] font-normal font-['Plus Jakarta Sans']">{{ user.username }}</div>
+                    <div class="left-[470px] top-[276px] absolute text-[#757575] text-2xl font-semibold font-['Inter']">
+                        <!--CHANGE TO PAGE REDIRECTIONS -->
+                        {% if user.is_authenticated %}
+                            {% if user.account_type == "tenant" %}
+                                69 Reviews
+                            {% else %}
+                                6.9 Ratings
+                            {% endif %}
+
+                        {% endif %}
+                    </div>
+                    <div class="w-[207px] h-[43px] left-[1153px] top-[254px] absolute bg-[#964834] rounded-lg"></div>
+                    <div
+                        class="left-[118px] top-[263px] absolute text-[#ffffff] text-[21px] font-semibold font-['Plus Jakarta Sans']">
+                        <a href="{% url 'update_user_info' %}">Update Picture</a></div>
+                    <img class="w-[200px] h-[200px] left-[250px] top-[115px] absolute rounded-full"
+                         src="https://tinyurl.com/mhe3eu7f" />
+                </div>
+            </div>
+
+            <!-- Update info -->
+            <div class="w-[1187px] h-[332px] left-[283px] top-[501px] absolute">
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="w-[446px] h-[88px] left-0 top-[3px] absolute">
+                        <input type="text" name="username" value="{{ user.username }}"
+                               class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']"
+                               required>
+                        <label
+                            class="left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">Username</label>
+                    </div>
+
+                    <div class="w-[446px] h-[88px] left-0 top-[120px] absolute">
+                        <input type="email" name="email" value="{{ user.email }}"
+                               class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']"
+                               required>
+                        <label
+                            class="left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">Email</label>
+                    </div>
+
+                    <div class="w-[446px] h-[88px] left-0 top-[235px] absolute">
+                        <input type="text" name="first_name" id="first_name_{{ user.id }}"
+                               class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']"
+                               placeholder="None">
+                        <label
+                            class="left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">First
+                            Name</label>
+                    </div>
+
+                    <div class="w-[446px] h-[88px] left-[541px] top-[117px] absolute">
+                        <input type="text" name="phone_number" value="{{ user.phone_number }}"
+                               class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']"
+                               placeholder="None">
+                        <label
+                            class="left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">Phone
+                            Number</label>
+                    </div>
+
+                    <div class="w-[446px] h-[88px] left-[541px] top-[232px] absolute">
+                        <input type="text" name="address" value="{{ user.address }}"
+                               class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']"
+                               placeholder="None">
+                        <label
+                            class="left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">Address</label>
+                    </div>
+
+                    <div class="w-[446px] h-[88px] left-[538px] top-0 absolute">
+                        <input type="date" name="birthdate" value="{{ user.birthdate }}"
+                               class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']">
+                        <label
+                            class="left-left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">Birthdate</label>
+                    </div>
+
+                    <div class="w-[446px] h-[88px] left-[541px] top-[344px] absolute">
+                        <select name="gender"
+                                class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']">
+                            <option value="" disabled {% if not user.gender %} selected {% endif %}>Select Gender
+                            </option>
+                            <option value="Male" {% if user.gender == 'Male' %} selected {% endif %}>Male</option>
+                            <option value="Female" {% if user.gender == 'Female' %} selected {% endif %}>Female</option>
+                            <option value="Other" {% if user.gender == 'Other' %} selected {% endif %}>Other</option>
+                        </select>
+                        <label
+                            class="left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">Gender</label>
+                    </div>
+
+                    <div class="w-[446px] h-[88px] left-0 top-[344px] absolute">
+                        <input type="text" name="last_name" value="{{ user.last_name }}"
+                               class="w-[446px] h-[58.67px] absolute bg-white rounded-[10px] border-2 border-[#d2d2d2] text-[22px] font-normal font-['Poppins']"
+                               placeholder="None">
+                        <label
+                            class="left-[5.30px] top-[-30px] absolute text-black text-2xl font-normal font-['Poppins']">Last
+                            Name</label>
+                    </div>
+
+                    <div class="w-[449px] h-[43px] left-[698px] top-[500px] absolute">
+                        <button type="submit" class="w-[207px] h-[43px] absolute bg-[#964834] rounded-lg">
+                            <span
+                                class="text-center text-[#f7f6fe] text-[19px] font-semibold font-['Plus Jakarta Sans']">Save Changes</span>
+                        </button>
+
+                        <div
+                            class="w-[181px] h-[15px] left-[253px] top-0 absolute text-center text-[#f7f6fe] text-[19px] font-semibold font-['Plus Jakarta Sans']">
+                            <div class="w-[207px] h-[43px] absolute bg-[#964834] rounded-lg">
+                                <a href="{% url 'authentication:change-password' %}">Update Password</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+{% endblock %}

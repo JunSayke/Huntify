@@ -1,0 +1,623 @@
+{% extends "html/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    {% include 'html/header.html' %}
+    <div class="flex flex-col">
+        <div id="home" class="h-[709px] bg-white rounded-[10px] relative">
+            <div
+                class="w-[736px] pl-20 pt-[50px] pb-5 left-[20px] top-[138px] absolute justify-start items-center gap-3 inline-flex">
+                <div class="w-[642.50px] flex-col justify-start items-start gap-10 inline-flex">
+                    <div class="w-[642.50px] h-[136px] relative">
+                        <div
+                            class="w-[642px] h-[129px] left-0 top-0 absolute text-[#3aafa9] text-[79px] font-semibold font-['Open Sans'] capitalize">
+                            Huntify
+                        </div>
+                        <div
+                            class="w-[642.50px] left-0 top-[86px] absolute text-[#1d2838] text-[40px] font-semibold font-['Plus Jakarta Sans'] capitalize">
+                            Where Home Begins
+                        </div>
+                    </div>
+                    <div class="w-[584px] text-[#484848]/80 text-2xl font-normal font-['Plus Jakarta Sans']">Looking for
+                        a place to stay? We are here to assist you in finding your new home
+                    </div>
+                    <div class="w-[634.51px] h-[88px] relative">
+                        <div
+                            class="w-[59px] h-[33px] left-[26.50px] top-[45px] absolute text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans']">
+                            Rooms
+                        </div>
+                        <div
+                            class="w-[271px] h-[52px] left-[363.51px] top-[45px] absolute text-center text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans']">
+                            Students
+                        </div>
+                        <div
+                            class="w-[314.50px] h-[33px] left-[116.20px] top-[46px] absolute text-center text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans']">
+                            Reservations
+                        </div>
+                        <div class="w-[123.14px] h-[43px] left-0 top-0 absolute text-center">
+                            <span
+                                class="text-[#17242a] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">2673</span>
+                            <span
+                                class="text-[#964734] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">+</span>
+                        </div>
+                        <div class="w-[123.14px] h-[43px] left-[217px] top-0 absolute text-center">
+                            <span
+                                class="text-[#17242a] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">535</span>
+                            <span
+                                class="text-[#964734] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">+</span>
+                        </div>
+                        <div class="w-[123.14px] h-[43px] left-[437px] top-0 absolute text-center">
+                            <span
+                                class="text-[#17242a] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">3467</span>
+                            <span
+                                class="text-[#964734] text-4xl font-bold font-['Plus Jakarta Sans'] capitalize leading-9">+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="w-[684px] h-[711px] left-[827px] top-0 absolute"
+                 src="https://static.wixstatic.com/media/59fa67_65338961d23f4e57a3c225c4ed24a41c~mv2.jpg/v1/fill/w_740,h_740,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/59fa67_65338961d23f4e57a3c225c4ed24a41c~mv2.jpg" />
+
+            <!-- Search Bar -->
+            <div
+                class="w-[1180px] h-[130px] p-5 left-[50%] transform -translate-x-1/2 top-[572px] absolute bg-white rounded-[5px] border border-[#a1a7b0] flex flex-col justify-start items-center gap-2.5">
+                <div class="self-stretch flex ">
+                    <div class="text-[#1d2838] text-xl font-semibold font-['Plus Jakarta Sans']">Find Your New Home
+                    </div>
+                </div>
+                <div class="self-stretch flex justify-between items-center gap-0">
+                    <!-- Location -->
+                    <div class="flex-grow h-11">
+                        <select
+                            class="w-full h-full px-3.5 bg-white rounded-lg shadow border border-[#a1a7b0] text-[#a1a7b0] leading-normal focus:outline-none focus:border-[#3aafa9]">
+                            <option value="" disabled selected>Select Location</option>
+                            <option value="abaranga">Abaranga</option>
+                            <option value="adlaon">Adlaon</option>
+                            <option value="apao">Apas</option>
+                            <option value="babag">Babag</option>
+                            <option value="banilad">Banilad</option>
+                            <option value="basak">Basak</option>
+                            <option value="buhisan">Buhisan</option>
+                            <option value="buhangin">Buhangin</option>
+                            <option value="calamba">Calamba</option>
+                            <option value="camputhaw">Camputhaw</option>
+                            <option value="carreta">Carreta</option>
+                            <option value="caytano">Caytano</option>
+                            <option value="central">Central</option>
+                            <option value="dawes">Dawes</option>
+                            <option value="day-as">Day-as</option>
+                            <option value="guba">Guba</option>
+                            <option value="gun-ob">Gun-ob</option>
+                            <option value="hagdan">Hagdan</option>
+                            <option value="hapitan">Hapitan</option>
+                            <option value="hacienda">Hacienda</option>
+                            <option value="ibus">Ibus</option>
+                            <option value="ibuyon">Ibunyon</option>
+                            <option value="inayawan">Inayawan</option>
+                            <option value="intosan">Intosan</option>
+                            <option value="kamputhaw">Kamputhaw</option>
+                            <option value="kasambagan">Kasambagan</option>
+                            <option value="kasilayan">Kasilayan</option>
+                            <option value="labangon">Labangon</option>
+                            <option value="lamac">Lamac</option>
+                            <option value="langtad">Langtad</option>
+                            <option value="luz">Luz</option>
+                            <option value="mabolo">Mabolo</option>
+                            <option value="maguikay">Maguikay</option>
+                            <option value="malubog">Malubog</option>
+                            <option value="mambaling">Mambaling</option>
+                            <option value="mandalagan">Mandalagan</option>
+                            <option value="mangga">Mangga</option>
+                            <option value="mangub">Mangub</option>
+                            <option value="maribago">Maribago</option>
+                            <option value="masambong">Masambong</option>
+                            <option value="n. bisaya">N. Bisaya</option>
+                            <option value="pahina">Pahina</option>
+                            <option value="poblacion">Poblacion</option>
+                            <option value="pontevedra">Pontevedra</option>
+                            <option value="punta">Punta Princesa</option>
+                            <option value="quizon">Quizon</option>
+                            <option value="sapangdaku">Sapang Daku</option>
+                            <option value="sapangdako">Sapang Dako</option>
+                            <option value="sampaguita">Sampaguita</option>
+                            <option value="san jose">San Jose</option>
+                            <option value="san nicolas">San Nicolas</option>
+                            <option value="san roque">San Roque</option>
+                            <option value="santo niño">Santo Niño</option>
+                            <option value="santo domingo">Santo Domingo</option>
+                            <option value="santo tomas">Santo Tomas</option>
+                            <option value="sudlon">Sudlon</option>
+                            <option value="tabok">Tabok</option>
+                            <option value="tejero">Tejero</option>
+                            <option value="tisa">Tisa</option>
+                            <option value="tuburan">Tuburan</option>
+                            <option value="tuyan">Tuyan</option>
+                            <option value="urdaneta">Urdaneta</option>
+                            <option value="v. l. lazo">V. L. Lazo</option>
+                        </select>
+                    </div>
+
+                    <!-- Budget -->
+                    <div class="flex-grow h-11">
+                        <div class="flex h-full items-center">
+                            <div
+                                class="flex-grow px-3.5 bg-white rounded-lg shadow border border-[#a1a7b0] flex items-center h-full">
+                                <div class="text-[#667084] text-base font-normal leading-normal">Budget (₱)</div>
+                                <input type="number" class="flex-1 border-none rounded-lg mx-2 h-full outline-none"
+                                       placeholder="Min" max="50000" min="0" />
+                                <span class="mx-1">to</span>
+                                <input type="number" class="flex-1 border-none rounded-lg h-full outline-none"
+                                       placeholder="Max" max="50000" min="0" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Search Button -->
+                    <button
+                        class="h-11 px-5 py-2.5 bg-[#3aafa9] hover:bg-[#2b7a78] rounded-lg shadow border border-[#c2cae3] flex justify-center items-center text-white text-base font-semibold font-['Plus Jakarta Sans']">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Us -->
+        <div id="about" class="h-[650.37px] px-20 pt-[100px] pb-20 justify-start items-center gap-[70px] inline-flex">
+            <div class="w-[532px] h-[470.37px] relative">
+                <div class="w-[387.74px] h-[389.40px] left-0 top-0 absolute">
+                    <div class="w-[387.74px] h-[389.40px] left-0 top-0 absolute bg-[#d9d9d9] rounded-[5px]"></div>
+                    <img class="w-[390.57px] h-[560.12px] left-[-7.55px] top-[-28.61px] absolute rounded-[5px]"
+                         src="https://s3-alpha-sig.figma.com/img/4d93/cbc2/bd1bbf6a42ead47e456f69bd18fe474f?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=l2yOF7pWAnTUPQzId49FMt0sRzVin-oz8NEBFOZcP-gzcJICwL00ceoAvs3xBKNVatLwvk-RdZwX1MUQEBy2zZwtkIUU2NQdycKfcLWR6Tc3t3wQqEJouqLDKURsmHIY8282frolfGZCzUCifMc9uJ4y4CwVDNroV6nETAbdRI9N2wlvUMIMvX2UM7E1fyF3qqzD25Bcl2db3xjcsFA0wG7VJFKHtw4rtP2dMC~2y4~S8AZwGlEykj8o~ysB-g5-d0EyDcVqLKpK6a~TJ9V0dCdQwN0nQTcMWpaOkS55Yh5PStGcdt1mvWvmgr7KiQXg9zwZLwr-kx5RxqrWTMThlg__" />
+                </div>
+                <div class="w-[292.06px] h-[307.33px] left-[239.94px] top-[163.04px] absolute">
+                    <div class="w-[292.06px] h-[307.33px] left-0 top-0 absolute bg-[#d9d9d9] rounded-[5px]"></div>
+                    <img class="w-[313.41px] h-[462.65px] left-[-10.50px] top-[-77.60px] absolute rounded-[5px]"
+                         src="https://s3-alpha-sig.figma.com/img/ac3c/be2e/3bb79a61f4df1b4573de0499f2ae1f4b?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=I~4hfxnDhKnwboiA~Ze144I-rqQQA1Zx~1n9kTDRUi-gplGl6c0wAuudI79~YZggcgTjPr0xv8HEiz8oq58GIH82lVsUV8TwOvY335ekzzAFU5RCHAewJw~znj~p0YgD6mKSBVcgnEGFDd-U1UnkswVK~VAXmMBDz-ntRF4QiLypIl4DTtLQiWZtyBmjrW43gWajIPy6bbUUjvQ34VBNnT6wJon-pgd1WRoi-4RM04c~AnkfgOsQJp6reMPa81n7fJf---sFrJ9dR8RfHmaD3SqoklYuIXuAz6Fp9xFBfo0KpdDLZim1lvokM7gvKs-T4gEjf5R9fX29Ha1nFrT2Iw__" />
+                </div>
+            </div>
+            <div class="flex-col justify-start items-start gap-10 inline-flex">
+                <div class="self-stretch h-[119px] flex-col justify-center items-start gap-[9px] flex">
+                    <div class="text-[#1d2838] text-[32px] font-bold font-['Plus Jakarta Sans'] capitalize">We help you
+                        find your perfect home<br />and manage rentals with ease
+                    </div>
+                    <div
+                        class="w-[155px] h-[30px] text-[#3aafa9] text-2xl font-semibold font-['Plus Jakarta Sans'] capitalize">
+                        About Us
+                    </div>
+                </div>
+                <div class="w-[599px]"><span class="text-[#344053] text-lg font-normal font-['Plus Jakarta Sans']">Welcome to </span><span
+                    class="text-[#3aafa9] text-lg font-bold font-['Plus Jakarta Sans']">Huntify</span><span
+                    class="text-[#344053] text-lg font-normal font-['Plus Jakarta Sans']">, where we transform the way you find and manage boarding houses and apartment rentals. With features like detailed property listings, advanced search filters, seamless booking, and comprehensive dashboards for both landlords and administrators, Huntify bridges the gap between traditional methods and modern technology, making property management and rental searches easier than ever.</span>
+                </div>
+                <div class="self-stretch justify-start items-start gap-[35px] inline-flex">
+                    <div class="mix-blend-multiply justify-start items-start flex">
+                        <div class="pl-3 pr-2.5 py-1 bg-[#3aafa9] rounded-2xl justify-center items-center gap-1 flex">
+                            <div class="w-3 h-3 justify-center items-center flex">
+                                <div class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                            </div>
+                            <div
+                                class="text-center text-white text-sm font-medium font-['Plus Jakarta Sans'] leading-tight">
+                                Professional Team
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mix-blend-multiply justify-start items-start flex">
+                        <div class="pl-3 pr-2.5 py-1 bg-[#3aafa9] rounded-2xl justify-center items-center gap-1 flex">
+                            <div class="w-3 h-3 justify-center items-center flex">
+                                <div class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                            </div>
+                            <div
+                                class="text-center text-white text-sm font-medium font-['Plus Jakarta Sans'] leading-tight">
+                                Fast and Secure Booking
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mix-blend-multiply justify-start items-start flex">
+                        <div class="pl-3 pr-2.5 py-1 bg-[#3aafa9] rounded-2xl justify-center items-center gap-1 flex">
+                            <div class="w-3 h-3 justify-center items-center flex">
+                                <div class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                            </div>
+                            <div
+                                class="text-center text-white text-sm font-medium font-['Plus Jakarta Sans'] leading-tight">
+                                Always in touch
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mix-blend-multiply justify-start items-start flex">
+                        <div class="pl-3 pr-2.5 py-1 bg-[#3aafa9] rounded-2xl justify-center items-center gap-1 flex">
+                            <div class="w-3 h-3 justify-center items-center flex">
+                                <div class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                            </div>
+                            <div
+                                class="text-center text-white text-sm font-medium font-['Plus Jakarta Sans'] leading-tight">
+                                Verified Rooms
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Top Rooms-->
+        <div id="toprooms"
+             class="w-full h-full px-20 pt-[100px] pb-20 flex-col justify-start items-end gap-[50px] inline-flex">
+            <div class="self-stretch text-[#1d2838] text-[32px] font-bold font-['Plus Jakarta Sans'] capitalize">Reserve
+                the Finest Rooms
+            </div>
+            <div class="self-stretch justify-start items-start gap-[100px] inline-flex">
+                <div class="grow shrink basis-0 flex-col justify-start items-end inline-flex">
+                    <div class="self-stretch justify-between items-center inline-flex">
+                        <div class="w-[376px] h-[528px] rounded-2xl flex-col justify-start items-start inline-flex">
+                            <div class="h-[371px] bg-black/30 rounded-tl-2xl rounded-tr-2xl">
+                                <img
+                                    src="https://s3-alpha-sig.figma.com/img/2b79/754f/fa37aac651fdd291dcc7fed4a08e3e8e?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FgnFCLnD29symWtRAs0SEZBWP-UY-GQCphsE8DhUZNFTdqOKNpkjxpqU~0GM89mblsE6RAg-srYT1b0SwYDk84VUCmzKx1zjemvjR9XCGB1yXHCopK9ohQ-V4ysjQTkmnxmrC6hkS63sI3aIVaDRhwbs0Ud9T1J8yN9ad68b6czU6N-RWhqec033-Pcj9daU5tR~P~GZUyxSH4abXEHCyUXLWezCubJLrDNkhLbISOPjKzeq9JpzL3hlGj7cNsj1hk8EqBv5Mn3ChoWqPW9MJ-QibYSARV3P4yw~Hiyc4syqdOW4n2v8oZOWYfeVSQPCKUt3nFvdJowDwBxk2k3xJA__"
+                                    alt="Room Image" class="w-full h-full rounded-tl-2xl rounded-tr-2xl object-cover" />
+                            </div>
+                            <div
+                                class="self-stretch p-5 bg-white rounded-bl-2xl rounded-br-2xl shadow justify-start items-start gap-4 inline-flex">
+                                <div
+                                    class="grow shrink basis-0 h-[117px] flex-col justify-between items-start inline-flex">
+                                    <div class="self-stretch justify-start items-start gap-4 inline-flex">
+                                        <div
+                                            class="grow shrink basis-0 text-[#000e2d] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-9">
+                                            Riverside Retreat
+                                        </div>
+                                        <div
+                                            class="w-[43px] h-[39px] px-1 py-[5px] flex-col justify-center items-center gap-2.5 inline-flex"></div>
+                                    </div>
+                                    <div
+                                        class="self-stretch text-[#000e2d] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                        123 Avenida da Liberdade, Lisbon
+                                    </div>
+                                    <div class="self-stretch justify-start items-start inline-flex">
+
+                                        <div
+                                            class="text-[#2b7a77] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                            P 6,000
+                                        </div>
+                                        <div class="h-[23px] relative bg-white"></div>
+                                        <div class="mix-blend-multiply justify-start items-end flex">
+                                            <div
+                                                class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-end gap-1 flex">
+
+
+                                                <div class="w-3 h-3 justify-center items-center flex">
+                                                    <div
+                                                        class="grow shrink basis-0 self-stretch justify-center items-center inline-flex">
+                                                        <div
+                                                            class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="text-center text-[#3aafa9] text-xs font-medium font-['Plus Jakarta Sans'] leading-[18px]">
+                                                    Verified
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-[376px] h-[528px] rounded-2xl flex-col justify-start items-start inline-flex">
+                            <div class="h-[371px] bg-black/30 rounded-tl-2xl rounded-tr-2xl">
+                                <img
+                                    src="https://s3-alpha-sig.figma.com/img/d3fb/e7ab/fcb699de2209465e5030eabcec332d4f?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=gzEissYCoKybzsCZQ1W647CPohaeKbcYf6jn4g5VnHygwAcDr7WMRr8vdSu2z5d5n13QvrmtkTH6uQfTC2ioHe7sRISd~mamG2c2kXJMzMY717VYq7lojUCmoIShdJqLvxKktwTBXhcFpDeyd1wPtVJUtCXSjJqIvEDbyNeoDfQsKDvrXE6OXtZ6oMOXO7h5XZPN8v72cjl8~V27~swdmnMjjgFQBzWYEroICO467-PFPpqGnQJUTIudJKyKPXoRSb62bEzYCRAP2k2Rw125rb5uTJoCqsnZSqyWLnDso98DTYbpUaSW3tNoumNC72ZlRPKR5TZg~Id59g-ArAVNsA__"
+                                    alt="Room Image" class="w-full h-full rounded-tl-2xl rounded-tr-2xl object-cover" />
+                            </div>
+                            <div
+                                class="self-stretch p-5 bg-white rounded-bl-2xl rounded-br-2xl shadow justify-start items-start gap-4 inline-flex">
+                                <div
+                                    class="grow shrink basis-0 h-[117px] flex-col justify-between items-start inline-flex">
+                                    <div class="self-stretch justify-start items-start gap-4 inline-flex">
+                                        <div
+                                            class="grow shrink basis-0 text-[#000e2d] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-9">
+                                            Sunset Serenity Suite
+                                        </div>
+                                        <div
+                                            class="w-[43px] h-[39px] px-1 py-[5px] flex-col justify-center items-center gap-2.5 inline-flex"></div>
+                                    </div>
+                                    <div
+                                        class="self-stretch text-[#000e2d] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                        456 Rua Augusta, Lisbon
+                                    </div>
+                                    <div class="self-stretch justify-start items-start inline-flex">
+                                        <div
+                                            class="text-[#3aafa9] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                            P 12, 000
+                                        </div>
+                                        <div class="h-[23px] relative bg-white"></div>
+                                        <div class="mix-blend-multiply justify-start items-center flex">
+                                            <div
+                                                class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-center gap-1 flex">
+                                                <div class="w-3 h-3 justify-center items-center flex">
+                                                    <div
+                                                        class="grow shrink basis-0 self-stretch justify-center items-center inline-flex">
+                                                        <div
+                                                            class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="text-center text-[#3aafa9] text-xs font-medium font-['Plus Jakarta Sans'] leading-[18px]">
+                                                    Verified
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-[376px] h-[528px] rounded-2xl flex-col justify-start items-start inline-flex">
+                            <div class="h-[371px] bg-black/30 rounded-tl-2xl rounded-tr-2xl">
+                                <img
+                                    src="https://s3-alpha-sig.figma.com/img/eea7/e353/c96e4f3412b98928cc83c7f0cb735206?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=U6pnMAA~T1n2-0j10SWCsybNlm48fW7XgFZTl~o9MqnWy0QuqFnEeBWQENx4BZZl-Dsu-Vb-dKvqaY29Cvx1DFfGJAvybHcwaefUOTgVeYQQrW5Y1Xbgl~NtpAslJea5E6UXJjOybvJHbIuSFsNvzKYmnFZvrbUDMXMM5umqJFXjTHZUlgQwYEK2ZTh7Z-BppVzvORCT6TENW8nZZa77k9xgq2Ig6dHdt8ScESyHW1P7E8E00f5NDjxh1Nlt9zqGNz2IpsZCz6hBRKAyPwGJMxS0ni15-LgRCO7IK77VkYePfn9812vCIyv-qbGlRf~eX6Qx0rXffuQHhoDrhV4MKA__"
+                                    alt="Room Image" class="w-full h-full rounded-tl-2xl rounded-tr-2xl object-cover" />
+                            </div>
+                            <div
+                                class="self-stretch p-5 bg-white rounded-bl-2xl rounded-br-2xl shadow justify-start items-start gap-4 inline-flex">
+                                <div
+                                    class="grow shrink basis-0 h-[117px] flex-col justify-between items-start inline-flex">
+                                    <div class="self-stretch justify-start items-start gap-4 inline-flex">
+                                        <div
+                                            class="grow shrink basis-0 text-[#000e2d] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-9">
+                                            Chiado Charm
+                                        </div>
+                                        <div
+                                            class="w-[43px] h-[39px] px-1 py-[5px] flex-col justify-center items-center gap-2.5 inline-flex"></div>
+                                    </div>
+                                    <div
+                                        class="self-stretch text-[#000e2d] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                        101 Praça do Comércio
+                                    </div>
+                                    <div class="self-stretch justify-start items-start inline-flex">
+                                        <div
+                                            class="text-[#3aafa9] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                            P 12, 000
+                                        </div>
+                                        <div class="h-[26px] relative bg-white"></div>
+                                        <div class="mix-blend-multiply justify-start items-center flex">
+                                            <div
+                                                class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-center gap-1 flex">
+                                                <div
+                                                    class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-center gap-1 flex">
+                                                    <div class="w-3 h-3 justify-center items-center flex">
+                                                        <div
+                                                            class="grow shrink basis-0 self-stretch justify-center items-center inline-flex">
+                                                            <div
+                                                                class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="text-center text-[#3aafa9] text-xs font-medium font-['Plus Jakarta Sans'] leading-[18px]">
+                                                        Verified
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch justify-start items-start gap-[100px] inline-flex">
+                <div class="grow shrink basis-0 flex-col justify-start items-end gap-10 inline-flex">
+                    <div class="self-stretch justify-between items-center inline-flex">
+                        <div class="w-[376px] h-[528px] rounded-2xl flex-col justify-start items-start inline-flex">
+                            <div class="h-[371px] bg-black/30 rounded-tl-2xl rounded-tr-2xl">
+                                <img
+                                    src="https://s3-alpha-sig.figma.com/img/5e5a/c1f7/349ed564f42a45476dfb5142438c3e4e?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=T4gwIObwIAlAbRcL3qp04b0gii3WpYWS10zvi~GZY7JwmZLBiMTOdmqG5e0RqEdC47O5B8HeOhEb4ceEnJNWmaXvAlrZvShPt0aIE6HmC5yB9M6JBUtgTbz7CcBuWiFcVx1yfVkzpgVY-pYXjFN6N21pCb~iepoMWQyyxxwYYdYALwp4xiDhmCNELbTBPm9iR~C0qhXq-HFmhJkm1Zo1N59WOokPno4wJ63Ee8GIlwb1SFSmxUS8Aha4ysE4VAlDx2zyHcap9RgyYJO~m0nELFpyuzRCCU~QUu3-uQf9eEE3eFYc8W5CPXBqfA3-75ffFIIyDJT0Ss4bl7VG1nQLmw__"
+                                    alt="Room Image" class="w-full h-full rounded-tl-2xl rounded-tr-2xl object-cover" />
+                            </div>
+                            <div
+                                class="self-stretch p-5 bg-white rounded-bl-2xl rounded-br-2xl shadow justify-start items-start gap-4 inline-flex">
+                                <div
+                                    class="grow shrink basis-0 h-[117px] flex-col justify-between items-start inline-flex">
+                                    <div class="self-stretch justify-start items-start gap-4 inline-flex">
+                                        <div
+                                            class="grow shrink basis-0 text-[#000e2d] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-9">
+                                            Panoramic Penthouse
+                                        </div>
+                                        <div
+                                            class="w-[43px] h-[39px] px-1 py-[5px] flex-col justify-center items-center gap-2.5 inline-flex"></div>
+                                    </div>
+                                    <div
+                                        class="self-stretch text-[#000e2d] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                        234 Castelo São Jorge
+                                    </div>
+                                    <div class="self-stretch justify-start items-start inline-flex">
+                                        <div
+                                            class="text-[#3aafa9] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                            P 12, 000
+                                        </div>
+                                        <div class="h-[23px] relative bg-white"></div>
+                                        <div class="mix-blend-multiply justify-start items-center flex">
+                                            <div
+                                                class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-center gap-1 flex">
+                                                <div class="w-3 h-3 justify-center items-center flex">
+                                                    <div
+                                                        class="grow shrink basis-0 self-stretch justify-center items-center inline-flex">
+                                                        <div
+                                                            class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="text-center text-[#3aafa9] text-xs font-medium font-['Plus Jakarta Sans'] leading-[18px]">
+                                                    Verified
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-[376px] h-[528px] rounded-2xl flex-col justify-start items-start inline-flex">
+                            <div class="h-[371px] bg-black/30 rounded-tl-2xl rounded-tr-2xl">
+                                <img
+                                    src="https://s3-alpha-sig.figma.com/img/166c/cdfb/c990591814ccf3f54b1d7fb8f3b4b261?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mWIvJiN7M3t4G8SI~zcgYK8Oiu8C0rswt4LUB9Kt1hi-xbSrlKuqbqv0Exz2-6zq0xt1SFBEzzxYrbr7kePG~h1NqSPM562uC1hVbF4Q~kvfKTjWrRumrzKd2c7VDVnCdlArR0wyvdsbzgSg-Ne36854BIlrABjb3P9dw5DgxdMa3hUwvdwhXHyXPlZ2BUoitDgcpH2YLGLYkU57qYuzwF7sBnEe53JEM7ntcUOptaSeGNP2hehLImEu1JiqBt3M3t50T90P-jnvh1vK2iNY4mKeZ2E5fkE6LOX8RF4FA5oiUEujRNudsq1w77RSMMrjcwmTmWXvePoqBDHHasVn5w__"
+                                    alt="Room Image" class="w-full h-full rounded-tl-2xl rounded-tr-2xl object-cover" />
+                            </div>
+                            <div
+                                class="self-stretch p-5 bg-white rounded-bl-2xl rounded-br-2xl shadow justify-start items-start gap-4 inline-flex">
+                                <div
+                                    class="grow shrink basis-0 h-[117px] flex-col justify-between items-start inline-flex">
+                                    <div class="self-stretch justify-start items-start gap-4 inline-flex">
+                                        <div
+                                            class="grow shrink basis-0 text-[#000e2d] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-9">
+                                            Marquês Master
+                                        </div>
+                                        <div
+                                            class="w-[43px] h-[39px] px-1 py-[5px] flex-col justify-center items-center gap-2.5 inline-flex"></div>
+                                    </div>
+                                    <div
+                                        class="self-stretch text-[#000e2d] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                        567 Av. Almirante Reis
+                                    </div>
+                                    <div class="self-stretch justify-start items-start inline-flex">
+                                        <div
+                                            class="text-[#3aafa9] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                            P 12, 000
+                                        </div>
+                                        <div class="h-[26px] relative bg-white"></div>
+                                        <div class="mix-blend-multiply justify-start items-center flex">
+                                            <div
+                                                class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-center gap-1 flex">
+                                                <div
+                                                    class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-center gap-1 flex">
+                                                    <div class="w-3 h-3 justify-center items-center flex">
+                                                        <div
+                                                            class="grow shrink basis-0 self-stretch justify-center items-center inline-flex">
+                                                            <div
+                                                                class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="text-center text-[#3aafa9] text-xs font-medium font-['Plus Jakarta Sans'] leading-[18px]">
+                                                        Verified
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-[376px] h-[528px] rounded-2xl flex-col justify-start items-start inline-flex">
+                            <div class="h-[371px] bg-black/30 rounded-tl-2xl rounded-tr-2xl">
+                                <img
+                                    src="https://s3-alpha-sig.figma.com/img/d8a7/ccbe/c60d0a5359f0d8ac26c9d3853b3dc788?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LLpp8zIvvq9nDyNr0Qiut8mEfpqyJ7sY0GYhw4ry5TBibFX44EQcKH23h36Zfp0oBcVRMqUMhzi-ZqTsyvcczpxS9ZhvqHiSKIXLcX2LEGKKIN4yVu6kxL56VTyYpTTYrQEofXb7wcqDF2eUyjYDun7dxSbvaN5zdPYJx6JJA~EF82p2dw0HwMxxXHAovlEMb-uKKHNtreNSPGswtBbp0Zx6OVz6R5okXVSwi3K9U~yPpCFk30-tjtLNOYHlh-AMZyA3fqe16xSxN0K2W26LJrusff5pJDJEXMEC7TVkfX9uxTHaw0wCfV~25LaHUEhBkMLcj9VVErhJXKm8olsHkg__"
+                                    alt="Room Image" class="w-full h-full rounded-tl-2xl rounded-tr-2xl object-cover" />
+                            </div>
+                            <div
+                                class="self-stretch p-5 bg-white rounded-bl-2xl rounded-br-2xl shadow justify-start items-start gap-4 inline-flex">
+                                <div
+                                    class="grow shrink basis-0 h-[117px] flex-col justify-between items-start inline-flex">
+                                    <div class="self-stretch justify-start items-start gap-4 inline-flex">
+                                        <div
+                                            class="grow shrink basis-0 text-[#000e2d] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-9">
+                                            Alfama Hideaway
+                                        </div>
+                                        <div
+                                            class="w-[43px] h-[39px] px-1 py-[5px] flex-col justify-center items-center gap-2.5 inline-flex"></div>
+                                    </div>
+                                    <div
+                                        class="self-stretch text-[#000e2d] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                        789 Beco do Carneiro
+                                    </div>
+                                    <div class="self-stretch justify-start items-start inline-flex">
+                                        <div
+                                            class="text-[#3aafa9] text-lg font-normal font-['Plus Jakarta Sans'] leading-[23px]">
+                                            P12, 000
+                                        </div>
+                                        <div class="h-[23px] relative bg-white"></div>
+                                        <div class="mix-blend-multiply justify-start items-center flex">
+                                            <div
+                                                class="pl-1.5 pr-2 py-0.5 bg-[#f2f3f6] rounded-2xl justify-center items-center gap-1 flex">
+                                                <div class="w-3 h-3 justify-center items-center flex">
+                                                    <div
+                                                        class="grow shrink basis-0 self-stretch justify-center items-center inline-flex">
+                                                        <div
+                                                            class="w-3 h-3 relative flex-col justify-start items-start flex"></div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="text-center text-[#3aafa9] text-xs font-medium font-['Plus Jakarta Sans'] leading-[18px]">
+                                                    Verified
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Process-->
+        <div id="process"
+             class="h-[590px] px-[30px] py-[50px] bg-white flex-col justify-start items-center gap-[35px] inline-flex">
+            <div class="self-stretch h-20 flex-col justify-start items-center gap-[15px] flex">
+                <div
+                    class="self-stretch h-[25px] text-center text-[#3aafa9] text-xl font-semibold font-['Plus Jakarta Sans'] capitalize">
+                    Booking Process
+                </div>
+                <div
+                    class="self-stretch h-10 text-center text-[#1d2838] text-[32px] font-bold font-['Plus Jakarta Sans'] capitalize">
+                    Fast, intuitive and absolutely safe !
+                </div>
+            </div>
+            <div class="w-[1442px] grid grid-cols-4 items-start gap-10 inline-flex">
+                <div class="flex-col justify-start items-start gap-[5px] inline-flex">
+                    <div class="w-[290px] text-[#964834] text-[64px] font-semibold font-['Plus Jakarta Sans']">1</div>
+                    <div
+                        class="self-stretch text-[#484848] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">
+                        Pick a few places
+                    </div>
+                    <div
+                        class="self-stretch text-[#484848] text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+                        Explore hundreds of high-quality rooms, studios, and apartments. Save favorites and look for
+                        more. <br />Finding your dream home could not be easier!<br /><br /></div>
+                </div>
+                <div class="w-[290px] flex-col justify-start items-start gap-1 inline-flex">
+                    <div class="self-stretch text-[#964834] text-[64px] font-semibold font-['Plus Jakarta Sans']">2
+                    </div>
+                    <div
+                        class="self-stretch text-[#484848] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">
+                        Book Your Date
+                    </div>
+                    <div
+                        class="w-[306px] h-48 text-[#484848] text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+                        Schedule a convenient time to visit and experience your future home firsthand.
+                    </div>
+                </div>
+                <div class="w-[290px] flex-col justify-center items-start inline-flex">
+                    <div class="self-stretch text-[#964834] text-[64px] font-semibold font-['Plus Jakarta Sans']">3
+                    </div>
+                    <div
+                        class="self-stretch text-[#484848] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">
+                        Confirmation
+                    </div>
+                    <div
+                        class="self-stretch text-[#484848] text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+                        Relax while we handle the details and get a prompt confirmation from the landlord.
+                    </div>
+                </div>
+                <div class="w-[290px] flex-col justify-center items-start inline-flex">
+                    <div class="self-stretch text-[#964834] text-[64px] font-semibold font-['Plus Jakarta Sans']">4
+                    </div>
+                    <div
+                        class="self-stretch text-[#484848] text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">
+                        Get your keys!
+                    </div>
+                    <div
+                        class="self-stretch text-[#484848] text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+                        If you’re happy with your choice, receive your keys and make your new space truly yours.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'html/footer.html' %}
+{% endblock %}

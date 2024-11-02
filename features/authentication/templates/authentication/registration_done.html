@@ -1,0 +1,12 @@
+<!-- templates/authentication/registration_done.html -->
+{% extends 'html/base.html' %}
+
+{% block content %}
+<h1>Registration Complete</h1>
+<p>Thank you for registering! Here is the information you provided:</p>
+<ul>
+    {% for form_data in form_data %}
+        <li>{{ form_data }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

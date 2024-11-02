@@ -1,0 +1,124 @@
+{% extends "html/base.html" %} {% block title %}Profile{% endblock %}
+
+{% block content %}
+    {% include 'html/header.html' %}
+    <!-- Top Profile, banner, name, edit profile -->
+    <div class="w-full h-[1500px] relative bg-white">
+        <div class="w-full h-[238px] left-0 right-0 absolute bg-[#3aafa9]"></div>
+        <div class="w-[1440px] h-[357px] left-[-11px]  absolute">
+            <div
+                class="left-[470px] top-[231px] absolute text-black text-[37px] font-normal font-['Plus Jakarta Sans']">{{ user.username }}</div>
+            <div class="left-[470px] top-[276px] absolute text-[#757575] text-2xl font-semibold font-['Inter']">
+                <!--CHANGE TO PAGE REDIRECTIONS -->
+                {% if user.is_authenticated %}
+                    {% if user.user_type == "tenant" %}
+                        69 Reviews
+                    {% else %}
+                        6.9 Ratings
+                    {% endif %}
+
+                {% endif %}
+            </div>
+
+            <!-- BOOKINGS-->
+
+            <div
+                class="w-36 h-[37px] left-[474px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
+                <a href="" onclick="moveSlider('upcoming')">Upcoming</a>
+            </div>
+            <div
+                class="w-[206px] h-[37px] left-[617px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
+                <a href="" onclick="moveSlider('completed')">Completed</a>
+            </div>
+            <div class="w-[857px] h-[0px] left-[468px] top-[500px] absolute border border-[#e8eaec]"></div>
+            <div id="slider" class="w-[107px] h-1 left-[469px] top-[500px] absolute bg-[#964834]"></div>
+            <div
+                class="w-[272px] h-[65px] left-[468px] top-[400px] absolute text-black text-[32px] font-extrabold font-['Plus Jakarta Sans']">
+                Bookings
+            </div>
+
+            <script>
+                function moveSlider(type) {
+                    const slider = document.getElementById("slider");
+                    if (type === "upcoming") {
+                        slider.style.left = "469px"; // Position for "Upcoming"
+                    } else if (type === "completed") {
+                        slider.style.left = "617px"; // Position for "Completed"
+                    }
+                }
+            </script>
+
+            <!--Booked Details-->
+
+            <div
+                class="w-[177px] h-7 left-[595px] top-[580px] absolute text-[#484848] text-base font-bold font-['Plus Jakarta Sans']">
+                Victor Village 333-2C
+            </div>
+            <div
+                class="w-[155px] h-[23px] left-[595px] top-[600px] absolute text-[#484848] text-[13px] font-semibold font-['Plus Jakarta Sans']">
+                Landlord: </span><span class="text-[#9a9a9a] text-[13px] font-medium font-['Plus Jakarta Sans']"> Jean Gil  </span>
+            </div>
+            <div class="w-[155px] h-[23px] left-[740px] top-[600px] absolute">
+                <span class="text-[#484848] text-[13px] font-semibold font-['Plus Jakarta Sans']">Date: </span><span
+                class="text-[#484848] text-[13px] font-light font-['Plus Jakarta Sans']">Oct 22, 2024</span></div>
+            <img class="w-[107px] h-[107px] left-[469px] top-[550px] absolute rounded-md"
+                 src="https://tinyurl.com/29vu8vc6" />
+            <div class="w-[138px] h-[47px] left-[1169px] top-[570px] absolute bg-[#964834] rounded-[10px]"></div>
+            <div
+                class="w-[104px] h-[29px] left-[1185px] top-[580px] absolute text-center text-[#f7f6fe] text-[19px] font-semibold font-['Plus Jakarta Sans']">
+                Cancel
+            </div>
+
+
+            <!--Left Grey Box -->
+            <div class="w-[324px] h-[472px] left-[91px] top-[400px] absolute bg-[#e8e8e8]/40">
+                <div class="w-[255px] h-[355px] left-[50px] top-[15px] absolute">
+                    <div class="w-[209.62px] h-[43.94px] left-[4.32px] top-[188.49px] absolute">
+                        <div class="w-[180.44px] h-[43.94px] left-[29.17px] top-[-0px] absolute">
+                            <div
+                                class="w-[180.44px] h-[19.66px] left-0 top-0 absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.address }}</div>
+
+                            <div
+                                class="w-[249.60px] h-[0px] left-[-30.0px] top-[63.60px] absolute opacity-10 border border-[#030229]"></div>
+                        </div>
+                        <img class="w-[15.13px] h-[19.66px] left-0 top-[4.63px] absolute"
+                             src="https://via.placeholder.com/15x20" />
+                    </div>
+                    <div class="w-[250.68px] h-[63.60px] left-[4.32px] top-[101.76px] absolute">
+                        <div
+                            class="w-[249.60px] h-[0px] left-0 top-0 absolute opacity-10 border border-[#030229]"></div>
+                        <div
+                            class="w-[249.60px] h-[0px] left-[1.08px] top-[63.60px] absolute opacity-10 border border-[#030229]"></div>
+                    </div>
+                    <div
+                        class="w-[249.60px] h-[0px] left-[4.32px] top-[311.06px] absolute opacity-10 border border-[#030229]"></div>
+                    <div class="w-[189.09px] h-[27.75px] left-[1.08px] top-[120.26px] absolute">
+                        <div
+                            class="w-[156.67px] h-[17.35px] left-[32.42px] top-[4.63px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']"> {{ user.birthdate }}</div>
+                        <div
+                            class="w-[25.93px] h-[27.75px] left-0 top-0 absolute flex-col justify-start items-start inline-flex"></div>
+                    </div>
+                    <div class="w-[143.71px] h-[20.81px] left-[4.32px] top-[334.19px] absolute">
+                        <div
+                            class="w-[114.53px] h-[17.35px] left-[29.17px] top-[-0px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.phone_number }}</div>
+                    </div>
+                    <div class="w-[240.95px] h-[27.75px] left-0 top-[55.51px] absolute">
+                        <div
+                            class="w-[207.46px] h-[17.35px] left-[33.50px] top-[2.31px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.gender }}</div>
+                        <div class="w-[25.93px] h-[27.75px] left-0 top-0 absolute"></div>
+                    </div>
+                    <div class="w-[242.03px] h-[20.81px] left-[4.32px] top-[267.12px] absolute">
+                        <div
+                            class="w-[212.86px] h-[17.35px] left-[29.17px] top-[-0px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.email }}</div>
+                        <img class="w-[17.29px] h-[17.35px] left-0 top-[3.47px] absolute"
+                             src="https://via.placeholder.com/17x17" />
+                    </div>
+                    <div
+                        class="w-[123.18px] h-[23.13px] left-[4.32px] top-0 absolute text-black text-xl font-bold font-['Plus Jakarta Sans']">
+                        About
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
