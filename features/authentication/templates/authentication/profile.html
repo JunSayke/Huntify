@@ -2,123 +2,144 @@
 
 {% block content %}
     {% include 'html/header.html' %}
-    <!-- Top Profile, banner, name, edit profile -->
-    <div class="w-full h-[1500px] relative bg-white">
-        <div class="w-full h-[238px] left-0 right-0 absolute bg-[#3aafa9]"></div>
-        <div class="w-[1440px] h-[357px] left-[-11px]  absolute">
-            <div
-                class="left-[470px] top-[231px] absolute text-black text-[37px] font-normal font-['Plus Jakarta Sans']">{{ user.username }}</div>
-            <div class="left-[470px] top-[276px] absolute text-[#757575] text-2xl font-semibold font-['Inter']">
-                <!--CHANGE TO PAGE REDIRECTIONS -->
-                {% if user.is_authenticated %}
-                    {% if user.user_type == "tenant" %}
-                        69 Reviews
-                    {% else %}
-                        6.9 Ratings
-                    {% endif %}
+    <main class="border">
+        <section class="border max-w-minmax h-screen mx-auto">
+            <div class="bg-[#3AAFA9] h-[20%]">
+                <div
+                    class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
 
-                {% endif %}
-            </div>
-
-            <!-- BOOKINGS-->
-
-            <div
-                class="w-36 h-[37px] left-[474px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
-                <a href="" onclick="moveSlider('upcoming')">Upcoming</a>
-            </div>
-            <div
-                class="w-[206px] h-[37px] left-[617px] top-[470px] absolute text-black text-lg font-bold font-['Plus Jakarta Sans']">
-                <a href="" onclick="moveSlider('completed')">Completed</a>
-            </div>
-            <div class="w-[857px] h-[0px] left-[468px] top-[500px] absolute border border-[#e8eaec]"></div>
-            <div id="slider" class="w-[107px] h-1 left-[469px] top-[500px] absolute bg-[#964834]"></div>
-            <div
-                class="w-[272px] h-[65px] left-[468px] top-[400px] absolute text-black text-[32px] font-extrabold font-['Plus Jakarta Sans']">
-                Bookings
-            </div>
-
-            <script>
-                function moveSlider(type) {
-                    const slider = document.getElementById("slider");
-                    if (type === "upcoming") {
-                        slider.style.left = "469px"; // Position for "Upcoming"
-                    } else if (type === "completed") {
-                        slider.style.left = "617px"; // Position for "Completed"
-                    }
-                }
-            </script>
-
-            <!--Booked Details-->
-
-            <div
-                class="w-[177px] h-7 left-[595px] top-[580px] absolute text-[#484848] text-base font-bold font-['Plus Jakarta Sans']">
-                Victor Village 333-2C
-            </div>
-            <div
-                class="w-[155px] h-[23px] left-[595px] top-[600px] absolute text-[#484848] text-[13px] font-semibold font-['Plus Jakarta Sans']">
-                Landlord: </span><span class="text-[#9a9a9a] text-[13px] font-medium font-['Plus Jakarta Sans']"> Jean Gil  </span>
-            </div>
-            <div class="w-[155px] h-[23px] left-[740px] top-[600px] absolute">
-                <span class="text-[#484848] text-[13px] font-semibold font-['Plus Jakarta Sans']">Date: </span><span
-                class="text-[#484848] text-[13px] font-light font-['Plus Jakarta Sans']">Oct 22, 2024</span></div>
-            <img class="w-[107px] h-[107px] left-[469px] top-[550px] absolute rounded-md"
-                 src="https://tinyurl.com/29vu8vc6" />
-            <div class="w-[138px] h-[47px] left-[1169px] top-[570px] absolute bg-[#964834] rounded-[10px]"></div>
-            <div
-                class="w-[104px] h-[29px] left-[1185px] top-[580px] absolute text-center text-[#f7f6fe] text-[19px] font-semibold font-['Plus Jakarta Sans']">
-                Cancel
-            </div>
-
-
-            <!--Left Grey Box -->
-            <div class="w-[324px] h-[472px] left-[91px] top-[400px] absolute bg-[#e8e8e8]/40">
-                <div class="w-[255px] h-[355px] left-[50px] top-[15px] absolute">
-                    <div class="w-[209.62px] h-[43.94px] left-[4.32px] top-[188.49px] absolute">
-                        <div class="w-[180.44px] h-[43.94px] left-[29.17px] top-[-0px] absolute">
-                            <div
-                                class="w-[180.44px] h-[19.66px] left-0 top-0 absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.address }}</div>
-
-                            <div
-                                class="w-[249.60px] h-[0px] left-[-30.0px] top-[63.60px] absolute opacity-10 border border-[#030229]"></div>
+                    <div class="border col-start-1 place-items-center">
+                        <div
+                            class="flex size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                        >
+                            <svg class="size-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
                         </div>
-                        <img class="w-[15.13px] h-[19.66px] left-0 top-[4.63px] absolute"
-                             src="https://via.placeholder.com/15x20" />
+
                     </div>
-                    <div class="w-[250.68px] h-[63.60px] left-[4.32px] top-[101.76px] absolute">
-                        <div
-                            class="w-[249.60px] h-[0px] left-0 top-0 absolute opacity-10 border border-[#030229]"></div>
-                        <div
-                            class="w-[249.60px] h-[0px] left-[1.08px] top-[63.60px] absolute opacity-10 border border-[#030229]"></div>
+                    <div class="border col-start-2 h-1/2 translate-y-full px-5">
+
+                        <h1 class="float-left">Antonio Ubaldo<br />0 Reviews</h1>
+                        <a href="{% url 'authentication:edit-profile' %}"
+                           class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            Edit Profile
+                        </a>
                     </div>
-                    <div
-                        class="w-[249.60px] h-[0px] left-[4.32px] top-[311.06px] absolute opacity-10 border border-[#030229]"></div>
-                    <div class="w-[189.09px] h-[27.75px] left-[1.08px] top-[120.26px] absolute">
-                        <div
-                            class="w-[156.67px] h-[17.35px] left-[32.42px] top-[4.63px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']"> {{ user.birthdate }}</div>
-                        <div
-                            class="w-[25.93px] h-[27.75px] left-0 top-0 absolute flex-col justify-start items-start inline-flex"></div>
+                    <div class="border row-start-2 col-start-1 h-full p-5">
+                        <h5 class="font-bold mb-5">About</h5>
+                        <ul class="flex flex-col gap-y-2">
+                            <li>
+                                <div class="flex items-center gap-x-2 border p-2">
+                                    <div
+                                        class="flex size-5 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
+                                    >
+                                        <svg
+                                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 18"
+                                        >
+                                            <path
+                                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span>Male</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center gap-x-2 border p-2">
+                                    <div
+                                        class="flex size-5 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
+                                    >
+                                        <svg
+                                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 18"
+                                        >
+                                            <path
+                                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span>Born June 26, 1980</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center gap-x-2 border p-2">
+                                    <div
+                                        class="flex size-5 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
+                                    >
+                                        <svg
+                                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 18"
+                                        >
+                                            <path
+                                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span>Tres De Abril Village Cebu</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center gap-x-2 border p-2">
+                                    <div
+                                        class="flex size-5 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
+                                    >
+                                        <svg
+                                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 18"
+                                        >
+                                            <path
+                                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span>gamerdog@gmail.com</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center gap-x-2 border p-2">
+                                    <div
+                                        class="flex size-5 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
+                                    >
+                                        <svg
+                                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 18"
+                                        >
+                                            <path
+                                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span>09123456789</span>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="w-[143.71px] h-[20.81px] left-[4.32px] top-[334.19px] absolute">
-                        <div
-                            class="w-[114.53px] h-[17.35px] left-[29.17px] top-[-0px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.phone_number }}</div>
-                    </div>
-                    <div class="w-[240.95px] h-[27.75px] left-0 top-[55.51px] absolute">
-                        <div
-                            class="w-[207.46px] h-[17.35px] left-[33.50px] top-[2.31px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.gender }}</div>
-                        <div class="w-[25.93px] h-[27.75px] left-0 top-0 absolute"></div>
-                    </div>
-                    <div class="w-[242.03px] h-[20.81px] left-[4.32px] top-[267.12px] absolute">
-                        <div
-                            class="w-[212.86px] h-[17.35px] left-[29.17px] top-[-0px] absolute opacity-70 text-black text-base font-normal font-['Plus Jakarta Sans']">{{ user.email }}</div>
-                        <img class="w-[17.29px] h-[17.35px] left-0 top-[3.47px] absolute"
-                             src="https://via.placeholder.com/17x17" />
-                    </div>
-                    <div
-                        class="w-[123.18px] h-[23.13px] left-[4.32px] top-0 absolute text-black text-xl font-bold font-['Plus Jakarta Sans']">
-                        About
+                    <div class="border row-start-2 col-start-2 h-full p-5">
+                        {% if user.user_type == 'tenant' %}
+                            <h5 class="font-bold">Bookings</h5>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 {% endblock %}

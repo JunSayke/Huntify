@@ -47,7 +47,13 @@ module.exports = {
     theme: {
         extend: {
             width: {
-                minmax: "1240px"
+                'minmax': '1240px'
+            },
+            minWidth: {
+                'minmax': '1240px'
+            },
+            maxWidth: {
+                'minmax': '1240px'
             },
         }
     },

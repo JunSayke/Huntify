@@ -1,0 +1,135 @@
+{% extends 'html/base.html' %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+    {% include 'html/header.html' %}
+    <main class="border">
+        <section class="border max-w-minmax h-screen mx-auto">
+            <div class="bg-[#3AAFA9] h-[20%]">
+                <div class="border w-4/5 grid grid-cols-[1fr_5fr] h-full translate-y-1/2 ms-[10%]">
+
+                    <div class="border col-start-1">
+                        <label for="profile-pic-file" class="flex items-center justify-center cursor-pointer">
+                            <div
+                                class="flex size-48 items-center justify-center border-dashed rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                            >
+                                <svg class="size-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                          clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input id="profile-pic-file" type="file" class="hidden" />
+                        </label>
+
+                    </div>
+                    <div class="border col-start-2 h-1/2 translate-y-full px-5">
+                        <h1 class="float-left">Antonio Ubaldo<br />0 Reviews</h1>
+                    </div>
+                    <div class="border row-start-2 col-span-2 bg-gray-200 p-5 mt-5">
+                        <form>
+                            <div class="grid grid-cols-2 border gap-5">
+                                <div class="border row-start-1 col-start-1 p-2">
+                                    <label for="username"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                                        Username</label>
+                                    <input type="text" id="username"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="John" required />
+
+                                </div>
+                                <div class="border row-start-2 col-start-1 p-2">
+                                    <label for="email"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                                        address</label>
+                                    <input type="email" id="email"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="john.doe@company.com" required />
+                                </div>
+                                <div class="border row-start-3 col-start-1 p-2">
+                                    <label for="first_name"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                                        name</label>
+                                    <input type="text" id="first_name"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="John" required />
+
+                                </div>
+                                <div class="border row-start-4 col-start-1 p-2">
+                                    <label for="last_name"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                                        name</label>
+                                    <input type="text" id="last_name"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="Doe" required />
+
+                                </div>
+                                <div class="border row-start-1 col-start-2 p-2">
+                                    <label for="gender"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                                        Gender</label>
+                                    <select id="gender"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Others</option>
+                                    </select>
+                                </div>
+                                <div class="border row-start-2 col-start-2 p-2">
+                                    <label for="phone"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
+                                        number</label>
+                                    <input type="tel" id="phone"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+
+                                </div>
+                                <div class="border row-start-3 col-start-2 p-2">
+                                    <label for="address"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                                        Address</label>
+                                    <input type="text" id="address"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="Street, City" required />
+
+                                </div>
+                                <div class="border row-start-4 col-start-2 p-2">
+                                    <label for="birthdate"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
+                                        of Birth</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                 viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+
+                                        <input datepicker id="birthdate" type="text"
+                                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                               placeholder="Select birth date">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="float-right mt-5">
+                                <button type="submit"
+                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    Save Changes
+                                </button>
+                                <a href="{% url 'authentication:change-password' %}"
+                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    Change Password
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

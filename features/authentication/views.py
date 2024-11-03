@@ -19,7 +19,7 @@ def change_password(request):
 
 
 def edit_profile(request):
-    return render(request, "authentication/update-user-info.html")
+    return render(request, "authentication/edit-profile.html")
 
 
 class LogoutView(DjangoLogoutView):

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply mx-auto min-w-[1240px];
+    @apply mx-auto min-w-minmax;
 }
 
 .clearfix::after {
