@@ -14,12 +14,16 @@ def profile(request):
     return render(request, "authentication/profile.html")
 
 
+def fill_personal_information(request):
+    return render(request, "authentication/additional_info.html")
+
+
 def change_password(request):
-    return render(request, "authentication/change-password.html")
+    return render(request, "authentication/change_password.html")
 
 
 def edit_profile(request):
-    return render(request, "authentication/edit-profile.html")
+    return render(request, "authentication/edit_profile.html")
 
 
 class LogoutView(DjangoLogoutView):
@@ -67,4 +71,4 @@ class RegistrationWizard(SessionWizardView):
         # return render(self.request, 'authentication/registration_done.html', {
         #     'form_data': [form.cleaned_data for form in form_list if form.cleaned_data],
         # })
-        return redirect('authentication:login')
+        return redirect('authentication:fill-personal-information')

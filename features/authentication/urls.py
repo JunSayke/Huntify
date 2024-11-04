@@ -12,4 +12,5 @@ urlpatterns = [
     path("profile", login_required(views.profile), name="profile"),
     path("change-password", login_required(views.change_password), name="change-password"),
     path("edit-profile", login_required(views.edit_profile), name="edit-profile"),
+    path("additional-info", login_required(views.fill_personal_information), name="fill-personal-information"),
 ]

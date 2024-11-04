@@ -105,8 +105,23 @@
                 </div>
                 <div class="col-start-1 row-start-5 border p-5"></div>
                 <div class="col-start-2 row-start-1 border p-5">
-                    <strong>Description</strong>
-                    <p>Boarding House Description</p>
+                    <div class="border">
+                        <h6 class="mb-2 font-bold">Description</h6>
+                        <p>
+              <span class="font-medium"
+              >Landlord:
+                <a
+                    href="{% url 'authentication:profile' %}"
+                    class="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                >Wewe</a
+                ></span
+              ><br />
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
+                            nam autem deleniti nostrum nihil quo fuga, inventore odio
+                            voluptatem veritatis ipsam doloribus vel minus optio, rem
+                            laudantium, facere ad recusandae?
+                        </p>
+                    </div>
                 </div>
                 <div class="col-start-2 row-start-2 border p-5">
                     <h5 class="pb-5">Landlord Rules</h5>
@@ -150,7 +165,7 @@
                     </div>
                 </div>
                 <div class="col-start-2 row-start-3 border p-5">
-                    <h5 class="pb-5">Landlord Rules</h5>
+                    <h5 class="pb-5">Facilities</h5>
                 </div>
                 <div class="col-start-2 row-span-2 row-start-4 border p-5">
                     <div>
@@ -158,7 +173,7 @@
                     </div>
                     <div>
                         <p><strong>Available Rooms</strong><br /><span>3</span></p>
-                        <a href="#">View Rooms</a>
+                        <a href="{% url 'boarding_house:boarding-house-rooms' %}">View Rooms</a>
                     </div>
                 </div>
             </div>

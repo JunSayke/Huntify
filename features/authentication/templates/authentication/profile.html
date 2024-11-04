@@ -8,9 +8,9 @@
                 <div
                     class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
 
-                    <div class="border col-start-1 place-items-center">
+                    <div class="border col-start-1 place-items-center place-content-center">
                         <div
-                            class="flex size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                            class="flex size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 bg-gray-50"
                         >
                             <svg class="size-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,15 @@
                     </div>
                     <div class="border col-start-2 h-1/2 translate-y-full px-5">
 
-                        <h1 class="float-left">Antonio Ubaldo<br />0 Reviews</h1>
+                        <h5 class="float-left font-medium">Antonio Ubaldo<br />
+                            <span class="font-normal text-xs">
+                            {% if user.user_type == 'tenant' %}
+                                0 Reviews
+                            {% else %}
+                                ⭐ 4.9 Rating
+                            {% endif %}
+                            </span>
+                        </h5>
                         <a href="{% url 'authentication:edit-profile' %}"
                            class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                             Edit Profile

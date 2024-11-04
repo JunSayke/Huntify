@@ -37,3 +37,9 @@ class LandlordRegistrationForm(UserRegistrationForm):
         if commit:
             user.save()
         return user
+
+
+class AdditionalInfoForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'gender', 'birthdate']

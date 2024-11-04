@@ -11,15 +11,19 @@ def booking_management(request):
 
 
 def rent_a_room(request):
-    return render(request, 'boarding_house/rent-a-room.html')
+    return render(request, 'boarding_house/rent_a_room.html')
 
 
 def boarding_house_detail(request):
-    return render(request, 'boarding_house/boarding-house-detail.html')
+    return render(request, 'boarding_house/boarding_house_detail.html')
 
 
 def boarding_room_detail(request):
-    return render(request, 'boarding_house/boarding-room-detail.html')
+    return render(request, 'boarding_house/boarding_room_detail.html')
+
+
+def boarding_house_rooms(request):
+    return render(request, 'boarding_house/boarding_house_rooms.html')
 
 
 def get_property_table(request, property_type):

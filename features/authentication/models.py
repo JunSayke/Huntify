@@ -22,8 +22,17 @@ class User(AbstractUser, UUIDPKMixin):
         LANDLORD = 'landlord', 'Landlord'
         ADMIN = 'admin', 'Admin'
 
+    class Gender(models.TextChoices):
+        MALE = 'male', 'Male'
+        FEMALE = 'female', 'Female'
+        OTHER = 'other', 'Other'
+
+    first_name = models.CharField(_('first name'), max_length=30, blank=True, null=True)
+    last_name = models.CharField(_('last name'), max_length=150, blank=True, null=True)
+
+    gender = models.CharField(_("gender"), max_length=10, choices=Gender.choices, default=Gender.OTHER)
     phone_number = models.EmailField(_('phone number'), blank=True, null=True, unique=True)
-    age = models.PositiveIntegerField(_('age'), blank=True, null=True)
+    birthdate = models.DateField(_('birthdate'), blank=True, null=True)
     updated_at = models.DateTimeField(_('updated at'), auto_now=True)
 
     user_type = models.CharField(_("user type"), max_length=10, choices=Type.choices, default=Type.TENANT)
