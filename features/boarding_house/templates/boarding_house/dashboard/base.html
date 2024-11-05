@@ -87,7 +87,7 @@
                                             />
                                         </svg>
                                     </div>
-                                    <a href="{% url 'authentication:profile' %}">View Profile</a>
+                                    <a href="{{ user.get_absolute_url }}">View Profile</a>
                                 </div>
                             </li>
                             <li>

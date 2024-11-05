@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+
 from .models import User, Tenant, Landlord
 
 
@@ -43,3 +44,17 @@ class AdditionalInfoForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'gender', 'birthdate']
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'profile_picture', 'first_name', 'last_name', 'birthdate',
+                  'gender']
+        widgets = {
+            'birthdate': forms.DateInput(attrs={'type': 'date', 'readonly': 'readonly'}),
+            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'gender': forms.Select(attrs={'readonly': 'readonly'}),
+        }
+
+

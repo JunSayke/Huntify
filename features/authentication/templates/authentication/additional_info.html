@@ -36,38 +36,41 @@
                             {% csrf_token %}
                             <div class="grid grid-cols-2 grid-rows-2 gap-5 border p-5">
                                 <div class="border p-2">
-                                    <label for="first_name"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
-                                        name</label>
-                                    <input type="text" id="first_name"
+                                    <label for="{{ form.first_name.id_for_label }}"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.first_name.label }}</label>
+                                    <input type="text" id="{{ form.first_name.id_for_label }}"
+                                           name="{{ form.first_name.name }}"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="John" required />
 
                                 </div>
                                 <div class="border p-2">
-                                    <label for="last_name"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
-                                        name</label>
-                                    <input type="text" id="last_name"
+                                    <label for="{{ form.last_name.id_for_label }}"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.last_name.label }}</label>
+                                    <input type="text" id="{{ form.last_name.id_for_label }}"
+                                           name="{{ form.last_name.name }}"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="Doe" required />
 
                                 </div>
                                 <div class="border p-2">
-                                    <label for="gender"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                                    <select id="gender"
+                                    <label for="{{ form.gender.id_for_label }}"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.gender.label }}</label>
+                                    <select id="{{ form.gender.id_for_label }}"
+                                            name="{{ form.gender.name }}"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option selected>Select a gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option
+                                            value="{{ form.gender.subwidgets.0.data.value }}">{{ form.gender.subwidgets.0.choice_label }}</option>
+                                        <option
+                                            value="{{ form.gender.subwidgets.1.data.value }}">{{ form.gender.subwidgets.1.choice_label }}</option>
+                                        <option
+                                            value="{{ form.gender.subwidgets.2.data.value }}">{{ form.gender.subwidgets.2.choice_label }}</option>
                                     </select>
                                 </div>
                                 <div class="border p-2">
-                                    <label for="birthdate"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
-                                        of Birth</label>
+                                    <label for="{{ form.birthdate.id_for_label }}"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.birthdate.label }}</label>
                                     <div class="relative">
                                         <div
                                             class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -79,24 +82,36 @@
                                             </svg>
                                         </div>
 
-                                        <input datepicker datepicker-orientation="top right" id="birthdate" type="text"
+                                        <input datepicker datepicker-orientation="top right"
+                                               id="{{ form.birthdate.id_for_label }}" type="text"
+                                               name="{{ form.birthdate.name }}"
                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                placeholder="Select a date">
                                     </div>
                                 </div>
                             </div>
-                            <div class="border text-center">
+                            <div class="border text-center m-5">
                                 <p>
                                     Please fill up the following to proceed. .
                                 </p>
                                 <button
                                     type="submit"
-                                    class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    class="m-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
                                     Submit
                                 </button>
+
                             </div>
 
+                        </form>
+                        <form method="POST" action="{% url 'authentication:logout' %}">
+                            {% csrf_token %}
+                            <button
+                                type="submit"
+                                class="text-center w-full font-medium text-red-600 dark:text-red-500 hover:underline p-2"
+                            >
+                                Sign out
+                            </button>
                         </form>
                     </div>
                 </div>

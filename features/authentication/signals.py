@@ -24,4 +24,7 @@ def assign_landlord_group(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Admin)
 def assign_admin_group(sender, instance, created, **kwargs):
+    if created:
+        instance.is_staff = True
+        instance.save()
     assign_group(instance, created, [])

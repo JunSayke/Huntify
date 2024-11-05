@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from features.authentication.forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationForm
+
+from features.authentication.forms import UserTypeForm
 
 
 # Create your views here.

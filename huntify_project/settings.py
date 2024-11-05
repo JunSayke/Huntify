@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_browser_reload',  # tailwindcss
     'formtools',  # formwizard
     'utilities',
+    'features.address',
     'features.authentication',
     'features.boarding_house',
 ]
@@ -74,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'features.authentication.middleware.EnsureProfileCompleteMiddleware',  # for profile completion (Order Matters)
 ]
 
 ROOT_URLCONF = 'huntify_project.urls'
@@ -135,6 +137,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "flowbite": "^2.5.2",
+    "htmx.org": "^2.0.3",
     "jquery": "^3.7.1",
     "simple-datatables": "^9.2.1"
   }

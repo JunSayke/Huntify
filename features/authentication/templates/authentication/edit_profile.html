@@ -5,24 +5,24 @@
     <main class="border">
         <section class="border max-w-minmax h-screen mx-auto">
             <div class="bg-[#3AAFA9] h-[20%]">
-                <div
-                    class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
-
+                <form method="POST" enctype="multipart/form-data"
+                      class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
+                    {% csrf_token %}
                     <div class="border col-start-1 place-items-center place-content-center">
-                        <label for="profile-pic-file" class="relative flex items-center justify-center cursor-pointer">
+                        <label for="{{ form.profile_picture.id_for_label }}"
+                               class="relative flex items-center justify-center cursor-pointer">
                             <div
-                                class="flex size-48 items-center justify-center border-dashed rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                            >
-                                <svg class="size-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
+                                class="flex relative size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <img id="profile-pic-preview" src="
 
+
+
+
+
+                                    {% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}data:image/svg+xml,%3Csvg class='size-full' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E{% endif %}"
+                                     alt="Profile Image" class="size-full object-cover">
                             </div>
-                            <div
-                                class="absolute right-2 bottom-2 size-10 rounded bg-gray-300 dark:bg-gray-700"
-                            >
+                            <div class="absolute right-2 bottom-2 size-10 rounded bg-gray-300 dark:bg-gray-700">
                                 <svg class="size-full text-gray-800 dark:text-white" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                      viewBox="0 0 24 24">
@@ -33,134 +33,153 @@
                                           d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
                                           clip-rule="evenodd" />
                                 </svg>
-
                             </div>
-
-                            <input id="profile-pic-file" type="file" class="hidden" />
+                            <input type="file" accept="image/*" id="{{ form.profile_picture.id_for_label }}"
+                                   name="{{ form.profile_picture.name }}" class="hidden" />
                         </label>
-
                     </div>
                     <div class="border col-start-2 h-1/2 translate-y-full px-5">
-                        <h5 class="float-left font-medium">Antonio Ubaldo<br />
+                        <h5 class="float-left font-medium">{{ user.get_full_name }}<br />
                             <span class="font-normal text-xs">
                             {% if user.user_type == 'tenant' %}
                                 0 Reviews
-                            {% else %}
+                            {% elif user.user_type == 'landlord' %}
                                 ⭐ 4.9 Rating
+                            {% elif user_profile.user_type == 'admin' %}
+                                Admin
                             {% endif %}
                             </span>
                         </h5>
-                        <a href="{% url 'authentication:profile' %}"
-                           class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        <a href="{{ user.get_absolute_url }}"
+                           class="ms-2 float-right focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                             Cancel
                         </a>
                     </div>
                     <div class="border row-start-2 col-span-2 bg-gray-200 p-5 mt-5">
-                        <form>
-                            <div class="grid grid-cols-2 border gap-5">
-                                <div class="border row-start-1 col-start-1 p-2">
-                                    <label for="username"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username
-                                    </label>
-                                    <input type="text" id="username"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="John" readonly />
-
-                                </div>
-                                <div class="border row-start-2 col-start-1 p-2">
-                                    <label for="email"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
-                                        address</label>
-                                    <input type="email" id="email"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="john.doe@company.com" required />
-                                </div>
-                                <div class="border row-start-3 col-start-1 p-2">
-                                    <label for="first_name"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
-                                        name</label>
-                                    <input type="text" id="first_name"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="John" required />
-
-                                </div>
-                                <div class="border row-start-4 col-start-1 p-2">
-                                    <label for="last_name"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
-                                        name</label>
-                                    <input type="text" id="last_name"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="Doe" required />
-
-                                </div>
-                                <div class="border row-start-1 col-start-2 p-2">
-                                    <label for="gender"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
-                                        Gender</label>
-                                    <select disabled id="gender"
-                                            readonly
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Others</option>
-                                    </select>
-                                </div>
-                                <div class="border row-start-2 col-start-2 p-2">
-                                    <label for="phone"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
-                                        number</label>
-                                    <input type="tel" id="phone"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-
-                                </div>
-                                <div class="border row-start-3 col-start-2 p-2">
-                                    <label for="address"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
-                                        Address</label>
-                                    <input type="text" id="address"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="Street, City" required />
-
-                                </div>
-                                <div class="border row-start-4 col-start-2 p-2">
-                                    <label for="birthdate"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
-                                        of Birth</label>
-                                    <div class="relative">
-                                        <div
-                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 viewBox="0 0 20 20">
-                                                <path
-                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                            </svg>
-                                        </div>
-
-                                        <input datepicker datepicker-orientation="top right" id="birthdate" type="text"
-                                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               placeholder="06/05/2004" disabled>
+                        <div class="grid grid-cols-2 border gap-5">
+                            <div class="border row-start-1 col-start-1 p-2">
+                                <label for="{{ form.username.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.username.label }}</label>
+                                <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="Username" value="{{ user.username }}" readonly />
+                            </div>
+                            <div class="border row-start-2 col-start-1 p-2">
+                                <label for="{{ form.email.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.email.label }}</label>
+                                <input type="email" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="Email Address" value="{{ user.email }}" />
+                            </div>
+                            <div class="border row-start-1 col-start-2 p-2">
+                                <label for="{{ form.first_name.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.first_name.label }}</label>
+                                <input type="text" id="{{ form.first_name.id_for_label }}"
+                                       name="{{ form.first_name.name }}"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="First Name" value="{{ user.first_name }}" />
+                            </div>
+                            <div class="border row-start-2 col-start-2 p-2">
+                                <label for="{{ form.last_name.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.last_name.label }}</label>
+                                <input type="text" id="{{ form.last_name.id_for_label }}"
+                                       name="{{ form.last_name.name }}"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="Last Name" value="{{ user.last_name }}" />
+                            </div>
+                            <div class="border row-start-3 col-start-1 p-2">
+                                <label for="{{ form.gender.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.gender.label }}</label>
+                                <select id="{{ form.gender.id_for_label }}" name="{{ form.gender.name }}"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="{{ form.gender.subwidgets.0.data.value }}"
+                                            {% if user.gender == form.gender.subwidgets.0.data.value %}selected{% endif %}>{{ form.gender.subwidgets.0.choice_label }}</option>
+                                    <option value="{{ form.gender.subwidgets.1.data.value }}"
+                                            {% if user.gender == form.gender.subwidgets.1.data.value %}selected{% endif %}>{{ form.gender.subwidgets.1.choice_label }}</option>
+                                    <option value="{{ form.gender.subwidgets.2.data.value }}"
+                                            {% if user.gender == form.gender.subwidgets.2.data.value %}selected{% endif %}>{{ form.gender.subwidgets.2.choice_label }}</option>
+                                </select>
+                            </div>
+                            <div class="border row-start-3 col-start-2 p-2">
+                                <label for="{{ form.birthdate.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.birthdate.label }}</label>
+                                <div class="relative">
+                                    <div
+                                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                        </svg>
                                     </div>
-
+                                    <input datepicker datepicker-orientation="top right"
+                                           id="{{ form.birthdate.id_for_label }}" name="{{ form.birthdate.name }}"
+                                           type="text"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           placeholder="MM/DD/YYYY" data-date="{{ user.birthdate|date:'m/d/Y' }}"
+                                           value="{{ user.birthdate|date:'m/d/Y' }}" disabled>
                                 </div>
                             </div>
-                            <div class="float-right mt-5">
-                                <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                    Save Changes
+                            {% if form.non_field_errors %}
+                                <div class="text-red-500 text-sm py-5 text-center ">{{ form.non_field_errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="float-left mt-5 px-5">
+                            <div>
+                                <p class="text-sm">
+                                    {% if user.phone_number %}
+                                        {{ user.phone_number }}
+                                    {% else %}
+                                        Phone number not provided
+                                    {% endif %}
+                                </p>
+                                <button class="text-xs font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    Edit Phone Number
                                 </button>
-                                <a href="{% url 'authentication:change-password' %}"
-                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                    Change Password
-                                </a>
                             </div>
-                        </form>
+                            <div>
+                                <p class="text-sm">
+                                    {% if user.street or user.city or user.municipality or user.barangay %}
+                                        {{ user.street }} {{ user.city.name }}
+                                        {{ user.municipality.name }}
+                                        {{ user.barangay.name }}
+                                    {% else %}
+                                        Address not provided
+                                    {% endif %}
+                                </p>
+                                <button class="text-xs font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    Edit Address
+                                </button>
+                            </div>
+                        </div>
+                        <div class="float-right mt-5 px-5">
+                            <button type="submit"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                Save Changes
+                            </button>
+                            <a href="{% url 'authentication:change-password' %}"
+                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Change
+                                Password</a>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </section>
     </main>
-
+    <script>
+        $(document).ready(() => {
+            const photoInp = $("#{{ form.profile_picture.id_for_label }}");
+            photoInp.change(function(e) {
+                const file = this.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $("#profile-pic-preview")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 {% endblock %}
