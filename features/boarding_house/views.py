@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -32,3 +33,4 @@ def get_property_table(request, property_type):
             return render(request, 'boarding_house/dashboard/boarding-house-table.html')
         elif property_type == 'boarding_room':
             return render(request, 'boarding_house/dashboard/boarding-room-table.html')
+    return HttpResponse(status=400)

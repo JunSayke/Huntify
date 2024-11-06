@@ -51,7 +51,7 @@
                                         required
                                     />
                                     {% if form.username.errors %}
-                                        <p class="text-red-500 text-sm">{{ form.username.errors }}</p>
+                                        <div class="text-red-500 text-sm pt-2">{{ form.username.errors }}</div>
                                     {% endif %}
                                 </div>
                                 <div class="border py-2">
@@ -69,12 +69,12 @@
                                         required
                                     />
                                     {% if form.password.errors %}
-                                        <p class="text-red-500 text-sm">{{ form.password.errors }}</p>
+                                        <div class="text-red-500 text-sm pt-2">{{ form.password.errors }}</div>
                                     {% endif %}
                                 </div>
                                 {% if form.non_field_errors %}
                                     <div
-                                        class="text-red-500 text-sm py-5 text-center ">{{ form.non_field_errors }}</div>
+                                        class="text-red-500 text-sm py-5 text-center">{{ form.non_field_errors }}</div>
                                 {% endif %}
                                 <div class="border text-center">
                                     <p class="py-2">

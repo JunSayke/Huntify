@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DetailView
 from formtools.wizard.views import SessionWizardView
 from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationForm, UserUpdateForm, AdditionalInfoForm
-from django.contrib.auth.views import LoginView as DjangoLoginView
+from django.contrib.auth.views import LoginView as DjangoLoginView, PasswordChangeView
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 
 from .models import User
@@ -32,8 +32,9 @@ def fill_personal_information(request):
     return render(request, "authentication/additional_info.html")
 
 
-def change_password(request):
-    return render(request, "authentication/change_password.html")
+class ChangePasswordView(PasswordChangeView):
+    template_name = "authentication/change_password.html"
+    success_url = reverse_lazy('authentication:my-profile')
 
 
 class UpdateProfileView(UpdateView):

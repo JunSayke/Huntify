@@ -4,7 +4,7 @@
     {% include 'html/header.html' %}
     <main class="border">
         <section class="border max-w-minmax h-screen mx-auto">
-            <div class="bg-[#3AAFA9] h-[20%]">
+            <div class="bg-[#3AAFA9] h-[20%] min-h-52">
                 <form method="POST" enctype="multipart/form-data"
                       class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
                     {% csrf_token %}
@@ -14,13 +14,11 @@
                             <div
                                 class="flex relative size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <img id="profile-pic-preview" src="
-
-
-
-
-
-                                    {% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}data:image/svg+xml,%3Csvg class='size-full' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E{% endif %}"
-                                     alt="Profile Image" class="size-full object-cover">
+                                    {% if user.profile_picture %}
+                                    {{ user.profile_picture.url }}
+                                    {% else %}
+                                    data:image/svg+xml,%3Csvg class='size-full' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E
+                                    {% endif %}" alt="Profile Image" class="size-full object-cover">
                             </div>
                             <div class="absolute right-2 bottom-2 size-10 rounded bg-gray-300 dark:bg-gray-700">
                                 <svg class="size-full text-gray-800 dark:text-white" aria-hidden="true"

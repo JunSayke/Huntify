@@ -73,39 +73,15 @@
     </div>
     {% include 'boarding_house/add_boarding_house_modal.html' %}
     {% include 'boarding_house/add_boarding_room_modal.html' %}
-{% endblock %}
-{% block scripts %}
-    <script type="module">
-        import { DataTable } from "{% static 'node_modules/simple-datatables/dist/module.js' %}";
-
+    <script>
         $(document).ready(function() {
-            function initializeDataTable() {
-                if ($("#default-table") && typeof DataTable !== "undefined") {
-                    const dataTable = new DataTable("#default-table", {
-                        searchable: false,
-                        perPage: 5,
-                        perPageSelect: false
-                    });
-
-                    $("#table-search").on("input", function() {
-                        dataTable.search(this.value);
-                    });
-                }
-            }
-
-            initializeHTMLTable($("#property-type").val());
-
-            $("#property-type").on("change", function() {
-                initializeHTMLTable(this.value);
+            const property_select = $("#property-type");
+            property_select.change(function() {
+                const url = "{% url 'boarding_house:get-property-table' property_type='PLACEHOLDER' %}".replace("PLACEHOLDER", $(this).val());
+                $("#table-container").load(url);
             });
 
-            function initializeHTMLTable(property_type) {
-                const url = "{% url 'boarding_house:get-property-table' property_type='PLACEHOLDER' %}".replace("PLACEHOLDER", property_type);
-                console.log(url);
-                $("#table-container").load(url, function() {
-                    initializeDataTable();
-                });
-            }
+            property_select.trigger("change");
         });
     </script>
 {% endblock %}
