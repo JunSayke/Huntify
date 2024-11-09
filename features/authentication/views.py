@@ -1,12 +1,13 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
-from django.views.generic import UpdateView, DetailView
-from formtools.wizard.views import SessionWizardView
-from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationForm, UserUpdateForm, AdditionalInfoForm
 from django.contrib.auth.views import LoginView as DjangoLoginView, PasswordChangeView
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import UpdateView, DetailView
+from formtools.wizard.views import SessionWizardView
 
+from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationForm, EditUserForm, AdditionalInfoForm, \
+    EditAddressForm
 from .models import User
 
 
@@ -28,10 +29,6 @@ class ProfileView(DetailView):
         return self.request.user
 
 
-def fill_personal_information(request):
-    return render(request, "authentication/additional_info.html")
-
-
 class ChangePasswordView(PasswordChangeView):
     template_name = "authentication/change_password.html"
     success_url = reverse_lazy('authentication:my-profile')
@@ -39,7 +36,7 @@ class ChangePasswordView(PasswordChangeView):
 
 class UpdateProfileView(UpdateView):
     model = User
-    form_class = UserUpdateForm
+    form_class = EditUserForm
     template_name = "authentication/edit_profile.html"
     success_url = reverse_lazy('authentication:my-profile')
 
@@ -47,6 +44,7 @@ class UpdateProfileView(UpdateView):
         return self.request.user
 
 
+# TODO: Restrict access to this view to users who have not yet filled out their additional info
 class AdditionalInfoView(UpdateView):
     model = User
     form_class = AdditionalInfoForm
@@ -103,3 +101,37 @@ class RegistrationWizard(SessionWizardView):
         #     'form_data': [form.cleaned_data for form in form_list if form.cleaned_data],
         # })
         return redirect('authentication:personal-information')
+
+
+class EditProfileView(View):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        user_form = EditUserForm(instance=user)
+        address_form = EditAddressForm(instance=user)
+        return render(request, 'authentication/edit_profile.html', {
+            'user_form': user_form,
+            'address_form': address_form
+        })
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if EditUserForm.name in request.POST:
+            user_form = EditUserForm(request.POST, request.FILES, instance=user)
+            if user_form.is_valid():
+                user_form.save()
+                return redirect('authentication:my-profile')
+            address_form = EditAddressForm(instance=user)
+        elif EditAddressForm.name in request.POST:
+            address_form = EditAddressForm(request.POST, instance=user)
+            if address_form.is_valid():
+                address_form.save()
+                return redirect('authentication:my-profile')
+            user_form = EditUserForm(instance=user)
+        else:
+            user_form = EditUserForm(instance=user)
+            address_form = EditAddressForm(instance=user)
+
+        return render(request, 'authentication/edit_profile.html', {
+            'user_form': user_form,
+            'address_form': address_form
+        })

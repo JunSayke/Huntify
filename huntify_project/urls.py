@@ -24,9 +24,10 @@ from features.authentication.views import UpdateProfileView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("test/update/<int:pk>/", UpdateProfileView.as_view(), name="test"),
+    path("test/", UpdateProfileView.as_view(), name="test"),
     path("", include("features.authentication.urls")),
     path("", include("features.boarding_house.urls")),
+    path("", include("features.address.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

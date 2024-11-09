@@ -94,7 +94,6 @@ Huntify is designed to simplify property management tasks. It provides a user-fr
 ### Built With
 
 * [![Django][Django.com]][Django-url]
-* [![JQuery][JQuery.com]][JQuery-url]
 * [![Tailwind][Tailwindcss.com]][Tailwind-url]
 * [![HTML][HTML.com]][HTML-url]
 * [![Javascript][Javascript.com]][Javascript-url]
@@ -215,6 +214,7 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 ## Acknowledgments
 
 * [Flowbite](https://flowbite.com)
+* [django-formtools](https://django-formtools.readthedocs.io/)
 * [django-tailwind](https://github.com/timonweb/django-tailwind)
 * [prettier-plugin-django](https://github.com/junstyle/prettier-plugin-django)
 * [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
@@ -253,8 +253,6 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 [Laravel-url]: https://laravel.com
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
 [Django-url]: https://www.djangoproject.com/
 [Django.com]: https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Tailwind-url]: https://tailwindcss.com/
@@ -273,3 +271,5 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 * [ERD](https://online.visual-paradigm.com/share.jsp?id=333030323935352d38#diagram:workspace=uhrbhlrf&proj=0&id=8)
 
 * [Figma](https://www.figma.com/design/lJtAD6inX1gucTBZH60YUz/Huntify-Prototype?node-id=0-1&node-type=canvas&t=xFOIgf7iYVAwB4Jv-0)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>

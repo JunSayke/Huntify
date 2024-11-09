@@ -4,154 +4,175 @@
     aria-hidden="true"
     class="fixed hidden left-0 right-0 top-0 z-50 h-full w-full border"
 >
-    <div class="max-h-full w-full min-w-96 max-w-4xl bg-white p-4">
+    <div class="max-h-full w-full min-w-96 max-w-4xl bg-white p-4 overflow-y-auto">
         <!-- Modal content -->
-        <div class="flex justify-between border px-5">
-            <h1 class="text-center">Add Boarding House</h1>
-            <button data-modal-hide="add-boarding-house-modal">
-                <svg
-                    class="h-6 w-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M6 18 17.94 6M18 18 6.06 6"
-                    />
-                </svg>
-            </button>
-        </div>
-        <div class="border">
-            <div class="gird-rows-8 m-5 grid grid-cols-2 gap-x-5 gap-y-5">
-                <div class="col-start-1 row-span-2 row-start-1 border">
-                    <div>
-                        <label
-                            for="first_name"
-                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                        >Boarding House Name</label
-                        >
-                        <input
-                            type="text"
-                            id="first_name"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                            required
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="flex justify-between border px-5">
+                <h1 class="text-center">Add Boarding House</h1>
+                <button type="button" data-modal-hide="add-boarding-house-modal">
+                    <svg
+                        class="h-6 w-6 text-gray-800 dark:text-white"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18 17.94 6M18 18 6.06 6"
                         />
-                    </div>
-                </div>
-                <div class="col-start-1 row-span-4 row-start-3 border">
-                    <div class="border py-2">
-                        <form class="mx-auto max-w-sm">
-                            <label
-                                for="countries"
-                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                            >Select an Address</label
-                            >
-                            <select
-                                id="municipality"
-                                class="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                            >
-                                <option selected>Choose a municipality</option>
-                                <option value="US">Cebu</option>
-                            </select>
-                            <select
-                                id="barangay"
-                                class="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                            >
-                                <option selected>Choose a barangay</option>
-                                <option value="US">Labangon</option>
-                            </select>
-                        </form>
-                    </div>
-                    <div class="border py-2">
-                        <div
-                            class="flex h-48 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
-                        >
-                            <svg
-                                class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 18"
-                            >
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
+                    </svg>
+                </button>
+            </div>
+            <div class="border">
+                <div class="flex gap-x-5">
+                    <div class="flex flex-1 flex-col gap-y-5 border">
+                        <div class="border p-5">
+                            <div>
+                                <label
+                                    for="{{ boarding_house_create_form.boarding_house_name.id_for_label }}"
+                                    class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                                >Boarding House Name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="{{ boarding_house_create_form.boarding_house_name.id_for_label }}"
+                                    name="{{ boarding_house_create_form.boarding_house_name.name }}"
+                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    required
                                 />
-                            </svg>
+                            </div>
+                        </div>
+                        <div class="border p-5">
+                            <fieldset class="border py-2">
+                                <legend class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Select an
+                                    Address
+                                </legend>
+                                <select
+                                    id="{{ boarding_house_create_form.province.id_for_label }}"
+                                    name="{{ boarding_house_create_form.province.name }}"
+                                    class="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    required
+                                >
+                                    <option disabled selected value="">Choose a province</option>
+                                </select>
+                                <select
+                                    id="{{ boarding_house_create_form.municipality.id_for_label }}"
+                                    name="{{ boarding_house_create_form.municipality.name }}"
+                                    class="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    required
+                                >
+                                    <option disabled selected value="">Choose a municipality</option>
+                                </select>
+                                <select
+                                    id="{{ boarding_house_create_form.barangay.id_for_label }}"
+                                    name="{{ boarding_house_create_form.barangay.name }}"
+                                    class="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                    required
+                                >
+                                    <option disabled selected value="">Choose a barangay</option>
+                                </select>
+                            </fieldset>
+                            <div class="border py-2">
+                                <div
+                                    class="flex h-48 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                                    <iframe id="map-iframe"
+                                            src=""
+                                            width="100%"
+                                            height="100%"
+                                            style="border:0;"
+                                            allowfullscreen=""
+                                            loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"
+                                    ></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border p-5">
+                            <label
+                                for="{{ boarding_house_create_form.description.id_for_label }}"
+                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                            >Description</label
+                            >
+                            <textarea
+                                id="{{ boarding_house_create_form.description.id_for_label }}"
+                                name="{{ boarding_house_create_form.description.name }}"
+                                rows="4"
+                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                placeholder="Write your description here..." required
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="flex flex-1 flex-col gap-y-5 border">
+                        <div
+                            class="border p-5"
+                        >
+                            <div class="flex flex-col w-full items-center justify-center">
+                                <img class="image-preview h-64 w-full object-cover hidden" alt="Image Preview" src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden" alt="Image Preview" src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden" alt="Image Preview" src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden" alt="Image Preview" src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden" alt="Image Preview" src="" />
+                                <label
+                                    for="{{ boarding_house_create_form.images.id_for_label }}"
+                                    class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 dark:hover:bg-gray-800"
+                                >
+
+                                    <div class="flex flex-col items-center justify-center pb-6 pt-5">
+                                        <svg
+                                            class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 20 16"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                                            />
+                                        </svg>
+                                        <p class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400">
+                                            Boarding House Images<br />
+                                            <span class="font-semibold">Click to upload</span>
+                                        </p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                            Maximum of 5 images
+                                        </p>
+                                    </div>
+                                    <input id="{{ boarding_house_create_form.images.id_for_label }}"
+                                           name="{{ boarding_house_create_form.images.name }}" type="file"
+                                           class="hidden" accept="image/*" multiple />
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-start-1 row-span-3 row-start-7 border">
-                    <label
-                        for="message"
-                        class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                    >Description</label
+            </div>
+            <div class="border">
+                {% if boarding_house_create_form.non_field_errors %}
+                    <div
+                        class="text-red-500 text-sm py-5 text-center ">{{ boarding_house_create_form.non_field_errors }}</div>
+                {% endif %}
+                <div class="flex justify-end gap-5 border p-5">
+                    <button
+                        type="submit"
+                        name="{{ boarding_house_create_form.form_name }}"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                    <textarea
-                        id="message"
-                        rows="4"
-                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                        placeholder="Write your description here..."
-                    ></textarea>
-                </div>
-                <div
-                    class="col-start-2 row-span-5 row-start-1 place-items-center border"
-                >
-                    <div class="flex w-full items-center justify-center">
-                        <label
-                            for="dropzone-file"
-                            class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 dark:hover:bg-gray-800"
-                        >
-                            <div
-                                class="flex flex-col items-center justify-center pb-6 pt-5"
-                            >
-                                <svg
-                                    class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 20 16"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                                    />
-                                </svg>
-                                <p
-                                    class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400"
-                                >
-                                    Boarding House Images<br />
-                                    <span class="font-semibold">Click to upload</span> or drag
-                                    and drop
-                                </p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                                </p>
-                            </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
-                        </label>
-                    </div>
+                        Create
+                    </button>
                 </div>
             </div>
-        </div>
-        <div class="border">
-            <div class="flex justify-end gap-5 border p-5">
-                <button
-                    type="button"
-                    class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                    Create
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+

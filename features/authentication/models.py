@@ -3,6 +3,7 @@ from django.contrib.auth.models import UserManager as DefaultUserManager
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+import os
 
 from utilities.mixin import UUIDPKMixin
 
@@ -17,6 +18,10 @@ class UserManager(DefaultUserManager):
         return super().get_queryset()
 
 
+def user_avatar_image_path(instance, filename):
+    return os.path.join('images/profile_picture', str(instance.id), filename)
+
+
 class User(AbstractUser, UUIDPKMixin):
     class Type(models.TextChoices):
         TENANT = 'tenant', 'Tenant'
@@ -28,12 +33,13 @@ class User(AbstractUser, UUIDPKMixin):
         FEMALE = 'female', 'Female'
         OTHER = 'other', 'Other'
 
-    profile_picture = models.ImageField(_('profile picture'), upload_to='images/profile_pictures/', blank=True, null=True)
+    profile_picture = models.ImageField(_('profile picture'), upload_to=user_avatar_image_path, blank=True,
+                                        null=True)
     gender = models.CharField(_("gender"), max_length=10, choices=Gender.choices, default=Gender.OTHER)
-    phone_number = models.EmailField(_('phone number'), blank=True, null=True, unique=True)
+    phone_number = models.CharField(_('phone number'), max_length=11, blank=True, null=True, unique=True)
     birthdate = models.DateField(_('birthdate'), blank=True, null=True)
     street = models.CharField(_('street'), max_length=255, blank=True, null=True)
-    city = models.ForeignKey('address.City', on_delete=models.SET_NULL, blank=True, null=True)
+    province = models.ForeignKey('address.Province', on_delete=models.SET_NULL, blank=True, null=True)
     municipality = models.ForeignKey('address.Municipality', on_delete=models.SET_NULL, blank=True, null=True)
     barangay = models.ForeignKey('address.Barangay', on_delete=models.SET_NULL, blank=True, null=True)
     updated_at = models.DateTimeField(_('updated at'), auto_now=True)

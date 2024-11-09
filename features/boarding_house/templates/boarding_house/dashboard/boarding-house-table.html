@@ -156,23 +156,4 @@
     </tr>
     </tbody>
 </table>
-<script type="module">
-    import { DataTable } from "{% static 'node_modules/simple-datatables/dist/module.js' %}";
-
-    $(document).ready(function() {
-        if ($("#default-table") && typeof DataTable !== "undefined") {
-            const dataTable = new DataTable("#default-table", {
-                searchable: false,
-                perPage: 5,
-                perPageSelect: false
-            });
-
-            $("#table-search").on("input", function() {
-                dataTable.search(this.value);
-            });
-        }
-
-        initModals();
-    });
-</script>
 {% include 'html/confirmation-modal.html' %}

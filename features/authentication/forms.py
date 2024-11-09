@@ -46,15 +46,24 @@ class AdditionalInfoForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'gender', 'birthdate']
 
 
-class UserUpdateForm(forms.ModelForm):
+class EditUserForm(forms.ModelForm):
+    name = 'edit_profile'
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'profile_picture', 'first_name', 'last_name', 'birthdate',
-                  'gender']
-        widgets = {
-            'birthdate': forms.DateInput(attrs={'type': 'date', 'readonly': 'readonly'}),
-            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'gender': forms.Select(attrs={'readonly': 'readonly'}),
-        }
+        fields = ['email', 'profile_picture', 'first_name', 'last_name']
 
 
+class EditAddressForm(forms.ModelForm):
+    name = 'edit_address'
+
+    class Meta:
+        model = User
+        fields = ['province', 'municipality', 'barangay', 'street']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['province'].required = True
+        self.fields['municipality'].required = True
+        self.fields['barangay'].required = True
+        self.fields['street'].required = True
