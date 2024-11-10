@@ -1,0 +1,239 @@
+{% extends 'boarding_house/dashboard/base.html' %}
+{% load static %}
+{% block title %}Dashboard - Boarding Rooms{% endblock %}
+{% block side_content %}
+    <div class="h-full border p-5">
+        <div class="border p-2">
+            <h1 class="text-2xl">Property Management</h1>
+        </div>
+        <div class="border p-2">
+            <div class="flex justify-between">
+                <select
+                    id="property-type"
+                    class="block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    onchange="location = this.value;"
+                >
+                    <option
+                        value="{% url 'boarding_house:property-management' property_type='boarding-rooms' %}"
+                        {% if property_type == 'boarding-rooms' %}selected{% endif %}>Boarding Rooms
+                    </option>
+                    <option
+                        value="{% url 'boarding_house:property-management' property_type='boarding-houses' %}"
+                        {% if property_type == 'boarding-houses' %}selected{% endif %}>Boarding Houses
+                    </option>
+                </select>
+                <div>
+                    <button
+                        data-modal-target="add-boarding-room-modal"
+                        data-modal-toggle="add-boarding-room-modal"
+                        type="button"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Add Room
+                    </button>
+                    <button
+                        data-modal-target="add-boarding-house-modal"
+                        data-modal-toggle="add-boarding-house-modal"
+                        type="button"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Add Boarding House
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border p-2" id="property-list">
+            <div class="relative w-96">
+                <div
+                    class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
+                >
+                    <svg
+                        class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                    </svg>
+                </div>
+                <input
+                    type="search"
+                    id="table-search"
+                    class="datatable-input block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    placeholder="Search..."
+                    aria-controls="default-table"
+                    required
+                />
+            </div>
+
+            <div id="table-container" class="relative overflow-x-auto pt-5 shadow-md sm:rounded-lg">
+                <table
+                    id="default-table"
+                    class="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right"
+                >
+                    <thead
+                        class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+                    >
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Name
+                                <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="m8 15 4 4 4-4m0-6-4-4-4 4" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Status
+                                <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="m8 15 4 4 4-4m0-6-4-4-4 4" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Boarding House
+                                <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="m8 15 4 4 4-4m0-6-4-4-4 4" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th
+                            scope="col"
+                            class="px-6 py-3"
+                            data-type="date"
+                            data-format="MM/DD/YYYY"
+                        >
+                            <div class="flex items-center">
+                                Date Created
+                                <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="m8 15 4 4 4-4m0-6-4-4-4 4" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Price
+                                <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     width="24" height="24"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="m8 15 4 4 4-4m0-6-4-4-4 4" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3" data-sortable="false">
+                            Action
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                        class="bg-white dark:bg-gray-800"
+                    >
+                        <th
+                            scope="row"
+                            class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                        >
+                            <a href="#">Room 1</a>
+                        </th>
+                        <td class="px-6 py-4 text-green-600">Available</td>
+                        <td class="px-6 py-4"><a href="#">Jake Apartel</a></td>
+                        <td class="px-6 py-4">01/02/2024</td>
+                        <td class="px-6 py-4">₱6000/month</td>
+                        <td class="flex items-center px-6 py-4">
+                            <a
+                                href="#"
+                                class="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                            >
+                                <div
+                                    class="flex size-5 items-center justify-center rounded"
+                                >
+                                    <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                         viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd"
+                                              d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                                              clip-rule="evenodd" />
+                                        <path fill-rule="evenodd"
+                                              d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                                              clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </a>
+                            <button
+                                data-modal-target="confirmation-modal" data-modal-toggle="confirmation-modal"
+                                class="ms-3 font-medium text-red-600 hover:underline dark:text-red-500"
+                            >
+                                <div
+                                    class="flex size-5 items-center justify-center rounded"
+                                >
+                                    <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                         viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd"
+                                              d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                                              clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                {% include 'html/confirmation-modal.html' %}
+            </div>
+        </div>
+    </div>
+    {% include 'boarding_house/add_boarding_house_modal.html' %}
+    {% include 'boarding_house/add_boarding_room_modal.html' %}
+    <script type="module">
+        import { DataTable } from "{% static 'node_modules/simple-datatables/dist/module.js' %}";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const initTable = (target, searchInput) => {
+                const defaultTable = target;
+                if (defaultTable && typeof DataTable !== "undefined") {
+                    const dataTable = new DataTable(defaultTable, {
+                        searchable: false,
+                        perPage: 5,
+                        perPageSelect: false
+                    });
+                    const tableSearch = searchInput;
+                    if (tableSearch) {
+                        tableSearch.addEventListener("input", function() {
+                            dataTable.search(this.value);
+                        });
+                    }
+                }
+                initModals();
+            };
+            initTable(document.getElementById("default-table"), document.getElementById("table-search"));
+        });
+    </script>
+{% endblock %}

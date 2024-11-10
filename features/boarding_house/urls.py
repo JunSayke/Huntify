@@ -3,6 +3,7 @@ from . import views
 
 app_name = "boarding_house"
 
+# TODO: Secure Endpoints
 urlpatterns = [
     path("dashboard/booking-management/", views.booking_management, name="booking-management"),
     path("dashboard/property-management/", views.PropertyManagementView.as_view(), name="dashboard"),

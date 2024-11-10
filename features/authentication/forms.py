@@ -46,16 +46,16 @@ class AdditionalInfoForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'gender', 'birthdate']
 
 
-class EditUserForm(forms.ModelForm):
-    name = 'edit_profile'
+class UpdateUserProfileForm(forms.ModelForm):
+    prefix = 'update_user_profile_form'
 
     class Meta:
         model = User
         fields = ['email', 'profile_picture', 'first_name', 'last_name']
 
 
-class EditAddressForm(forms.ModelForm):
-    name = 'edit_address'
+class UpdateUserAddressForm(forms.ModelForm):
+    prefix = 'update_user_address_form'
 
     class Meta:
         model = User

@@ -33,8 +33,8 @@
                                           clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <input type="file" accept="image/*" id="{{ user_form.profile_picture.id_for_label }}"
-                                   name="{{ user_form.profile_picture.name }}" class="hidden" />
+                            <input type="file" accept="image/*" id="{{ form1.profile_picture.id_for_label }}"
+                                   name="{{ form1.profile_picture.name }}" class="hidden" />
                         </label>
                     </div>
                     <div class="border col-start-2 h-1/2 translate-y-full px-5">
@@ -64,26 +64,26 @@
                                        placeholder="Username" value="{{ user.username }}" readonly />
                             </div>
                             <div class="border row-start-2 col-start-1 p-2">
-                                <label for="{{ user_form.email.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ user_form.email.label }}</label>
-                                <input type="email" id="{{ user_form.email.id_for_label }}"
-                                       name="{{ user_form.email.name }}"
+                                <label for="{{ form1.email.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form1.email.label }}</label>
+                                <input type="email" id="{{ form1.email.id_for_label }}"
+                                       name="{{ form1.email.name }}"
                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        placeholder="Email Address" value="{{ user.email }}" />
                             </div>
                             <div class="border row-start-1 col-start-2 p-2">
-                                <label for="{{ user_form.first_name.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ user_form.first_name.label }}</label>
-                                <input type="text" id="{{ user_form.first_name.id_for_label }}"
-                                       name="{{ user_form.first_name.name }}"
+                                <label for="{{ form1.first_name.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form1.first_name.label }}</label>
+                                <input type="text" id="{{ form1.first_name.id_for_label }}"
+                                       name="{{ form1.first_name.name }}"
                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        placeholder="First Name" value="{{ user.first_name }}" />
                             </div>
                             <div class="border row-start-2 col-start-2 p-2">
-                                <label for="{{ user_form.last_name.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ user_form.last_name.label }}</label>
-                                <input type="text" id="{{ user_form.last_name.id_for_label }}"
-                                       name="{{ user_form.last_name.name }}"
+                                <label for="{{ form1.last_name.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form1.last_name.label }}</label>
+                                <input type="text" id="{{ form1.last_name.id_for_label }}"
+                                       name="{{ form1.last_name.name }}"
                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        placeholder="Last Name" value="{{ user.last_name }}" />
                             </div>
@@ -116,9 +116,9 @@
                                         value="{{ user.birthdate|date:'m/d/Y' }}" readonly>
                                 </div>
                             </div>
-                            {% if user_form.non_field_errors %}
+                            {% if form1.non_field_errors %}
                                 <div
-                                    class="text-red-500 text-sm py-5 text-center ">{{ user_form.non_field_errors }}</div>
+                                    class="text-red-500 text-sm py-5 text-center ">{{ form1.non_field_errors }}</div>
                             {% endif %}
                         </div>
                         <div class="float-left mt-5 px-5">
@@ -157,7 +157,7 @@
                             </div>
                         </div>
                         <div class="float-right mt-5 px-5">
-                            <button type="submit" name="{{ user_form.name }}"
+                            <button type="submit" name="{{ form1.name }}"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Save Changes
                             </button>
@@ -179,12 +179,12 @@
         } from "{% static 'js/huntify.js' %}";
 
         document.addEventListener("DOMContentLoaded", function() {
-            imageInputPreview(document.getElementById("{{ user_form.profile_picture.id_for_label }}"), [document.getElementById("profile-pic-preview")]);
+            imageInputPreview(document.getElementById("{{ form1.profile_picture.id_for_label }}"), [document.getElementById("profile-pic-preview")]);
             const addressProcessor = new AddressProcessor();
 
-            const provinceSelectTag = document.getElementById("{{ address_form.province.id_for_label }}");
-            const municipalitySelectTag = document.getElementById("{{ address_form.municipality.id_for_label }}");
-            const barangaySelectTag = document.getElementById("{{ address_form.barangay.id_for_label }}");
+            const provinceSelectTag = document.getElementById("{{ form2.province.id_for_label }}");
+            const municipalitySelectTag = document.getElementById("{{ form2.municipality.id_for_label }}");
+            const barangaySelectTag = document.getElementById("{{ form2.barangay.id_for_label }}");
 
             addressProcessor.loadProvinces(provinceSelectTag);
             addressProcessor.loadMunicipalitiesOnProvince(provinceSelectTag, municipalitySelectTag);

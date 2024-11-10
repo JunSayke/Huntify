@@ -6,8 +6,9 @@ from django.views import View
 from django.views.generic import UpdateView, DetailView
 from formtools.wizard.views import SessionWizardView
 
-from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationForm, EditUserForm, AdditionalInfoForm, \
-    EditAddressForm
+from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationForm, UpdateUserProfileForm, \
+    AdditionalInfoForm, \
+    UpdateUserAddressForm
 from .models import User
 
 
@@ -36,7 +37,7 @@ class ChangePasswordView(PasswordChangeView):
 
 class UpdateProfileView(UpdateView):
     model = User
-    form_class = EditUserForm
+    form_class = UpdateUserProfileForm
     template_name = "authentication/edit_profile.html"
     success_url = reverse_lazy('authentication:my-profile')
 
@@ -106,32 +107,35 @@ class RegistrationWizard(SessionWizardView):
 class EditProfileView(View):
     def get(self, request, *args, **kwargs):
         user = request.user
-        user_form = EditUserForm(instance=user)
-        address_form = EditAddressForm(instance=user)
+        form1 = UpdateUserProfileForm(instance=user)
+        form2 = UpdateUserAddressForm(instance=user)
+
+        # OPTIMIZE: Duplicate code
         return render(request, 'authentication/edit_profile.html', {
-            'user_form': user_form,
-            'address_form': address_form
+            'form1': form1,
+            'form2': form2
         })
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        if EditUserForm.name in request.POST:
-            user_form = EditUserForm(request.POST, request.FILES, instance=user)
-            if user_form.is_valid():
-                user_form.save()
+        if 'form1' in request.POST:
+            form1 = UpdateUserProfileForm(request.POST, request.FILES, instance=user)
+            if form1.is_valid():
+                form1.save()
                 return redirect('authentication:my-profile')
-            address_form = EditAddressForm(instance=user)
-        elif EditAddressForm.name in request.POST:
-            address_form = EditAddressForm(request.POST, instance=user)
-            if address_form.is_valid():
-                address_form.save()
+            form2 = UpdateUserAddressForm(instance=user)
+        elif 'form2' in request.POST:
+            form2 = UpdateUserAddressForm(request.POST, instance=user)
+            if form2.is_valid():
+                form2.save()
                 return redirect('authentication:my-profile')
-            user_form = EditUserForm(instance=user)
+            form1 = UpdateUserProfileForm(instance=user)
         else:
-            user_form = EditUserForm(instance=user)
-            address_form = EditAddressForm(instance=user)
+            form1 = UpdateUserProfileForm(instance=user)
+            form2 = UpdateUserAddressForm(instance=user)
 
+        # OPTIMIZE: Duplicate code
         return render(request, 'authentication/edit_profile.html', {
-            'user_form': user_form,
-            'address_form': address_form
+            'form1': form1,
+            'form2': form2
         })

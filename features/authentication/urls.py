@@ -4,6 +4,8 @@ from . import views
 from utilities.decorators import anonymous_required
 
 app_name = "authentication"
+
+# TODO: Secure Endpoints
 urlpatterns = [
     path("register/", anonymous_required(views.RegistrationWizard.as_view()), name="register"),
     path("login/", anonymous_required(views.LoginView.as_view()), name="login"),

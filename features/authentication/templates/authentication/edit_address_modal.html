@@ -1,0 +1,114 @@
+<div
+    id="edit-address-modal"
+    tabindex="-1"
+    aria-hidden="true"
+    class="fixed hidden left-0 right-0 top-0 z-50 h-full w-full border"
+>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="max-h-full w-full min-w-96 max-w-xl bg-white p-4">
+            <!-- Modal content -->
+            <div class="flex justify-between border px-5">
+                <h1 class="text-center">Edit Address</h1>
+                <button type="button" data-modal-hide="edit-address-modal">
+                    <svg
+                        class="h-6 w-6 text-gray-800 dark:text-white"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18 17.94 6M18 18 6.06 6"
+                        />
+                    </svg>
+                </button>
+            </div>
+            <div class="border">
+                <div class="gid-cols-4 grid gap-5 p-5">
+                    <div class="border p-2">
+                        <label
+                            for="{{ form2.province.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Province</label
+                        >
+                        <select
+                            id="{{ form2.province.id_for_label }}"
+                            name="{{ form2.province.name }}"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            required
+
+                        >
+                            <option selected>Choose a province</option>
+                        </select>
+                    </div>
+                    <div class="border p-2">
+                        <label
+                            for="{{ form2.municipality.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Municipality</label
+                        >
+                        <select
+                            id="{{ form2.municipality.id_for_label }}"
+                            name="{{ form2.municipality.name }}"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            required
+
+                        >
+                            <option selected>Choose a municipality</option>
+                        </select>
+                    </div>
+                    <div class="border p-2">
+                        <label
+                            for="{{ form2.barangay.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Barangay</label
+                        >
+                        <select
+                            id="{{ form2.barangay.id_for_label }}"
+                            name="{{ form2.barangay.name }}"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            required
+
+                        >
+                            <option selected>Choose a barangay</option>
+                        </select>
+                    </div>
+                    <div class="border p-2">
+                        <label
+                            for="{{ form2.street.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Street</label
+                        >
+                        <input
+                            type="text"
+                            id="{{ form2.street.id_for_label }}"
+                            name="{{ form2.street.name }}"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            placeholder="Street/Building/House No."
+                            required
+
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="border">
+                <div class="flex justify-end gap-5 border p-5">
+                    <button
+                        type="submit"
+                        name="{{ form2.name }}"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -2,6 +2,8 @@
 from django.db import models
 import os
 
+from django.urls import reverse
+
 
 def boarding_house_image_path(instance, filename):
     return os.path.join('boarding_house', str(instance.boarding_house.id), 'files', filename)
@@ -18,17 +20,22 @@ class BoardingHouse(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # HACK: Define the status field
     def status(self):
         return "Active"
 
     def __str__(self):
         return self.boarding_house_name
 
+    def get_absolute_url(self):
+        return reverse('boarding_house:detail', kwargs={'pk': self.pk})
+
 
 class BoardingHouseImage(models.Model):
     boarding_house = models.ForeignKey(BoardingHouse, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to=boarding_house_image_path)
 
+    # HACK: Find an optimize way to get the position of the image
     def __str__(self):
         images = list(self.boarding_house.images.select_related('boarding_house').all())
         position = images.index(self) + 1
