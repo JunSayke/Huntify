@@ -52,7 +52,7 @@
                                         required
                                     />
                                     {% if form.username.errors %}
-                                        <div class="text-red-500 text-sm">{{ form.username.errors }}</div>
+                                        <div class="text-red-500 text-sm">{{ form.username.errors.0 }}</div>
                                     {% endif %}
                                 </div>
                                 <div class="border p-2">
@@ -70,7 +70,7 @@
                                         required
                                     />
                                     {% if form.email.errors %}
-                                        <div class="text-red-500 text-sm">{{ form.email.errors }}</div>
+                                        <div class="text-red-500 text-sm">{{ form.email.errors.0 }}</div>
                                     {% endif %}
                                 </div>
                                 <div class="border p-2">
@@ -88,7 +88,7 @@
                                         required
                                     />
                                     {% if form.password1.errors %}
-                                        <div class="text-red-500 text-sm">{{ form.password1.errors }}</div>
+                                        <div class="text-red-500 text-sm">{{ form.password1.errors.0 }}</div>
                                     {% endif %}
                                 </div>
                                 <div class="border p-2">
@@ -106,7 +106,7 @@
                                         required
                                     />
                                     {% if form.password2.errors %}
-                                        <div class="text-red-500 text-sm">{{ form.password2.errors }}</div>
+                                        <div class="text-red-500 text-sm">{{ form.password2.errors.0 }}</div>
                                     {% endif %}
                                 </div>
                             </div>

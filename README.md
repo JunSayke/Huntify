@@ -214,10 +214,14 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 ## Acknowledgments
 
 * [Flowbite](https://flowbite.com)
+* [Font Awesome](https://fontawesome.com)
 * [django-formtools](https://django-formtools.readthedocs.io/)
 * [django-tailwind](https://github.com/timonweb/django-tailwind)
 * [prettier-plugin-django](https://github.com/junstyle/prettier-plugin-django)
 * [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+* [django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks)
+* [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/)
+* [crispy-tailwind](https://github.com/django-crispy-forms/crispy-tailwind)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template/tree/main)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

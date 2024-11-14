@@ -41,10 +41,13 @@ INSTALLED_APPS = [
     'theme',  # tailwindcss
     'django_browser_reload',  # tailwindcss
     'formtools',  # formwizard
+    'crispy_forms',  # crispy forms
+    'crispy_tailwind',  # tailwind crispy forms
+    'widget_tweaks',  # django widget tweaks
     'utilities',
     'features.address',
     'features.authentication',
-    'features.boarding_house',
+    'features.property_management',
 ]
 
 # tailwindcss
@@ -64,6 +67,10 @@ LOGIN_REDIRECT_URL = 'authentication:home'  # new
 LOGOUT_REDIRECT_URL = 'authentication:login'  # new
 LOGIN_URL = 'authentication:login'  # new
 HOME_URL = 'authentication:home'  # new
+
+# tailwind crispy forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',  # django debugger

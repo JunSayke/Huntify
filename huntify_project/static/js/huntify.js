@@ -1,10 +1,6 @@
-import "../node_modules/flowbite/dist/flowbite.js";
 import { DataTable } from "../node_modules/simple-datatables/dist/module.js";
 
-console.log("huntify.js is being used");
-
-export function test() {
-}
+console.log("huntify.js si being used");
 
 function toTitleCase(str) {
     return str.toLocaleLowerCase().replace(/\b\w/g, function(char) {
@@ -23,15 +19,15 @@ export function generateMapIframe(province, municipality = "", barangay = "") {
     return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.579073073073!2d123.8707!3d10.3053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9991b1b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2s${encodeURIComponent(query)}!5e0!3m2!1sen!2sph!4v1698765432100!5m2!1sen!2sph`;
 }
 
+// TODO: When refreshing the page, the current page should be retained
 export function initDataTable(tableTag, searchInputTag) {
     const defaultTable = tableTag;
     if (defaultTable && typeof DataTable !== "undefined") {
         const dataTable = new DataTable(defaultTable, {
             searchable: false, perPage: 5, perPageSelect: false
         });
-        const tableSearch = searchInputTag;
-        if (tableSearch) {
-            tableSearch.addEventListener("input", function() {
+        if (searchInputTag) {
+            searchInputTag.addEventListener("input", function() {
                 dataTable.search(this.value);
             });
         }
@@ -52,6 +48,17 @@ export function imageInputPreview(fileInputTag, previewImageTags) {
             reader.readAsDataURL(file);
         }
     });
+}
+
+export function initAddressInputListeners(provinceSelectTag, municipalitySelectTag, barangaySelectTag, mapIframeTag = null) {
+    const addressProcessor = new AddressProcessor();
+    addressProcessor.loadProvinces(provinceSelectTag);
+    addressProcessor.loadMunicipalitiesOnProvince(provinceSelectTag, municipalitySelectTag);
+    addressProcessor.loadBarangaysOnMunicipality(municipalitySelectTag, barangaySelectTag);
+
+    if (mapIframeTag) {
+        addressProcessor.showAddressOnMap(provinceSelectTag, municipalitySelectTag, barangaySelectTag, mapIframeTag);
+    }
 }
 
 export class AddressProcessor {
@@ -138,4 +145,17 @@ export class AddressProcessor {
                 });
         });
     }
+}
+
+export function renderPropertyTableContent(tableContainerTag, searchInputTag = null, propertyType) {
+    fetch(`/ajax/get-property/${propertyType}/`)
+        .then(response => response.text())
+        .then(html => {
+            tableContainerTag.innerHTML = html;
+            initDataTable(
+                tableContainerTag.querySelector("table"),
+                searchInputTag
+            );
+        })
+        .catch(error => console.error("Error loading table content:", error));
 }
