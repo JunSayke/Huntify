@@ -1,0 +1,137 @@
+{% extends 'property_management/dashboard/base.html' %}
+{% load static %}
+{% block title %}Dashboard - Boarding Houses{% endblock %}
+{% block side_content %}
+    <div class="h-full border p-5">
+        <div class="border p-2">
+            <h1 class="text-2xl">Property Management</h1>
+        </div>
+        <div class="border p-2">
+            <div class="flex justify-between">
+                <select
+                    id="property-type"
+                    class="block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+
+                    <option value="boarding_rooms"
+                    >Boarding Rooms
+                    </option>
+                    <option value="boarding_houses"
+                    >Boarding Houses
+                    </option>
+                </select>
+                <div>
+                    <button
+                        data-modal-target="add-boarding-room-modal"
+                        data-modal-toggle="add-boarding-room-modal"
+                        type="button"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Add Room
+                    </button>
+                    <button
+                        data-modal-target="add-boarding-house-modal"
+                        data-modal-toggle="add-boarding-house-modal"
+                        type="button"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Add Boarding House
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border p-2" id="property-list">
+            <div class="relative w-96">
+                <div
+                    class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
+                >
+                    <svg
+                        class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                    </svg>
+                </div>
+                <input
+                    type="search"
+                    id="table-search"
+                    class="datatable-input block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    placeholder="Search..."
+                    aria-controls="default-table"
+                    required
+                />
+            </div>
+
+            <div id="table-container" class="relative overflow-x-auto pt-5 shadow-md sm:rounded-lg">
+            </div>
+        </div>
+    </div>
+    {% include 'property_management/add_boarding_house_modal.html' %}
+    {% include 'property_management/add_boarding_room_modal.html' %}
+
+    <script type="module">
+        import {
+            renderPropertyTableContent,
+            initAddressInputListeners,
+            imageInputPreview
+        } from "{% static 'js/huntify.js' %}";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            try {
+                const propertyTypeSelect = document.getElementById("property-type");
+
+                propertyTypeSelect.value = new URL(window.location).searchParams.get("property_type") || "boarding_rooms";
+
+                propertyTypeSelect.addEventListener("change", function() {
+                    const newUrl = new URL(window.location);
+                    newUrl.searchParams.set("property_type", this.value);
+                    window.history.pushState({}, "", newUrl);
+
+                    renderPropertyTableContent(
+                        document.getElementById("table-container"),
+                        document.getElementById("table-search"),
+                        this.value
+                    );
+                });
+
+                propertyTypeSelect.dispatchEvent(new Event("change"));
+
+                imageInputPreview(document.getElementById("{{ form1.images.id_for_label }}"),
+                    document.getElementById("{{ form1.form_name }}").getElementsByClassName("image-preview")
+                );
+
+                imageInputPreview(document.getElementById("{{ form2.images.id_for_label }}"),
+                    document.getElementById("{{ form2.form_name }}").getElementsByClassName("image-preview")
+                );
+
+                initAddressInputListeners(
+                    document.getElementById("{{ form1.province.id_for_label }}"),
+                    document.getElementById("{{ form1.municipality.id_for_label }}"),
+                    document.getElementById("{{ form1.barangay.id_for_label }}"),
+                    document.getElementById("map-iframe")
+                );
+
+                window.addEventListener("load", () => {
+                    if (document.getElementById("{{ form1.form_name }}").querySelector(".error")) {
+                        window.FlowbiteInstances.getInstance("Modal", "add-boarding-house-modal")
+                            .show();
+                    }
+                    if (document.getElementById("{{ form2.form_name }}").querySelector(".error")) {
+                        window.FlowbiteInstances.getInstance("Modal", "add-boarding-room-modal")
+                            .show();
+                    }
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    </script>
+{% endblock %}
