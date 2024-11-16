@@ -1,13 +1,13 @@
 {% load widget_tweaks %}
-
 <div
     id="add-boarding-room-modal"
     tabindex="-1"
     aria-hidden="true"
     class="fixed hidden left-0 right-0 top-0 z-50 h-full w-full border"
 >
-    <div class="max-h-full w-full min-w-96 max-w-2xl bg-white p-4 overflow-y-auto">
-        <form id="{{ form2.form_name }}" method="post" enctype="multipart/form-data">
+    <div class="max-h-full w-full min-w-96 max-w-4xl bg-white p-4 overflow-y-auto">
+        <form id="create-boarding_room" method="post" enctype="multipart/form-data"
+              action="{% url 'property_management:create-boarding-room' %}">
             {% csrf_token %}
             <div class="flex justify-between border px-5">
                 <h1 class="text-center">Add Boarding Room</h1>
@@ -36,31 +36,32 @@
                     <div class="flex flex-1 flex-col gap-y-5 border">
                         <div class="border p-5">
                             <label
-                                for="{{ form2.boarding_house.id_for_label }}"
+                                for="{{ create_boarding_room_form.boarding_house.id_for_label }}"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                            >{{ form2.boarding_house.name }}</label
-                            >
-                            {{ form2.boarding_house|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" }}
-                            {% if form1.boarding_house.errors %}
-                                <div class="text-red-500 text-sm error">{{ form1.boarding_house.errors.0 }}</div>
+                            >Boarding House</label>
+                            {{ create_boarding_room_form.boarding_house|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:boarding-house" }}
+                            {% if create_boarding_room_form.boarding_house.errors %}
+                                <div
+                                    class="text-red-500 text-sm error">{{ create_boarding_room_form.boarding_house.errors.0 }}</div>
                             {% endif %}
                         </div>
                         <div class="border p-5">
                             <label
-                                for="{{ form2.room_name.id_for_label }}"
+                                for="{{ create_boarding_room_form.name.id_for_label }}"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                            >{{ form2.room_name.label }}</label
+                            >Room Name</label
                             >
-                            {{ form2.room_name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter room name" }}
-                            {% if form1.room_name.errors %}
-                                <div class="text-red-500 text-sm error">{{ form1.room_name.errors.0 }}</div>
+                            {{ create_boarding_room_form.name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter room name"|attr:"data-target-input:room-name" }}
+                            {% if create_boarding_room_form.name.errors %}
+                                <div
+                                    class="text-red-500 text-sm error">{{ create_boarding_room_form.name.errors.0 }}</div>
                             {% endif %}
                         </div>
                         <div class="border p-5">
                             <label
-                                for="{{ form2.price.id_for_label }}"
+                                for="{{ create_boarding_room_form.price.id_for_label }}"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                            >{{ form2.price.label }}</label
+                            >Price/month</label
                             >
                             <div class="flex">
                                 <div
@@ -102,87 +103,97 @@
                                     PHP
                                 </div>
                                 <div class="relative w-full">
-                                    {{ form2.price|add_class:"z-20 block w-full rounded-e-lg border border-s-2 border-gray-300 border-s-gray-50 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:border-s-gray-700 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500"|attr:"placeholder:Enter amount"|attr:"value:500"|attr:"required" }}
-                                    {% if form1.price.errors %}
-                                        <div class="text-red-500 text-sm error">{{ form1.price.errors.0 }}</div>
+                                    {{ create_boarding_room_form.price|add_class:"z-20 block w-full rounded-e-lg border border-s-2 border-gray-300 border-s-gray-50 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:border-s-gray-700 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500"|attr:"placeholder:Enter amount"|attr:"value:500"|attr:"data-target-input:price" }}
+                                    {% if create_boarding_room_form.price.errors %}
+                                        <div
+                                            class="text-red-500 text-sm error">{{ create_boarding_room_form.price.errors.0 }}</div>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                         <div class="border p-5">
                             <label
-                                for="{{ form2.description.id_for_label }}"
+                                for="{{ create_boarding_room_form.description.id_for_label }}"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                            >{{ form2.description.label }}</label
+                            >Description</label
                             >
-                            {{ form2.description|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"rows:4"|attr:"placeholder:Write your description here..." }}
-                            {% if form1.description.errors %}
-                                <div class="text-red-500 text-sm error">{{ form1.description.errors.0 }}</div>
+                            {{ create_boarding_room_form.description|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"rows:4"|attr:"placeholder:Write your description here..."|attr:"data-target-input:description" }}
+                            {% if create_boarding_room_form.description.errors %}
+                                <div
+                                    class="text-red-500 text-sm error">{{ create_boarding_room_form.description.errors.0 }}</div>
                             {% endif %}
                         </div>
                     </div>
                     <div class="flex flex-1 flex-col gap-y-5 border">
-                        <div class="flex flex-col gap-y-5 w-full items-center justify-center">
-                            <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
-                                 src="" />
-                            <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
-                                 src="" />
-                            <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
-                                 src="" />
-                            <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
-                                 src="" />
-                            <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
-                                 src="" />
-                            <label
-                                for="{{ form2.images.id_for_label }}"
-                                class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                            >
-                                <div
-                                    class="flex flex-col items-center justify-center pb-6 pt-5"
+                        <div
+                            class="border p-5"
+                        >
+                            <div class="flex flex-col gap-y-5 w-full items-center justify-center">
+                                <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
+                                     src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
+                                     src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
+                                     src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
+                                     src="" />
+                                <img class="image-preview h-64 w-full object-cover hidden border" alt="Image Preview"
+                                     src="" />
+                                <label
+                                    for="{{ create_boarding_room_form.images.id_for_label }}"
+                                    class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                                 >
-                                    <svg
-                                        class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 16"
+                                    <div
+                                        class="flex flex-col items-center justify-center pb-6 pt-5"
                                     >
-                                        <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                                        />
-                                    </svg>
-                                    <p
-                                        class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400"
-                                    >
-                                        Boarding Room Images<br />
-                                        <span class="font-semibold">Click to upload</span> or drag
-                                        and drop
-                                    </p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                                    </p>
-                                </div>
-                                {{ form2.images|add_class:"hidden" }}
-                            </label>
-                            {% if form1.images.errors %}
-                                <div class="text-red-500 text-sm error">{{ form1.images.errors.0 }}</div>
-                            {% endif %}
+                                        <svg
+                                            class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 20 16"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                                            />
+                                        </svg>
+                                        <p
+                                            class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400"
+                                        >
+                                            Boarding Room Images<br />
+                                            <span class="font-semibold">Click to upload</span> or drag
+                                            and drop
+                                        </p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                            SVG, PNG, JPG or GIF (MAX. 800x400px)
+                                        </p>
+                                    </div>
+                                    {{ create_boarding_room_form.images|add_class:"hidden"|attr:"data-target-input:images" }}
+                                </label>
+                                {% if create_boarding_room_form.images.errors %}
+                                    <div
+                                        class="text-red-500 text-sm error">{{ create_boarding_room_form.images.errors.0 }}</div>
+                                {% endif %}
+                            </div>
                         </div>
+
                         <fieldset class="border p-4">
                             <legend
                                 class="text-lg font-medium text-gray-900 dark:text-gray-300"
                             >
-                                {{ form2.tags.label }}
+                                Tags
                             </legend>
                             <div class="grid grid-flow-row grid-cols-3 border gap-y-2">
-                                {% for tag in form2.tags.subwidgets %}
+                                {% for tag in create_boarding_room_form.tags.subwidgets %}
                                     <div class="me-4 flex items-center">
-                                        <input id="{{ tag.id_for_label }}" type="checkbox" name="{{ form2.tags.name }}"
+                                        <input id="{{ tag.id_for_label }}" type="checkbox"
+                                               name="{{ create_boarding_room_form.tags.name }}"
                                                value="{{ tag.data.value }}"
+                                               data-target-input="tags"
                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="{{ tag.id_for_label }}"
                                                class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">{{ tag.choice_label }}</label>
@@ -190,8 +201,8 @@
                                 {% endfor %}
                             </div>
                         </fieldset>
-                        {% if form1.tags.errors %}
-                            <div class="text-red-500 text-sm error">{{ form1.tags.errors.0 }}</div>
+                        {% if create_boarding_room_form.tags.errors %}
+                            <div class="text-red-500 text-sm error">{{ create_boarding_room_form.tags.errors.0 }}</div>
                         {% endif %}
                     </div>
                 </div>
@@ -203,7 +214,7 @@
                             <button
                                 type="button"
                                 id="decrement-button"
-                                data-input-counter-decrement="{{ form2.quantity.id_for_label }}"
+                                data-input-counter-decrement="{{ create_boarding_room_form.quantity.id_for_label }}"
                                 class="h-11 rounded-s-lg border border-gray-300 bg-gray-100 p-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
                             >
                                 <svg
@@ -222,19 +233,12 @@
                                     />
                                 </svg>
                             </button>
-                            <input
-                                type="text"
-                                id="{{ form2.quantity.id_for_label }}"
-                                name="{{ form2.quantity.html_name }}"
-                                data-input-counter
-                                data-input-counter-min="1"
-                                data-input-counter-max="5"
-                                aria-describedby="helper-text-explanation"
-                                class="block h-11 w-full border-x-0 border-gray-300 bg-gray-50 pb-6 text-center text-sm font-medium text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                placeholder=""
-                                value="1"
-                                required
-                            />
+                            <input type="text" id="{{ create_boarding_room_form.quantity.id_for_label }}"
+                                   data-input-counter data-input-counter-min="1"
+                                   name="{{ create_boarding_room_form.quantity.html_name }}"
+                                   data-input-counter-max="5" aria-describedby="helper-text-explanation"
+                                   class="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="" value="1" required />
                             <div
                                 class="absolute bottom-1 start-1/2 flex -translate-x-1/2 items-center space-x-1 text-xs text-gray-400 rtl:translate-x-1/2 rtl:space-x-reverse"
                             >
@@ -258,7 +262,7 @@
                             <button
                                 type="button"
                                 id="increment-button"
-                                data-input-counter-increment="{{ form2.quantity.id_for_label }}"
+                                data-input-counter-increment="{{ create_boarding_room_form.quantity.id_for_label }}"
                                 class="h-11 rounded-e-lg border border-gray-300 bg-gray-100 p-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
                             >
                                 <svg
@@ -281,7 +285,7 @@
                     </div>
                     <button
                         type="submit"
-                        name="{{ form2.form_name }}"
+                        name="create-boarding_room"
                         class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                         Create

@@ -1990,10 +1990,6 @@ input:checked + .toggle-bg {
   margin-left: 0.5rem;
 }
 
-.ms-1 {
-  margin-inline-start: 0.25rem;
-}
-
 .ms-1\.5 {
   margin-inline-start: 0.375rem;
 }
@@ -2349,6 +2345,10 @@ input:checked + .toggle-bg {
 
 .w-4\/5 {
   width: 80%;
+}
+
+.w-44 {
+  width: 11rem;
 }
 
 .w-48 {

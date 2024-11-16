@@ -1,0 +1,5 @@
+{% extends 'property_management/dashboard/property_management.html' %}
+{% block title %}Property Management - Boarding Rooms{% endblock %}
+{% block table %}
+    {% include 'property_management/dashboard/boarding_room_table.html' with boarding_rooms=boarding_rooms %}
+{% endblock %}

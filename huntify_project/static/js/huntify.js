@@ -2,14 +2,20 @@ import { DataTable } from "../node_modules/simple-datatables/dist/module.js";
 
 console.log("huntify.js is being used");
 
-function toTitleCase(str) {
+export function toTitleCase(str) {
     return str.toLocaleLowerCase().replace(/\b\w/g, function(char) {
         return char.toUpperCase();
     });
 }
 
-function isFunction(functionToCheck) {
+export function isFunction(functionToCheck) {
     return functionToCheck && {}.toString.call(functionToCheck) === "[object Function]";
+}
+
+export function updateURL(param, value) {
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set(param, value);
+    window.history.pushState({}, "", newUrl);
 }
 
 
@@ -24,7 +30,6 @@ export function generateMapIframe(province, municipality = "", barangay = "") {
     return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.579073073073!2d123.8707!3d10.3053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9991b1b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2s${encodeURIComponent(query)}!5e0!3m2!1sen!2sph!4v1698765432100!5m2!1sen!2sph`;
 }
 
-// TODO: When refreshing the page, the current table page should be retained
 export function initDataTable(tableEl, searchInputEl) {
     const defaultTable = tableEl;
     if (defaultTable && typeof DataTable !== "undefined") {
@@ -151,70 +156,4 @@ export class AddressProcessor {
                 });
         });
     }
-}
-
-export function renderPropertyTableContent(tableContainerEl, propertyType, {
-    searchInputEl = null,
-    currentPage = 1
-} = {}) {
-    return fetch(`/ajax/get-property/${propertyType}/`)
-        .then(response => response.text())
-        .then(html => {
-            tableContainerEl.innerHTML = html;
-            const dataTable = initDataTable(
-                tableContainerEl.querySelector("table"),
-                searchInputEl
-            );
-            dataTable && dataTable.page(currentPage);
-            return dataTable;
-        })
-        .catch(error => console.error("Error loading table content:", error));
-}
-
-
-/**
- * Initializes the delete confirmation modal.
- *
- * @param {HTMLElement} modalEl - The modal element.
- * @param {NodeList} deleteButtonEl - A NodeList of delete button elements.
- *
- * Datasets:
- * - data-item-name: The name of the item to be deleted, used in the confirmation message.
- * - data-item-id: The ID of the item to be deleted, used to find and remove the item from the DOM.
- * - data-modal-button="confirm": The confirm button inside the modal.
- * - data-modal-button="cancel": The cancel button inside the modal.
- * - data-modal-text: The element inside the modal where the confirmation message is displayed.
- * @param onConfirm - The callback function to be executed
- */
-export function initDeleteConfirmationModal(modalEl, deleteButtonEl, onConfirm) {
-    const modalConfirmButtonEl = modalEl.querySelector(`[data-modal-button="confirm"]`);
-    const modalCancelButtonEl = modalEl.querySelector(`[data-modal-button="cancel"]`);
-    const modalTextEl = modalEl.querySelector(`[data-modal-text]`);
-
-    const options = {
-        placement: "center-center",
-        backdrop: "dynamic",
-        closable: true
-    };
-
-    const modal = new window.Modal(modalEl, options);
-    const modalText = modalTextEl.getAttribute("data-modal-text");
-
-    modalCancelButtonEl.addEventListener("click", () => modal.hide());
-
-    // Attach delete event listener to the delete buttons
-    deleteButtonEl.forEach(button => {
-        button.addEventListener("click", function() {
-            modalTextEl.textContent = modalText.replace("{item}", this.getAttribute("data-item-name"));
-            const itemId = this.getAttribute("data-item-id");
-            modalConfirmButtonEl.addEventListener("click", () => {
-                const listItemEl = this.parentElement.closest(`[data-item-id="${itemId}"]`);
-                if (isFunction(onConfirm)) {
-                    onConfirm(listItemEl);
-                }
-                modal.hide();
-            }, { once: true });
-            modal.show();
-        });
-    });
 }

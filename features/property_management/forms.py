@@ -1,4 +1,5 @@
 from django import forms
+from django.shortcuts import get_object_or_404
 
 from .models import BoardingHouse, BoardingRoom, Tag, BoardingHouseImage, BoardingRoomImage, BoardingRoomTag
 from features.address.models import Barangay, Municipality
@@ -26,8 +27,7 @@ class MultipleImageField(forms.ImageField):
 
 
 class CreateBoardingHouseForm(forms.ModelForm):
-    form_name = 'create_boarding_house_form'
-    prefix = 'create_boarding_house_form'
+    prefix = 'create-boarding_house'
     images = MultipleImageField(required=False, max_images=5)
 
     class Meta:
@@ -35,8 +35,9 @@ class CreateBoardingHouseForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['created_at', 'updated_at', 'landlord']
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, landlord, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.landlord = landlord
         self.fields['province'].empty_label = "Select a province"
         self.fields['municipality'].queryset = Municipality.objects.none()
         self.fields['municipality'].empty_label = "Select a municipality"
@@ -68,6 +69,7 @@ class CreateBoardingHouseForm(forms.ModelForm):
 
     def save(self, commit=True):
         boarding_house = super().save(commit=False)
+        boarding_house.landlord = self.landlord
         if commit:
             boarding_house.save()
             images = self.files.getlist('images')
@@ -77,8 +79,7 @@ class CreateBoardingHouseForm(forms.ModelForm):
 
 
 class CreateBoardingRoomForm(forms.ModelForm):
-    form_name = 'create_boarding_room_form'
-    prefix = 'create_boarding_room_form'
+    prefix = 'create-boarding_room'
     images = MultipleImageField(required=False, max_images=5)
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.filter(type=Tag.Type.BOARDING_ROOM),
@@ -94,8 +95,16 @@ class CreateBoardingRoomForm(forms.ModelForm):
 
     def __init__(self, landlord, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.landlord = landlord
         self.fields['boarding_house'].queryset = BoardingHouse.objects.filter(landlord=landlord)
         self.fields['boarding_house'].empty_label = "Select a boarding house"
+
+    def clean_boarding_house(self):
+        boarding_house_id = self.cleaned_data.get('boarding_house')
+        if not boarding_house_id:
+            raise forms.ValidationError("This field is required.")
+        boarding_house = get_object_or_404(BoardingHouse, id=boarding_house_id.id, landlord=self.landlord)
+        return boarding_house
 
     def save(self, commit=True):
         quantity = self.cleaned_data.get('quantity', 1)
@@ -113,3 +122,27 @@ class CreateBoardingRoomForm(forms.ModelForm):
                     BoardingRoomTag.objects.create(boarding_room=boarding_room, tag=tag)
             boarding_rooms.append(boarding_room)
         return boarding_rooms
+
+
+class BoardingHouseSearchForm(forms.Form):
+    query = forms.CharField(required=False, label='Search')
+    search_by = forms.ChoiceField(
+        choices=[
+            ('name', 'Name'),
+            ('location', 'Location'),
+        ],
+        required=False,
+        label='Search by'
+    )
+
+
+class BoardingRoomSearchForm(forms.Form):
+    query = forms.CharField(required=False, label='Search')
+    search_by = forms.ChoiceField(
+        choices=[
+            ('name', 'Name'),
+            ('boarding_house', 'Boarding House'),
+        ],
+        required=False,
+        label='Search by'
+    )
