@@ -152,7 +152,7 @@ class EditProfileView(TemplateView):
             else:
                 context['address_form'] = address_form
         elif 'update-user_contact_form' in request.POST:
-            phone_number_form = UpdatePhoneNumberForm(request.POST)
+            phone_number_form = UpdatePhoneNumberForm(request.POST, instance=self.request.user)
             if phone_number_form.is_valid():
                 phone_number_form.save()
                 messages.success(request, 'Phone number updated successfully.')

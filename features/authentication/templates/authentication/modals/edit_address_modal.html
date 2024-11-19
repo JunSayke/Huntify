@@ -23,6 +23,9 @@
                             class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                         >Province</label>
                         {{ address_form.province|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:province" }}
+                        {% if address_form.province.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.province.errors.0 }}</div>
+                        {% endif %}
                     </div>
                     <div class="border p-2">
                         <label
@@ -30,6 +33,9 @@
                             class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                         >Municipality</label>
                         {{ address_form.municipality|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:municipality" }}
+                        {% if address_form.municipality.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.municipality.errors.0 }}</div>
+                        {% endif %}
                     </div>
                     <div class="border p-2">
                         <label
@@ -37,6 +43,9 @@
                             class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                         >Barangay</label>
                         {{ address_form.barangay|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:barangay" }}
+                        {% if address_form.barangay.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.barangay.errors.0 }}</div>
+                        {% endif %}
                     </div>
                     <div class="border p-2">
                         <label
@@ -45,10 +54,17 @@
                         >Street</label
                         >
                         {{ address_form.street|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Street/Building/House No." }}
+                        {% if address_form.street.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.street.errors.0 }}</div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="border">
+                {% if address_form.non_field_errors %}
+                    <div
+                        class="text-red-500 text-sm error py-5 text-center ">{{ address_form.non_field_errors }}</div>
+                {% endif %}
                 <div class="flex justify-end gap-5 border p-5">
                     <button
                         type="submit"

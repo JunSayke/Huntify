@@ -38,11 +38,11 @@ class CreateBoardingHouseForm(forms.ModelForm):
     def __init__(self, landlord, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.landlord = landlord
-        self.fields['province'].empty_label = "Select a province"
+        self.fields['province'].empty_label = "Choose a province"
         self.fields['municipality'].queryset = Municipality.objects.none()
-        self.fields['municipality'].empty_label = "Select a municipality"
+        self.fields['municipality'].empty_label = "Choose a municipality"
         self.fields['barangay'].queryset = Barangay.objects.none()
-        self.fields['barangay'].empty_label = "Select a barangay"
+        self.fields['barangay'].empty_label = "Choose a barangay"
 
         province_html_name = self.add_prefix('province')
         municipality_html_name = self.add_prefix('municipality')
