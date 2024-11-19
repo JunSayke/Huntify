@@ -3,7 +3,6 @@ from django.contrib.auth.views import LoginView as DjangoLoginView, PasswordChan
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views import View
 from django.views.generic import UpdateView, DetailView, TemplateView
 from formtools.wizard.views import SessionWizardView
 
@@ -11,7 +10,7 @@ from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationFor
     AdditionalInfoForm, \
     UpdateUserAddressForm, UpdatePhoneNumberForm
 from .models import User
-from ..property_management.models import BoardingRoom
+from ..property_management.models import BoardingRoom, BoardingHouse
 
 
 # Create your views here.
@@ -41,6 +40,40 @@ class ProfileView(DetailView):
         elif 'username' in self.kwargs:
             return get_object_or_404(User, username=self.kwargs['username'])
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['address_form'] = UpdateUserAddressForm()
+        context['phone_number_form'] = UpdatePhoneNumberForm()
+
+        user_profile = self.get_object()
+        if user_profile.user_type == User.Type.LANDLORD:
+            context['boarding_houses'] = BoardingHouse.objects.filter(landlord=user_profile)
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data()
+
+        if 'update-user_address_form' in request.POST:
+            address_form = UpdateUserAddressForm(request.POST, instance=self.request.user)
+            if address_form.is_valid():
+                address_form.save()
+                messages.success(request, 'Address updated successfully.')
+                return redirect('authentication:edit-profile')
+            else:
+                context['address_form'] = address_form
+        elif 'update-user_contact_form' in request.POST:
+            phone_number_form = UpdatePhoneNumberForm(request.POST, instance=self.request.user)
+            if phone_number_form.is_valid():
+                phone_number_form.save()
+                messages.success(request, 'Phone number updated successfully.')
+                return redirect('authentication:edit-profile')
+            else:
+                context['phone_number_form'] = phone_number_form
+
+        return self.render_to_response(context)
 
 
 class ChangePasswordView(PasswordChangeView):
