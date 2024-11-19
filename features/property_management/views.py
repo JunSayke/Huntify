@@ -4,7 +4,6 @@ from django.db.models import Count, Q, Value
 from django.db.models.functions import Concat
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, DetailView
 
 from features.property_management.forms import CreateBoardingHouseForm, CreateBoardingRoomForm, BoardingHouseSearchForm, \
@@ -44,7 +43,7 @@ class SafePaginator(Paginator):
             else:
                 raise
 
-
+# TODO: Restrict access to these views to landlords only
 # OPTIMIZE: BoardingHouseListView and BoardingRoomListView can be refactored possibly through mixins or inheritance
 class BoardingHouseListView(ListView):
     model = BoardingHouse

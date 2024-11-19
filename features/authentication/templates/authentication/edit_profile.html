@@ -1,4 +1,5 @@
 {% extends 'html/base.html' %}
+{% load widget_tweaks %}
 {% load static %}
 {% block title %}Edit Profile{% endblock %}
 {% block content %}
@@ -6,11 +7,11 @@
     <main class="border">
         <section class="border max-w-minmax h-screen mx-auto">
             <div class="bg-[#3AAFA9] h-[20%] min-h-52">
-                <form method="POST" enctype="multipart/form-data"
+                <form id="update-user_profile_form" method="POST" enctype="multipart/form-data"
                       class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
                     {% csrf_token %}
                     <div class="border col-start-1 place-items-center place-content-center">
-                        <label for="{{ form1.profile_picture.id_for_label }}"
+                        <label for="{{ profile_form.profile_picture.id_for_label }}"
                                class="relative flex items-center justify-center cursor-pointer">
                             <div
                                 class="flex relative size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -27,14 +28,13 @@
                                      viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
                                           d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                                          clip-rule="evenodd" />
+                                          clip-rule="evenodd"></path>
                                     <path fill-rule="evenodd"
                                           d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                                          clip-rule="evenodd" />
+                                          clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <input type="file" accept="image/*" id="{{ form1.profile_picture.id_for_label }}"
-                                   name="{{ form1.profile_picture.name }}" class="hidden" />
+                            <input type="file" name="{{ profile_form.profile_picture.html_name }}" data-target-input="profile-pic" accept="image/*" class="hidden" id="{{ profile_form.profile_picture.id_for_label }}">
                         </label>
                     </div>
                     <div class="border col-start-2 h-1/2 translate-y-full px-5">
@@ -59,38 +59,42 @@
                             <div class="border row-start-1 col-start-1 p-2">
                                 <label for="username"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                <input type="text" id="username" name="username"
+                                <input type="text" id="username"
                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        placeholder="Username" value="{{ user.username }}" readonly />
                             </div>
                             <div class="border row-start-2 col-start-1 p-2">
-                                <label for="{{ form1.email.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form1.email.label }}</label>
-                                <input type="email" id="{{ form1.email.id_for_label }}"
-                                       name="{{ form1.email.name }}"
-                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       placeholder="Email Address" value="{{ user.email }}" />
+                                <label for="{{ profile_form.email.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                                    Address</label>
+                                {% render_field profile_form.email class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"value:{{ user.username }}"|attr:"placeholder:Email Address" placeholder="Email Address" value=user.email %}
+                                {% if profile_form.email.errors %}
+                                    <div
+                                        class="text-red-500 text-sm error">{{ profile_form.email.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             <div class="border row-start-1 col-start-2 p-2">
-                                <label for="{{ form1.first_name.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form1.first_name.label }}</label>
-                                <input type="text" id="{{ form1.first_name.id_for_label }}"
-                                       name="{{ form1.first_name.name }}"
-                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       placeholder="First Name" value="{{ user.first_name }}" />
+                                <label for="{{ profile_form.first_name.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ profile_form.first_name.label }}</label>
+                                {% render_field profile_form.first_name class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"value:{{ user.username }}"|attr:"placeholder:Email Address" placeholder="First Name" value=user.first_name %}
+                                {% if profile_form.first_name.errors %}
+                                    <div
+                                        class="text-red-500 text-sm error">{{ profile_form.first_name.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             <div class="border row-start-2 col-start-2 p-2">
-                                <label for="{{ form1.last_name.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form1.last_name.label }}</label>
-                                <input type="text" id="{{ form1.last_name.id_for_label }}"
-                                       name="{{ form1.last_name.name }}"
-                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       placeholder="Last Name" value="{{ user.last_name }}" />
+                                <label for="{{ profile_form.last_name.id_for_label }}"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ profile_form.last_name.label }}</label>
+                                {% render_field profile_form.last_name class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"value:{{ user.username }}"|attr:"placeholder:Email Address" placeholder="Last Name" value=user.last_name %}
+                                {% if profile_form.last_name.errors %}
+                                    <div
+                                        class="text-red-500 text-sm error">{{ profile_form.last_name.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             <div class="border row-start-3 col-start-1 p-2">
                                 <label for="gender"
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                                <input type="text" id="gender" name="gender"
+                                <input type="text" id="gender"
                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        placeholder="Gender" value="{{ user.gender|title }}" readonly />
                             </div>
@@ -101,24 +105,19 @@
                                 <div class="relative">
                                     <div
                                         class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
+                                        <i class="fa-solid fa-cake-candles"></i>
                                     </div>
                                     <input
                                         id="birthdate"
-                                        name="birthdate"
                                         type="text"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="MM/DD/YYYY" data-date="{{ user.birthdate|date:'m/d/Y' }}"
                                         value="{{ user.birthdate|date:'m/d/Y' }}" readonly>
                                 </div>
                             </div>
-                            {% if form1.non_field_errors %}
+                            {% if profile_form.non_field_errors %}
                                 <div
-                                    class="text-red-500 text-sm py-5 text-center ">{{ form1.non_field_errors }}</div>
+                                    class="text-red-500 text-sm py-5 text-center ">{{ profile_form.non_field_errors }}</div>
                             {% endif %}
                         </div>
                         <div class="float-left mt-5 px-5">
@@ -139,10 +138,8 @@
                             </div>
                             <div>
                                 <p class="text-sm">
-                                    {% if user.street or user.province or user.municipality or user.barangay %}
-                                        {{ user.street }}, {{ user.province.name }},
-                                        {{ user.municipality.name }},
-                                        {{ user.barangay.name }}
+                                    {% if user.address %}
+                                        {{ user.address }}
                                     {% else %}
                                         Address not provided
                                     {% endif %}
@@ -157,7 +154,7 @@
                             </div>
                         </div>
                         <div class="float-right mt-5 px-5">
-                            <button type="submit" name="{{ form1.name }}"
+                            <button type="submit" name="update-user_profile_form"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Save Changes
                             </button>
@@ -170,25 +167,7 @@
             </div>
         </section>
     </main>
-    {% include 'authentication/edit_address_modal.html' %}
-    {% include 'authentication/edit_phone_number_modal.html' %}
-    <script type="module">
-        import {
-            imageInputPreview,
-            AddressProcessor
-        } from "{% static 'js/huntify.js' %}";
-
-        document.addEventListener("DOMContentLoaded", function() {
-            imageInputPreview(document.getElementById("{{ form1.profile_picture.id_for_label }}"), [document.getElementById("profile-pic-preview")]);
-            const addressProcessor = new AddressProcessor();
-
-            const provinceSelectTag = document.getElementById("{{ form2.province.id_for_label }}");
-            const municipalitySelectTag = document.getElementById("{{ form2.municipality.id_for_label }}");
-            const barangaySelectTag = document.getElementById("{{ form2.barangay.id_for_label }}");
-
-            addressProcessor.loadProvinces(provinceSelectTag);
-            addressProcessor.loadMunicipalitiesOnProvince(provinceSelectTag, municipalitySelectTag);
-            addressProcessor.loadBarangaysOnMunicipality(municipalitySelectTag, barangaySelectTag);
-        });
-    </script>
+    {% include 'authentication/modals/edit_address_modal.html' %}
+    {% include 'authentication/modals/edit_phone_number_modal.html' %}
+    <script type="module" src="{% static 'js/edit_profile.js' %}"></script>
 {% endblock %}

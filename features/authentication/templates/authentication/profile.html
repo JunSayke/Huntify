@@ -25,7 +25,13 @@
                     </div>
                     <div class="border col-start-2 h-1/2 translate-y-full px-5">
 
-                        <h5 class="float-left font-medium">{{ user_profile.get_full_name }}<br />
+                        <h5 class="float-left font-medium">{{ user_profile.get_full_name }}
+                            {% if user_profile.user_type == 'landlord' %}
+                                <span class="text-xs text-gray-400">(Landlord)</span>
+                            {% elif user_profile.user_type == 'tenant' %}
+                                <span class="text-xs text-gray-400">(Tenant)</span>
+                            {% endif %}
+                            <br />
                             <span class="font-normal text-xs">
                             {% if user_profile.user_type == 'tenant' %}
                                 0 Reviews
@@ -124,7 +130,7 @@
         </section>
     </main>
     {% if user_profile == request.user %}
-        {% include 'authentication/edit_address_modal.html' %}
-        {% include 'authentication/edit_phone_number_modal.html' %}
+        {% include 'authentication/modals/edit_address_modal.html' %}
+        {% include 'authentication/modals/edit_phone_number_modal.html' %}
     {% endif %}
 {% endblock %}

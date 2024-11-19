@@ -1,20 +1,33 @@
+from django.contrib import messages
 from django.contrib.auth.views import LoginView as DjangoLoginView, PasswordChangeView
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import UpdateView, DetailView
+from django.views.generic import UpdateView, DetailView, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationForm, UpdateUserProfileForm, \
     AdditionalInfoForm, \
-    UpdateUserAddressForm
+    UpdateUserAddressForm, UpdatePhoneNumberForm
 from .models import User
+from ..property_management.models import BoardingRoom
 
 
 # Create your views here.
 def home(request):
-    return render(request, "authentication/home.html")
+    total_tenants = User.objects.filter(user_type=User.Type.TENANT).count()
+    total_landlords = User.objects.filter(user_type=User.Type.LANDLORD).count()
+    total_rooms = BoardingRoom.objects.count()
+    total_bookings = 0
+    total_users = total_tenants + total_landlords
+    return render(request, "authentication/home.html", {
+        'total_tenants': total_tenants,
+        'total_landlords': total_landlords,
+        'total_rooms': total_rooms,
+        'total_bookings': total_bookings,
+        'total_users': total_users,
+    })
 
 
 class ProfileView(DetailView):
@@ -104,38 +117,47 @@ class RegistrationWizard(SessionWizardView):
         return redirect('authentication:personal-information')
 
 
-class EditProfileView(View):
-    def get(self, request, *args, **kwargs):
-        user = request.user
-        form1 = UpdateUserProfileForm(instance=user)
-        form2 = UpdateUserAddressForm(instance=user)
+class EditProfileView(TemplateView):
+    template_name = 'authentication/edit_profile.html'
 
-        # OPTIMIZE: Duplicate code
-        return render(request, 'authentication/edit_profile.html', {
-            'form1': form1,
-            'form2': form2
-        })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile_form'] = UpdateUserProfileForm(instance=self.request.user)
+        context['address_form'] = UpdateUserAddressForm()
+        context['phone_number_form'] = UpdatePhoneNumberForm()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+
+        return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        user = request.user
-        if 'form1' in request.POST:
-            form1 = UpdateUserProfileForm(request.POST, request.FILES, instance=user)
-            if form1.is_valid():
-                form1.save()
-                return redirect('authentication:my-profile')
-            form2 = UpdateUserAddressForm(instance=user)
-        elif 'form2' in request.POST:
-            form2 = UpdateUserAddressForm(request.POST, instance=user)
-            if form2.is_valid():
-                form2.save()
-                return redirect('authentication:my-profile')
-            form1 = UpdateUserProfileForm(instance=user)
-        else:
-            form1 = UpdateUserProfileForm(instance=user)
-            form2 = UpdateUserAddressForm(instance=user)
+        context = self.get_context_data()
 
-        # OPTIMIZE: Duplicate code
-        return render(request, 'authentication/edit_profile.html', {
-            'form1': form1,
-            'form2': form2
-        })
+        if 'update-user_profile_form' in request.POST:
+            profile_form = UpdateUserProfileForm(request.POST, request.FILES, instance=self.request.user)
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, 'Profile updated successfully.')
+                return redirect('authentication:edit-profile')
+            else:
+                context['profile_form'] = profile_form
+        elif 'update-user_address_form' in request.POST:
+            address_form = UpdateUserAddressForm(request.POST, instance=self.request.user)
+            if address_form.is_valid():
+                address_form.save()
+                messages.success(request, 'Address updated successfully.')
+                return redirect('authentication:edit-profile')
+            else:
+                context['address_form'] = address_form
+        elif 'update-user_contact_form' in request.POST:
+            phone_number_form = UpdatePhoneNumberForm(request.POST)
+            if phone_number_form.is_valid():
+                phone_number_form.save()
+                messages.success(request, 'Phone number updated successfully.')
+                return redirect('authentication:edit-profile')
+            else:
+                context['phone_number_form'] = phone_number_form
+
+        return self.render_to_response(context)

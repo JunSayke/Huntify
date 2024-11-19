@@ -100,14 +100,16 @@
                                         Profile
                                     </a>
                                 </li>
-                                <li>
-                                    <a
-                                        href="{% url 'property_management:dashboard' %}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    >
-                                        Dashboard
-                                    </a>
-                                </li>
+                                {% if user.user_type == 'landlord' %}
+                                    <li>
+                                        <a
+                                            href="{% url 'property_management:dashboard' %}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        >
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                {% endif %}
                                 <li>
                                     <form method="POST" action="{% url 'authentication:logout' %}">
                                         {% csrf_token %}

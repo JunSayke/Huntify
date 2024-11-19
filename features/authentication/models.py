@@ -48,6 +48,9 @@ class User(AbstractUser, UUIDPKMixin):
 
     objects = UserManager()
 
+    def address(self):
+        return f"{self.street}, {self.barangay}, {self.municipality}, {self.province}".title()
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
