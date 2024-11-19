@@ -46,7 +46,7 @@
     {% for boarding_house in boarding_houses %}
         <tr class="bg-white dark:bg-gray-800">
             <td class="px-6 py-4">
-                <a href="#" class="font-medium text-gray-900">{{ boarding_house.name }}</a>
+                <a href="{{ boarding_house.get_absolute_url }}" class="font-medium text-gray-900">{{ boarding_house.name }}</a>
             </td>
             <td class="px-6 py-4">{{ boarding_house.status }}</td>
             <td class="px-6 py-4">{{ boarding_house.created_at|date:"m/d/Y" }}</td>

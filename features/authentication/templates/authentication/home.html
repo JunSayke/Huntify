@@ -2,53 +2,53 @@
 {% block content %}
     {% include 'html/header.html' %}
     <main>
-        <section
-            class="flex place-content-center place-items-center border px-[70px]"
-        >
-            <div class="h-[calc(100vh-200px)] w-[1240px] min-w-fit border">
-                <div class="flex h-full w-full border">
-                    <div class="w-1/2 self-center border">
-                        <div class="mx-14 grid gap-10 border">
-                            <div class="col-span-3 row-start-1 border">
-                                <h1>Huntify</h1>
-                                <h3>Where Homes Begin</h3>
+        <!-- Naay font ang tailwind so instead of styling in the style use tailwind,
+        pero need pa nimo e import ang font sa google fonts cdn then configure sa tailwind.config.js
+        -->
+        <section class="flex place-content-center place-items-center px-[70px]">
+            <div class="h-[calc(100vh-200px)] w-[1240px] min-w-fit">
+                <div class="flex h-full w-full">
+                    <div class="w-1/2 self-center p-10">
+                        <div class="mx-14 grid gap-10">
+                            <div class="col-span-3 row-start-1">
+                                <h1 class="font-extrabold text-[#3aafa9]" style="font-size: 5vw; font-family: 'Roboto', sans-serif;">Huntify</h1>
+                                <h3 class="text-4xl font-semibold text-black-700" style="font-family: 'Roboto', sans-serif;">Where Home Begins</h3>                      
                             </div>
-                            <div class="col-span-3 row-start-2 border">
-                                <p>
-                                    Looking for a place to stay? We are here to assist<br />you
-                                    in finding your new home
+                            <div class="col-span-3 row-start-2">
+                                <p class="text-2xl text-gray-700" style="font-family: 'Roboto', sans-serif;">
+                                    Looking for a place to stay? We are here to assist you
+                                    in finding your new home.
                                 </p>
                             </div>
-                            <div class="col-span-1 row-start-3 border">
-                                <p><b>{{ total_rooms }}</b><br />Rooms</p>
+                            <div class="col-span-1 row-start-3">
+                                <p class="text-4xl font-bold" style="font-family: 'Roboto', sans-serif;">
+                                    <span class="text-black">2673</span><span class="text-[maroon]">+</span>
+                                </p>
+                                <p class="text-sm text-gray-500" style="font-family: 'Roboto', sans-serif;"><br/>Rooms</p>
                             </div>
-                            <div class="col-span-1 row-start-3 border">
-                                <p><b>{{ total_bookings }}</b><br />Reservation/Semester</p>
+                            <div class="col-span-1 row-start-3">
+                                <p class="text-4xl font-bold" style="font-family: 'Roboto', sans-serif;">
+                                    <span class="text-black">535</span><span class="text-[maroon]">+</span>
+                                </p>
+                                <p class="text-sm text-gray-500" style="font-family: 'Roboto', sans-serif;"><br/>Reservation/<br/>Semester</p>
                             </div>
-                            <div class="col-span-1 row-start-3 border">
-                                <p><b>{{ total_users }}</b><br />Users</p>
-                            </div>
+                            <div class="col-span-1 row-start-3">
+                                <p class="text-4xl font-bold" style="font-family: 'Roboto', sans-serif;">
+                                    <span class="text-black">3467</span><span class="text-[maroon]">+</span>
+                                </p>
+                                <p class="text-sm text-gray-500" style="font-family: 'Roboto', sans-serif;"><br/>Students</p>
+                            </div>                                                 
                         </div>
                     </div>
-                    <div class="w-1/2 border">
-                        <div
-                            class="flex h-full w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
-                        >
-                            <svg
-                                class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 18"
-                            >
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                />
-                            </svg>
+                    <div class="w-1/2">
+                        <!-- Image in the placeholder with adjusted size -->
+                        <div class="flex h-full w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                            <img src="https://s3-alpha-sig.figma.com/img/d1b9/491e/ac959b6c01243d3e5ba71c9daff7315c?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MC~TDDkjKVggLw7vpWKMUNAvL6YzYrT1UjLL5ICmUU90JFb2-buE8X-FO-dWMjRQNvpI7wukDIv6vNPG86l~D42ql5n3X9kOlJk5JTRok6p-pCuoJh5CvF5GKVwbceMjDrRyP42sy-wMLx9JI8zSSxKIVN1-C27-hvpY18432mJNmmrM~InN36vY2yD01~cfVq4-3fQlFir6vBiK7E35AzseGPBmyfLQ9Av7w3F29uzEhFT5AUJwK3-pR0h88ZkuUzjTYaEVGcbGsQPWHjxrzrBQRjy0rY6GdxjrpV08Bh-cAzvFdg4JFCZn0yVNVB8PeDq9u2fpSCSLWlA4WRA02g__" 
+                                 alt="Huntify Image"
+                                 class="object-cover w-full h-full">
                         </div>
                     </div>
                 </div>
-                <div class="border"></div>
             </div>
         </section>
     </main>

@@ -1,4 +1,5 @@
 {% extends 'html/base.html' %}
+{% load widget_tweaks %}
 {% block title %}Rent A Room{% endblock %}
 {% block content %}
     {% include 'html/header.html' %}
@@ -7,163 +8,98 @@
             <div class="mx-5 grid grid-cols-[1fr_4fr] gap-5">
                 <div class="col-start-1 row-span-2 p-5">
                     <h1>Filters</h1>
+
                     <div class="flex flex-col gap-5 border p-5">
+                        <a href="{{ request.path }}"
+                           class="w-fit rounded-lg bg-gray-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-400 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
+                            Clear Filters
+                        </a>
                         <div class="border p-5">
-                            <fieldset
-                                class="rounded-lg border border-gray-300 p-4 dark:border-gray-600"
-                            >
-                                <legend
-                                    class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                                >
-                                    Budget
-                                </legend>
-                                <div class="flex space-x-4">
-                                    <input
-                                        type="number"
-                                        id="min-budget"
-                                        aria-describedby="helper-text-explanation"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                        placeholder="Minimum"
-                                        required
-                                    />
-                                    <input
-                                        type="number"
-                                        id="max-budget"
-                                        aria-describedby="helper-text-explanation"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                        placeholder="Maximum"
-                                        required
-                                    />
+                            <form method="GET">
+                                <fieldset class="rounded-lg border border-gray-300 p-4 dark:border-gray-600">
+                                    <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">Budget</legend>
+                                    <div class="flex space-x-4">
+                                        <input
+                                            type="number"
+                                            name="price_min"
+                                            id="min-budget"
+                                            aria-describedby="helper-text-explanation"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            placeholder="Minimum"
+                                            value="{{ request.GET.price_min }}"
+                                        />
+                                        <input
+                                            type="number"
+                                            name="price_max"
+                                            id="max-budget"
+                                            aria-describedby="helper-text-explanation"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            placeholder="Maximum"
+                                            value="{{ request.GET.price_max }}"
+                                        />
+                                    </div>
+                                    <button type="submit"
+                                            class="mt-4 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        Apply
+                                    </button>
+                                </fieldset>
+                            </form>
+                            <form method="GET">
+                                <div class="flex items-center gap-x-5 my-5">
+                                    <div class="relative w-96">
+                                        <div class="absolute inset-y-0 start-0 flex items-center ps-3">
+                                            <button type="submit">
+                                                <i class="fas fa-search text-gray-400"></i>
+                                            </button>
+                                        </div>
+
+                                        <input
+                                            type="text"
+                                            id="address-search-bar"
+                                            name="address"
+                                            placeholder="Search by address"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            value="{{ request.GET.address }}"
+                                        />
+                                    </div>
                                 </div>
-                            </fieldset>
+                            </form>
                         </div>
                         <div class="border p-5">
-                            <fieldset
-                                class="rounded-lg border border-gray-300 p-4 dark:border-gray-600"
-                            >
-                                <legend
-                                    class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                                >
-                                    Barangay
-                                </legend>
-                                <div class="flex flex-col space-y-2">
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 1</span
-                                        >
-                                    </label>
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 2</span
-                                        >
-                                    </label>
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 3</span
-                                        >
-                                    </label>
-                                </div>
-                            </fieldset>
+                            <form method="GET">
+                                <fieldset class="rounded-lg border border-gray-300 p-4 dark:border-gray-600">
+                                    <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">Room Type
+                                    </legend>
+                                    <div class="flex flex-col space-y-2">
+                                        {% for room_tag in tags %}
+                                            <label class="flex items-center">
+                                                <input
+                                                    type="checkbox"
+                                                    name="tags"
+                                                    value="{{ room_tag.id }}"
+                                                    class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                                                    {% if room_tag.id|stringformat:"s" in selected_tags %}checked{% endif %}
+                                                />
+                                                <span
+                                                    class="ml-2 text-gray-700 dark:text-gray-300">{{ room_tag.name }}</span>
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+                                </fieldset>
+                                <button type="submit"
+                                        class="mt-4 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Apply
+                                </button>
+                            </form>
                         </div>
-                        <div class="border p-5">
-                            <fieldset
-                                class="rounded-lg border border-gray-300 p-4 dark:border-gray-600"
-                            >
-                                <legend
-                                    class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                                >
-                                    Room Type
-                                </legend>
-                                <div class="flex flex-col space-y-2">
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 1</span
-                                        >
-                                    </label>
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 2</span
-                                        >
-                                    </label>
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 3</span
-                                        >
-                                    </label>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="border p-5">
-                            <fieldset
-                                class="rounded-lg border border-gray-300 p-4 dark:border-gray-600"
-                            >
-                                <legend
-                                    class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                                >
-                                    Amenities
-                                </legend>
-                                <div class="flex flex-col space-y-2">
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 1</span
-                                        >
-                                    </label>
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 2</span
-                                        >
-                                    </label>
-                                    <label class="flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
-                                        />
-                                        <span class="ml-2 text-gray-700 dark:text-gray-300"
-                                        >Tag 3</span
-                                        >
-                                    </label>
-                                </div>
-                            </fieldset>
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-start-2 p-5">
                     <h1>List of Rooms</h1>
-                    <ul class="grid flex-1 grid-cols-4 gap-5 border p-5">
+                    <ul class="grid flex-1 grid-cols-4 gap-2 border p-5">
                         {% if not boarding_rooms %}
-                            <p class="text-center col-span-3 py-5 text-gray-500 dark:text-gray-400">No boarding rooms
+                            <p class="text-center col-span-4 py-5 text-gray-500 dark:text-gray-400">No boarding rooms
                                 found.</p>
                         {% endif %}
                         {% for boarding_room in boarding_rooms %}

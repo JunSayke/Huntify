@@ -64,6 +64,10 @@
         <section class="w-full p-5">
             <h5 class="font-bold text-center">Rooms</h5>
             <ol class="grid grid-cols-4 gap-5 mt-5">
+                {% if not boarding_rooms %}
+                    <p class="text-center col-span-4 py-5 text-gray-500 dark:text-gray-400">No boarding rooms
+                        found.</p>
+                {% endif %}
                 {% for room in boarding_rooms %}
                     <li class="border p-2">
                         <a href="{{ room.get_absolute_url }}">

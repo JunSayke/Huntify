@@ -8,28 +8,12 @@ from django.views.generic import ListView, DetailView
 
 from features.property_management.forms import CreateBoardingHouseForm, CreateBoardingRoomForm, BoardingHouseSearchForm, \
     BoardingRoomSearchForm
-from features.property_management.models import BoardingHouse, BoardingRoom
+from features.property_management.models import BoardingHouse, BoardingRoom, Tag
 
 
 # Create your views here.
 def booking_management(request):
     return render(request, 'property_management/dashboard/booking-management.html')
-
-
-def rent_a_room(request):
-    return render(request, 'property_management/rent_a_room.html')
-
-
-def boarding_house_detail(request):
-    return render(request, 'property_management/boarding_house_detail.html')
-
-
-def boarding_room_detail(request):
-    return render(request, 'property_management/boarding_room_detail.html')
-
-
-def boarding_house_rooms(request):
-    return render(request, 'property_management/boarding_house_rooms.html')
 
 
 # Safe Paginator where it can handle cases where the user tries to access a page that does not exist
@@ -147,6 +131,7 @@ class BoardingRoomListView(ListView):
     context_object_name = 'boarding_rooms'
     paginate_by = 10
     template_name = 'property_management/dashboard/boarding_room_list.html'
+    ordering = ['-created_at']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -160,7 +145,7 @@ class BoardingRoomListView(ListView):
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-created_at')
+        queryset = super().get_queryset()
         # current_url = resolve(self.request.path).url_name  # Get URL name
 
         queryset = queryset.filter(boarding_house__landlord=self.request.user)
@@ -239,13 +224,47 @@ class RentARoomListView(ListView):
     context_object_name = 'boarding_rooms'
     paginate_by = 10
     template_name = 'property_management/rent_a_room.html'
+    ordering = ['-created_at', '-is_available']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context['total_boarding_rooms'] = self.get_queryset().count()
-
+        queryset = super().get_queryset()
+        context['total_boarding_rooms'] = queryset.count()
+        context['tags'] = Tag.objects.filter(type=Tag.Type.BOARDING_ROOM)
+        context['selected_tags'] = self.request.GET.getlist('tags')
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        queryset = queryset.filter(is_available=True)
+        # Handle search query
+        address = self.request.GET.get('address', '')
+        if address:
+            queryset = queryset.annotate(
+                location=Concat(
+                    'boarding_house__barangay__name', Value(', '),
+                    'boarding_house__municipality__name', Value(', '),
+                    'boarding_house__province__name'
+                )
+            ).filter(location__icontains=address)
+
+        # Handle tag filtering
+        tags = self.request.GET.getlist('tags')  # Expecting a list of tag IDs from the query parameters
+        if tags:
+            queryset = queryset.filter(tags__tag__id__in=tags).distinct()
+
+        # Handle price filtering
+        price_min = self.request.GET.get('price_min')
+        price_max = self.request.GET.get('price_max')
+        if price_min and price_max:
+            queryset = queryset.filter(price__gte=price_min, price__lte=price_max)
+        elif price_min:
+            queryset = queryset.filter(price__gte=price_min)
+        elif price_max:
+            queryset = queryset.filter(price__lte=price_max)
+
+        return queryset
 
 
 class BoardingRoomDetailView(DetailView):
