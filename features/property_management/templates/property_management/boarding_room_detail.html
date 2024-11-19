@@ -1,4 +1,5 @@
 {% extends 'html/base.html' %}
+{% load static %}
 {% block title %}Boarding Room Detail{% endblock %}
 {% block content %}
     {% include 'html/header.html' %}
@@ -6,122 +7,33 @@
         <section class="clearfix w-full border p-5">
             <div class="float-left w-1/2 border p-5">
                 <div class="grid h-[500px] grid-rows-[75%_25%]">
-                    <div class="image-container col-span-4 border p-2">
-                        <div
-                            class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700"
-                        >
-                            <svg
-                                class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 18"
-                            >
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                />
-                            </svg>
-                            <img
-                                class="random-image hidden h-full w-full object-cover"
-                                src="https://picsum.photos/200"
-                                alt="random-image"
-                            />
+                    {% for image in boarding_room.get_images %}
+                        <div class="image-container {% if forloop.first %}col-span-4{% endif %} border p-2">
+                            <div
+                                class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700">
+                                {% if image %}
+                                    <img class="boarding-room-image h-full w-full object-cover cursor-pointer" data-modal-target="image-modal" data-modal-show="image-modal" src="{{ image.image.url }}"
+                                         alt="room-image" />
+                                {% else %}
+                                    <svg class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
+                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         viewBox="0 0 20 18">
+                                        <path
+                                            d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                                    </svg>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    <div class="image-container border p-2">
-                        <div
-                            class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700"
-                        >
-                            <svg
-                                class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 18"
-                            >
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                />
-                            </svg>
-                            <img
-                                class="random-image hidden h-full w-full object-cover"
-                                src="https://picsum.photos/200"
-                                alt="random-image"
-                            />
-                        </div>
-                    </div>
-                    <div class="image-container border p-2">
-                        <div
-                            class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700"
-                        >
-                            <svg
-                                class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 18"
-                            >
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                />
-                            </svg>
-                            <img
-                                class="random-image hidden h-full w-full object-cover"
-                                src="https://picsum.photos/200"
-                                alt="random-image"
-                            />
-                        </div>
-                    </div>
-                    <div class="image-container border p-2">
-                        <div
-                            class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700"
-                        >
-                            <svg
-                                class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 18"
-                            >
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                />
-                            </svg>
-                            <img
-                                class="random-image hidden h-full w-full object-cover"
-                                src="https://picsum.photos/200"
-                                alt="random-image"
-                            />
-                        </div>
-                    </div>
-                    <div class="image-container border p-2">
-                        <div
-                            class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700"
-                        >
-                            <svg
-                                class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 18"
-                            >
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                />
-                            </svg>
-                            <img
-                                class="random-image hidden h-full w-full object-cover"
-                                src="https://picsum.photos/200"
-                                alt="random-image"
-                            />
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <div class="border p-2">
                     <div class="flex justify-between">
-                        <h6 class="font-bold">Boarding Room Name<span class="font-normal"> / <a href="{% url 'property_management:boarding-house-detail' %}" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Boarding House</a></span></h6>
+                        <h6 class="font-bold">{{ boarding_room.name }}<span class="font-normal"> / <a
+                            href="{{ boarding_house.get_absolute_url }}"
+                            class="font-medium text-blue-600 hover:underline dark:text-blue-500">{{ boarding_house.name }}</a></span>
+                        </h6>
                         <p class="font-bold">
-                            ₱7500<span class="font-normal">/Bills included</span>
+                            ₱{{ boarding_room.price }}<span class="font-normal">/Bills included</span>
                         </p>
                     </div>
                     <p class="flex items-center">
@@ -140,7 +52,7 @@
                                 clip-rule="evenodd"
                             />
                         </svg>
-                        Location
+                        {{ boarding_house.address }}
                     </p>
                 </div>
             </div>
@@ -151,15 +63,12 @@
               <span class="font-medium"
               >Landlord:
                 <a
-                    href="{% url 'authentication:profile' %}"
+                    href="{{ landlord.get_absolute_url }}"
                     class="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                >Wewe</a
+                >{{ landlord.username }}</a
                 ></span
               ><br />
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                        nam autem deleniti nostrum nihil quo fuga, inventore odio
-                        voluptatem veritatis ipsam doloribus vel minus optio, rem
-                        laudantium, facere ad recusandae?
+                        {{ boarding_room.description }}
                     </p>
                 </div>
                 <div class="mt-5 border">
@@ -582,24 +491,6 @@
             </div>
         </section>
     </main>
-{% endblock %}
-{% block scripts %}
-    <script>
-        $(document).ready(function() {
-            $(".image-container").each(function() {
-                const img = $(this).find(".random-image");
-                const svg = $(this).find(".placeholder-svg");
-
-                img.on("load", function() {
-                    svg.addClass("hidden");
-                    img.removeClass("hidden");
-                });
-
-                img.on("error", function() {
-                    svg.removeClass("hidden");
-                    img.addClass("hidden");
-                });
-            });
-        });
-    </script>
+    {% include 'property_management/modals/image_modal.html' %}
+    <script type="module" src="{% static 'js/boarding_room_detail.js' %}"></script>
 {% endblock %}

@@ -5,7 +5,7 @@ from django.db.models.functions import Concat
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from features.property_management.forms import CreateBoardingHouseForm, CreateBoardingRoomForm, BoardingHouseSearchForm, \
     BoardingRoomSearchForm
@@ -45,11 +45,13 @@ class SafePaginator(Paginator):
                 raise
 
 
+# OPTIMIZE: BoardingHouseListView and BoardingRoomListView can be refactored possibly through mixins or inheritance
 class BoardingHouseListView(ListView):
     model = BoardingHouse
     paginator_class = SafePaginator
     context_object_name = 'boarding_houses'
     paginate_by = 10
+    template_name = 'property_management/dashboard/boarding_house_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -64,7 +66,6 @@ class BoardingHouseListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset().order_by('-created_at')
-        # current_url = resolve(self.request.path).url_name  # Get URL name
 
         queryset = queryset.filter(landlord=self.request.user)
         # Handle search query
@@ -139,16 +140,13 @@ class BoardingHouseListView(ListView):
 
         return self.render_to_response(context)
 
-    def get_template_names(self):
-        # current_url = resolve(self.request.path).url_name
-        return ['property_management/dashboard/boarding_house_list.html']
-
 
 class BoardingRoomListView(ListView):
     model = BoardingRoom
     paginator_class = SafePaginator
     context_object_name = 'boarding_rooms'
     paginate_by = 10
+    template_name = 'property_management/dashboard/boarding_room_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -234,6 +232,43 @@ class BoardingRoomListView(ListView):
 
         return self.render_to_response(context)
 
-    def get_template_names(self):
-        # current_url = resolve(self.request.path).url_name
-        return ['property_management/dashboard/boarding_room_list.html']
+
+class RentARoomListView(ListView):
+    model = BoardingRoom
+    paginator_class = SafePaginator
+    context_object_name = 'boarding_rooms'
+    paginate_by = 10
+    template_name = 'property_management/rent_a_room.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['total_boarding_rooms'] = self.get_queryset().count()
+
+        return context
+
+
+class BoardingRoomDetailView(DetailView):
+    model = BoardingRoom
+    template_name = 'property_management/boarding_room_detail.html'
+    context_object_name = 'boarding_room'
+
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('images')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['landlord'] = self.object.boarding_house.landlord
+        context['boarding_house'] = self.object.boarding_house
+        return context
+
+
+class BoardingHouseDetailView(DetailView):
+    model = BoardingHouse
+    template_name = 'property_management/boarding_house_detail.html'
+    context_object_name = 'boarding_house'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['landlord'] = self.object.landlord
+        return context

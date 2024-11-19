@@ -2186,6 +2186,10 @@ input:checked + .toggle-bg {
   height: 20%;
 }
 
+.h-\[200px\] {
+  height: 200px;
+}
+
 .h-\[23px\] {
   height: 23px;
 }
@@ -2300,6 +2304,10 @@ input:checked + .toggle-bg {
 
 .max-h-full {
   max-height: 100%;
+}
+
+.max-h-\[600px\] {
+  max-height: 600px;
 }
 
 .min-h-52 {
@@ -2543,6 +2551,10 @@ input:checked + .toggle-bg {
 
 .max-w-\[23rem\] {
   max-width: 23rem;
+}
+
+.max-w-\[800px\] {
+  max-width: 800px;
 }
 
 .max-w-minmax {

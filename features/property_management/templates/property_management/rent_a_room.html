@@ -162,99 +162,40 @@
                 <div class="col-start-2 p-5">
                     <h1>List of Rooms</h1>
                     <ul class="grid flex-1 grid-cols-3 gap-5 border p-5">
-                        <li class="border p-5">
-                            <a href="{% url 'property_management:boarding-room-detail' %}">
-                                <div class="relative place-items-center">
-                                    <div
-                                        class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
-                                    >
-                                        <svg
-                                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 18"
-                                        >
-                                            <path
-                                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                            />
-                                        </svg>
-                                        <div class="absolute right-2 top-2">
+                        {% if not boarding_rooms %}
+                            <p class="text-center col-span-3 py-5 text-gray-500 dark:text-gray-400">No boarding rooms
+                                found.</p>
+                        {% endif %}
+                        {% for boarding_room in boarding_rooms %}
+                            <li class="border p-5">
+                                <a href="{{ boarding_room.get_absolute_url }}">
+                                    <div class="relative place-items-center">
+                                        {% if boarding_room.first_image %}
+                                            <img src="{{ boarding_room.first_image }}"
+                                                 alt="{{ boarding_room.name }}"
+                                                 class="h-52 w-full object-cover rounded">
+                                        {% else %}
                                             <div
-                                                class="flex size-10 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
-                                            >
-                                                <svg
-                                                    class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor"
-                                                    viewBox="0 0 20 18"
-                                                >
+                                                class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                                                <svg class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                     fill="currentColor" viewBox="0 0 20 18">
                                                     <path
-                                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                                    />
+                                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
                                                 </svg>
                                             </div>
+                                        {% endif %}
+                                        <div class="w-full pt-5">
+                                            <p class="flex justify-between gap-5">
+                                                {{ boarding_room.name }}
+                                                <span><strong>{{ boarding_room.price }}</strong>/month</span>
+                                            </p>
+                                            <p>{{ boarding_room.boarding_house.address }}</p>
                                         </div>
                                     </div>
-                                    <div class="w-full pt-5">
-                                        <p class="flex justify-between gap-5">
-                                            Boarding Room Name
-                                            <span><strong>Price</strong>/month</span>
-                                        </p>
-                                        <p>Boarding House Address</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                        </li>
-                        <li class="border p-5">
-                            <a href="{% url 'property_management:boarding-room-detail' %}">
-                                <div class="relative place-items-center">
-                                    <div
-                                        class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
-                                    >
-                                        <svg
-                                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 18"
-                                        >
-                                            <path
-                                                d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                            />
-                                        </svg>
-                                        <div class="absolute right-2 top-2">
-                                            <div
-                                                class="flex size-10 items-center justify-center rounded bg-gray-300 dark:bg-gray-700"
-                                            >
-                                                <svg
-                                                    class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor"
-                                                    viewBox="0 0 20 18"
-                                                >
-                                                    <path
-                                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"
-                                                    />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="w-full pt-5">
-                                        <p class="flex justify-between gap-5">
-                                            Boarding Room Name
-                                            <span><strong>Price</strong>/month</span>
-                                        </p>
-                                        <p>Boarding House Address</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                        </li>
-
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

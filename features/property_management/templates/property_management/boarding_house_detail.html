@@ -98,10 +98,10 @@
                 </div>
                 <div class="col-start-1 row-start-4 border p-5">
                     <p class="flex justify-between">
-                        <strong>Boarding House Name</strong>
-                        <span><strong>Price Range</strong>/Bills included</span>
+                        <strong>{{ boarding_house.name }}</strong>
+                        <strong>{{ boarding_house.price_range }}</strong>
                     </p>
-                    <p>Boarding House Address</p>
+                    <p><i class="me-2 fa-solid fa-location-dot"></i>{{ boarding_house.address }}</p>
                 </div>
                 <div class="col-start-1 row-start-5 border p-5"></div>
                 <div class="col-start-2 row-start-1 border p-5">
@@ -111,15 +111,12 @@
               <span class="font-medium"
               >Landlord:
                 <a
-                    href="{% url 'authentication:profile' %}"
+                    href="{{ landlord.get_absolute_url }}"
                     class="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                >Wewe</a
+                >{{ landlord.username }}</a
                 ></span
               ><br />
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                            nam autem deleniti nostrum nihil quo fuga, inventore odio
-                            voluptatem veritatis ipsam doloribus vel minus optio, rem
-                            laudantium, facere ad recusandae?
+                            {{ boarding_house.description }}
                         </p>
                     </div>
                 </div>
@@ -169,10 +166,10 @@
                 </div>
                 <div class="col-start-2 row-span-2 row-start-4 border p-5">
                     <div>
-                        <p><strong>Total Rooms</strong><br /><span>5</span></p>
+                        <p><strong>Total Rooms</strong><br /><span>{{ boarding_house.total_rooms }}</span></p>
                     </div>
                     <div>
-                        <p><strong>Available Rooms</strong><br /><span>3</span></p>
+                        <p><strong>Available Rooms</strong><br /><span>{{ boarding_house.status }}</span></p>
                         <a href="{% url 'property_management:boarding-house-rooms' %}">View Rooms</a>
                     </div>
                 </div>
