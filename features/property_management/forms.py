@@ -38,11 +38,11 @@ class CreateBoardingHouseForm(forms.ModelForm):
     def __init__(self, landlord, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.landlord = landlord
-        self.fields['province'].empty_label = "Select a province"
+        self.fields['province'].empty_label = "Choose a province"
         self.fields['municipality'].queryset = Municipality.objects.none()
-        self.fields['municipality'].empty_label = "Select a municipality"
+        self.fields['municipality'].empty_label = "Choose a municipality"
         self.fields['barangay'].queryset = Barangay.objects.none()
-        self.fields['barangay'].empty_label = "Select a barangay"
+        self.fields['barangay'].empty_label = "Choose a barangay"
 
         province_html_name = self.add_prefix('province')
         municipality_html_name = self.add_prefix('municipality')
@@ -72,7 +72,7 @@ class CreateBoardingHouseForm(forms.ModelForm):
         boarding_house.landlord = self.landlord
         if commit:
             boarding_house.save()
-            images = self.files.getlist('images')
+            images = self.files.getlist(self.add_prefix('images'))
             for image in images:
                 BoardingHouseImage.objects.create(boarding_house=boarding_house, image=image)
         return boarding_house
@@ -114,7 +114,7 @@ class CreateBoardingRoomForm(forms.ModelForm):
             boarding_room.pk = None  # By setting the primary key to None, a new object will be saved each time.
             if commit:
                 boarding_room.save()
-                images = self.files.getlist('images')
+                images = self.files.getlist(self.add_prefix('images'))
                 for image in images:
                     BoardingRoomImage.objects.create(boarding_room=boarding_room, image=image)
                 tags = self.cleaned_data.get('tags')

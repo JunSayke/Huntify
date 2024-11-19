@@ -1,4 +1,5 @@
-{% extends "html/base.html" %} {% block title %}Profile - {{ user_profile.get_full_name }}{% endblock %}
+{% extends "html/base.html" %}
+{% load static %} {% block title %}Profile - {{ user_profile.get_full_name }}{% endblock %}
 
 {% block content %}
     {% include 'html/header.html' %}
@@ -25,7 +26,13 @@
                     </div>
                     <div class="border col-start-2 h-1/2 translate-y-full px-5">
 
-                        <h5 class="float-left font-medium">{{ user_profile.get_full_name }}<br />
+                        <h5 class="float-left font-medium">{{ user_profile.get_full_name }}
+                            {% if user_profile.user_type == 'landlord' %}
+                                <span class="text-xs text-gray-400">(Landlord)</span>
+                            {% elif user_profile.user_type == 'tenant' %}
+                                <span class="text-xs text-gray-400">(Tenant)</span>
+                            {% endif %}
+                            <br />
                             <span class="font-normal text-xs">
                             {% if user_profile.user_type == 'tenant' %}
                                 0 Reviews
@@ -102,8 +109,8 @@
                                         {% if user_profile.phone_number %}
                                             {{ user_profile.phone_number }}
                                         {% elif user_profile == request.user %}
-                                            <button data-modal-target="edit-phonenumber-modal"
-                                                    data-modal-toggle="edit-phonenumber-modal"
+                                            <button data-modal-target="edit-contact-modal"
+                                                    data-modal-toggle="edit-contact-modal"
                                                     class="text-left text-blue-600 dark:text-blue-500 hover:underline">Add
                                             Phone Number</button>
                                         {% else %}
@@ -117,6 +124,42 @@
                     <div class="border row-start-2 col-start-2 h-full p-5">
                         {% if user_profile.user_type == 'tenant' %}
                             <h5 class="font-bold">Bookings</h5>
+                        {% elif user_profile.user_type == 'landlord' %}
+                            <h5 class="font-bold">Properties</h5>
+                            <ol class="grid grid-cols-3 gap-5 mt-5">
+                                {% if boarding_houses %}
+                                    {% for boarding_house in boarding_houses %}
+                                        <li class="border p-2">
+                                            <a href="{{ boarding_house.get_absolute_url }}">
+                                                <div class="relative place-items-center">
+                                                    {% if boarding_house.first_image %}
+                                                        <img src="{{ boarding_house.first_image }}"
+                                                             alt="{{ boarding_house.name }}"
+                                                             class="h-52 w-full object-cover rounded">
+                                                    {% else %}
+                                                        <div
+                                                            class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                                                            <svg class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                 fill="currentColor" viewBox="0 0 20 18">
+                                                                <path
+                                                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                                                            </svg>
+                                                        </div>
+                                                    {% endif %}
+                                                    <div class="w-full pt-5 text-xs">
+                                                        <p class="flex justify-between gap-5">
+                                                            {{ boarding_house.name }}
+                                                            <strong>{{ boarding_house.price_range }}</strong>
+                                                        </p>
+                                                        <p class="text-gray-400">{{ boarding_house.address }}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ol>
                         {% endif %}
                     </div>
                 </div>
@@ -124,7 +167,8 @@
         </section>
     </main>
     {% if user_profile == request.user %}
-        {% include 'authentication/edit_address_modal.html' %}
-        {% include 'authentication/edit_phone_number_modal.html' %}
+        {% include 'authentication/modals/edit_address_modal.html' %}
+        {% include 'authentication/modals/edit_phone_number_modal.html' %}
     {% endif %}
+    <script type=" module" src="{% static 'js/profile.js' %}"></script>
 {% endblock %}

@@ -1,5 +1,6 @@
 # models.py
 import os
+from random import choice
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -31,11 +32,37 @@ class BoardingHouse(models.Model):
     def status(self):
         return self.rooms.filter(is_available=True).count()
 
+    def total_rooms(self):
+        return self.rooms.count()
+
+    def random_image(self):
+        image = choice(self.images.all()) if self.images.exists() else None
+        return image.image.url if image else None
+
+    def first_image(self):
+        image = self.images.first() if self.images.exists() else None
+        return image.image.url if image else None
+
+    def get_images(self, max_images=5):
+        images = list(self.images.all()[:max_images])
+
+        while len(images) < max_images:
+            images.append(None)
+        return images
+
+    def price_range(self):
+        rooms = self.rooms.all()
+        if rooms.exists():
+            min_price = rooms.order_by('price').first().price
+            max_price = rooms.order_by('-price').first().price
+            return f"₱{min_price} - ₱{max_price}"
+        return None
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('property_management:detail', kwargs={'pk': self.pk})
+        return reverse('property_management:boarding-house', kwargs={'pk': self.pk})
 
 
 class BoardingHouseImage(models.Model):
@@ -65,11 +92,25 @@ class BoardingRoom(models.Model):
     def full_name(self):
         return f"{self.boarding_house.name} - {self.name}"
 
+    def random_image(self):
+        image = choice(self.images.all()) if self.images.exists() else None
+        return image.image.url if image else None
+
+    def first_image(self):
+        image = self.images.first() if self.images.exists() else None
+        return image.image.url if image else None
+
+    def get_images(self, max_images=5):
+        images = list(self.images.all()[:max_images])
+        while len(images) < max_images:
+            images.append(None)  # Append None to represent placeholders
+        return images
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('property_management:room_detail', kwargs={'pk': self.pk})
+        return reverse('property_management:boarding-room', kwargs={'pk': self.pk})
 
 
 class BoardingRoomImage(models.Model):

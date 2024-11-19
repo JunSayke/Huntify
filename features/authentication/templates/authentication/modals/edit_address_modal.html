@@ -1,0 +1,80 @@
+{% load widget_tweaks %}
+<div
+    id="edit-address-modal"
+    tabindex="-1"
+    aria-hidden="true"
+    class="fixed hidden left-0 right-0 top-0 z-50 h-full w-full border"
+>
+    <form id="update-user_address_form" method="POST">
+        {% csrf_token %}
+        <div class="max-h-full w-full min-w-96 max-w-xl bg-white p-4">
+            <!-- Modal content -->
+            <div class="flex justify-between border px-5">
+                <h1 class="text-center">Edit Address</h1>
+                <button type="button" data-modal-hide="edit-address-modal">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <div class="border">
+                <div class="gid-cols-4 grid gap-5 p-5">
+                    <div class="border p-2">
+                        <label
+                            for="{{ address_form.province.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Province</label>
+                        {{ address_form.province|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:province" }}
+                        {% if address_form.province.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.province.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="border p-2">
+                        <label
+                            for="{{ address_form.municipality.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Municipality</label>
+                        {{ address_form.municipality|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:municipality" }}
+                        {% if address_form.municipality.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.municipality.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="border p-2">
+                        <label
+                            for="{{ address_form.barangay.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Barangay</label>
+                        {{ address_form.barangay|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:barangay" }}
+                        {% if address_form.barangay.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.barangay.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="border p-2">
+                        <label
+                            for="{{ address_form.street.id_for_label }}"
+                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Street</label
+                        >
+                        {{ address_form.street|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Street/Building/House No." }}
+                        {% if address_form.street.errors %}
+                            <div class="text-red-500 text-sm error">{{ address_form.street.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="border">
+                {% if address_form.non_field_errors %}
+                    <div
+                        class="text-red-500 text-sm error py-5 text-center ">{{ address_form.non_field_errors }}</div>
+                {% endif %}
+                <div class="flex justify-end gap-5 border p-5">
+                    <button
+                        type="submit"
+                        name="update-user_address_form"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

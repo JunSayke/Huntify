@@ -1,0 +1,42 @@
+{% load widget_tweaks %}
+<div
+    id="edit-contact-modal"
+    tabindex="-1"
+    aria-hidden="true"
+    class="fixed hidden left-0 right-0 top-0 z-50 h-full w-full border"
+>
+    <form id="update-user_contact_form" method="POST">
+        {% csrf_token %}
+        <div class="max-h-full w-full min-w-96 max-w-xl bg-white p-4">
+            <!-- Modal content -->
+            <div class="flex justify-between border px-5">
+                <h1 class="text-center">Edit Phone Number</h1>
+                <button data-modal-hide="edit-contact-modal">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <div class="border p-5">
+                <div class="border p-2">
+                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
+                        number</label>
+                    {{ phone_number_form.phone_number|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" }}
+                    {% if phone_number_form.phone_number.errors %}
+                        <div class="text-red-500 text-sm error">{{ phone_number_form.phone_number.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="border">
+                <div class="flex justify-end gap-5 border p-5">
+                    <button
+                        type="submit"
+                        name="update-user_contact_form"
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
