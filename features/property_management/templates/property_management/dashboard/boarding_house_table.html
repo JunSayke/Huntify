@@ -58,9 +58,9 @@
                 >
                     <i class="fa-solid fa-square-pen text-xl"></i>
                 </a>
-                <form class="delete-property-form" method="POST"
-                      action="{% url 'property_management:delete-boarding-house' boarding_house.id %}">
+                <form class="delete-property-form" method="POST">
                     {% csrf_token %}
+                    <input type="hidden" name="delete-boarding_house" value="{{ boarding_house.id }}">
                     <button
                         data-modal-target="confirmation-modal"
                         data-modal-show="confirmation-modal"

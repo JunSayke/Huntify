@@ -72,7 +72,7 @@ class CreateBoardingHouseForm(forms.ModelForm):
         boarding_house.landlord = self.landlord
         if commit:
             boarding_house.save()
-            images = self.files.getlist('images')
+            images = self.files.getlist(self.add_prefix('images'))
             for image in images:
                 BoardingHouseImage.objects.create(boarding_house=boarding_house, image=image)
         return boarding_house
@@ -114,7 +114,7 @@ class CreateBoardingRoomForm(forms.ModelForm):
             boarding_room.pk = None  # By setting the primary key to None, a new object will be saved each time.
             if commit:
                 boarding_room.save()
-                images = self.files.getlist('images')
+                images = self.files.getlist(self.add_prefix('images'))
                 for image in images:
                     BoardingRoomImage.objects.create(boarding_room=boarding_room, image=image)
                 tags = self.cleaned_data.get('tags')

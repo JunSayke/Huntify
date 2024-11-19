@@ -2,9 +2,8 @@ from django.contrib import messages
 from django.core.paginator import EmptyPage, Paginator
 from django.db.models import Count, Q, Value
 from django.db.models.functions import Concat
-from django.http import HttpResponseForbidden, Http404
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
 
@@ -32,17 +31,6 @@ def boarding_room_detail(request):
 
 def boarding_house_rooms(request):
     return render(request, 'property_management/boarding_house_rooms.html')
-
-
-def get_property(request, property_type=None):
-    if property_type == 'boarding_houses':
-        boarding_houses = BoardingHouse.objects.filter(landlord=request.user)
-        return render(request, 'property_management/dashboard/boarding_house_table.html',
-                      {'boarding_houses': boarding_houses})
-
-    boarding_rooms = BoardingRoom.objects.filter(boarding_house__landlord=request.user)
-    return render(request, 'property_management/dashboard/boarding_room_table.html',
-                  {'boarding_rooms': boarding_rooms})
 
 
 # Safe Paginator where it can handle cases where the user tries to access a page that does not exist
@@ -120,6 +108,7 @@ class BoardingHouseListView(ListView):
             if create_boarding_house_form.is_valid():
                 create_boarding_house_form.save()
                 messages.success(request, "Boarding house created successfully.")
+                return redirect('property_management:dashboard-boarding-houses')
             else:
                 context['create_boarding_house_form'] = create_boarding_house_form
 
@@ -131,16 +120,22 @@ class BoardingHouseListView(ListView):
             if create_boarding_room_form.is_valid():
                 create_boarding_room_form.save()
                 messages.success(request, "Boarding room created successfully.")
+                return redirect('property_management:dashboard-boarding-houses')
             else:
                 context['create_boarding_room_form'] = create_boarding_room_form
 
 
         # Handle deletion of a boarding house
         elif 'delete-boarding_house' in request.POST:
-            pass
-        # Handle deletion of a boarding room
-        elif 'delete-boarding_room' in request.POST:
-            pass
+            boarding_house_id = request.POST.get('delete-boarding_house')
+            boarding_house = get_object_or_404(BoardingHouse, id=boarding_house_id)
+
+            # Ensure only authorized users can delete
+            if boarding_house.landlord != request.user:
+                return HttpResponseForbidden("You are not allowed to delete this item.")
+
+            # Delete the boarding house
+            boarding_house.delete()
 
         return self.render_to_response(context)
 
@@ -157,25 +152,12 @@ class BoardingRoomListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # current_url = resolve(self.request.path).url_name  # Get URL name
-
-        form_data = self.request.session.pop('form_data', None)
-        form_error = self.request.session.pop('form_error', None)
 
         context['total_boarding_rooms'] = self.get_queryset().count()
         context['search_form'] = BoardingRoomSearchForm(self.request.GET)
-        # OPTIMIZE: Duplicate code as BoardingHouseListView get_context_data
-        create_boarding_house_form = CreateBoardingHouseForm(landlord=self.request.user)
-        create_boarding_room_form = CreateBoardingRoomForm(landlord=self.request.user)
 
-        if form_data:
-            if form_error == "create_boarding_house_form":
-                create_boarding_house_form = CreateBoardingHouseForm(form_data, landlord=self.request.user)
-            elif form_error == "create_boarding_room_form":
-                create_boarding_room_form = CreateBoardingHouseForm(form_data, landlord=self.request.user)
-
-        context['create_boarding_house_form'] = create_boarding_house_form
-        context['create_boarding_room_form'] = create_boarding_room_form
+        context['create_boarding_house_form'] = CreateBoardingHouseForm(landlord=self.request.user)
+        context['create_boarding_room_form'] = CreateBoardingRoomForm(landlord=self.request.user)
 
         return context
 
@@ -210,70 +192,48 @@ class BoardingRoomListView(ListView):
 
         return queryset
 
+    def post(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+
+        # Handle creation of a boarding house
+        if 'create-boarding_house' in request.POST:
+            create_boarding_house_form = CreateBoardingHouseForm(data=request.POST, files=request.FILES,
+                                                                 landlord=request.user)
+            if create_boarding_house_form.is_valid():
+                create_boarding_house_form.save()
+                messages.success(request, "Boarding house created successfully.")
+                return redirect('property_management:dashboard-boarding-houses')
+            else:
+                context['create_boarding_house_form'] = create_boarding_house_form
+
+
+        # Handle creation of a boarding room
+        elif 'create-boarding_room' in request.POST:
+            create_boarding_room_form = CreateBoardingRoomForm(data=request.POST, files=request.FILES,
+                                                               landlord=request.user)
+            if create_boarding_room_form.is_valid():
+                create_boarding_room_form.save()
+                messages.success(request, "Boarding room created successfully.")
+                return redirect('property_management:dashboard-boarding-houses')
+            else:
+                context['create_boarding_room_form'] = create_boarding_room_form
+
+
+        # Handle deletion of a boarding house
+        elif 'delete-boarding_room' in request.POST:
+            boarding_room_id = request.POST.get('delete-boarding_room')
+            boarding_room = get_object_or_404(BoardingRoom, id=boarding_room_id)
+
+            # Ensure only authorized users can delete
+            if boarding_room.boarding_house.landlord != request.user:
+                return HttpResponseForbidden("You are not allowed to delete this item.")
+
+            # Delete the boarding room
+            boarding_room.delete()
+
+        return self.render_to_response(context)
+
     def get_template_names(self):
         # current_url = resolve(self.request.path).url_name
         return ['property_management/dashboard/boarding_room_list.html']
-
-
-@require_http_methods(["POST"])
-def delete_boarding_house(request, boarding_house_id):
-    if request.method == "POST":
-        boarding_house = get_object_or_404(BoardingHouse, id=boarding_house_id)
-
-        # Ensure only authorized users can delete
-        if boarding_house.landlord != request.user:
-            return HttpResponseForbidden("You are not allowed to delete this item.")
-
-        # Delete the boarding house
-        boarding_house.delete()
-
-        # Redirect to referer or fallback
-        referer = request.META.get('HTTP_REFERER')
-        return redirect(referer or 'authentication:home')
-
-
-@require_http_methods(["POST"])
-def create_boarding_house(request):
-    if request.method == 'POST':
-        form = CreateBoardingHouseForm(landlord=request.user, data=request.POST, files=request.FILES)
-        referer = request.META.get('HTTP_REFERER')
-
-        if form.is_valid():
-            form.save()
-        else:
-            request.session['form_data'] = request.POST
-            request.session['form_error'] = "create_boarding_house_form"
-
-        return redirect(referer or 'authentication:home')
-
-
-@require_http_methods(["POST"])
-def delete_boarding_room(request, boarding_room_id):
-    if request.method == "POST":
-        boarding_room = get_object_or_404(BoardingRoom, id=boarding_room_id)
-
-        # Ensure only authorized users can delete
-        if boarding_room.boarding_house.landlord != request.user:
-            return HttpResponseForbidden("You are not allowed to delete this item.")
-
-        # Delete the boarding room
-        boarding_room.delete()
-
-        # Redirect to referer or fallback
-        referer = request.META.get('HTTP_REFERER')
-        return redirect(referer or 'authentication:home')
-
-
-@require_http_methods(["POST"])
-def create_boarding_room(request):
-    if request.method == 'POST':
-        form = CreateBoardingRoomForm(landlord=request.user, data=request.POST, files=request.FILES)
-        referer = request.META.get('HTTP_REFERER')
-
-        if form.is_valid():
-            form.save()
-        else:
-            request.session['form_data'] = request.POST
-            request.session['form_error'] = "create_boarding_room_form"
-
-        return redirect(referer or 'authentication:home')
