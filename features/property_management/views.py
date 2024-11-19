@@ -43,6 +43,7 @@ class SafePaginator(Paginator):
             else:
                 raise
 
+
 # TODO: Restrict access to these views to landlords only
 # OPTIMIZE: BoardingHouseListView and BoardingRoomListView can be refactored possibly through mixins or inheritance
 class BoardingHouseListView(ListView):
@@ -267,7 +268,11 @@ class BoardingHouseDetailView(DetailView):
     template_name = 'property_management/boarding_house_detail.html'
     context_object_name = 'boarding_house'
 
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('images')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['landlord'] = self.object.landlord
+        context['boarding_rooms'] = self.object.rooms.all()
         return context

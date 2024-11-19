@@ -126,7 +126,7 @@
                             <h5 class="font-bold">Bookings</h5>
                         {% elif user_profile.user_type == 'landlord' %}
                             <h5 class="font-bold">Properties</h5>
-                            <ol class="flex flex-wrap mt-5 gap-5">
+                            <ol class="grid grid-cols-3 gap-5 mt-5">
                                 {% if boarding_houses %}
                                     {% for boarding_house in boarding_houses %}
                                         <li class="border p-2">

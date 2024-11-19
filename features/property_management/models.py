@@ -45,8 +45,10 @@ class BoardingHouse(models.Model):
 
     def get_images(self, max_images=5):
         images = list(self.images.all()[:max_images])
+
         while len(images) < max_images:
             images.append(None)
+        return images
 
     def price_range(self):
         rooms = self.rooms.all()
