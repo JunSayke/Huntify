@@ -6,7 +6,8 @@ app_name = "property_management"
 # TODO: Secure Endpoints
 urlpatterns = [
     path("dashboard/booking-management/", views.booking_management, name="booking-management"),
-
+    path("dashboard/property-management/", views.BoardingHouseListView.as_view(),
+         name="dashboard"),
     path("dashboard/property-management/boarding-houses/", views.BoardingHouseListView.as_view(),
          name="dashboard-boarding-houses"),
     path("dashboard/property-management/delete-boarding-house/<int:boarding_house_id>/",

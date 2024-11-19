@@ -8,17 +8,34 @@
         </div>
         <div class="border p-2">
             <div class="flex justify-between">
-                <select
-                    id="property-type"
-                    class="block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
 
-                    <option value="boarding_rooms"
-                    >Boarding Rooms
-                    </option>
-                    <option value="boarding_houses"
-                    >Boarding Houses
-                    </option>
-                </select>
+                <button id="select-property-type" data-menu-property-type-toggle="menu-property-type"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="button">Property Type
+                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                         viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+
+                <!-- menu-property-type menu -->
+                <div id="menu-property-type"
+                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="select-property-type">
+                        <li>
+                            <a href="{% url 'property_management:dashboard-boarding-houses' %}"
+                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Boarding
+                                Houses</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'property_management:dashboard-boarding-rooms' %}"
+                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Boarding
+                                Rooms</a>
+                        </li>
+                    </ul>
+                </div>
+
                 <div>
                     <button
                         data-modal-target="add-boarding-room-modal"
@@ -42,23 +59,9 @@
         <div class="border p-2" id="property-list">
             <div class="relative w-96">
                 <div
-                    class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
+                    class="absolute inset-y-0 start-0 flex items-center ps-3"
                 >
-                    <svg
-                        class="h-4 w-4 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                        />
-                    </svg>
+                    <i class="fas fa-search text-gray-400"></i>
                 </div>
                 <input
                     type="search"
@@ -71,103 +74,14 @@
             </div>
 
             <div id="table-container" class="relative overflow-x-auto pt-5 shadow-md sm:rounded-lg">
+                {% block table %}
+                {% endblock %}
             </div>
         </div>
     </div>
 
-    {% include 'property_management/add_boarding_house_modal.html' %}
-    {% include 'property_management/add_boarding_room_modal.html' %}
+    {% include 'property_management/dashboard/modals/add_boarding_house_modal.html' %}
+    {% include 'property_management/dashboard/modals/add_boarding_room_modal.html' %}
     {% include 'html/confirmation-modal.html' %}
-
-
-    <script type="module">
-        import {
-            renderPropertyTableContent,
-            initAddressInputListeners,
-            initDeleteConfirmationModal,
-            imageInputPreview
-        } from "{% static 'js/huntify.js' %}";
-
-        document.addEventListener("DOMContentLoaded", function() {
-            try {
-                // -- START: Dynamically swapping tables --
-                const propertyTypeSelect = document.getElementById("property-type");
-
-                propertyTypeSelect.value = new URL(window.location).searchParams.get("property_type") || "boarding_rooms";
-
-                propertyTypeSelect.addEventListener("change", function() {
-                    const newUrl = new URL(window.location);
-                    newUrl.searchParams.set("property_type", this.value);
-                    window.history.pushState({}, "", newUrl);
-
-                    renderPropertyTableContent(
-                        document.getElementById("table-container"),
-                        this.value,
-                        { searchInputEl: document.getElementById("table-search")}
-                    ).then(dataTable => {
-                        const table = document.getElementById("default-table");
-                        const onConfirm = (listItemEl) => {
-                            dataTable.rows.remove(parseInt(listItemEl.dataset.index));
-                        }
-                        initDeleteConfirmationModal(
-                            document.getElementById("confirmation-modal"),
-                            table.querySelectorAll(".delete-btn"),
-                            onConfirm
-                        );
-                    });
-                });
-
-                // Trigger the change event to render the table content on first load
-                propertyTypeSelect.dispatchEvent(new Event("change"));
-
-                // -- END
-
-                // -- START: Show the image preview when an image is loaded from the input
-                imageInputPreview(document.getElementById("{{ form1.images.id_for_label }}"),
-                    document.getElementById("{{ form1.form_name }}").getElementsByClassName("image-preview")
-                );
-
-
-                imageInputPreview(document.getElementById("{{ form2.images.id_for_label }}"),
-                    document.getElementById("{{ form2.form_name }}").getElementsByClassName("image-preview")
-                );
-                // -- END
-
-                // Update the address input fields based on the previous input
-                initAddressInputListeners(
-                    document.getElementById("{{ form1.province.id_for_label }}"),
-                    document.getElementById("{{ form1.municipality.id_for_label }}"),
-                    document.getElementById("{{ form1.barangay.id_for_label }}"),
-                    document.getElementById("map-iframe")
-                );
-
-                window.addEventListener("load", () => {
-                    // START: Show the modal if there are errors
-                    if (document.getElementById("{{ form1.form_name }}").querySelector(".error")) {
-                        window.FlowbiteInstances.getInstance("Modal", "add-boarding-house-modal")
-                            .show();
-                    }
-                    if (document.getElementById("{{ form2.form_name }}").querySelector(".error")) {
-                        window.FlowbiteInstances.getInstance("Modal", "add-boarding-room-modal")
-                            .show();
-                    }
-                    // END
-                });
-
-                const confirmationModal = document.getElementById("confirmation-modal");
-                const modalConfirmButton = confirmationModal.querySelector("#modal-confirm");
-                const modalText = confirmationModal.querySelector(".modal-text");
-
-                document.querySelectorAll(`[data-modal-target="confirmation-modal"]`).forEach(button => {
-                    button.addEventListener("click", function() {
-                        const propertyName = this.getAttribute("data-property-name");
-                        modalText.textContent = `Are you sure you want to delete ${propertyName}?`;
-                        modalConfirmButton.setAttribute("data-item-id", this.getAttribute("data-item-id"));
-                    });
-                });
-            } catch (error) {
-                console.error(error);
-            }
-        });
-    </script>
+    <script type="module" src="{% static 'js/property_management.js' %}"></script>
 {% endblock %}

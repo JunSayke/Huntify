@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.core.paginator import EmptyPage, Paginator
 from django.db.models import Count, Q, Value
 from django.db.models.functions import Concat
-from django.http import HttpResponseForbidden, HttpResponseNotAllowed
+from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
 
@@ -63,25 +65,12 @@ class BoardingHouseListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # current_url = resolve(self.request.path).url_name  # Get URL name
-
-        form_data = self.request.session.pop('form_data', None)
-        form_error = self.request.session.pop('form_error', None)
 
         context['total_boarding_houses'] = self.get_queryset().count()
         context['search_form'] = BoardingHouseSearchForm(self.request.GET)
-        # OPTIMIZE: Duplicate code as BoardingRoomListView get_context_data
-        create_boarding_house_form = CreateBoardingHouseForm(landlord=self.request.user)
-        create_boarding_room_form = CreateBoardingRoomForm(landlord=self.request.user)
 
-        if form_data:
-            if form_error == "create_boarding_house_form":
-                create_boarding_house_form = CreateBoardingHouseForm(form_data, landlord=self.request.user)
-            elif form_error == "create_boarding_room_form":
-                create_boarding_room_form = CreateBoardingHouseForm(form_data, landlord=self.request.user)
-
-        context['create_boarding_house_form'] = create_boarding_house_form
-        context['create_boarding_room_form'] = create_boarding_room_form
+        context['create_boarding_house_form'] = CreateBoardingHouseForm(landlord=self.request.user)
+        context['create_boarding_room_form'] = CreateBoardingRoomForm(landlord=self.request.user)
 
         return context
 
@@ -119,6 +108,41 @@ class BoardingHouseListView(ListView):
                 queryset = queryset.order_by(f"{'-' if direction == 'desc' else ''}created_at")
 
         return queryset
+
+    def post(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+
+        # Handle creation of a boarding house
+        if 'create-boarding_house' in request.POST:
+            create_boarding_house_form = CreateBoardingHouseForm(data=request.POST, files=request.FILES,
+                                                                 landlord=request.user)
+            if create_boarding_house_form.is_valid():
+                create_boarding_house_form.save()
+                messages.success(request, "Boarding house created successfully.")
+            else:
+                context['create_boarding_house_form'] = create_boarding_house_form
+
+
+        # Handle creation of a boarding room
+        elif 'create-boarding_room' in request.POST:
+            create_boarding_room_form = CreateBoardingRoomForm(data=request.POST, files=request.FILES,
+                                                               landlord=request.user)
+            if create_boarding_room_form.is_valid():
+                create_boarding_room_form.save()
+                messages.success(request, "Boarding room created successfully.")
+            else:
+                context['create_boarding_room_form'] = create_boarding_room_form
+
+
+        # Handle deletion of a boarding house
+        elif 'delete-boarding_house' in request.POST:
+            pass
+        # Handle deletion of a boarding room
+        elif 'delete-boarding_room' in request.POST:
+            pass
+
+        return self.render_to_response(context)
 
     def get_template_names(self):
         # current_url = resolve(self.request.path).url_name
