@@ -7,8 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
 from features.property_management.forms import CreateBoardingHouseForm, CreateBoardingRoomForm, BoardingHouseSearchForm, \
-    BoardingRoomSearchForm
-from features.property_management.models import BoardingHouse, BoardingRoom
+    BoardingRoomSearchForm, RequestBookingForm
+from features.property_management.models import BoardingHouse, BoardingRoom, Tag
 
 
 # Create your views here.
@@ -260,7 +260,34 @@ class BoardingRoomDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['landlord'] = self.object.boarding_house.landlord
         context['boarding_house'] = self.object.boarding_house
+
+        tenant = self.request.user
+        initial_data = {
+            'first_name': tenant.first_name,
+            'last_name': tenant.last_name,
+            'email': tenant.email,
+            'contact_number': tenant.phone_number,
+        }
+
+        context['request_booking_form'] = RequestBookingForm(initial=initial_data)
         return context
+
+    # TODO: Restrict access to this method to tenants only
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  # Ensure self.object is set
+        context = self.get_context_data()
+        request_booking_form = RequestBookingForm(data=request.POST)
+        if request_booking_form.is_valid():
+            booking = request_booking_form.save(commit=False)
+            booking.boarding_room = self.object
+            booking.save()
+            messages.success(request, "Booking request sent successfully.")
+            return redirect('property_management:boarding-room', pk=self.object.pk)
+        else:
+            context['request_booking_form'] = request_booking_form
+            return self.render_to_response(context)
+
+
 
 
 class BoardingHouseDetailView(DetailView):

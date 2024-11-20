@@ -1,12 +1,13 @@
+import os
+
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as DefaultUserManager
-from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-import os
 
 from utilities.mixin import UUIDPKMixin
+from utilities.validators import philippine_phone_validator
 
 
 # Create your models here.
@@ -21,12 +22,6 @@ class UserManager(DefaultUserManager):
 
 def user_avatar_image_path(instance, filename):
     return os.path.join('images/profile_picture', str(instance.id), filename)
-
-
-philippine_phone_validator = RegexValidator(
-    regex=r'^09\d{9}$',
-    message="Phone number must be entered in the format: '09XXXXXXXXX'. Up to 11 digits allowed."
-)
 
 
 class User(AbstractUser, UUIDPKMixin):

@@ -6,6 +6,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
 
+from utilities.validators import philippine_phone_validator
+
 
 def boarding_house_image_path(instance, filename):
     return os.path.join('boarding_house', str(instance.boarding_house.id), 'files', filename)
@@ -142,3 +144,21 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Booking(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'pending', 'Pending'
+        APPROVED = 'approved', 'Approved'
+        REJECTED = 'rejected', 'Rejected'
+
+    tenant = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
+    boarding_room = models.ForeignKey(BoardingRoom, on_delete=models.CASCADE)
+    visit_time = models.TimeField(null=True, blank=True)
+    visit_date = models.DateField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    contact_number = models.CharField(max_length=20, validators=[philippine_phone_validator])
+    message = models.TextField(max_length=2000, blank=True, null=True)

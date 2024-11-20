@@ -111,31 +111,35 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+* Install Python packages
   ```sh
-  npm install npm@latest -g
+  pip install -r requirements.txt
+  ```
+* Install Node packages in theme/static_src
+  ```sh
+  npm install
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/JunSayke/Huntify.git
    ```
-3. Install NPM packages
+2. Migrate database
+    ```sh
+   py manage.py makemigrations
+   py manage.py migrate
+   ```
+3. Load necessary data
    ```sh
-   npm install
+   py manage.py load_philippine_address_data
+   py manage.py load_tags_data
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
+4. Run the server
    ```sh
-   git remote set-url origin JunSayke/Huntify
-   git remote -v # confirm the changes
-   ```
+    py manage.py runserver
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,10 +159,49 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Authentication
+    - [x] Sign Up
+    - [x] Sign In
+    - [x] Change Password
+    - [ ] Forgot Password
+    - [ ] Reset Password
+    - [ ] Email Verification
+    - [ ] Phone Verification
+- [x] Profile
+    - [x] View
+    - [x] Edit
+    - [x] Public Profile
+- [ ] Property Management
+    - [x] Sortable Properties
+    - [x] Searchable Properties
+    - [x] Property Listings
+    - [ ] Boarding House
+      - [x] Create
+      - [x] View
+      - [ ] Update
+      - [x] Delete
+    - [ ] Boarding Room
+      - [x] Create
+      - [x] View
+      - [ ] Update
+      - [x] Delete
+- [ ] Booking Management
+    - [ ] CRUD Booking
+        - [x] Request
+        - [ ] View
+        - [ ] Approve
+        - [ ] Reject
+- [ ] Notification
+    - [ ] Booking Notification
+        - [ ] Create
+        - [ ] View
+        - [ ] Delete
+- [ ] Review
+    - [ ] Review Property
+        - [ ] Create
+        - [ ] View
+        - [ ] Delete
+        - [ ] Update
 
 See the [open issues](https://github.com/JunSayke/Huntify/issues) for a full list of proposed features (and known issues).
 
@@ -242,7 +285,7 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 [license-url]: https://github.com/JunSayke/Huntify/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: huntify_project/static/images/initial_sample.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import get_object_or_404
 
-from .models import BoardingHouse, BoardingRoom, Tag, BoardingHouseImage, BoardingRoomImage, BoardingRoomTag
+from .models import BoardingHouse, BoardingRoom, Tag, BoardingHouseImage, BoardingRoomImage, BoardingRoomTag, Booking
 from features.address.models import Barangay, Municipality
 
 
@@ -146,3 +146,17 @@ class BoardingRoomSearchForm(forms.Form):
         required=False,
         label='Search by'
     )
+
+
+class RequestBookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['boarding_room', 'tenant', 'first_name', 'last_name', 'contact_number', 'email', 'message',
+                  'visit_date', 'visit_time']
+        exclude = ['boarding_room', 'tenant']
+
+    def save(self, commit=True):
+        booking = super().save(commit=False)
+        if commit:
+            booking.save()
+        return booking
