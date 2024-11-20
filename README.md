@@ -159,7 +159,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [🛠] Authentication
+- [ ] Authentication
     - [x] Sign Up
     - [x] Sign In
     - [x] Change Password
