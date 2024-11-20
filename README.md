@@ -160,25 +160,37 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Roadmap
 
 - [🛠] Authentication
-    - [✔] Sign Up
-    - [✔] Sign In
-    - [✔] Change Password
+    - [x] Sign Up
+    - [x] Sign In
+    - [x] Change Password
     - [ ] Forgot Password
     - [ ] Reset Password
     - [ ] Email Verification
     - [ ] Phone Verification
-- [✔] Profile
-    - [✔] View Profile
-    - [✔] Edit Profile
-    - [✔] Public Profile
-- [🛠] Property Management
-    - [✔] Sort/Filter Properties
-    - [✔] Rent A Room Listing
-    - [🛠] CRUD Boarding House
-    - [🛠] CRUD Boarding Room
-- [🛠] Booking Management
-    - [🛠] Request Booking
-    - [🛠] Approve/Reject/Cancel Booking
+- [x] Profile
+    - [x] View
+    - [x] Edit
+    - [x] Public Profile
+- [ ] Property Management
+    - [x] Sortable Properties
+    - [x] Searchable Properties
+    - [x] Property Listings
+    - [ ] Boarding House
+      - [x] Create
+      - [x] View
+      - [ ] Update
+      - [x] Delete
+    - [ ] Boarding Room
+      - [x] Create
+      - [x] View
+      - [ ] Update
+      - [x] Delete
+- [ ] Booking Management
+    - [ ] CRUD Booking
+        - [x] Request
+        - [ ] View
+        - [ ] Approve
+        - [ ] Reject
 - [ ] Notification
     - [ ] Booking Notification
 - [ ] Review
