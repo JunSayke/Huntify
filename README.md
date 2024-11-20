@@ -111,9 +111,13 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+* Install Python packages
   ```sh
-  TODO: Add instructions
+  pip install -r requirements.txt
+  ```
+* Install Node packages in theme/static_src
+  ```sh
+  npm install
   ```
 
 ### Installation
@@ -122,25 +126,17 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/JunSayke/Huntify.git
    ```
-2. Install requirements
-   ```sh
-   pip install -r requirements.txt
-   ```
-3. Install node modules in theme/static_src
-   ```sh
-   npm install
-   ```
-4. Migrate database
+2. Migrate database
     ```sh
    py manage.py makemigrations
    py manage.py migrate
    ```
-5. Load necessary data
+3. Load necessary data
    ```sh
    py manage.py load_philippine_address_data
    py manage.py load_tags_data
    ```
-6. Run the server
+4. Run the server
    ```sh
     py manage.py runserver
     ```
