@@ -118,20 +118,24 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/JunSayke/Huntify.git
    ```
-3. Install requirements
+2. Install requirements
    ```sh
    pip install -r requirements.txt
    ```
-4. ```sh
+3. Install node modules in theme/static_src
+   ```sh
+   npm install
+   ```
+4. Migrate database
+    ```sh
    py manage.py makemigrations
    py manage.py migrate
    ```
-5. Load data
+5. Load necessary data
    ```sh
    py manage.py load_philippine_address_data
    py manage.py load_tags_data
@@ -159,17 +163,30 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Authentication 1
-    - [ ] Sign Up
-    - [ ] Sign In
-    - [ ] View Profile
-    - [ ] Edit Profile
-- [ ] Property Management 2
-    - [ ] CRUD Boarding House
-    - [ ] CRUD Boarding Room
-- [ ] Booking Management 3
-    - [ ] Request Booking
-    - [ ] Approve/Reject/Cancel Booking
+- [🛠] Authentication
+    - [✔] Sign Up
+    - [✔] Sign In
+    - [✔] Change Password
+    - [ ] Forgot Password
+    - [ ] Reset Password
+    - [ ] Email Verification
+    - [ ] Phone Verification
+- [✔] Profile
+    - [✔] View Profile
+    - [✔] Edit Profile
+    - [✔] Public Profile
+- [🛠] Property Management
+    - [✔] Sort/Filter Properties
+    - [✔] Rent A Room Listing
+    - [🛠] CRUD Boarding House
+    - [🛠] CRUD Boarding Room
+- [🛠] Booking Management
+    - [🛠] Request Booking
+    - [🛠] Approve/Reject/Cancel Booking
+- [ ] Notification
+    - [ ] Booking Notification
+- [ ] Review
+    - [ ] Review Property
 
 See the [open issues](https://github.com/JunSayke/Huntify/issues) for a full list of proposed features (and known issues).
 
@@ -253,7 +270,7 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 [license-url]: https://github.com/JunSayke/Huntify/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: huntify_project/static/images/initial_sample.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
