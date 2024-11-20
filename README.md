@@ -193,8 +193,15 @@ _For more examples, please refer to the [Documentation](https://example.com)_
         - [ ] Reject
 - [ ] Notification
     - [ ] Booking Notification
+        - [ ] Create
+        - [ ] View
+        - [ ] Delete
 - [ ] Review
     - [ ] Review Property
+        - [ ] Create
+        - [ ] View
+        - [ ] Delete
+        - [ ] Update
 
 See the [open issues](https://github.com/JunSayke/Huntify/issues) for a full list of proposed features (and known issues).
 
