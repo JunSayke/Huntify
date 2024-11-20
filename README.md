@@ -186,7 +186,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
       - [ ] Update
       - [x] Delete
 - [ ] Booking Management
-    - [ ] CRUD Booking
+    - [ ] Booking
         - [x] Request
         - [ ] View
         - [ ] Approve
