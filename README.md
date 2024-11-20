@@ -113,7 +113,7 @@ To get a local copy up and running follow these simple example steps.
 This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
-  npm install npm@latest -g
+  TODO: Add instructions
   ```
 
 ### Installation
@@ -123,19 +123,23 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/JunSayke/Huntify.git
    ```
-3. Install NPM packages
+3. Install requirements
    ```sh
-   npm install
+   pip install -r requirements.txt
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+4. ```sh
+   py manage.py makemigrations
+   py manage.py migrate
    ```
-5. Change git remote url to avoid accidental pushes to base project
+5. Load data
    ```sh
-   git remote set-url origin JunSayke/Huntify
-   git remote -v # confirm the changes
+   py manage.py load_philippine_address_data
+   py manage.py load_tags_data
    ```
+6. Run the server
+   ```sh
+    py manage.py runserver
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,10 +159,17 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Authentication 1
+    - [ ] Sign Up
+    - [ ] Sign In
+    - [ ] View Profile
+    - [ ] Edit Profile
+- [ ] Property Management 2
+    - [ ] CRUD Boarding House
+    - [ ] CRUD Boarding Room
+- [ ] Booking Management 3
+    - [ ] Request Booking
+    - [ ] Approve/Reject/Cancel Booking
 
 See the [open issues](https://github.com/JunSayke/Huntify/issues) for a full list of proposed features (and known issues).
 

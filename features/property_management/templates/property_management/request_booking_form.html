@@ -1,0 +1,117 @@
+{% load widget_tweaks %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="border">
+        <h6 class="py-2 text-center font-bold">Booking<br />Details</h6>
+    </div>
+    <div class="grid grid-cols-[1fr_1fr] border">
+        <div class="col-start-1 row-start-1 border p-2">
+            <label
+                for="{{ request_booking_form.first_name.id_for_label }}"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >First name</label>
+            {{ request_booking_form.first_name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter first name" }}
+        </div>
+        <div class="col-start-2 row-start-1 border p-2">
+            <label
+                for="{{ request_booking_form.last_name.id_for_label }}"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >Last name</label>
+            {{ request_booking_form.last_name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter last name" }}
+        </div>
+        <div class="col-start-1 row-start-2 border p-2">
+            <label
+                for="{{ request_booking_form.contact_number.id_for_label }}"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >Contact Number</label>
+            <div class="flex">
+                <div
+                    class="inline-flex flex-shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                >
+                    <svg
+                        class="me-2 h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                    >
+                        <path
+                            d="M1,24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V15H1v9Z"
+                            fill="#be2a2c"
+                        ></path>
+                        <path
+                            d="M27,4H5c-2.209,0-4,1.791-4,4v8H31V8c0-2.209-1.791-4-4-4Z"
+                            fill="#1334a3"
+                        ></path>
+                        <path
+                            d="M2.316,26.947l13.684-10.947L2.316,5.053c-.803,.732-1.316,1.776-1.316,2.947V24c0,1.172,.513,2.216,1.316,2.947Z"
+                            fill="#fff"
+                        ></path>
+                        <path
+                            d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z"
+                            opacity=".15"
+                        ></path>
+                        <path
+                            d="M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z"
+                            fill="#fff"
+                            opacity=".2"
+                        ></path>
+                        <path
+                            d="M10.569,15.303l-1.561,.31c-.051-.26-.154-.502-.296-.715l1.323-.884-.011-.975-.975-.011-.884,1.323c-.213-.143-.455-.245-.715-.296l.31-1.561-.697-.681-.697,.681,.31,1.561c-.26,.051-.502,.154-.715,.296l-.884-1.323-.975,.011-.011,.975,1.323,.884c-.143,.213-.245,.455-.296,.715l-1.561-.31-.681,.697,.681,.697,1.561-.31c.051,.26,.154,.502,.296,.715l-1.323,.884,.011,.975,.975,.011,.884-1.323c.213,.143,.455,.245,.715,.296l-.31,1.561,.697,.681,.697-.681-.31-1.561c.26-.051,.502-.154,.715-.296l.884,1.323,.975-.011,.011-.975-1.323-.884c.143-.213,.245-.455,.296-.715l1.561,.31,.681-.697-.681-.697Z"
+                            fill="#f4d24b"
+                        ></path>
+                    </svg>
+                    +63
+                </div>
+                <div class="relative w-full">
+                    {{ request_booking_form.contact_number|add_class:"block w-full rounded-r-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:912100676"|attr:"pattern:[0-9]{2}[0-9]{9}" }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-start-2 row-start-2 border p-2">
+            <label
+                for="{{ request_booking_form.email.id_for_label }}"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >Email address</label>
+            {{ request_booking_form.email|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter your email address" }}
+        </div>
+        <div class="col-span-2 row-start-3 border p-2">
+            <fieldset class="flex justify-between gap-2">
+                <legend class="text-sm font-medium text-gray-900 dark:text-white mb-2">Booking Date and Time</legend>
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    {{ request_booking_form.visit_date|add_class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"placeholder:Select date"|attr:"datepicker"|attr:"datepicker-buttons"|attr:"datepicker-autohide"|attr:"datepicker-autoselect-today" }}
+                </div>
+
+                <div class="relative w-full">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        {{ request_booking_form.visit_time|add_class:"bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"placeholder:Select time"|attr:"min:09:00"|attr:"max:18:00"|attr:"type:time"|attr:"value:00:00" }}
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <div class="mt-5">
+                <label
+                    for="{{ request_booking_form.message.id_for_label }}"
+                    class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Note to landlord</label>
+                {{ request_booking_form.message|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Write a note for the landlord..." }}
+            </div>
+        </div>
+    </div>
+    <div class="border p-2 text-center">
+        <button
+            type="submit"
+            class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+            Request Booking
+        </button>
+    </div>
+</form>
