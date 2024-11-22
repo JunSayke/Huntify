@@ -14,6 +14,11 @@ urlpatterns = [
          name="dashboard-boarding-rooms"),
 
     path("rent-a-room/", views.RentARoomListView.as_view(), name="rent-a-room"),
+
+    path("boarding-house-rooms/", views.boarding_house_rooms, name="boarding-house-rooms"),
+    path("boarding-house-detail/", views.boarding_house_detail, name="boarding-house-detail"),
+    path("boarding-room-detail/", views.boarding_room_detail, name="boarding-room-detail"),
+
     path("boarding-room/<int:pk>/", views.BoardingRoomDetailView.as_view(), name="boarding-room"),
     path("boarding-house/<int:pk>/", views.BoardingHouseDetailView.as_view(), name="boarding-house"),
 ]

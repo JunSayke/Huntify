@@ -12,9 +12,7 @@
                             <div
                                 class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700">
                                 {% if image %}
-                                    <img class="boarding-room-image h-full w-full object-cover cursor-pointer"
-                                         data-modal-target="image-modal" data-modal-show="image-modal"
-                                         src="{{ image.image.url }}"
+                                    <img class="boarding-room-image h-full w-full object-cover cursor-pointer" data-modal-target="image-modal" data-modal-show="image-modal" src="{{ image.image.url }}"
                                          alt="room-image" />
                                 {% else %}
                                     <svg class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
