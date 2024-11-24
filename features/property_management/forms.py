@@ -143,7 +143,7 @@ class UpdateBoardingRoomForm(forms.ModelForm):
     class Meta:
         model = BoardingRoom
         fields = '__all__'
-        exclude = ['created_at', 'updated_at', 'is_available']
+        exclude = ['created_at', 'updated_at']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -263,6 +263,12 @@ class RequestBookingForm(forms.ModelForm):
         self.boarding_room = boarding_room
         self.tenant = tenant
 
+        if tenant:
+            self.fields['first_name'].initial = tenant.first_name
+            self.fields['last_name'].initial = tenant.last_name
+            self.fields['email'].initial = tenant.email
+            self.fields['contact_number'].initial = tenant.phone_number
+
     def save(self, commit=True):
         booking = super().save(commit=False)
         booking.boarding_room = self.boarding_room
@@ -278,6 +284,7 @@ class BookingSearchForm(forms.Form):
             ('tenant', 'Tenant'),
             ('boarding_room', 'Boarding Room'),
             ('boarding_house', 'Boarding House'),
+            ('status', 'Status'),
         ],
         required=False,
         label='Search by'

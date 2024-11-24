@@ -1,15 +1,17 @@
 from django.contrib import messages
 from django.core.paginator import EmptyPage, Paginator
+from django.db import transaction
 from django.db.models import Count, Q, Value
 from django.db.models.functions import Concat
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from features.property_management.forms import CreateBoardingHouseForm, CreateBoardingRoomForm, BoardingHouseSearchForm, \
     BoardingRoomSearchForm, RequestBookingForm, BookingSearchForm, UpdateBoardingHouseForm, UpdateBoardingRoomForm
-from features.property_management.models import BoardingHouse, BoardingRoom, Tag, Booking
+from features.property_management.models import BoardingHouse, BoardingRoom, Tag, Booking, BoardingRoomTenant
 
 
 # Create your views here.
@@ -207,6 +209,7 @@ class BoardingHouseUpdateView(UpdateView):
     model = BoardingHouse
     form_class = UpdateBoardingHouseForm
     template_name = 'property_management/dashboard/property/boarding_house/edit_boarding_house.html'
+    context_object_name = 'boarding_house'
 
     def get_success_url(self):
         return reverse_lazy('property_management:update-boarding-house', kwargs={'pk': self.object.pk})
@@ -225,6 +228,7 @@ class BoardingRoomUpdateView(UpdateView):
     model = BoardingRoom
     form_class = UpdateBoardingRoomForm
     template_name = 'property_management/dashboard/property/boarding_room/edit_boarding_room.html'
+    context_object_name = 'boarding_room'
 
     def get_success_url(self):
         return reverse_lazy('property_management:update-boarding-room', kwargs={'pk': self.object.pk})
@@ -299,26 +303,22 @@ class BoardingRoomDetailView(DetailView):
         # Get the latest booking of the tenant
         if self.request.user.is_authenticated and self.request.user.user_type == 'tenant':
             tenant = self.request.user
-            latest_booking = Booking.objects.filter(tenant=tenant, boarding_room=self.object).order_by(
-                '-created_at').first()
-            context['latest_booking'] = latest_booking
+            is_room_tenant = self.object.room_tenants.filter(tenant=tenant, check_out_date__isnull=True).exists()
 
-            if latest_booking:
-                context['request_booking_form'] = RequestBookingForm(instance=latest_booking, boarding_room=self.object,
-                                                                     tenant=tenant)
+            if is_room_tenant:
+                context['flag'] = 'already_rented'
             else:
-                initial_data = {
-                    'first_name': tenant.first_name,
-                    'last_name': tenant.last_name,
-                    'email': tenant.email,
-                    'contact_number': tenant.phone_number,
-                }
-                context['request_booking_form'] = RequestBookingForm(initial=initial_data, boarding_room=self.object,
-                                                                     tenant=tenant)
+                latest_booking = self.object.bookings.filter(tenant=tenant).order_by('-created_at').first()
+                if latest_booking and latest_booking.is_processing():
+                    context['request_booking_form'] = RequestBookingForm(instance=latest_booking,
+                                                                         boarding_room=self.object, tenant=tenant)
+                    context['flag'] = 'booking_in_progress'
+                else:
+                    context['request_booking_form'] = RequestBookingForm(boarding_room=self.object, tenant=tenant)
 
         return context
 
-    # TODO: Restrict access to this method to tenants only
+    # TODO: Restrict access to this method to tenant only
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()  # Ensure self.object is set
         context = self.get_context_data()
@@ -447,10 +447,18 @@ class BookingListView(ListView):
             if booking.boarding_room.boarding_house.landlord != request.user:
                 return HttpResponseForbidden("You are not allowed to complete this booking.")
 
+            with transaction.atomic():
+                # Complete the booking
+                booking.status = Booking.Status.COMPLETED
+                booking.save()
+
+                # Create a BoardingRoomTenant
+                BoardingRoomTenant.objects.create(
+                    boarding_room=booking.boarding_room,
+                    tenant=booking.tenant,
+                )
+
             messages.success(request, "Booking completed successfully.")
-            # Complete the booking
-            booking.status = Booking.Status.COMPLETED
-            booking.save()
             return redirect('property_management:booking-management')
         # Handle deletion of a booking
         elif 'delete-booking' in request.POST:
@@ -465,5 +473,46 @@ class BookingListView(ListView):
             # Delete the booking
             booking.delete()
             return redirect('property_management:booking-management')
+
+        return self.render_to_response(context)
+
+
+class BookingDetailView(DetailView):
+    model = Booking
+    template_name = 'property_management/dashboard/booking/booking_detail.html'
+    context_object_name = 'booking'
+
+
+class RoomTenantListView(ListView):
+    model = BoardingRoomTenant
+    paginator_class = SafePaginator
+    context_object_name = 'room_tenants'
+    template_name = 'property_management/dashboard/tenant/tenant_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        queryset = queryset.filter(boarding_room__boarding_house__landlord=self.request.user)
+        return queryset
+
+    def post(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+
+        # Handle eviction of a tenant
+        if 'check-out-tenant' in request.POST:
+            room_tenant_id = request.POST.get('check-out-tenant')
+
+            room_tenant = get_object_or_404(BoardingRoomTenant, id=room_tenant_id)
+
+            if room_tenant.boarding_room.boarding_house.landlord != request.user:
+                return HttpResponseForbidden("You are not allowed to checkout this tenant.")
+
+            messages.success(request, "Tenant has been checkout successfully.")
+            # Checkout the tenant
+            room_tenant.check_out_date = timezone.now()
+            room_tenant.save()
+            return redirect('property_management:tenant-management')
 
         return self.render_to_response(context)

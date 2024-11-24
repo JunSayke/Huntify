@@ -157,8 +157,8 @@ class Booking(models.Model):
         CANCELLED = 'cancelled', 'Cancelled'
         COMPLETED = 'completed', 'Completed'
 
-    tenant = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
-    boarding_room = models.ForeignKey(BoardingRoom, on_delete=models.CASCADE)
+    tenant = models.ForeignKey('authentication.User', related_name="bookings", on_delete=models.CASCADE)
+    boarding_room = models.ForeignKey(BoardingRoom, related_name="bookings", on_delete=models.CASCADE)
     visit_time = models.TimeField(null=True, blank=True)
     visit_date = models.DateField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
@@ -175,3 +175,16 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.tenant} - {self.boarding_room} - {self.status}"
+
+    def get_absolute_url(self):
+        return reverse('property_management:booking', kwargs={'pk': self.pk})
+
+
+class BoardingRoomTenant(models.Model):
+    boarding_room = models.ForeignKey(BoardingRoom, related_name="room_tenants", on_delete=models.CASCADE)
+    tenant = models.ForeignKey('authentication.User', related_name="boarding_rooms", on_delete=models.CASCADE)
+    check_in_date = models.DateField(auto_now_add=True)
+    check_out_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.tenant} - {self.boarding_room} - {self.check_in_date} - {self.check_out_date}"
