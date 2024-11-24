@@ -145,7 +145,7 @@ class RegistrationWizard(SessionWizardView):
                 form.save()
 
         # return render(self.request, 'authentication/registration_done.html', {
-        #     'form_data': [form.cleaned_data for form in form_list if form.cleaned_data],
+        #     'form_data': [forms.cleaned_data for forms in form_list if forms.cleaned_data],
         # })
         return redirect('authentication:personal-information')
 

@@ -1,8 +1,8 @@
 from django import forms
 from django.shortcuts import get_object_or_404
 
-from .models import BoardingHouse, BoardingRoom, Tag, BoardingHouseImage, BoardingRoomImage, BoardingRoomTag, Booking
 from features.address.models import Barangay, Municipality
+from .models import BoardingHouse, BoardingRoom, Tag, BoardingHouseImage, BoardingRoomImage, BoardingRoomTag, Booking
 
 
 class MultipleFileInput(forms.ClearableFileInput):
@@ -78,6 +78,110 @@ class CreateBoardingHouseForm(forms.ModelForm):
         return boarding_house
 
 
+class UpdateBoardingHouseForm(forms.ModelForm):
+    prefix = 'update-boarding_house'
+    images = MultipleImageField(required=False, max_images=5)
+
+    class Meta:
+        model = BoardingHouse
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at', 'landlord']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['province'].empty_label = "Choose a province"
+        self.fields['municipality'].queryset = Municipality.objects.none()
+        self.fields['municipality'].empty_label = "Choose a municipality"
+        self.fields['barangay'].queryset = Barangay.objects.none()
+        self.fields['barangay'].empty_label = "Choose a barangay"
+
+        province_html_name = self.add_prefix('province')
+        municipality_html_name = self.add_prefix('municipality')
+        images = self.files.getlist(self.add_prefix('images'))
+        if province_html_name in self.data:
+            try:
+                province_id = int(self.data.get(province_html_name))
+                self.fields['municipality'].queryset = Municipality.objects.filter(province_id=province_id).order_by(
+                    'name')
+            except (ValueError, TypeError):
+                pass
+
+        if municipality_html_name in self.data:
+            try:
+                municipality_id = int(self.data.get(municipality_html_name))
+                self.fields['barangay'].queryset = Barangay.objects.filter(municipality_id=municipality_id).order_by(
+                    'name')
+            except (ValueError, TypeError):
+                pass
+
+        elif self.instance.pk:
+            self.fields['municipality'].queryset = self.instance.province.municipality_set.order_by('name')
+            self.fields['barangay'].queryset = self.instance.municipality.barangay_set.order_by('name')
+
+    def save(self, commit=True):
+        boarding_house = super().save(commit=False)
+        if commit:
+            boarding_house.save()
+            # Delete existing images
+            BoardingHouseImage.objects.filter(boarding_house=boarding_house).delete()
+            # Save new images
+            images = self.files.getlist(self.add_prefix('images'))
+            for image in images:
+                BoardingHouseImage.objects.create(boarding_house=boarding_house, image=image)
+        return boarding_house
+
+
+class UpdateBoardingRoomForm(forms.ModelForm):
+    prefix = 'update-boarding_room'
+    images = MultipleImageField(required=False, max_images=5)
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.filter(type=Tag.Type.BOARDING_ROOM),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    class Meta:
+        model = BoardingRoom
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at', 'is_available']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.landlord = self.instance.boarding_house.landlord
+        self.fields['boarding_house'].queryset = BoardingHouse.objects.filter(landlord=self.landlord)
+        self.fields['boarding_house'].empty_label = "Select a boarding house"
+
+        # Set initial values for tags and images
+        self.fields['tags'].initial = self.instance.tags.values_list('id', flat=True)
+        print()
+        self.initial['images'] = [image.image.url for image in self.instance.images.all()]
+
+    def clean_boarding_house(self):
+        boarding_house_id = self.cleaned_data.get('boarding_house')
+        if not boarding_house_id:
+            raise forms.ValidationError("This field is required.")
+        boarding_house = get_object_or_404(BoardingHouse, id=boarding_house_id.id, landlord=self.landlord)
+        return boarding_house
+
+    def save(self, commit=True):
+        boarding_room = super().save(commit=False)
+        if commit:
+            boarding_room.save()
+            # Delete existing images
+            BoardingRoomImage.objects.filter(boarding_room=boarding_room).delete()
+            # Save new images
+            images = self.files.getlist(self.add_prefix('images'))
+            for image in images:
+                BoardingRoomImage.objects.create(boarding_room=boarding_room, image=image)
+            # Delete existing tags
+            BoardingRoomTag.objects.filter(boarding_room=boarding_room).delete()
+            # Save new tags
+            tags = self.cleaned_data.get("tags")
+            for tag in tags:
+                BoardingRoomTag.objects.create(boarding_room=boarding_room, tag=tag)
+        return boarding_room
+
+
 class CreateBoardingRoomForm(forms.ModelForm):
     prefix = 'create-boarding_room'
     images = MultipleImageField(required=False, max_images=5)
@@ -151,12 +255,30 @@ class BoardingRoomSearchForm(forms.Form):
 class RequestBookingForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ['boarding_room', 'tenant', 'first_name', 'last_name', 'contact_number', 'email', 'message',
+        fields = ['first_name', 'last_name', 'contact_number', 'email', 'message',
                   'visit_date', 'visit_time']
-        exclude = ['boarding_room', 'tenant']
+
+    def __init__(self, boarding_room, tenant, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.boarding_room = boarding_room
+        self.tenant = tenant
 
     def save(self, commit=True):
         booking = super().save(commit=False)
+        booking.boarding_room = self.boarding_room
+        booking.tenant = self.tenant
         if commit:
             booking.save()
         return booking
+
+class BookingSearchForm(forms.Form):
+    query = forms.CharField(required=False, label='Search')
+    search_by = forms.ChoiceField(
+        choices=[
+            ('tenant', 'Tenant'),
+            ('boarding_room', 'Boarding Room'),
+            ('boarding_house', 'Boarding House'),
+        ],
+        required=False,
+        label='Search by'
+    )

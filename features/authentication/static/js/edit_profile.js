@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Wait for the window to load before initializing the modals
     window.addEventListener("load", () => {
-        // Modal display on form error
+        // Modal display on forms error
         if (form2El.querySelector(".error")) {
             window.FlowbiteInstances.getInstance("Modal", "edit-address-modal").show();
         } else if (form3El.querySelector(".error")) {

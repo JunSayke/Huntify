@@ -60,6 +60,9 @@ class BoardingHouse(models.Model):
             return f"₱{min_price} - ₱{max_price}"
         return None
 
+    def get_existing_images(self):
+        return self.images.all()
+
     def __str__(self):
         return self.name
 
@@ -131,7 +134,7 @@ class BoardingRoomTag(models.Model):
     tag = models.ForeignKey('Tag', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.tag
+        return self.tag.name
 
 
 class Tag(models.Model):
@@ -151,6 +154,8 @@ class Booking(models.Model):
         PENDING = 'pending', 'Pending'
         APPROVED = 'approved', 'Approved'
         REJECTED = 'rejected', 'Rejected'
+        CANCELLED = 'cancelled', 'Cancelled'
+        COMPLETED = 'completed', 'Completed'
 
     tenant = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
     boarding_room = models.ForeignKey(BoardingRoom, on_delete=models.CASCADE)
@@ -162,3 +167,11 @@ class Booking(models.Model):
     email = models.EmailField()
     contact_number = models.CharField(max_length=20, validators=[philippine_phone_validator])
     message = models.TextField(max_length=2000, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def is_processing(self):
+        return self.status == 'pending' or self.status == 'approved'
+
+    def __str__(self):
+        return f"{self.tenant} - {self.boarding_room} - {self.status}"

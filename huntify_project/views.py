@@ -6,4 +6,4 @@ from features.authentication.forms import UserTypeForm
 # Create your views here.
 def test(request):
     form = UserTypeForm()
-    return render(request, "html/form_tester.html", {'form': form})
+    return render(request, "html/form_tester.html", {'forms': form})

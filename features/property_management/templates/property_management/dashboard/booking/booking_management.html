@@ -1,63 +1,44 @@
 {% extends 'property_management/dashboard/base.html' %}
 {% load widget_tweaks %}
 {% load static %}
-{% block title %}Dashboard - Boarding Houses{% endblock %}
+{% block title %}Dashboard - Bookings{% endblock %}
 {% block side_content %}
     <div class="h-full border p-5">
         <div class="border p-2">
-            <h1 class="text-2xl">Property Management</h1>
+            <h1 class="text-2xl">Bookings Management</h1>
         </div>
         <div class="border p-2">
             <div class="flex justify-between">
 
-
-                <button id="property-type-dropdown" data-dropdown-toggle="property-type-dropdown-menu"
+                <button id="bookings-dropdown" data-dropdown-toggle="bookings-dropdown-menu"
                         data-dropdown-trigger="hover"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button">Property Type
+                        type="button">Bookings
                     <i class="ms-2 fa-solid fa-chevron-down"></i>
                 </button>
 
                 <!-- Dropdown menu -->
-                <div id="property-type-dropdown-menu"
+                <div id="bookings-dropdown-menu"
                      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200 text-center"
-                        aria-labelledby="property-type-dropdown">
+                        aria-labelledby="bookings-dropdown">
                         <li>
-                            <a href="{% url 'property_management:dashboard-boarding-houses' %}"
-                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Boarding
-                                Houses</a>
+                            <a href="#"
+                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pending</a>
                         </li>
                         <li>
-                            <a href="{% url 'property_management:dashboard-boarding-rooms' %}"
-                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Boarding
-                                Rooms</a>
+                            <a href="#"
+                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Approved</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Completed</a>
                         </li>
                     </ul>
                 </div>
-
-
-                <div>
-                    <button
-                        data-modal-target="add-boarding-room-modal"
-                        data-modal-toggle="add-boarding-room-modal"
-                        type="button"
-                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                        Add Room
-                    </button>
-                    <button
-                        data-modal-target="add-boarding-house-modal"
-                        data-modal-toggle="add-boarding-house-modal"
-                        type="button"
-                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                        Add Boarding House
-                    </button>
-                </div>
             </div>
         </div>
-        <div class="border p-2" id="property-list">
+        <div class="border p-2" id="booking-list">
             <form method="GET">
                 <div class="flex items-center gap-x-5 my-5">
                     <div class="relative w-96">
@@ -71,6 +52,7 @@
                         </div>
                         {{ search_form.query|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Search here" }}
                     </div>
+
                     {{ search_form.search_by|add_class:"rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" }}
                 </div>
             </form>
@@ -80,9 +62,4 @@
             </div>
         </div>
     </div>
-
-    {% include 'property_management/dashboard/modals/add_boarding_house_modal.html' %}
-    {% include 'property_management/dashboard/modals/add_boarding_room_modal.html' %}
-    {% include 'html/confirmation-modal.html' %}
-    <script type="module" src="{% static 'js/property_management.js' %}"></script>
 {% endblock %}

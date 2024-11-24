@@ -7,21 +7,21 @@
     <div class="grid grid-cols-[1fr_1fr] border">
         <div class="col-start-1 row-start-1 border p-2">
             <label
-                for="{{ request_booking_form.first_name.id_for_label }}"
+                for="{{ form.first_name.id_for_label }}"
                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >First name</label>
-            {{ request_booking_form.first_name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter first name" }}
+            {{ form.first_name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter first name" }}
         </div>
         <div class="col-start-2 row-start-1 border p-2">
             <label
-                for="{{ request_booking_form.last_name.id_for_label }}"
+                for="{{ form.last_name.id_for_label }}"
                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >Last name</label>
-            {{ request_booking_form.last_name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter last name" }}
+            {{ form.last_name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter last name" }}
         </div>
         <div class="col-start-1 row-start-2 border p-2">
             <label
-                for="{{ request_booking_form.contact_number.id_for_label }}"
+                for="{{ form.contact_number.id_for_label }}"
                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >Contact Number</label>
             <div class="flex">
@@ -64,17 +64,17 @@
                     +63
                 </div>
                 <div class="relative w-full">
-                    {{ request_booking_form.contact_number|add_class:"block w-full rounded-r-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:912100676"|attr:"pattern:[0-9]{2}[0-9]{9}" }}
+                    {{ form.contact_number|add_class:"block w-full rounded-r-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:912100676"|attr:"pattern:[0-9]{2}[0-9]{9}" }}
                 </div>
             </div>
         </div>
 
         <div class="col-start-2 row-start-2 border p-2">
             <label
-                for="{{ request_booking_form.email.id_for_label }}"
+                for="{{ form.email.id_for_label }}"
                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >Email address</label>
-            {{ request_booking_form.email|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter your email address" }}
+            {{ form.email|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Enter your email address" }}
         </div>
         <div class="col-span-2 row-start-3 border p-2">
             <fieldset class="flex justify-between gap-2">
@@ -83,7 +83,7 @@
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <i class="fa-solid fa-calendar-days"></i>
                     </div>
-                    {{ request_booking_form.visit_date|add_class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"placeholder:Select date"|attr:"datepicker"|attr:"datepicker-buttons"|attr:"datepicker-autohide"|attr:"datepicker-autoselect-today" }}
+                    {{ form.visit_date|add_class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"placeholder:Select date"|attr:"datepicker"|attr:"datepicker-buttons"|attr:"datepicker-autohide"|attr:"datepicker-autoselect-today" }}
                 </div>
 
                 <div class="relative w-full">
@@ -91,7 +91,7 @@
                         <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
                             <i class="fa-regular fa-clock"></i>
                         </div>
-                        {{ request_booking_form.visit_time|add_class:"bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"placeholder:Select time"|attr:"min:09:00"|attr:"max:18:00"|attr:"type:time"|attr:"value:00:00" }}
+                        {{ form.visit_time|add_class:"bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"placeholder:Select time"|attr:"type:time"|attr:"value:00:00" }}
                     </div>
                 </div>
             </fieldset>
@@ -99,16 +99,17 @@
 
             <div class="mt-5">
                 <label
-                    for="{{ request_booking_form.message.id_for_label }}"
+                    for="{{ form.message.id_for_label }}"
                     class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                 >Note to landlord</label>
-                {{ request_booking_form.message|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Write a note for the landlord..." }}
+                {{ form.message|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Write a note for the landlord..." }}
             </div>
         </div>
     </div>
     <div class="border p-2 text-center">
         <button
             type="submit"
+            name="request-booking"
             class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
             Request Booking

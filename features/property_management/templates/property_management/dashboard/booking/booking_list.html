@@ -1,0 +1,172 @@
+{% extends 'property_management/dashboard/booking/booking_management.html' %}
+{% load static %}
+{% block table %}
+    <h1 class="text-center pb-5 text-2xl font-semibold text-gray-900 dark:text-gray-200">Incoming Bookings
+        <span class="text-sm font-normal text-gray-500">({{ total_bookings }})</span>
+    </h1>
+    <table
+        id="property-table"
+        class="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right"
+    >
+        <thead
+            class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+        >
+        <tr>
+            <th scope="col" class="px-6 py-3">
+                <a href="?sort=name&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
+                    Tenant
+                    <i class="ms-2 fa-solid fa-sort"></i>
+                </a>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <a href="?sort=status&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
+                    Status
+                    <i class="ms-2 fa-solid fa-sort"></i>
+                </a>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <a href="?sort=boarding_house&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
+                    Room
+                    <i class="ms-2 fa-solid fa-sort"></i>
+                </a>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <a href="?sort=boarding_house&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
+                    Boarding House
+                    <i class="ms-2 fa-solid fa-sort"></i>
+                </a>
+            </th>
+            <th
+                scope="col"
+                class="px-6 py-3"
+                data-type="date"
+                data-format="MM/DD/YYYY"
+            >
+                <a href="?sort=created_at&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
+                    Date Created
+                    <i class="ms-2 fa-solid fa-sort"></i>
+                </a>
+            </th>
+            <th
+                scope="col"
+                class="px-6 py-3"
+                data-type="date"
+                data-format="MM/DD/YYYY"
+            >
+                <a href="?sort=updated_at&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
+                    Date Updated
+                    <i class="ms-2 fa-solid fa-sort"></i>
+                </a>
+            </th>
+            <th scope="col" class="px-6 py-3" data-sortable="false">
+                Action
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if not bookings %}
+            <tr>
+                <td colspan="6" class="text-center py-5 text-gray-500 dark:text-gray-400">
+                    No bookings found.
+                </td>
+            </tr>
+        {% endif %}
+        {% for booking in bookings %}
+            <tr
+                class="bg-white dark:bg-gray-800"
+            >
+                <th
+                    scope="row"
+                    class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                >
+                    <a href="{{ booking.tenant.get_absolute_url }}">{{ booking.tenant.username }}</a>
+                </th>
+                <td class="px-6 py-4">{{ booking.status|title }}</td>
+                <td class="px-6 py-4"><a
+                    href="{{ booking.boarding_room.get_absolute_url }}">{{ booking.boarding_room.name }}</a></td>
+                <td class="px-6 py-4"><a
+                    href="{{ booking.boarding_room.boarding_house.get_absolute_url }}">{{ booking.boarding_room.boarding_house.name }}</a>
+                </td>
+                <td class="px-6 py-4">{{ booking.created_at|date:"m/d/Y" }}</td>
+                <td class="px-6 py-4">{{ booking.updated_at|date:"m/d/Y" }}</td>
+                <td class="flex items-center px-6 py-4">
+                    {% if booking.status == 'pending' %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="approve-booking" value="{{ booking.id }}">
+                            <button
+                                type="submit"
+                                class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+                            >
+                                Approve
+                            </button>
+                        </form>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="reject-booking" value="{{ booking.id }}">
+                            <button
+                                type="submit"
+                                class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                            >
+                                Reject
+                            </button>
+                        </form>
+                    {% elif booking.status == 'approved' %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="complete-booking" value="{{ booking.id }}">
+                            <button
+                                type="submit"
+                                class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+                            >
+                                Check-in
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete-booking" value="{{ booking.id }}">
+                            <button
+                                type="submit"
+                                class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                            >
+                                Delete
+                            </button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="flex items-center justify-between p-5">
+        <!-- Help text -->
+        <span class="text-sm text-gray-700 dark:text-gray-400">
+      Showing <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.number }}</span> of <span
+            class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.num_pages }}</span> Entries
+  </span>
+        <!-- Buttons -->
+        <div class="inline-flex mt-2 xs:mt-0">
+            {% if page_obj.has_previous %}
+                <a href="?page=1"
+                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    First
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}"
+                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    Prev
+                </a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.paginator.num_pages }}"
+                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    Next
+                </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}"
+                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    Last
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
