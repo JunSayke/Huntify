@@ -277,6 +277,7 @@ class RequestBookingForm(forms.ModelForm):
             booking.save()
         return booking
 
+
 class BookingSearchForm(forms.Form):
     query = forms.CharField(required=False, label='Search')
     search_by = forms.ChoiceField(
@@ -285,6 +286,18 @@ class BookingSearchForm(forms.Form):
             ('boarding_room', 'Boarding Room'),
             ('boarding_house', 'Boarding House'),
             ('status', 'Status'),
+        ],
+        required=False,
+        label='Search by'
+    )
+
+
+class RoomTenantSearchForm(forms.Form):
+    query = forms.CharField(required=False, label='Search')
+    search_by = forms.ChoiceField(
+        choices=[
+            ('tenant', 'Tenant'),
+            ('boarding_room', 'Boarding Room'),
         ],
         required=False,
         label='Search by'

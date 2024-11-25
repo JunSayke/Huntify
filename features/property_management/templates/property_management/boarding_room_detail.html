@@ -46,6 +46,28 @@
                 <div class="border p-2">
                     <p>Status: <span>{{ boarding_room.status }}</span></p>
                 </div>
+                {% if rating_form %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="flex flex-row-reverse justify-center">
+                            {% for rate in rating_form.rating.subwidgets %}
+                                <input type="radio" id="{{ rate.id_for_label }}"
+                                       name="{{ rating_form.rating.html_name }}"
+                                       value="{{ rate.data.value }}" data-target-input="rating"
+                                       class="peer/input hidden">
+                                <label for="{{ rate.id_for_label }}"
+                                       class="fas fa-star text-gray-600 cursor-pointer peer/label peer-checked/input:text-yellow-400 peer-hover/label:text-yellow-400 hover:text-yellow-400 duration-100">
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-4">
+                            {{ rating_form.feedback.label_tag }}
+                            {{ rating_form.feedback }}
+                        </div>
+                        <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Submit Rating
+                        </button>
+                    </form>
+                {% endif %}
             </div>
             <div class="float-left w-1/2 border p-5">
                 <div class="border">

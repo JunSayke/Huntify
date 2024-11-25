@@ -124,11 +124,20 @@
                     <div class="border row-start-2 col-start-2 h-full p-5">
                         {% if user_profile.user_type == 'tenant' %}
                             <h5 class="font-bold">Bookings</h5>
+                            <ol class="grid grid-cols-3 gap-5 mt-5">
+                                {% if request.user.bookings %}
+                                    {% for booking in request.user.bookings.all %}
+                                        <li>
+                                            <p>{{ booking }}</p>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ol>
                         {% elif user_profile.user_type == 'landlord' %}
                             <h5 class="font-bold">Properties</h5>
                             <ol class="grid grid-cols-3 gap-5 mt-5">
-                                {% if boarding_houses %}
-                                    {% for boarding_house in boarding_houses %}
+                                {% if user_profile.boarding_houses %}
+                                    {% for boarding_house in user_profile.boarding_houses.all|dictsortreversed:"created_at" %}
                                         <li class="border p-2">
                                             <a href="{{ boarding_house.get_absolute_url }}">
                                                 <div class="relative place-items-center">
@@ -143,7 +152,7 @@
                                                                  aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                                  fill="currentColor" viewBox="0 0 20 18">
                                                                 <path
-                                                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                                                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"></path>
                                                             </svg>
                                                         </div>
                                                     {% endif %}

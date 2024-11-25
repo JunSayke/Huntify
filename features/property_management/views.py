@@ -9,9 +9,12 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
+from features.authentication.models import User
 from features.property_management.forms import CreateBoardingHouseForm, CreateBoardingRoomForm, BoardingHouseSearchForm, \
-    BoardingRoomSearchForm, RequestBookingForm, BookingSearchForm, UpdateBoardingHouseForm, UpdateBoardingRoomForm
+    BoardingRoomSearchForm, RequestBookingForm, BookingSearchForm, UpdateBoardingHouseForm, UpdateBoardingRoomForm, \
+    RoomTenantSearchForm
 from features.property_management.models import BoardingHouse, BoardingRoom, Tag, Booking, BoardingRoomTenant
+from features.rating.forms import RatingForm
 
 
 # Create your views here.
@@ -316,6 +319,11 @@ class BoardingRoomDetailView(DetailView):
                 else:
                     context['request_booking_form'] = RequestBookingForm(boarding_room=self.object, tenant=tenant)
 
+            # Check if the tenant has checked out
+            has_checked_out = self.object.room_tenants.filter(tenant=tenant, check_out_date__isnull=False).exists()
+            if has_checked_out:
+                context['rating_form'] = RatingForm()
+
         return context
 
     # TODO: Restrict access to this method to tenant only
@@ -460,19 +468,6 @@ class BookingListView(ListView):
 
             messages.success(request, "Booking completed successfully.")
             return redirect('property_management:booking-management')
-        # Handle deletion of a booking
-        elif 'delete-booking' in request.POST:
-            booking_id = request.POST.get('delete-booking')
-            booking = get_object_or_404(Booking, id=booking_id)
-
-            # Ensure only authorized users can delete
-            if booking.boarding_room.boarding_house.landlord != request.user:
-                return HttpResponseForbidden("You are not allowed to delete this item.")
-
-            messages.success(request, "Booking deleted successfully.")
-            # Delete the booking
-            booking.delete()
-            return redirect('property_management:booking-management')
 
         return self.render_to_response(context)
 
@@ -490,17 +485,31 @@ class RoomTenantListView(ListView):
     template_name = 'property_management/dashboard/tenant/tenant_list.html'
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_room_tenants'] = self.get_queryset().count()
+        context['search_form'] = RoomTenantSearchForm(self.request.GET)
+        context['tenant_status'] = self.kwargs.get('tenant_status')
+        return context
+
     def get_queryset(self):
         queryset = super().get_queryset()
-
         queryset = queryset.filter(boarding_room__boarding_house__landlord=self.request.user)
+
+        tenant_status = self.kwargs.get('tenant_status')
+
+        if tenant_status == 'checked-in':
+            queryset = queryset.filter(check_out_date__isnull=True)
+        elif tenant_status == 'checked-out':
+            queryset = queryset.filter(check_out_date__isnull=False)
+
         return queryset
 
     def post(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
         context = self.get_context_data()
 
-        # Handle eviction of a tenant
+        # Handle checked-out of a tenant
         if 'check-out-tenant' in request.POST:
             room_tenant_id = request.POST.get('check-out-tenant')
 
@@ -516,3 +525,17 @@ class RoomTenantListView(ListView):
             return redirect('property_management:tenant-management')
 
         return self.render_to_response(context)
+
+
+class LandlordListView(ListView):
+    model = User
+    context_object_name = 'landlords'
+    template_name = 'property_management/landlords.html'
+    paginator_class = SafePaginator
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        queryset = queryset.filter(user_type=User.Type.LANDLORD)
+        return queryset

@@ -10,7 +10,7 @@ from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationFor
     AdditionalInfoForm, \
     UpdateUserAddressForm, UpdatePhoneNumberForm
 from .models import User
-from ..property_management.models import BoardingRoom, BoardingHouse
+from ..property_management.models import BoardingRoom
 
 
 # Create your views here.
@@ -47,8 +47,6 @@ class ProfileView(DetailView):
         context['phone_number_form'] = UpdatePhoneNumberForm()
 
         user_profile = self.get_object()
-        if user_profile.user_type == User.Type.LANDLORD:
-            context['boarding_houses'] = BoardingHouse.objects.filter(landlord=user_profile)
 
         return context
 

@@ -29,8 +29,10 @@ urlpatterns = [
          name="update-boarding-room"),
 
     path("dashboard/tenant-management/", views.RoomTenantListView.as_view(), name="tenant-management"),
-    path("dashboard/tenant-management/tenant/", views.RoomTenantListView.as_view(), name="dashboard-tenants"),
+    path("dashboard/tenant-management/<str:tenant_status>/", views.RoomTenantListView.as_view(),
+         name="dashboard-tenants"),
 
+    path("landlords/", views.LandlordListView.as_view(), name="landlords"),
     path("rent-a-room/", views.RentARoomListView.as_view(), name="rent-a-room"),
 
     path("boarding-room/<int:pk>/", views.BoardingRoomDetailView.as_view(), name="boarding-room"),

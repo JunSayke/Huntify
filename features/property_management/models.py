@@ -18,7 +18,7 @@ def boarding_room_image_path(instance, filename):
 
 
 class BoardingHouse(models.Model):
-    landlord = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
+    landlord = models.ForeignKey('authentication.User', related_name="boarding_houses", on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=2000)
     province = models.ForeignKey('address.Province', on_delete=models.SET_NULL, null=True)

@@ -2,7 +2,7 @@
 {% load static %}
 {% block table %}
     <h1 class="text-center pb-5 text-2xl font-semibold text-gray-900 dark:text-gray-200">Room Tenants
-        <span class="text-sm font-normal text-gray-500">({{ total_tenants }})</span>
+        <span class="text-sm font-normal text-gray-500">({{ total_room_tenants }})</span>
     </h1>
     <table
         id="booking-table"
@@ -36,6 +36,7 @@
                     <i class="ms-2 fa-solid fa-sort"></i>
                 </a>
             </th>
+
             <th scope="col" class="px-6 py-3" data-sortable="false">
                 Action
             </th>
@@ -60,23 +61,21 @@
                     <a href="{{ room_tenant.tenant.get_absolute_url }}">{{ room_tenant.tenant.username }}</a>
                 </th>
                 <td class="px-6 py-4"><a
-                    href="{{ room_tenant.boarding_room.get_absolute_url }}">{{ room_tenant.boarding_room.name }}</a></td>
+                    href="{{ room_tenant.boarding_room.get_absolute_url }}">{{ room_tenant.boarding_room.name }}</a>
+                </td>
                 <td class="px-6 py-4">{{ room_tenant.check_in_date|date:"m/d/Y" }}</td>
                 <td class="px-6 py-4">{{ room_tenant.check_out_date|date:"m/d/Y"|default:"N/A" }}</td>
                 <td class="flex items-center px-6 py-4">
-                    <form id="check-out-tenant-form" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="check-out-tenant" value="{{ room_tenant.id }}">
-                        <button
-                            data-modal-target="confirmation-modal"
-                            data-modal-show="confirmation-modal"
-                            type="submit"
-                            data-action-button="check-out-tenant"
-                            class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
-                        >
-                            Check-out
-                        </button>
-                    </form>
+                    {% if not room_tenant.check_out_date %}
+                        <form id="check-out-tenant-form" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="check-out-tenant" value="{{ room_tenant.id }}">
+                            <button type="submit"
+                                    class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
+                                Check-out
+                            </button>
+                        </form>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'features.address',
     'features.authentication',
     'features.property_management',
+    'features.rating',
 ]
 
 # tailwindcss
