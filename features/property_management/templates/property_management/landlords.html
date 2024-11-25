@@ -1,0 +1,17 @@
+{% extends 'html/base.html' %}
+{% block content %}
+    {% include 'html/header.html' %}
+    <main>
+        <section class="flex place-content-center place-items-center px-[70px]">
+        {% if landlords %}
+            <ul>
+                {% for landlord in landlords %}
+                    <li>{{ landlord }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No landlords found.</p>
+        {% endif %}
+        </section>
+    </main>
+{% endblock %}
