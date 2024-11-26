@@ -18,7 +18,7 @@
                                 <img src="{{ user.avatar }}" alt="Profile Image"
                                      class="size-full object-cover">
                             </div>
-                            <div class="absolute right-2 bottom-2">
+                            <div class="absolute right-2 bottom-2 z-20">
                                 <i class="fa-solid fa-pen-to-square text-4xl text-blue-600"></i>
                             </div>
                             <input type="file" name="{{ profile_form.profile_picture.html_name }}"
@@ -158,5 +158,10 @@
     </main>
     {% include 'authentication/modals/edit_address_modal.html' %}
     {% include 'authentication/modals/edit_phone_number_modal.html' %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            {% include 'html/modals/success_modal.html' with message=message %}
+        {% endif %}
+    {% endfor %}
     <script type="module" src="{% static 'js/edit_profile.js' %}"></script>
 {% endblock %}

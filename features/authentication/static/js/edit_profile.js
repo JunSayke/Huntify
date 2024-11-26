@@ -1,4 +1,4 @@
-import { SimpleImageUploader, initAddressInputListeners } from "./huntify.js";
+import { initAddressInputListeners, SimpleImageUploader } from "./huntify.js";
 
 document.addEventListener("DOMContentLoaded", function() {
     const form1El = document.getElementById("update-user_profile_form");
@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return previewDiv;
         },
         fileInputListener: function() {
-            console.log(this)
             const file = this.fileInput.files[0];
 
             if (file) {
@@ -37,13 +36,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     const previewElement = this.renderPreview(file, reader.result);
                     this.previewContainer.innerHTML = ""; // Clear existing previews
                     this.previewContainer.appendChild(previewElement);
-                    alert("File uploaded successfully!");
                     this.currentFiles = [file]; // Replace current files with the new file
                     this.updateFileInput();
                 };
                 reader.readAsDataURL(file);
             }
-        }.bind(this)
+        }
     });
 
     // Address input listeners initialization

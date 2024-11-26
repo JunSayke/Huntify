@@ -109,6 +109,10 @@ class UpdateProfileView(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Profile updated successfully.')
+        return super().form_valid(form)
+
 
 # TODO: Restrict access to this view to users who have not yet filled out their additional info
 class AdditionalInfoView(UpdateView):
