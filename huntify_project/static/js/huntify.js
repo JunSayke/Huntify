@@ -164,9 +164,13 @@ export class SimpleImageUploader {
         this.previewContainer = document.querySelector(previewContainerSelector);
         this.maxImages = options.maxImages || 1;
         this.currentFiles = [];
-        this.renderPreview = options.renderPreview || this.defaultRenderPreview;
+        this.renderPreview = options.renderPreview || this.#defaultRenderPreview;
+        this.fileInputListener = (options.fileInputListener || this.#defaultFileInputListener).bind(this);
+
         this.init();
     }
+
+    #defaultFileInputListener = () => this.addImages(this.fileInput.files);
 
     async init() {
         const existingImages = await Promise.all(
@@ -177,7 +181,7 @@ export class SimpleImageUploader {
 
         this.addImages(existingImages);
 
-        this.fileInput.addEventListener("change", () => this.addImages(this.fileInput.files));
+        this.fileInput.addEventListener("change", this.fileInputListener);
     }
 
     async urlToFile(url) {
@@ -259,7 +263,7 @@ export class SimpleImageUploader {
         this.fileInput.files = dataTransfer.files;
     }
 
-    defaultRenderPreview(file, src) {
+    #defaultRenderPreview(file, src) {
         const previewDiv = document.createElement("div");
         previewDiv.classList.add("preview");
 
@@ -272,6 +276,3 @@ export class SimpleImageUploader {
         return previewDiv;
     }
 }
-
-
-

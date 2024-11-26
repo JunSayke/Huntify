@@ -13,13 +13,7 @@
                         <div
                             class="flex size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 bg-gray-50"
                         >
-                            <img id="profile-pic-preview" src="
-                                    {% if user_profile.profile_picture %}
-                                    {{ user_profile.profile_picture.url }}
-                                    {% else %}
-                                    data:image/svg+xml,%3Csvg class='size-full' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'%3E%3C/path%3E%3C/svg%3E
-                                    {% endif %}
-                                     " alt="Profile Image"
+                            <img id="profile-pic-preview" src="{{ user_profile.avatar }}" alt="Profile Image"
                                  class="size-full object-cover">
                         </div>
 
@@ -35,9 +29,9 @@
                             <br />
                             <span class="font-normal text-xs">
                             {% if user_profile.user_type == 'tenant' %}
-                                0 Reviews
+                                {{ user_profile.ratings.count }} Reviews
                             {% elif user_profile.user_type == 'landlord' %}
-                                ⭐ 4.9 Rating
+                                ⭐ {{ user_profile.get_aggregate_rating|default:"No ratings yet" }} Rating
                             {% elif user_profile.user_type == 'admin' %}
                                 Admin
                             {% endif %}
@@ -76,9 +70,7 @@
                                     <i class="fa-solid fa-location-dot"></i>
                                     <span class="text-sm ">
                                         {% if user_profile.street or user_profile.province or user_profile.municipality or user_profile.barangay %}
-                                            {{ user_profile.street }}, {{ user_profile.province.name }},
-                                            {{ user_profile.municipality.name }},
-                                            {{ user_profile.barangay.name }}
+                                            {{ user.address }}
                                         {% elif user_profile == request.user %}
                                             <button data-modal-target="edit-address-modal"
                                                     data-modal-toggle="edit-address-modal"
@@ -122,54 +114,8 @@
                         </ul>
                     </div>
                     <div class="border row-start-2 col-start-2 h-full p-5">
-                        {% if user_profile.user_type == 'tenant' %}
-                            <h5 class="font-bold">Bookings</h5>
-                            <ol class="grid grid-cols-3 gap-5 mt-5">
-                                {% if request.user.bookings %}
-                                    {% for booking in request.user.bookings.all %}
-                                        <li>
-                                            <p>{{ booking }}</p>
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}
-                            </ol>
-                        {% elif user_profile.user_type == 'landlord' %}
-                            <h5 class="font-bold">Properties</h5>
-                            <ol class="grid grid-cols-3 gap-5 mt-5">
-                                {% if user_profile.boarding_houses %}
-                                    {% for boarding_house in user_profile.boarding_houses.all|dictsortreversed:"created_at" %}
-                                        <li class="border p-2">
-                                            <a href="{{ boarding_house.get_absolute_url }}">
-                                                <div class="relative place-items-center">
-                                                    {% if boarding_house.first_image %}
-                                                        <img src="{{ boarding_house.first_image }}"
-                                                             alt="{{ boarding_house.name }}"
-                                                             class="h-52 w-full object-cover rounded">
-                                                    {% else %}
-                                                        <div
-                                                            class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
-                                                            <svg class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                 fill="currentColor" viewBox="0 0 20 18">
-                                                                <path
-                                                                    d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"></path>
-                                                            </svg>
-                                                        </div>
-                                                    {% endif %}
-                                                    <div class="w-full pt-5 text-xs">
-                                                        <p class="flex justify-between gap-5">
-                                                            {{ boarding_house.name }}
-                                                            <strong>{{ boarding_house.price_range }}</strong>
-                                                        </p>
-                                                        <p class="text-gray-400">{{ boarding_house.address }}</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}
-                            </ol>
-                        {% endif %}
+                        {% block side_content %}
+                        {% endblock %}
                     </div>
                 </div>
             </div>
@@ -178,6 +124,12 @@
     {% if user_profile == request.user %}
         {% include 'authentication/modals/edit_address_modal.html' %}
         {% include 'authentication/modals/edit_phone_number_modal.html' %}
+        {% include 'html/modals/confirmation-modal.html' %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                {% include 'html/modals/success_modal.html' with message=message %}
+            {% endif %}
+        {% endfor %}
     {% endif %}
-    <script type=" module" src="{% static 'js/profile.js' %}"></script>
+    <script type="module" src="{% static 'js/profile.js' %}"></script>
 {% endblock %}

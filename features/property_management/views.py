@@ -322,7 +322,12 @@ class BoardingRoomDetailView(DetailView):
             # Check if the tenant has checked out
             has_checked_out = self.object.room_tenants.filter(tenant=tenant, check_out_date__isnull=False).exists()
             if has_checked_out:
-                context['rating_form'] = RatingForm()
+                user_rating = self.object.ratings.filter(user=tenant).first()
+                if user_rating:
+                    context['rating_form'] = RatingForm(instance=user_rating)
+                    context['user_rating'] = user_rating
+                else:
+                    context['rating_form'] = RatingForm()
 
         return context
 
@@ -352,6 +357,23 @@ class BoardingRoomDetailView(DetailView):
             booking.save()
             messages.success(request, "Booking cancelled successfully.")
             return redirect('property_management:boarding-room', pk=self.object.pk)
+        elif 'rate-boarding-room' in request.POST:
+            user_rating = self.object.ratings.filter(user=request.user).first()
+            if user_rating:
+                rating_form = RatingForm(data=request.POST, instance=user_rating)
+            else:
+                rating_form = RatingForm(data=request.POST)
+
+            if rating_form.is_valid():
+                rating = rating_form.save(commit=False)
+                rating.user = request.user
+                rating.boarding_room = self.object
+                rating.save()
+                messages.success(request, "Rating submitted successfully.")
+                return redirect('property_management:boarding-room', pk=self.object.pk)
+            else:
+                context['rating_form'] = rating_form
+                return self.render_to_response(context)
 
 
 class BoardingHouseDetailView(DetailView):
@@ -466,6 +488,9 @@ class BookingListView(ListView):
                     tenant=booking.tenant,
                 )
 
+                booking.boarding_room.is_available = False
+                booking.boarding_room.save()
+
             messages.success(request, "Booking completed successfully.")
             return redirect('property_management:booking-management')
 
@@ -476,6 +501,58 @@ class BookingDetailView(DetailView):
     model = Booking
     template_name = 'property_management/dashboard/booking/booking_detail.html'
     context_object_name = 'booking'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data()
+
+        if 'approve-booking' in request.POST:
+            booking_id = request.POST.get('approve-booking')
+            booking = get_object_or_404(Booking, id=booking_id)
+
+            if booking.boarding_room.boarding_house.landlord != request.user:
+                return HttpResponseForbidden("You are not allowed to approve this booking.")
+
+            booking.status = Booking.Status.APPROVED
+            booking.save()
+            messages.success(request, "Booking approved successfully.")
+            return HttpResponseRedirect(self.object.get_absolute_url())
+
+        elif 'reject-booking' in request.POST:
+            booking_id = request.POST.get('reject-booking')
+            booking = get_object_or_404(Booking, id=booking_id)
+
+            if booking.boarding_room.boarding_house.landlord != request.user:
+                return HttpResponseForbidden("You are not allowed to reject this booking.")
+
+            booking.status = Booking.Status.REJECTED
+            booking.save()
+            messages.success(request, "Booking rejected successfully.")
+            return HttpResponseRedirect(self.object.get_absolute_url())
+
+        elif 'complete-booking' in request.POST:
+            booking_id = request.POST.get('complete-booking')
+            booking = get_object_or_404(Booking, id=booking_id)
+
+            if booking.boarding_room.boarding_house.landlord != request.user:
+                return HttpResponseForbidden("You are not allowed to complete this booking.")
+
+            with transaction.atomic():
+                booking.status = Booking.Status.COMPLETED
+                booking.save()
+
+                BoardingRoomTenant.objects.create(
+                    boarding_room=booking.boarding_room,
+                    tenant=booking.tenant,
+                )
+
+                booking.boarding_room.is_available = False
+                booking.boarding_room.save()
+
+            messages.success(request, "Booking completed successfully.")
+            return HttpResponseRedirect(self.object.get_absolute_url())
+
+        return self.render_to_response(context)
 
 
 class RoomTenantListView(ListView):
@@ -518,10 +595,14 @@ class RoomTenantListView(ListView):
             if room_tenant.boarding_room.boarding_house.landlord != request.user:
                 return HttpResponseForbidden("You are not allowed to checkout this tenant.")
 
-            messages.success(request, "Tenant has been checkout successfully.")
-            # Checkout the tenant
-            room_tenant.check_out_date = timezone.now()
-            room_tenant.save()
+            with transaction.atomic():
+                messages.success(request, "Tenant has been checkout successfully.")
+                # Checkout the tenant
+                room_tenant.check_out_date = timezone.now()
+                room_tenant.save()
+
+                room_tenant.boarding_room.is_available = True
+                room_tenant.boarding_room.save()
             return redirect('property_management:tenant-management')
 
         return self.render_to_response(context)

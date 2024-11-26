@@ -1,9 +1,10 @@
 {% extends 'html/base.html' %}
+{% load widget_tweaks %}
 {% load static %}
 {% block title %}Boarding Room Detail{% endblock %}
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="place-items-center border w-minmax mx-auto">
+    <main class="place-items-center border mx-auto">
         <section class="clearfix w-full border p-5">
             <div class="float-left w-1/2 border p-5">
                 <div class="grid h-[500px] grid-rows-[75%_25%]">
@@ -30,7 +31,7 @@
                 </div>
                 <div class="border p-2">
                     <div class="flex justify-between">
-                        <h6 class="font-bold">{{ boarding_room.name }}<span class="font-normal"> / <a
+                        <h6 class="font-bold">{{ boarding_room.name }} <span class="font-semibold text-xs">({{ boarding_room.capacity }} Person/s)</span><span class="font-normal"> / <a
                             href="{{ boarding_house.get_absolute_url }}"
                             class="font-medium text-blue-600 hover:underline dark:text-blue-500">{{ boarding_house.name }}</a></span>
                         </h6>
@@ -46,27 +47,47 @@
                 <div class="border p-2">
                     <p>Status: <span>{{ boarding_room.status }}</span></p>
                 </div>
+                <!-- Rating Layout -->
+
                 {% if rating_form %}
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="flex flex-row-reverse justify-center">
-                            {% for rate in rating_form.rating.subwidgets %}
-                                <input type="radio" id="{{ rate.id_for_label }}"
-                                       name="{{ rating_form.rating.html_name }}"
-                                       value="{{ rate.data.value }}" data-target-input="rating"
-                                       class="peer/input hidden">
-                                <label for="{{ rate.id_for_label }}"
-                                       class="fas fa-star text-gray-600 cursor-pointer peer/label peer-checked/input:text-yellow-400 peer-hover/label:text-yellow-400 hover:text-yellow-400 duration-100">
-                                </label>
-                            {% endfor %}
-                        </div>
-                        <div class="mt-4">
-                            {{ rating_form.feedback.label_tag }}
-                            {{ rating_form.feedback }}
-                        </div>
-                        <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Submit Rating
-                        </button>
-                    </form>
+                    <div class="flex items-center justify-center w-full">
+                        <form id="rate-boarding-room-form" method="POST">
+                            {% csrf_token %}
+                            <div class="flex flex-row-reverse justify-center">
+                                {% for rate in rating_form.rating.subwidgets %}
+                                    <input type="radio" id="{{ rate.id_for_label }}"
+                                           name="{{ rating_form.rating.html_name }}"
+                                           value="{{ rate.data.value }}" data-target-input="rating"
+                                           class="peer/input hidden"
+                                           {% if rate.data.value == user_rating.rating %}checked{% endif %}>
+                                    <label for="{{ rate.id_for_label }}"
+                                           class="fas fa-star text-4xl text-gray-600 cursor-pointer peer/label peer-checked/input:text-yellow-400 peer-hover/label:text-yellow-400 hover:text-yellow-400 duration-100">
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            <div class="my-5">
+                                {{ rating_form.feedback|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Write a feedback..." }}
+                            </div>
+                            {% if rating_form.errors %}
+                                <div class="text-red-500 text-sm error">
+                                    {% if rating_form.errors %}
+                                        <p>{{ rating_form.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                            {% elif rating.form.non_field_errors %}
+                                <div class="text-red-500 text-sm error">
+                                    {% if rating_form.non_field_errors %}
+                                        <p>{{ rating_form.non_field_errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            <button type="submit"
+                                    name="rate-boarding-room"
+                                    class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                Submit Rating
+                            </button>
+                        </form>
+                    </div>
                 {% endif %}
             </div>
             <div class="float-left w-1/2 border p-5">
@@ -136,6 +157,59 @@
                             </div>
                         {% endif %}
                     {% endif %}
+                {% endif %}
+            </div>
+        </section>
+        <section class="w-full" id="ratings-section">
+            <div class="border p-2">
+                <h6 class="text-center text-4xl flex-1">Ratings</h6>
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-star text-yellow-400 me-2"></i>
+                    <p class="ms-2 text-sm font-bold text-gray-900 dark:text-white">{{ boarding_room.get_aggregate_rating|default:"No ratings yet" }}</p>
+                    <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+                    <a href="#ratings-section"
+                       class="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{{ boarding_room.ratings.count }}
+                        reviews</a>
+                </div>
+                {% if boarding_room.ratings.all %}
+                    <ul>
+                        {% for room_rating in boarding_room.ratings.all %}
+                            <li class="border p-2 mb-2">
+                                <article class="p-5">
+                                    <div class="flex items-center mb-4">
+                                        <a href="{{ room_rating.user.get_absolute_url }}">
+                                            {% if room_rating.user.profile_picture %}
+                                                <img src="{{ room_rating.user.profile_picture.url }}" alt="Profile Picture"
+                                                     class="w-10 h-10 me-4 rounded-full">
+                                            {% else %}
+                                                <i class="fa-solid fa-user text-4xl text-center w-10 h-10 me-4 rounded-full"></i>
+                                            {% endif %}
+                                        </a>
+                                        <div class="font-medium dark:text-white">
+                                            <p>{{ room_rating.user.username }}
+                                                <time datetime="{{ room_rating.user.date_joined }}"
+                                                      class="block text-sm text-gray-500 dark:text-gray-400">
+                                                    Joined on {{ room_rating.user.date_joined|date:"F d, Y" }}
+                                                </time>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
+                                        {% for i in "12345" %}
+                                            <i class="fa-star fas {% if forloop.counter <= room_rating.rating %}text-yellow-400{% else %}text-gray-400{% endif %}"></i>
+                                        {% endfor %}
+                                    </div>
+                                    <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400">
+                                        <p>Reviewed in the {{ room_rating.user.address }} on
+                                            <time
+                                                datetime="{{ room_rating.updated_at }}">{{ room_rating.updated_at|date:"F d, Y" }}</time>
+                                        </p>
+                                    </footer>
+                                    <p class="mb-2 text-gray-500 dark:text-gray-400">{{ room_rating.feedback }}</p>
+                                </article>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 {% endif %}
             </div>
         </section>
