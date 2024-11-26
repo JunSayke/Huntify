@@ -115,15 +115,15 @@ To get a local copy up and running follow these simple example steps.
    git clone https://github.com/JunSayke/Huntify.git
    ```
 2. Install Python packages
-  ```sh
-  pip install -r requirements.txt
-  ```
+    ```sh
+    pip install -r requirements.txt
+    ```
 3. Install Node packages in theme/static_src
-  ```sh
-  cd theme/static_src
-  npm install
-  cd ../../
-  ```
+    ```sh
+    cd theme/static_src
+    npm install
+    cd ..\..\
+    ```
 4. Migrate database
     ```sh
    py manage.py makemigrations
