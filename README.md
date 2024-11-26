@@ -171,37 +171,40 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     - [x] View
     - [x] Edit
     - [x] Public Profile
-- [ ] Property Management
+- [x] Property Management
     - [x] Sortable Properties
     - [x] Searchable Properties
     - [x] Property Listings
-    - [ ] Boarding House
+    - [x] Boarding House
       - [x] Create
       - [x] View
-      - [ ] Update
+      - [x] Update
       - [x] Delete
-    - [ ] Boarding Room
+    - [x] Boarding Room
       - [x] Create
       - [x] View
-      - [ ] Update
+      - [x] Update
       - [x] Delete
-- [ ] Booking Management
-    - [ ] Booking
+    - [x] Tenant Management
+      - [x] Check-out
+- [x] Booking Management
+    - [x] Booking
         - [x] Request
-        - [ ] View
-        - [ ] Approve
-        - [ ] Reject
+        - [x] View
+        - [x] Approve
+        - [x] Reject
+        - [x] Check-in
 - [ ] Notification
     - [ ] Booking Notification
         - [ ] Create
         - [ ] View
         - [ ] Delete
 - [ ] Review
-    - [ ] Review Property
-        - [ ] Create
-        - [ ] View
+    - [x] Review Property
+        - [x] Create
+        - [x] View
         - [ ] Delete
-        - [ ] Update
+        - [x] Update
 
 See the [open issues](https://github.com/JunSayke/Huntify/issues) for a full list of proposed features (and known issues).
 
