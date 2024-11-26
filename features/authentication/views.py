@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.views import LoginView as DjangoLoginView, PasswordChangeView
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DetailView, TemplateView
@@ -34,6 +35,15 @@ class ProfileView(DetailView):
     template_name = "authentication/profile.html"
     context_object_name = "user_profile"
 
+    def get_template_names(self):
+        user_profile = self.get_object()
+        if user_profile.user_type == 'tenant':
+            return ["authentication/tenant/profile.html"]
+        elif user_profile.user_type == 'landlord':
+            return ["authentication/landlord/profile.html"]
+        else:
+            return ["authentication/profile.html"]
+
     def get_object(self, queryset=None):
         if 'pk' in self.kwargs:
             return get_object_or_404(User, pk=self.kwargs['pk'])
@@ -46,8 +56,6 @@ class ProfileView(DetailView):
         context['address_form'] = UpdateUserAddressForm()
         context['phone_number_form'] = UpdatePhoneNumberForm()
 
-        user_profile = self.get_object()
-
         return context
 
     def post(self, request, *args, **kwargs):
@@ -59,7 +67,7 @@ class ProfileView(DetailView):
             if address_form.is_valid():
                 address_form.save()
                 messages.success(request, 'Address updated successfully.')
-                return redirect('authentication:edit-profile')
+                return redirect(self.object.get_absolute_url())
             else:
                 context['address_form'] = address_form
         elif 'update-user_contact_form' in request.POST:
@@ -67,9 +75,22 @@ class ProfileView(DetailView):
             if phone_number_form.is_valid():
                 phone_number_form.save()
                 messages.success(request, 'Phone number updated successfully.')
-                return redirect('authentication:edit-profile')
+                return redirect(self.object.get_absolute_url())
             else:
                 context['phone_number_form'] = phone_number_form
+        elif 'cancel-booking' in request.POST:
+            from features.property_management.models import Booking
+            booking_id = request.POST.get('cancel-booking')
+            booking = get_object_or_404(Booking, id=booking_id)
+
+            # Ensure only authorized users can cancel booking
+            if booking.tenant != request.user:
+                return HttpResponseForbidden("You are not allowed to cancel this booking.")
+
+            booking.status = Booking.Status.CANCELLED
+            booking.save()
+            messages.success(request, "Booking cancelled successfully.")
+            return redirect(self.object.get_absolute_url())
 
         return self.render_to_response(context)
 

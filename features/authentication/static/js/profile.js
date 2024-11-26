@@ -15,11 +15,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Address input listeners initialization
-        const [form1ProvinceEl, form1MunicipalityEl, form1BarangayEl] = [
-            form1El.querySelector(`[data-target-input="province"]`),
-            form1El.querySelector(`[data-target-input="municipality"]`),
-            form1El.querySelector(`[data-target-input="barangay"]`)
-        ];
-
-        initAddressInputListeners(form1ProvinceEl, form1MunicipalityEl, form1BarangayEl);
+        initAddressInputListeners(`#update-user_address_form [data-target-input="province"]`, `#update-user_address_form [data-target-input="municipality"]`, `#update-user_address_form [data-target-input="barangay"]`);
 });

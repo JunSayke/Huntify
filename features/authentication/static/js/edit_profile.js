@@ -1,4 +1,4 @@
-import { imageInputPreview, initAddressInputListeners } from "./huntify.js";
+import { SimpleImageUploader, initAddressInputListeners } from "./huntify.js";
 
 document.addEventListener("DOMContentLoaded", function() {
     const form1El = document.getElementById("update-user_profile_form");
@@ -15,17 +15,37 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    const profilePictureEl = form1El.querySelector(`[data-target-input="profile-pic"]`);
-    const profilePicturePreviewEl = form1El.querySelector("#profile-pic-preview");
+    new SimpleImageUploader(`#update-user_profile_form [data-target-input="profile-pic"]`, `#update-user_profile_form .image-preview-container`, {
+        renderPreview: (file, src) => {
+            const previewDiv = document.createElement("div");
+            previewDiv.classList.add("preview");
+            previewDiv.classList.add("size-full");
 
-    imageInputPreview(profilePictureEl, [profilePicturePreviewEl]);
+            previewDiv.innerHTML = `
+            <img src="${src}" class="relative z-20 size-full object-cover" alt="Image Preview">
+        `;
+
+            return previewDiv;
+        },
+        fileInputListener: function() {
+            console.log(this)
+            const file = this.fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const previewElement = this.renderPreview(file, reader.result);
+                    this.previewContainer.innerHTML = ""; // Clear existing previews
+                    this.previewContainer.appendChild(previewElement);
+                    alert("File uploaded successfully!");
+                    this.currentFiles = [file]; // Replace current files with the new file
+                    this.updateFileInput();
+                };
+                reader.readAsDataURL(file);
+            }
+        }.bind(this)
+    });
 
     // Address input listeners initialization
-    const [form2ProvinceEl, form2MunicipalityEl, form2BarangayEl] = [
-        form2El.querySelector(`[data-target-input="province"]`),
-        form2El.querySelector(`[data-target-input="municipality"]`),
-        form2El.querySelector(`[data-target-input="barangay"]`)
-    ];
-
-    initAddressInputListeners(form2ProvinceEl, form2MunicipalityEl, form2BarangayEl);
+    initAddressInputListeners(`#update-user_address_form [data-target-input="province"]`, `#update-user_address_form [data-target-input="municipality"]`, `#update-user_address_form [data-target-input="barangay"]`);
 });

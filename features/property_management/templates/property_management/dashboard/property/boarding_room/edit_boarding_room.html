@@ -150,6 +150,11 @@
                         {{ form.is_available|add_class:"w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" }}
                         <label for="{{ form.is_available.id_for_label }}"
                                class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Available</label>
+                        {% if form.is_available.errors %}
+                            <div
+                                class="text-red-500 text-sm error">{{ form.is_available.errors.0 }}
+                            </div>
+                        {% endif %}
                     </p>
 
                     <fieldset class="border p-4">
@@ -183,7 +188,7 @@
         <div class="border">
             <div class="flex justify-end gap-5 border p-5">
                 <a href="{{ boarding_room.get_absolute_url }}"
-                    class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                   class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                     View
                 </a>

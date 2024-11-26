@@ -1,8 +1,10 @@
 import os
 
+import avinit
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as DefaultUserManager
 from django.db import models
+from django.db.models import Avg
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -54,6 +56,14 @@ class User(AbstractUser, UUIDPKMixin):
 
     def address(self):
         return f"{self.street}, {self.barangay}, {self.municipality}, {self.province}".title()
+
+    def get_aggregate_rating(self):
+        from features.property_management.models import BoardingRoom
+        return BoardingRoom.objects.filter(boarding_house__landlord=self).aggregate(Avg('ratings__rating'))[
+            'ratings__rating__avg']
+
+    def avatar(self):
+        return self.profile_picture.url if self.profile_picture else avinit.get_avatar_data_url(self.get_full_name())
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

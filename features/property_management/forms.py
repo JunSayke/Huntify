@@ -156,12 +156,21 @@ class UpdateBoardingRoomForm(forms.ModelForm):
         print()
         self.initial['images'] = [image.image.url for image in self.instance.images.all()]
 
+
     def clean_boarding_house(self):
         boarding_house_id = self.cleaned_data.get('boarding_house')
         if not boarding_house_id:
             raise forms.ValidationError("This field is required.")
         boarding_house = get_object_or_404(BoardingHouse, id=boarding_house_id.id, landlord=self.landlord)
         return boarding_house
+
+    def clean_is_available(self):
+        is_available = self.cleaned_data.get('is_available')
+        if is_available:
+            # Check if there are any tenants currently checked in
+            if self.instance.room_tenants.filter(check_out_date__isnull=True).exists():
+                raise forms.ValidationError("Cannot set the room to available while there are tenants checked in.")
+        return is_available
 
     def save(self, commit=True):
         boarding_room = super().save(commit=False)

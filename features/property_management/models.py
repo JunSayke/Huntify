@@ -3,7 +3,9 @@ import os
 from random import choice
 
 from django.contrib.contenttypes.models import ContentType
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models import Avg
 from django.urls import reverse
 
 from utilities.validators import philippine_phone_validator
@@ -87,6 +89,7 @@ class BoardingRoom(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(max_length=2000)
     is_available = models.BooleanField(default=True)
+    capacity = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -110,6 +113,9 @@ class BoardingRoom(models.Model):
         while len(images) < max_images:
             images.append(None)  # Append None to represent placeholders
         return images
+
+    def get_aggregate_rating(self):
+        return self.ratings.aggregate(average_rating=Avg('rating'))['average_rating']
 
     def __str__(self):
         return self.name
@@ -172,6 +178,28 @@ class Booking(models.Model):
 
     def is_processing(self):
         return self.status == 'pending' or self.status == 'approved'
+
+    @staticmethod
+    def get_user_bookings_ordered(user):
+        return Booking.objects.filter(tenant=user).order_by(
+            models.Case(
+                models.When(status=Booking.Status.PENDING, then=0),
+                models.When(status=Booking.Status.APPROVED, then=1),
+                default=2,
+                output_field=models.IntegerField(),
+            )
+        )
+
+    @staticmethod
+    def get_boarding_room_bookings_ordered(boarding_room):
+        return Booking.objects.filter(boarding_room=boarding_room).order_by(
+            models.Case(
+                models.When(status=Booking.Status.PENDING, then=0),
+                models.When(status=Booking.Status.APPROVED, then=1),
+                default=2,
+                output_field=models.IntegerField(),
+            )
+        )
 
     def __str__(self):
         return f"{self.tenant} - {self.boarding_room} - {self.status}"
