@@ -10,24 +10,13 @@
                 </div>
             </a>
 
-            <!-- Hamburger Menu (Mobile) -->
-            <button
-                id="menu-toggle"
-                class="block md:hidden focus:outline-none"
-                aria-expanded="false"
-            >
-                <span class="sr-only">Toggle navigation</span>
-                <i class="fa-solid fa-bars text-2xl"></i>
-            </button>
-
             <!-- Navigation Links -->
             <div id="menu" class="hidden w-full md:flex md:w-auto md:items-center">
                 <ul class="flex flex-col md:flex-row md:space-x-8">
                     <li>
                         <a
                             href="{% url 'authentication:home' %}"
-                            class="block text-sm font-medium text-blue-700 md:py-0"
-                            aria-current="page"
+                            class="block text-base font-medium text-gray-900 hover:text-[#369e98] {% if request.resolver_match.url_name == 'home' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]"
                         >
                             Home
                         </a>
@@ -35,7 +24,7 @@
                     <li>
                         <a
                             href="{% url 'property_management:landlords' %}"
-                            class="block text-sm font-medium text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-500"
+                            class="block text-base font-medium text-gray-900 hover:text-[#369e98] {% if request.resolver_match.url_name == 'landlords' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]"
                         >
                             Landlord
                         </a>
@@ -43,7 +32,7 @@
                     <li>
                         <a
                             href="#about"
-                            class="block text-sm font-medium text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-500"
+                            class="block text-base font-medium text-gray-900 hover:text-[#369e98] {% if request.resolver_match.url_name == 'about' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]"
                         >
                             About
                         </a>
@@ -54,18 +43,20 @@
             <!-- Action Buttons -->
             <div class="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-5 relative">
                 {% if user.is_authenticated %}
-                    <div class="flex items-center space-x-0">
+                    <!-- Notification Button -->
+                    <div class="flex items-center">
                         <button
                             type="button"
                             id="notification-menu-button"
                             aria-expanded="false"
                             data-dropdown-toggle="notification-dropdown"
                             data-dropdown-placement="bottom"
+                            class="w-12 h-12 flex items-center justify-center"
                         >
                             <span class="sr-only">Open notification menu</span>
-                            <i class="fa-solid fa-bell text-4xl text-center"></i>
+                            <i class="fa-solid fa-bell text-2xl"></i>
                         </button>
-                        
+
                         <div
                             class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
                             id="notification-dropdown"
@@ -74,13 +65,14 @@
                                 <div class="p-5 text-sm font-normal">
                                     <div class="text-sm font-semibold text-gray-900 dark:text-white">Booking Request</div>
                                     <div class="text-sm font-normal">Landlord has rejected your request</div>
-                                    <span
-                                        class="text-xs font-medium text-blue-600 dark:text-blue-500">a few seconds ago</span>
+                                    <span class="text-xs font-medium text-blue-600 dark:text-blue-500">a few seconds ago</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-0">
+
+                    <!-- Profile Button -->
+                    <div class="flex items-center">
                         <button
                             type="button"
                             class="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
@@ -90,9 +82,7 @@
                             data-dropdown-placement="bottom"
                         >
                             <span class="sr-only">Open user menu</span>
-                            <span
-                                class="relative h-10 w-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600"
-                            >
+                            <span class="relative h-10 w-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
                                 <img
                                     class="h-full w-full object-cover"
                                     src="{{ user.avatar }}"
@@ -105,14 +95,8 @@
                             id="user-dropdown"
                         >
                             <div class="px-4 py-3">
-                  <span class="block text-sm text-gray-900 dark:text-white">
-                    {{ user.username }}
-                  </span>
-                                <span
-                                    class="block truncate text-sm text-gray-500 dark:text-gray-400"
-                                >
-                    {{ user.email }}
-                  </span>
+                                <span class="block text-sm text-gray-900 dark:text-white">{{ user.username }}</span>
+                                <span class="block truncate text-sm text-gray-500 dark:text-gray-400">{{ user.email }}</span>
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
                                 <li>
@@ -151,20 +135,22 @@
                 {% else %}
                     <a
                         href="{% url 'authentication:login' %}"
-                        class="block rounded-lg bg-gray-200 px-3 py-1 text-center text-sm font-medium text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        class="justify-center items-center flex rounded-lg bg-gray-200 px-3 py-1 text-center text-sm font-medium text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                         Sign In
                     </a>
                     <a
                         href="{% url 'authentication:register' %}"
-                        class="block rounded-lg bg-blue-700 px-3 py-1 text-center text-sm font-medium text-white hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700"
+                        class="justify-center items-center flex rounded-lg bg-blue-700 px-3 py-1 text-center text-sm font-medium text-white hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700"
                     >
                         Sign Up
                     </a>
                 {% endif %}
+
+                <!-- Rent a Room Button -->
                 <a
                     href="{% url 'property_management:rent-a-room' %}"
-                    class="block rounded-lg border border-gray-200 bg-gray-100 px-3 py-1 text-center text-sm font-medium text-gray-900 hover:border-gray-300 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="rounded-lg border border-gray-200 bg-gray-100 px-3 py-1 text-center text-sm font-medium text-gray-900 hover:border-gray-300 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white w-32 h-12 flex items-center justify-center"
                 >
                     Rent a Room
                 </a>
@@ -172,3 +158,4 @@
         </div>
     </nav>
 </header>
+    

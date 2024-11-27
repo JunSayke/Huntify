@@ -3,18 +3,21 @@
 {% block title %}Rent A Room{% endblock %}
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="border">
-        <section class="border">
-            <div class="mx-5 grid grid-cols-[1fr_4fr] gap-5">
-                <div class="col-start-1 row-span-2 p-5">
-                    <h1>Filters</h1>
+    <main class="mt-[60px] md:mt-[80px] lg:mt-[100px]">
+        <section class="">
+            <div class="mx-5 grid grid-cols-1 lg:grid-cols-5 gap-5">
+                <!-- Filters Section -->
+                <div class="col-span-1 lg:col-span-1 p-5 bg-gray-50 dark:bg-gray-800 rounded-3xl shadow-lg">
+                    <h1 class="text-xl font-semibold text-gray-800 dark:text-white mb-5">Filters</h1>
 
-                    <div class="flex flex-col gap-5 border p-5">
+                    <div class="flex flex-col gap-5">
+                        <!-- Clear Filters Button -->
                         <a href="{{ request.path }}"
                            class="w-fit rounded-lg bg-gray-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-400 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
                             Clear Filters
                         </a>
-                        <div class="border p-5">
+                        <!-- Budget Filter -->
+                        <div class="border p-5 rounded-lg shadow-sm bg-white dark:bg-gray-700">
                             <form method="GET">
                                 <fieldset class="rounded-lg border border-gray-300 p-4 dark:border-gray-600">
                                     <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">Budget</legend>
@@ -23,8 +26,7 @@
                                             type="number"
                                             name="price_min"
                                             id="min-budget"
-                                            aria-describedby="helper-text-explanation"
-                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-[#3aafa9] focus:ring-[#3aafa9] dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-[#3aafa9] dark:focus:ring-[#3aafa9]"
                                             placeholder="Minimum"
                                             value="{{ request.GET.price_min }}"
                                         />
@@ -32,44 +34,45 @@
                                             type="number"
                                             name="price_max"
                                             id="max-budget"
-                                            aria-describedby="helper-text-explanation"
-                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-[#3aafa9] focus:ring-[#3aafa9] dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-[#3aafa9] dark:focus:ring-[#3aafa9]"
                                             placeholder="Maximum"
                                             value="{{ request.GET.price_max }}"
                                         />
                                     </div>
                                     <button type="submit"
-                                            class="mt-4 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            class="mt-4 w-full rounded-lg bg-[#3aafa9] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                                         Apply
                                     </button>
                                 </fieldset>
                             </form>
+                        </div>
+                        <!-- Address Search -->
+                        <div class="border p-5 rounded-lg shadow-sm bg-white dark:bg-gray-700">
                             <form method="GET">
                                 <div class="flex items-center gap-x-5 my-5">
-                                    <div class="relative w-96">
+                                    <div class="relative w-full">
                                         <div class="absolute inset-y-0 start-0 flex items-center ps-3">
                                             <button type="submit">
                                                 <i class="fas fa-search text-gray-400"></i>
                                             </button>
                                         </div>
-
                                         <input
                                             type="text"
                                             id="address-search-bar"
                                             name="address"
                                             placeholder="Search by address"
-                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-[#3aafa9] focus:ring-[#3aafa9] dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-[#3aafa9] dark:focus:ring-[#3aafa9]"
                                             value="{{ request.GET.address }}"
                                         />
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="border p-5">
+                        <!-- Room Type Filter -->
+                        <div class="border p-5 rounded-lg shadow-sm bg-white dark:bg-gray-700">
                             <form method="GET">
                                 <fieldset class="rounded-lg border border-gray-300 p-4 dark:border-gray-600">
-                                    <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">Room Type
-                                    </legend>
+                                    <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">Room Type</legend>
                                     <div class="flex flex-col space-y-2">
                                         {% for room_tag in tags %}
                                             <label class="flex items-center">
@@ -77,91 +80,82 @@
                                                     type="checkbox"
                                                     name="tags"
                                                     value="{{ room_tag.id }}"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                                                    class="form-checkbox h-4 w-4 text-[#3aafa9] transition duration-150 ease-in-out"
                                                     {% if room_tag.id|stringformat:"s" in selected_tags %}checked{% endif %}
                                                 />
-                                                <span
-                                                    class="ml-2 text-gray-700 dark:text-gray-300">{{ room_tag.name }}</span>
+                                                <span class="ml-2 text-gray-700 dark:text-gray-300">{{ room_tag.name }}</span>
                                             </label>
                                         {% endfor %}
                                     </div>
                                 </fieldset>
                                 <button type="submit"
-                                        class="mt-4 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        class="mt-4 w-full rounded-lg bg-[#3aafa9] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                                     Apply
                                 </button>
                             </form>
                         </div>
-
                     </div>
                 </div>
-                <div class="col-start-2 p-5">
-                    <h1>List of Rooms</h1>
-                    <ul class="grid flex-1 grid-cols-4 gap-2 border p-5">
+
+                <!-- Rooms List Section -->
+                <div class="col-span-1 lg:col-span-4 p-5">
+                    <h1 class="text-xl font-semibold text-gray-800 dark:text-white mb-5">List of Rooms</h1>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {% if not boarding_rooms %}
-                            <p class="text-center col-span-4 py-5 text-gray-500 dark:text-gray-400">No boarding rooms
-                                found.</p>
+                            <p class="text-center col-span-4 py-5 text-gray-500 dark:text-gray-400">No boarding rooms found.</p>
                         {% endif %}
                         {% for boarding_room in boarding_rooms %}
-                            <li class="border p-5">
+                            <li class="border p-5 rounded-lg shadow-lg hover:shadow-xl transition-all">
                                 <a href="{{ boarding_room.get_absolute_url }}">
-                                    <div class="relative place-items-center">
+                                    <div class="relative">
                                         {% if boarding_room.first_image %}
-                                            <img src="{{ boarding_room.first_image }}"
-                                                 alt="{{ boarding_room.name }}"
-                                                 class="h-52 w-full object-cover rounded">
+                                            <img src="{{ boarding_room.first_image }}" alt="{{ boarding_room.name }}"
+                                                 class="h-52 w-full object-cover rounded-lg mb-3">
                                         {% else %}
-                                            <div
-                                                class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
-                                                <svg class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                     fill="currentColor" viewBox="0 0 20 18">
-                                                    <path
-                                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                                            <div class="flex h-52 w-full items-center justify-center rounded-lg bg-gray-300 dark:bg-gray-700">
+                                                <svg class="h-10 w-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                                    <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
                                                 </svg>
                                             </div>
                                         {% endif %}
                                         <div class="w-full pt-5">
                                             <p class="flex justify-between gap-5">
-                                                <span>{{ boarding_room.name }} - <span class="font-semibold text-xs">{{ boarding_room.capacity }} Person/s</span></span>
-                                                <span><strong>{{ boarding_room.price }}</strong>/month</span>
+                                                <span class="text-lg font-medium">{{ boarding_room.name }} - <span class="font-semibold text-sm">{{ boarding_room.capacity }} Person/s</span></span>
+                                                <span class="font-semibold text-xl text-[#3aafa9]">PHP {{ boarding_room.price }}</span>
                                             </p>
-                                            <p>{{ boarding_room.boarding_house.address }}</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ boarding_room.address }}</p>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                         {% endfor %}
                     </ul>
-                    <div class="flex items-center justify-between p-5">
-                        <!-- Help text -->
-                        <span class="text-sm text-gray-700 dark:text-gray-400">
-                          Showing <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.number }}</span> of <span
-                            class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.num_pages }}</span> Entries
-                      </span>
-                        <!-- Buttons -->
-                        <div class="inline-flex mt-2 xs:mt-0">
-                            {% if page_obj.has_previous %}
-                                <a href="?page=1"
-                                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+
+                    <!-- Pagination -->
+                    <div class="mt-5 flex justify-center">
+                        <nav class="inline-flex gap-2">
+                            {% if boarding_rooms.has_previous %}
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page=1"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                                     First
                                 </a>
-                                <a href="?page={{ page_obj.previous_page_number }}"
-                                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                                    Prev
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ boarding_rooms.previous_page_number }}"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
+                                    Previous
                                 </a>
                             {% endif %}
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}"
-                                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+
+                            {% if boarding_rooms.has_next %}
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ boarding_rooms.next_page_number }}"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                                     Next
                                 </a>
-                                <a href="?page={{ page_obj.paginator.num_pages }}"
-                                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ boarding_rooms.paginator.num_pages }}"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                                     Last
                                 </a>
                             {% endif %}
-                        </div>
+                        </nav>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@
     <main class="mt-[60px] md:mt-[80px] lg:mt-[100px]"> <!-- Adjusted top margin to prevent overlap -->
         <section class="relative flex justify-center items-center px-6 md:px-10 lg:px-16">
             <div class="h-auto w-full max-w-[1240px]">
-                <div class="flex flex-col md:flex-row h-full w-full">
+                <div class="flex flex-col-reverse md:flex-row h-full w-full">
                     <!-- Left Content Section -->
                     <div class="w-full md:w-1/2 self-center p-6 md:p-8">
                         <div class="mx-4 md:mx-8 grid gap-6 md:gap-8">
@@ -56,11 +56,10 @@
                     </div>
 
                     <!-- Right Image Section -->
-                    <div class="absolute top-0 right-0 w-full md:w-1/2 h-full"
-                    >
+                    <div class="relative w-full md:w-1/2 h-full">
                         <img src="https://s3-alpha-sig.figma.com/img/d1b9/491e/ac959b6c01243d3e5ba71c9daff7315c?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MC~TDDkjKVggLw7vpWKMUNAvL6YzYrT1UjLL5ICmUU90JFb2-buE8X-FO-dWMjRQNvpI7wukDIv6vNPG86l~D42ql5n3X9kOlJk5JTRok6p-pCuoJh5CvF5GKVwbceMjDrRyP42sy-wMLx9JI8zSSxKIVN1-C27-hvpY18432mJNmmrM~InN36vY2yD01~cfVq4-3fQlFir6vBiK7E35AzseGPBmyfLQ9Av7w3F29uzEhFT5AUJwK3-pR0h88ZkuUzjTYaEVGcbGsQPWHjxrzrBQRjy0rY6GdxjrpV08Bh-cAzvFdg4JFCZn0yVNVB8PeDq9u2fpSCSLWlA4WRA02g__"
                                  alt="Huntify Image"
-                                 class="w-full h-screen object-cover">
+                                 class="w-full h-full object-cover md:object-contain">
                     </div>
                 </div>
             </div>
