@@ -108,35 +108,33 @@ Huntify is designed to simplify property management tasks. It provides a user-fr
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* Install Python packages
-  ```sh
-  pip install -r requirements.txt
-  ```
-* Install Node packages in theme/static_src
-  ```sh
-  npm install
-  ```
-
 ### Installation
 
 1. Clone the repo
    ```sh
    git clone https://github.com/JunSayke/Huntify.git
    ```
-2. Migrate database
+2. Install Python packages
+    ```sh
+    pip install -r requirements.txt
+    ```
+3. Install Node packages in theme/static_src
+    ```sh
+    cd theme/static_src
+    npm install
+    cd ..\..\
+    ```
+4. Migrate database
     ```sh
    py manage.py makemigrations
    py manage.py migrate
    ```
-3. Load necessary data
+5. Load necessary data
    ```sh
    py manage.py load_philippine_address_data
    py manage.py load_tags_data
    ```
-4. Run the server
+6. Run the server
    ```sh
     py manage.py runserver
     ```
@@ -171,37 +169,40 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     - [x] View
     - [x] Edit
     - [x] Public Profile
-- [ ] Property Management
+- [x] Property Management
     - [x] Sortable Properties
     - [x] Searchable Properties
     - [x] Property Listings
-    - [ ] Boarding House
+    - [x] Boarding House
       - [x] Create
       - [x] View
-      - [ ] Update
+      - [x] Update
       - [x] Delete
-    - [ ] Boarding Room
+    - [x] Boarding Room
       - [x] Create
       - [x] View
-      - [ ] Update
+      - [x] Update
       - [x] Delete
-- [ ] Booking Management
-    - [ ] Booking
+    - [x] Tenant Management
+      - [x] Check-out
+- [x] Booking Management
+    - [x] Booking
         - [x] Request
-        - [ ] View
-        - [ ] Approve
-        - [ ] Reject
+        - [x] View
+        - [x] Approve
+        - [x] Reject
+        - [x] Check-in
 - [ ] Notification
     - [ ] Booking Notification
         - [ ] Create
         - [ ] View
         - [ ] Delete
 - [ ] Review
-    - [ ] Review Property
-        - [ ] Create
-        - [ ] View
+    - [x] Review Property
+        - [x] Create
+        - [x] View
         - [ ] Delete
-        - [ ] Update
+        - [x] Update
 
 See the [open issues](https://github.com/JunSayke/Huntify/issues) for a full list of proposed features (and known issues).
 
