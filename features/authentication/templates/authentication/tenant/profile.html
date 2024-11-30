@@ -4,23 +4,42 @@
 {% block side_content %}
     <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
-            data-tabs-toggle="#default-tab-content" role="tablist">
-            {% if request.user == user_profile %}
-                <li class="me-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="bookings-tab"
-                            data-tabs-target="#bookings"
-                            type="button" role="tab" aria-controls="bookings" aria-selected="false">Bookings
-                    </button>
-                </li>
-            {% endif %}
-            <li class="me-2" role="presentation">
-                <button
-                    class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                    id="ratings-tab" data-tabs-target="#ratings" type="button" role="tab" aria-controls="ratings"
-                    aria-selected="false">Ratings
-                </button>
-            </li>
-        </ul>
+    data-tabs-toggle="#default-tab-content" role="tablist">
+    {% if request.user == user_profile %}
+        <li class="me-2" role="presentation">
+            <button
+                class="inline-block p-4 border-b-2 rounded-t-lg hover:text-[#319b94] hover:border-[#319b94] focus:outline-none"
+                id="bookings-tab"
+                data-tabs-target="#bookings"
+                type="button"
+                role="tab"
+                aria-controls="bookings"
+                aria-selected="false">
+                Bookings
+            </button>
+        </li>
+    {% endif %}
+    <li class="me-2" role="presentation">
+        <button
+            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-[#319b94] hover:border-[#319b94] focus:outline-none"
+            id="ratings-tab"
+            data-tabs-target="#ratings"
+            type="button"
+            role="tab"
+            aria-controls="ratings"
+            aria-selected="false">
+            Ratings
+        </button>
+    </li>
+</ul>
+
+<style>
+    [aria-selected="true"] {
+        color: #319b94 !important;
+        border-color: #319b94 !important;
+    }
+</style>
+
     </div>
     <div id="default-tab-content">
         {% if request.user == user_profile %}
@@ -30,7 +49,7 @@
                 {% if bookings %}
                     <ol class="grid grid-cols-2 gap-5">
                         {% for booking in bookings %}
-                            <li class="border p-5 flex items-center justify-between">
+                            <li class="border-2 rounded-xl p-5 flex items-center justify-between">
                                 <a href="{{ booking.boarding_room.get_absolute_url }}">
                                     <img class="rounded-lg size-16 object-cover float-left"
                                          src="{{ booking.boarding_room.first_image }}"

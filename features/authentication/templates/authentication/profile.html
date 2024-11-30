@@ -3,13 +3,13 @@
 
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="border">
-        <section class="border max-w-minmax h-screen mx-auto">
-            <div class="bg-[#3AAFA9] h-[20%] min-h-52">
+    <main class="border-none">
+        <section class="max-w-minmax h-screen mx-auto">
+            <div class="bg-[#319b94] h-[20%] min-h-52">
                 <div
-                    class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
+                    class="w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
 
-                    <div class="border col-start-1 place-items-center place-content-center">
+                    <div class="col-start-1 place-items-center place-content-center">
                         <div
                             class="flex size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 bg-gray-50"
                         >
@@ -18,13 +18,12 @@
                         </div>
 
                     </div>
-                    <div class="border col-start-2 h-1/2 translate-y-full px-5">
-
-                        <h5 class="float-left font-medium">{{ user_profile.get_full_name }}
+                    <div class="col-start-2 h-1/2 translate-y-full px-5 py-4">
+                        <h5 class="text-lg float-left font-medium">{{ user_profile.get_full_name }}
                             {% if user_profile.user_type == 'landlord' %}
-                                <span class="text-xs text-gray-400">(Landlord)</span>
+                                <span class="text-sm text-gray-400">(Landlord)</span>
                             {% elif user_profile.user_type == 'tenant' %}
-                                <span class="text-xs text-gray-400">(Tenant)</span>
+                                <span class="text-sm text-gray-400">(Tenant)</span>
                             {% endif %}
                             <br />
                             <span class="font-normal text-xs">
@@ -39,24 +38,24 @@
                         </h5>
                         {% if user_profile == request.user %}
                             <a href="{% url 'authentication:edit-profile' %}"
-                               class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                               class="float-right text-white bg-[#319b94] hover:bg-[#267c74] focus:ring-4 focus:ring-[#319b94] font-medium rounded-lg text-sm px-5 py-2.5">
                                 Edit Profile
                             </a>
                         {% endif %}
                     </div>
-                    <div class="border row-start-2 col-start-1 h-full p-5">
+                    <div class="row-start-2 col-start-1 h-full p-4">
                         <h5 class="font-bold mb-5">About</h5>
-                        <ul class="flex flex-col gap-y-2">
+                        <ul class="flex flex-col gap-y-3">
                             <li>
-                                <div class="flex items-center gap-x-2 border p-2">
+                                <div class="flex items-center gap-x-2 p-2">
                                     <i class="fa-solid fa-user"></i>
-                                    <span class="text-sm ">{{ user_profile.gender|title }}</span>
+                                    <span class="text-sm">{{ user_profile.gender|title }}</span>
                                 </div>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 border p-2">
+                                <div class="flex items-center gap-x-2 p-2">
                                     <i class="fa-solid fa-cake-candles"></i>
-                                    <span class="text-sm ">
+                                    <span class="text-sm">
                                         {% if user_profile.birthdate %}
                                             Born {{ user_profile.birthdate|date:"F j, Y" }}
                                         {% else %}
@@ -66,16 +65,17 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 border p-2">
+                                <div class="flex items-center gap-x-2 p-2">
                                     <i class="fa-solid fa-location-dot"></i>
-                                    <span class="text-sm ">
+                                    <span class="text-sm">
                                         {% if user_profile.street or user_profile.province or user_profile.municipality or user_profile.barangay %}
                                             {{ user.address }}
                                         {% elif user_profile == request.user %}
                                             <button data-modal-target="edit-address-modal"
                                                     data-modal-toggle="edit-address-modal"
-                                                    class="text-left text-blue-600 dark:text-blue-500 hover:underline">Add
-                                            Address</button>
+                                                    class="text-[#319b94] hover:underline">
+                                                Add Address
+                                            </button>
                                         {% else %}
                                             Address not provided
                                         {% endif %}
@@ -83,9 +83,9 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 border p-2">
+                                <div class="flex items-center gap-x-2 p-2">
                                     <i class="fa-solid fa-envelope"></i>
-                                    <span class="text-sm ">
+                                    <span class="text-sm">
                                         {% if user_profile.email %}
                                             {{ user_profile.email }}
                                         {% else %}
@@ -95,16 +95,17 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 border p-2">
+                                <div class="flex items-center gap-x-2 p-2">
                                     <i class="fa-solid fa-phone"></i>
-                                    <span class="text-sm ">
+                                    <span class="text-sm">
                                         {% if user_profile.phone_number %}
                                             {{ user_profile.phone_number }}
                                         {% elif user_profile == request.user %}
                                             <button data-modal-target="edit-contact-modal"
                                                     data-modal-toggle="edit-contact-modal"
-                                                    class="text-left text-blue-600 dark:text-blue-500 hover:underline">Add
-                                            Phone Number</button>
+                                                    class="text-[#319b94] hover:underline text-left">
+                                                Add Phone Number
+                                            </button>
                                         {% else %}
                                             Phone number not provided
                                         {% endif %}
@@ -113,7 +114,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="border row-start-2 col-start-2 h-full p-5">
+                    <div class="row-start-2 col-start-2 h-full p-5">
                         {% block side_content %}
                         {% endblock %}
                     </div>
