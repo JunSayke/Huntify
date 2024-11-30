@@ -108,35 +108,33 @@ Huntify is designed to simplify property management tasks. It provides a user-fr
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* Install Python packages
-  ```sh
-  pip install -r requirements.txt
-  ```
-* Install Node packages in theme/static_src
-  ```sh
-  npm install
-  ```
-
 ### Installation
 
 1. Clone the repo
    ```sh
    git clone https://github.com/JunSayke/Huntify.git
    ```
-2. Migrate database
+2. Install Python packages
+    ```sh
+    pip install -r requirements.txt
+    ```
+3. Install Node packages in theme/static_src
+    ```sh
+    cd theme/static_src
+    npm install
+    cd ..\..\
+    ```
+4. Migrate database
     ```sh
    py manage.py makemigrations
    py manage.py migrate
    ```
-3. Load necessary data
+5. Load necessary data
    ```sh
    py manage.py load_philippine_address_data
    py manage.py load_tags_data
    ```
-4. Run the server
+6. Run the server
    ```sh
     py manage.py runserver
     ```

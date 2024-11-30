@@ -11,7 +11,7 @@ from .forms import UserTypeForm, TenantRegistrationForm, LandlordRegistrationFor
     AdditionalInfoForm, \
     UpdateUserAddressForm, UpdatePhoneNumberForm
 from .models import User
-from ..property_management.models import BoardingRoom
+from ..property_management.models import BoardingRoom, Booking
 
 
 # Create your views here.
@@ -19,7 +19,7 @@ def home(request):
     total_tenants = User.objects.filter(user_type=User.Type.TENANT).count()
     total_landlords = User.objects.filter(user_type=User.Type.LANDLORD).count()
     total_rooms = BoardingRoom.objects.count()
-    total_bookings = 0
+    total_bookings = Booking.objects.count()
     total_users = total_tenants + total_landlords
     return render(request, "authentication/home.html", {
         'total_tenants': total_tenants,

@@ -152,8 +152,8 @@ class UpdateBoardingRoomForm(forms.ModelForm):
         self.fields['boarding_house'].empty_label = "Select a boarding house"
 
         # Set initial values for tags and images
-        self.fields['tags'].initial = self.instance.tags.values_list('id', flat=True)
-        print()
+        self.fields['tags'].initial = BoardingRoomTag.objects.filter(boarding_room=self.instance).values_list('tag_id', flat=True)
+        # print(self.instance.tags.all().values_list('id', flat=True))
         self.initial['images'] = [image.image.url for image in self.instance.images.all()]
 
 
