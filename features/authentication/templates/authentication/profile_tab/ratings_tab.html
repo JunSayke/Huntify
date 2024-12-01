@@ -1,0 +1,35 @@
+<div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="ratings" role="tabpanel"
+    aria-labelledby="ratings-tab">
+    <ul class="flex flex-col">
+        {% for user_rating in user_ratings %}
+        <li class="border rounded-2xl p-5">
+            <div
+                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <img class="rounded-t-lg" src="{{ user_rating.boarding_room.first_image }}"
+                        alt="boarding-room-image" />
+                <div class="p-5">
+                    <a href="{{ user_rating.boarding_room.get_absolute_url }}">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            {{ user_rating.boarding_room.name }} - <span
+                            class="text-sm">{{ user_rating.boarding_room.boarding_house.name }}</span>
+                        </h5>
+                    </a>
+                    <p>
+                        {% for i in "12345" %}
+                            <i class="fa-star fas {% if forloop.counter <= user_rating.rating %}text-yellow-400{% else %}text-gray-400{% endif %}"></i>
+                        {% endfor %}
+                    </p>
+                    <p class="text-sm text-gray-700 dark:text-gray-400">Reviewed on
+                        <time
+                            datetime="{{ user_rating.updated_at }}">{{ user_rating.updated_at|date:"F d, Y" }}</time>
+                    </p>
+
+                    <p class="my-3 font-normal text-gray-700 dark:text-gray-400">{{ user_rating.feedback }}</p>
+                </div>
+            </div>
+        </li>
+        {% empty %}
+        <li>No ratings yet.</li>
+        {% endfor %}
+    </ul>
+</div>

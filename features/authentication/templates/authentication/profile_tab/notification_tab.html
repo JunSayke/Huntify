@@ -1,0 +1,28 @@
+{% load humanize %}
+
+<div
+	class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+	id="notifications"
+	role="tabpanel"
+	aria-labelledby="notifications-tab">
+	<ul class="flex items-center flex-col">
+		{% for notification in notifications %}
+		<li class="p-5 w-full font-normal flex justify-between">
+			<div>
+				<div class="text-sm font-semibold text-gray-900 dark:text-white">
+					{{ notification.title }}
+				</div>
+				<div class="text-sm font-normal">{{ notification.message }}</div>
+				<span class="text-xs font-medium text-blue-600 dark:text-blue-500">
+					{{ notification.created_at|naturaltime }}
+				</span>
+			</div>
+			<div>
+				<button></button>
+			</div>
+		</li>
+		{% empty %}
+		<li>No notifications yet.</li>
+		{% endfor %}
+	</ul>
+</div>

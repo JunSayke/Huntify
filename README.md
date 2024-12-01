@@ -1,5 +1,7 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+
 <a id="readme-top"></a>
+
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
@@ -7,8 +9,6 @@
 *** Don't forget to give the project a star!
 *** Thanks again! Now go create something AMAZING! :D
 -->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -18,14 +18,13 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -49,8 +48,6 @@
     <a href="https://github.com/JunSayke/Huntify/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -78,9 +75,8 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
@@ -89,20 +85,17 @@ Huntify is designed to simplify property management tasks. It provides a user-fr
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With
 
-* [![Django][Django.com]][Django-url]
-* [![Tailwind][Tailwindcss.com]][Tailwind-url]
-* [![HTML][HTML.com]][HTML-url]
-* [![Javascript][Javascript.com]][Javascript-url]
+- [![Django][Django.com]][Django-url]
+- [![Tailwind][Tailwindcss.com]][Tailwind-url]
+- [![HTML][HTML.com]][HTML-url]
+- [![Javascript][Javascript.com]][Javascript-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -115,17 +108,17 @@ To get a local copy up and running follow these simple example steps.
    git clone https://github.com/JunSayke/Huntify.git
    ```
 2. Install Python packages
-    ```sh
-    pip install -r requirements.txt
-    ```
+   ```sh
+   pip install -r requirements.txt
+   ```
 3. Install Node packages in theme/static_src
-    ```sh
-    cd theme/static_src
-    npm install
-    cd ..\..\
-    ```
+   ```sh
+   cd theme/static_src
+   npm install
+   cd ..\..\
+   ```
 4. Migrate database
-    ```sh
+   ```sh
    py manage.py makemigrations
    py manage.py migrate
    ```
@@ -137,13 +130,12 @@ To get a local copy up and running follow these simple example steps.
 6. Run the server
    ```sh
     py manage.py runserver
-    ```
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
@@ -152,65 +144,62 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
-- [🛠] Authentication
-    - [x] Sign Up
-    - [x] Sign In
-    - [x] Change Password
-    - [ ] Forgot Password
-    - [ ] Reset Password
-    - [ ] Email Verification
-    - [ ] Phone Verification
+- [ ] Authentication
+  - [x] Sign Up
+  - [x] Sign In
+  - [x] Change Password
+  - [ ] Forgot Password
+  - [ ] Reset Password
+  - [ ] Email Verification
+  - [ ] Phone Verification
 - [x] Profile
-    - [x] View
-    - [x] Edit
-    - [x] Public Profile
+  - [x] View
+  - [x] Edit
+  - [x] Public Profile
 - [x] Property Management
-    - [x] Sortable Properties
-    - [x] Searchable Properties
-    - [x] Property Listings
-    - [x] Boarding House
-      - [x] Create
-      - [x] View
-      - [x] Update
-      - [x] Delete
-    - [x] Boarding Room
-      - [x] Create
-      - [x] View
-      - [x] Update
-      - [x] Delete
-    - [x] Tenant Management
-      - [x] Check-out
+  - [x] Sortable Properties
+  - [x] Searchable Properties
+  - [x] Property Listings
+  - [x] Boarding House
+    - [x] Create
+    - [x] View
+    - [x] Update
+    - [x] Delete
+  - [x] Boarding Room
+    - [x] Create
+    - [x] View
+    - [x] Update
+    - [x] Delete
+  - [x] Tenant Management
+    - [x] Check-out
 - [x] Booking Management
-    - [x] Booking
-        - [x] Request
-        - [x] View
-        - [x] Approve
-        - [x] Reject
-        - [x] Check-in
+  - [x] Booking
+    - [x] Request
+    - [x] View
+    - [x] Approve
+    - [x] Reject
+    - [x] Check-in
 - [ ] Notification
-    - [ ] Booking Notification
-        - [ ] Create
-        - [ ] View
-        - [ ] Delete
-- [ ] Review
-    - [x] Review Property
-        - [x] Create
-        - [x] View
-        - [ ] Delete
-        - [x] Update
+  - [ ] Booking Notification
+    - [ ] Create
+    - [ ] View
+    - [ ] Delete
+- [x] Review
+  - [x] Review Property
+    - [x] Create
+    - [x] View
+    - [x] Update
 
 See the [open issues](https://github.com/JunSayke/Huntify/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -232,18 +221,16 @@ Don't forget to give the project a star! Thanks again!
   <img src="https://contrib.rocks/image?repo=JunSayke/Huntify" alt="contrib.rocks image" />
 </a>
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
@@ -252,28 +239,26 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
-* [Flowbite](https://flowbite.com)
-* [Font Awesome](https://fontawesome.com)
-* [django-formtools](https://django-formtools.readthedocs.io/)
-* [django-tailwind](https://github.com/timonweb/django-tailwind)
-* [prettier-plugin-django](https://github.com/junstyle/prettier-plugin-django)
-* [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
-* [django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks)
-* [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/)
-* [crispy-tailwind](https://github.com/django-crispy-forms/crispy-tailwind)
-* [Best-README-Template](https://github.com/othneildrew/Best-README-Template/tree/main)
+- [Flowbite](https://flowbite.com)
+- [Font Awesome](https://fontawesome.com)
+- [django-formtools](https://django-formtools.readthedocs.io/)
+- [django-tailwind](https://github.com/timonweb/django-tailwind)
+- [prettier-plugin-django](https://github.com/junstyle/prettier-plugin-django)
+- [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+- [django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks)
+- [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/)
+- [crispy-tailwind](https://github.com/django-crispy-forms/crispy-tailwind)
+- [Best-README-Template](https://github.com/othneildrew/Best-README-Template/tree/main)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/JunSayke/Huntify.svg?style=for-the-badge
 [contributors-url]: https://github.com/JunSayke/Huntify/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/JunSayke/Huntify.svg?style=for-the-badge
@@ -312,12 +297,12 @@ Project Link: [https://github.com/JunSayke/Huntify](https://github.com/JunSayke/
 
 ## Links
 
-* [Functional Requirements](https://docs.google.com/document/d/14mLl-L_vZucTNhNoaw4kb9tvV6GuLXDF/edit?usp=sharing&ouid=115092322264620102026&rtpof=true&sd=true)
+- [Functional Requirements](https://docs.google.com/document/d/14mLl-L_vZucTNhNoaw4kb9tvV6GuLXDF/edit?usp=sharing&ouid=115092322264620102026&rtpof=true&sd=true)
 
-* [Gantt Chart](https://docs.google.com/spreadsheets/d/1m0sIULdKtLc0mwcAXXSBM2OfzEvyhS7mwGWxavCypq0/edit?usp=sharing)
+- [Gantt Chart](https://docs.google.com/spreadsheets/d/1m0sIULdKtLc0mwcAXXSBM2OfzEvyhS7mwGWxavCypq0/edit?usp=sharing)
 
-* [ERD](https://online.visual-paradigm.com/share.jsp?id=333030323935352d38#diagram:workspace=uhrbhlrf&proj=0&id=8)
+- [ERD](https://online.visual-paradigm.com/share.jsp?id=333030323935352d38#diagram:workspace=uhrbhlrf&proj=0&id=8)
 
-* [Figma](https://www.figma.com/design/lJtAD6inX1gucTBZH60YUz/Huntify-Prototype?node-id=0-1&node-type=canvas&t=xFOIgf7iYVAwB4Jv-0)
+- [Figma](https://www.figma.com/design/lJtAD6inX1gucTBZH60YUz/Huntify-Prototype?node-id=0-1&node-type=canvas&t=xFOIgf7iYVAwB4Jv-0)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

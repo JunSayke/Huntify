@@ -15,6 +15,7 @@ from features.property_management.forms import CreateBoardingHouseForm, CreateBo
     RoomTenantSearchForm
 from features.property_management.models import BoardingHouse, BoardingRoom, Tag, Booking, BoardingRoomTenant
 from features.rating.forms import RatingForm
+from features.notification.utils import create_notification
 
 
 # Create your views here.
@@ -341,6 +342,7 @@ class BoardingRoomDetailView(DetailView):
             if request_booking_form.is_valid():
                 request_booking_form.save()
                 messages.success(request, "Booking request sent successfully.")
+                create_notification(context["landlord"], "Request Booking", "You have a pending booking request.")
                 return redirect('property_management:boarding-room', pk=self.object.pk)
             else:
                 context['request_booking_form'] = request_booking_form

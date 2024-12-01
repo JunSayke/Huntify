@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize', # Use for time_ago in notifications
     'debug_toolbar',  # django debugger
     'tailwind',  # tailwindcss
     'theme',  # tailwindcss
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'features.authentication',
     'features.property_management',
     'features.rating',
+    'features.notification',
 ]
 
 # tailwindcss

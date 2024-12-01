@@ -180,7 +180,7 @@
                                         <a href="{{ room_rating.user.get_absolute_url }}">
                                             {% if room_rating.user.profile_picture %}
                                                 <img src="{{ room_rating.user.profile_picture.url }}" alt="Profile Picture"
-                                                     class="w-10 h-10 me-4 rounded-full">
+                                                     class="w-10 h-10 me-4 rounded-full object-cover">
                                             {% else %}
                                                 <i class="fa-solid fa-user text-4xl text-center w-10 h-10 me-4 rounded-full"></i>
                                             {% endif %}
