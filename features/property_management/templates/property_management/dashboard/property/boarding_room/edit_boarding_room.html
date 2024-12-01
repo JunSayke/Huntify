@@ -210,6 +210,9 @@
 
         </div>
         <div class="border">
+            {% if form.non_field_errors %}
+                    <div class="text-red-500 text-sm pt-4">{{ form.non_field_errors }}</div>
+                {% endif %}
             <div class="flex justify-end gap-5 border p-5">
                 <a href="{{ boarding_room.get_absolute_url }}"
                    class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
