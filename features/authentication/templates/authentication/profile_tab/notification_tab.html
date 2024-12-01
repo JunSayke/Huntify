@@ -5,9 +5,13 @@
 	id="notifications"
 	role="tabpanel"
 	aria-labelledby="notifications-tab">
-	<ul class="flex items-center flex-col">
+	<ul
+		class="flex items-center flex-col"
+		id="notification-container">
 		{% for notification in notifications %}
-		<li class="p-5 w-full font-normal flex justify-between">
+		<li
+			class="p-5 w-full font-normal flex justify-between"
+			id="notification-{{ notification.id }}">
 			<div>
 				<div class="text-sm font-semibold text-gray-900 dark:text-white">
 					{{ notification.title }}
@@ -17,8 +21,21 @@
 					{{ notification.created_at|naturaltime }}
 				</span>
 			</div>
-			<div>
-				<button></button>
+			<div class="flex space-x-2 mt-2">
+				{% if not notification.is_read %}
+				<button
+					data-action-button="mark-read-notification"
+					class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+					data-id="{{ notification.id }}">
+					<i class="fa-solid fa-check"></i>
+				</button>
+				{% endif %}
+				<button
+					data-action-button="delete-notification"
+					class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+					data-id="{{ notification.id }}">
+					<i class="fa-solid fa-trash-can"></i>
+				</button>
 			</div>
 		</li>
 		{% empty %}

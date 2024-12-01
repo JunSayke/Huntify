@@ -454,6 +454,7 @@ class BookingListView(ListView):
                 return HttpResponseForbidden("You are not allowed to approve this booking.")
 
             messages.success(request, "Booking approved successfully.")
+            create_notification(booking.tenant, "Approved Booking", "Your booking has been approved.")
             # Approve the booking
             booking.status = Booking.Status.APPROVED
             booking.save()
@@ -467,6 +468,7 @@ class BookingListView(ListView):
                 return HttpResponseForbidden("You are not allowed to reject this booking.")
 
             messages.success(request, "Booking rejected successfully.")
+            create_notification(booking.tenant, "Rejected Booking", "Your booking has been rejected.")
             # Reject the booking
             booking.status = Booking.Status.REJECTED
             booking.save()
@@ -494,6 +496,7 @@ class BookingListView(ListView):
                 booking.boarding_room.save()
 
             messages.success(request, "Booking completed successfully.")
+            create_notification(booking.tenant, "Booking Checked-In", "Your landlord have checked-in your booking.")
             return redirect('property_management:booking-management')
 
         return self.render_to_response(context)

@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tag %}
 
 <header>
 	<nav
@@ -60,10 +61,11 @@
 						data-dropdown-placement="bottom"
 						class="relative w-12 h-12 flex items-center justify-center">
 						<span class="sr-only">Open notification menu</span>
-						{% if user.notifications.all %}
+						{% call_method 'notification.Notification' 'get_user_unread_notifications' request.user as notifications %}
+						{% if notifications %}
 						<div
 							class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-							{{ user.notifications.all.count }}
+							{{ notifications.count }}
 						</div>
 						{% endif %}
 						<i class="fa-solid fa-bell text-2xl"></i>
@@ -72,9 +74,12 @@
 					<div
 						class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
 						id="notification-dropdown">
-						<script
-							type="module"
-							src="{% static 'js/notification.js' %}"></script>
+						<ul class="flex items-center flex-col"></ul>
+						<div class="flex">
+							<a href="{% url 'authentication:my-profile' %}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2 mx-auto">View All</a>
+						</div>
+						
+						<script type="module" src="{% static 'js/notification.js' %}"></script>
 					</div>
 				</div>
 

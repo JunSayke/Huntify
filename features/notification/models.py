@@ -14,3 +14,10 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"{self.title} - {'Read' if self.is_read else 'Unread'}"
+    
+    @staticmethod
+    def get_user_unread_notifications(user):
+        """
+        Static method to get unread notifications for a specific user.
+        """
+        return Notification.objects.filter(user=user, is_read=False).order_by('-created_at')
