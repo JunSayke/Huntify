@@ -185,8 +185,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
     - [x] Check-in
 - [ ] Notification
   - [ ] Booking Notification
-    - [ ] Create
-    - [ ] View
+    - [x] Create
+    - [x] View
     - [ ] Delete
 - [x] Review
   - [x] Review Property
