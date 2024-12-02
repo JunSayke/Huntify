@@ -4,13 +4,13 @@
 {% block title %}Edit Profile{% endblock %}
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="border">
-        <section class="border max-w-minmax h-screen mx-auto">
+    <main class="">
+        <section class="max-w-minmax h-screen mx-auto">
             <div class="bg-[#3AAFA9] h-[20%] min-h-52">
                 <form id="update-user_profile_form" method="POST" enctype="multipart/form-data"
-                      class="border w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
+                      class="w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
                     {% csrf_token %}
-                    <div class="border col-start-1 place-items-center place-content-center">
+                    <div class="col-start-1 place-items-center place-content-center">
                         <label for="{{ profile_form.profile_picture.id_for_label }}"
                                class="relative flex items-center justify-center cursor-pointer">
                             <div
@@ -19,139 +19,120 @@
                                      class="size-full object-cover">
                             </div>
                             <div class="absolute right-2 bottom-2 z-20">
-                                <i class="fa-solid fa-pen-to-square text-4xl text-blue-600"></i>
+                                <i class="fa-solid fa-pen-to-square text-4xl text-[#319b94]"></i>
                             </div>
                             <input type="file" name="{{ profile_form.profile_picture.html_name }}"
                                    data-target-input="profile-pic" accept="image/*" class="hidden"
                                    id="{{ profile_form.profile_picture.id_for_label }}">
                         </label>
                     </div>
-                    <div class="border col-start-2 h-1/2 translate-y-full px-5">
-                        <h5 class="float-left font-medium">{{ user.get_full_name }}<br />
+                    <div class="col-start-2 h-1/2 translate-y-full px-5 py-4">
+                        <h5 class="text-lg float-left font-medium">{{ user.get_full_name }}<br />
                             <span class="font-normal text-xs">
                             {% if user.user_type == 'tenant' %}
                                 {{ user.ratings.count }} Reviews
                             {% elif user.user_type == 'landlord' %}
-                                ⭐ {{ user.get_aggregate_rating|default:"No ratings yet" }} Rating
+                                ⭐ {{ user.get_aggregate_rating|default:"No ratings" }}
                             {% elif user.user_type == 'admin' %}
                                 Admin
                             {% endif %}
                             </span>
                         </h5>
                         <a href="{{ user.get_absolute_url }}"
-                           class="ms-2 float-right focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                           class="ms-2 float-right focus:outline-none text-white bg-[#319b94] hover:bg-[#267c74] focus:ring-4 focus:ring-[#319b94] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#319b94] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                             Cancel
                         </a>
                     </div>
-                    <div class="border row-start-2 col-span-2 bg-gray-200 p-5 mt-5">
-                        <div class="grid grid-cols-2 border gap-5">
-                            <div class="border row-start-1 col-start-1 p-2">
-                                <label for="username"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                <input type="text" id="username"
-                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <div class="border row-start-2 col-span-2 bg-gray-200 p-5 mt-2 rounded-lg">
+                        <div class="grid grid-cols-2 gap-5">
+                            <div class="p-2">
+                                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                <input type="text" id="username" 
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-[#319b94] focus:border-[#319b94]" 
                                        placeholder="Username" value="{{ user.username }}" readonly />
                             </div>
-                            <div class="border row-start-2 col-start-1 p-2">
-                                <label for="{{ profile_form.email.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
-                                    Address</label>
-                                {% render_field profile_form.email class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"value:{{ user.username }}"|attr:"placeholder:Email Address" placeholder="Email Address" value=user.email %}
+                            <div class="p-2">
+                                <label for="{{ profile_form.email.id_for_label }}" 
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
+                                {% render_field profile_form.email class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#319b94] focus:border-[#319b94] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Email Address" %}
                                 {% if profile_form.email.errors %}
-                                    <div
-                                        class="text-red-500 text-sm error">{{ profile_form.email.errors.0 }}</div>
+                                    <div class="text-red-500 text-sm">{{ profile_form.email.errors.0 }}</div>
                                 {% endif %}
                             </div>
-                            <div class="border row-start-1 col-start-2 p-2">
-                                <label for="{{ profile_form.first_name.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ profile_form.first_name.label }}</label>
-                                {% render_field profile_form.first_name class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"value:{{ user.username }}"|attr:"placeholder:Email Address" placeholder="First Name" value=user.first_name %}
+                            <div class="p-2">
+                                <label for="{{ profile_form.first_name.id_for_label }}" 
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                                {% render_field profile_form.first_name class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#319b94] focus:border-[#319b94] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" %}
                                 {% if profile_form.first_name.errors %}
-                                    <div
-                                        class="text-red-500 text-sm error">{{ profile_form.first_name.errors.0 }}</div>
+                                    <div class="text-red-500 text-sm">{{ profile_form.first_name.errors.0 }}</div>
                                 {% endif %}
                             </div>
-                            <div class="border row-start-2 col-start-2 p-2">
-                                <label for="{{ profile_form.last_name.id_for_label }}"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ profile_form.last_name.label }}</label>
-                                {% render_field profile_form.last_name class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"|attr:"value:{{ user.username }}"|attr:"placeholder:Email Address" placeholder="Last Name" value=user.last_name %}
+                            <div class="p-2">
+                                <label for="{{ profile_form.last_name.id_for_label }}" 
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                                {% render_field profile_form.last_name class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#319b94] focus:border-[#319b94] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" %}
                                 {% if profile_form.last_name.errors %}
-                                    <div
-                                        class="text-red-500 text-sm error">{{ profile_form.last_name.errors.0 }}</div>
+                                    <div class="text-red-500 text-sm">{{ profile_form.last_name.errors.0 }}</div>
                                 {% endif %}
                             </div>
-                            <div class="border row-start-3 col-start-1 p-2">
-                                <label for="gender"
+                            <div class="p-2">
+                                <label for="gender" 
                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                                <input type="text" id="gender"
-                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                <input type="text" id="gender" 
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#319b94] focus:border-[#319b94] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
                                        placeholder="Gender" value="{{ user.gender|title }}" readonly />
                             </div>
-                            <div class="border row-start-3 col-start-2 p-2">
-                                <label for="birthdate"
-                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of
-                                    Birth</label>
+                            <div class="p-2">
+                                <label for="birthdate" 
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Birth</label>
                                 <div class="relative">
-                                    <div
-                                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                                         <i class="fa-solid fa-cake-candles"></i>
                                     </div>
-                                    <input
-                                        id="birthdate"
-                                        type="text"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="MM/DD/YYYY" data-date="{{ user.birthdate|date:'m/d/Y' }}"
-                                        value="{{ user.birthdate|date:'m/d/Y' }}" readonly>
+                                    <input id="birthdate" type="text" 
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#319b94] focus:border-[#319b94] block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
+                                           placeholder="MM/DD/YYYY" value="{{ user.birthdate|date:'m/d/Y' }}" readonly />
                                 </div>
                             </div>
-                            {% if profile_form.non_field_errors %}
-                                <div
-                                    class="text-red-500 text-sm py-5 text-center ">{{ profile_form.non_field_errors }}</div>
-                            {% endif %}
                         </div>
-                        <div class="float-left mt-5 px-5">
-                            <div>
-                                <p class="text-sm">
-                                    {% if user.phone_number %}
-                                        {{ user.phone_number }}
-                                    {% else %}
-                                        Phone number not provided
-                                    {% endif %}
-                                </p>
-                                <button type="button"
-                                        data-modal-target="edit-contact-modal"
-                                        data-modal-toggle="edit-contact-modal"
-                                        class="text-left text-xs font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    Edit Phone Number
-                                </button>
+                        <div class="mt-5 flex justify-between items-center">
+                            <div class="flex flex-col space-y-2">
+                                <div class="flex items-center space-x-3">
+                                    <p class="text-sm">
+                                        {% if user.phone_number %}
+                                            {{ user.phone_number }}
+                                        {% else %}
+                                            Phone number not provided
+                                        {% endif %}
+                                    </p>
+                                    <button type="button" 
+                                            data-modal-target="edit-contact-modal"
+                                            data-modal-toggle="edit-contact-modal"
+                                            class="text-xs font-medium text-[#319b94] hover:underline">Edit Phone Number</button>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <p class="text-sm">
+                                        {% if user.address %}
+                                            {{ user.address }}
+                                        {% else %}
+                                            Address not provided
+                                        {% endif %}
+                                    </p>
+                                    <button type="button" 
+                                            data-modal-target="edit-address-modal" 
+                                            data-modal-toggle="edit-address-modal"
+                                            class="text-xs font-medium text-[#319b94] hover:underline">Edit Address</button>
+                                </div>
                             </div>
-                            <div>
-                                <p class="text-sm">
-                                    {% if user.address %}
-                                        {{ user.address }}
-                                    {% else %}
-                                        Address not provided
-                                    {% endif %}
-                                </p>
-                                <button
-                                    type="button"
-                                    data-modal-target="edit-address-modal"
-                                    data-modal-toggle="edit-address-modal"
-                                    class="text-left text-xs font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    Edit Address
-                                </button>
+                            <div class="space-x-3">
+                                <button type="submit" name="update-user_profile_form" 
+                                        class="text-white bg-[#319b94] hover:bg-[#319b94] rounded-lg text-sm px-5 py-2.5">Save Changes</button>
+                                <a href="{% url 'authentication:change-password' %}" 
+                                   class="text-white bg-[#319b94] hover:bg-[#319b94] rounded-lg text-sm px-5 py-2.5">Change Password</a>
                             </div>
                         </div>
-                        <div class="float-right mt-5 px-5">
-                            <button type="submit" name="update-user_profile_form"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                Save Changes
-                            </button>
-                            <a href="{% url 'authentication:change-password' %}"
-                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Change
-                                Password</a>
-                        </div>
-                    </div>
+                    </div>                    
+                    
                 </form>
             </div>
         </section>

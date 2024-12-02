@@ -30,7 +30,7 @@
                             {% if user_profile.user_type == 'tenant' %}
                                 {{ user_profile.ratings.count }} Reviews
                             {% elif user_profile.user_type == 'landlord' %}
-                                ⭐ {{ user_profile.get_aggregate_rating|default:"No ratings yet" }} Rating
+                                ⭐ {{ user_profile.get_aggregate_rating|default:"No ratings" }}
                             {% elif user_profile.user_type == 'admin' %}
                                 Admin
                             {% endif %}
