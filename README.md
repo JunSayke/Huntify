@@ -128,9 +128,9 @@ To get a local copy up and running follow these simple example steps.
    py manage.py load_tags_data
    ```
 6. Start the tailwind in another terminal
-  ```sh
-    py manage.py tailwind start
-  ```
+    ```sh
+      py manage.py tailwind start
+    ```
 7. Run the server in other terminal
    ```sh
     py manage.py runserver
