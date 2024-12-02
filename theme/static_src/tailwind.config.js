@@ -55,6 +55,9 @@ module.exports = {
             maxWidth: {
                 'minmax': '1240px'
             },
+            colors: {
+                primary: "#369e98"
+            }
         }
     },
     plugins: [
