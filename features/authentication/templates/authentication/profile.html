@@ -5,7 +5,7 @@
     {% include 'html/header.html' %}
     <main class="border-none">
         <section class="max-w-minmax h-screen mx-auto">
-            <div class="bg-[#319b94] h-[20%] min-h-52">
+            <div class="bg-[#3AAFA9] h-[20%] min-h-52">
                 <div
                     class="w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
 
@@ -26,11 +26,11 @@
                                 <span class="text-sm text-gray-400">(Tenant)</span>
                             {% endif %}
                             <br />
-                            <span class="font-normal text-xs">
+                            <span class="font-medium text-sm">
                             {% if user_profile.user_type == 'tenant' %}
                                 {{ user_profile.ratings.count }} Reviews
                             {% elif user_profile.user_type == 'landlord' %}
-                                ⭐ {{ user_profile.get_aggregate_rating|default:"No ratings" }}
+                                ⭐ {{ user_profile.get_aggregate_rating|default:"No ratings" }} Rating
                             {% elif user_profile.user_type == 'admin' %}
                                 Admin
                             {% endif %}
