@@ -127,7 +127,11 @@ To get a local copy up and running follow these simple example steps.
    py manage.py load_philippine_address_data
    py manage.py load_tags_data
    ```
-6. Run the server
+6. Start the tailwind in another terminal
+  ```sh
+    py manage.py tailwind start
+  ```
+7. Run the server in other terminal
    ```sh
     py manage.py runserver
    ```
