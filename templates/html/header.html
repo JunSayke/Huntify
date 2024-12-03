@@ -1,173 +1,205 @@
 {% load static %}
-{% load custom_tag %}
 
 <header>
-	<nav
-		class="fixed top-0 z-20 w-full border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-900">
-		<div
-			class="container mx-auto flex flex-wrap items-center justify-between px-4 py-3">
-			<!-- Logo -->
-			<a
-				href="#"
-				class="flex items-center space-x-3">
-				<div class="p-2">
-					<img
-						src="{% static 'images/logo1.png' %}"
-						alt="Logo"
-						class="h-10 w-10 object-cover" />
-				</div>
-			</a>
+    <nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-900" role="navigation">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-6 py-3"> <!-- Increased padding here -->
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-3">
+                <div class="p-2">
+                    <img src="{% static 'images/logo2.png' %}" alt="Logo" class="h-12 object-contain" />
+                </div>
+            </a>
 
-			<!-- Navigation Links -->
-			<div
-				id="menu"
-				class="hidden w-full md:flex md:w-auto md:items-center">
-				<ul class="flex flex-col md:flex-row md:space-x-8">
-					<li>
-						<a
-							href="{% url 'authentication:home' %}"
-							class="block text-base font-medium text-gray-900 hover:text-[#369e98] {% if request.resolver_match.url_name == 'home' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]">
-							Home
-						</a>
-					</li>
-					<li>
-						<a
-							href="{% url 'property_management:landlords' %}"
-							class="block text-base font-medium text-gray-900 hover:text-[#369e98] {% if request.resolver_match.url_name == 'landlords' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]">
-							Landlord
-						</a>
-					</li>
-					<li>
-						<a
-							href="#about"
-							class="block text-base font-medium text-gray-900 hover:text-[#369e98] {% if request.resolver_match.url_name == 'about' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]">
-							About
-						</a>
-					</li>
-				</ul>
-			</div>
+            <!-- Hamburger Menu Button -->
+            <div class="relative md:hidden">
+                <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:text-[#369e98] dark:hover:bg-gray-700"
+                    aria-controls="hamburger-menu"
+                    aria-expanded="false"
+                >
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
 
-			<!-- Action Buttons -->
-			<div
-				class="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-5 relative">
-				{% if user.is_authenticated %}
-				<!-- Notification Button -->
-				<div class="flex items-center">
-					<button
-						type="button"
-						id="notification-menu-button"
-						aria-expanded="false"
-						data-dropdown-toggle="notification-dropdown"
-						data-dropdown-placement="bottom"
-						class="relative w-12 h-12 flex items-center justify-center">
-						<span class="sr-only">Open notification menu</span>
-						{% call_method 'notification.Notification' 'get_user_unread_notifications' request.user as notifications %}
-						{% if notifications %}
-						<div
-							class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-							{{ notifications.count }}
-						</div>
-						{% endif %}
-						<i class="fa-solid fa-bell text-2xl"></i>
-					</button>
+                <!-- Hamburger Menu Dropdown -->
+                <div id="hamburger-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="flex flex-col space-y-2">
+                        <li>
+                            <a
+                                href="{% url 'authentication:home' %}"
+                                class="block px-4 py-2 text-base font-medium text-gray-900 hover:text-[#369e98] dark:text-white dark:hover:text-[#369e98]"
+                            >
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{% url 'property_management:landlords' %}"
+                                class="block px-4 py-2 text-base font-medium text-gray-900 hover:text-[#369e98] dark:text-white dark:hover:text-[#369e98]"
+                            >
+                                Landlord
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#about"
+                                class="block px-4 py-2 text-base font-medium text-gray-900 hover:text-[#369e98] dark:text-white dark:hover:text-[#369e98]"
+                            >
+                                About Us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-					<div
-						class="z-50 my-2 hidden list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
-						id="notification-dropdown">
-						<ul class="flex items-center flex-col"></ul>
-						<div class="flex">
-							<a href="{% url 'authentication:my-profile' %}" class="text-sm font-medium text-[#319b94] dark:text-[#319b94] hover:underline p-3 mx-auto">View All</a>
-						</div>
-						
-						<script type="module" src="{% static 'js/notification.js' %}"></script>
-					</div>
-				</div>
+            <!-- Navigation Links -->
+            <div id="menu" class="hidden w-full flex-col md:flex md:w-auto md:flex-row md:items-center">
+                <ul class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-8">
+                    <li>
+                        <a
+                            href="{% url 'authentication:home' %}"
+                            class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-[#369e98] {% if request.resolver_match.url_name == 'home' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]"
+                        >
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="{% url 'property_management:landlords' %}"
+                            class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-[#369e98] {% if request.resolver_match.url_name == 'landlords' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]"
+                        >
+                            Landlord
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#about"
+                            class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-[#369e98] {% if request.resolver_match.url_name == 'about' %}text-[#369e98]{% endif %} dark:text-white dark:hover:text-[#369e98]"
+                        >
+                            About Us
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-				<!-- Profile Button -->
-				<div class="flex items-center">
-					<button
-						type="button"
-						class="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
-						id="user-menu-button"
-						aria-expanded="false"
-						data-dropdown-toggle="user-dropdown"
-						data-dropdown-placement="bottom">
-						<span class="sr-only">Open user menu</span>
-						<span
-							class="relative h-10 w-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
-							<img
-								class="h-full w-full object-cover"
-								src="{{ user.avatar }}"
-								alt="{{ user.username }}" />
-						</span>
-					</button>
-					<div
-						class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
-						id="user-dropdown">
-						<div class="px-4 py-3">
-							<span class="block text-sm text-gray-900 dark:text-white">
-								{{ user.username }}
-							</span>
-							<span
-								class="block truncate text-sm text-gray-500 dark:text-gray-400">
-								{{ user.email }}
-							</span>
-						</div>
-						<ul
-							class="py-2"
-							aria-labelledby="user-menu-button">
-							<li>
-								<a
-									href="{{ user.get_absolute_url }}"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
-									Profile
-								</a>
-							</li>
-							{% if user.user_type == 'landlord' %}
-							<li>
-								<a
-									href="{% url 'property_management:dashboard' %}"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
-									Dashboard
-								</a>
-							</li>
-							{% endif %}
-							<li>
-								<form
-									method="POST"
-									action="{% url 'authentication:logout' %}">
-									{% csrf_token %}
-									<button
-										type="submit"
-										class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
-										Sign out
-									</button>
-								</form>
-							</li>
-						</ul>
-					</div>
-				</div>
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-5">
+                {% if user.is_authenticated %}
+                    <!-- Notification Button -->
+                    <div class="relative">
+                        <button
+                            type="button"
+                            id="notification-menu-button"
+                            class="w-15 h-12 flex items-center justify-center"
+                            aria-expanded="false"
+                            data-dropdown-toggle="notification-dropdown"
+                        >
+                            <span class="sr-only">Open notification menu</span>
+                            <i class="fa-solid fa-bell text-gray-500 text-2xl hover:text-[#369e98]"></i>
+                        </button>
+                        <div
+                            id="notification-dropdown"
+                            class="hidden absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg z-50 dark:bg-gray-700 dark:divide-gray-600"
+                        >
+                            <div class="p-4 text-sm font-normal">
+                                <div class="text-sm font-semibold text-gray-900 dark:text-white">Booking Request</div>
+                                <div class="text-sm font-normal">Landlord has rejected your request</div>
+                                <span class="text-xs font-medium text-blue-600 dark:text-blue-500">a few seconds ago</span>
+                            </div>
+                        </div>
+                    </div>
 
-				{% else %}
-				<a
-					href="{% url 'authentication:login' %}"
-					class="justify-center items-center flex rounded-lg bg-gray-200 px-3 py-1 text-center text-sm font-medium text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-					Sign In
-				</a>
-				<a
-					href="{% url 'authentication:register' %}"
-					class="justify-center items-center flex rounded-lg bg-blue-700 px-3 py-1 text-center text-sm font-medium text-white hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700">
-					Sign Up
-				</a>
-				{% endif %}
+                    <!-- Profile Menu -->
+                    <div class="relative">
+                        <button
+                            type="button"
+                            id="user-menu-button"
+                            class="flex items-center"
+                            aria-expanded="false"
+                            data-dropdown-toggle="user-dropdown"
+                        >
+                            <span class="sr-only">Open user menu</span>
+                            <img
+                                class="h-10 w-10 rounded-full object-cover"
+                                src="{{ user.avatar }}"
+                                alt="{{ user.username }}"
+                            />
+                        </button>
+                        <div
+                            id="user-dropdown"
+                            class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 dark:bg-gray-700 dark:divide-gray-600"
+                        >
+                            <div class="px-4 py-3">
+                                <span class="block text-sm text-gray-900 dark:text-white">{{ user.username }}</span>
+                                <span class="block truncate text-sm text-gray-500 dark:text-gray-400">{{ user.email }}</span>
+                            </div>
+                            <ul class="py-2">
+                                <li>
+                                    <a
+                                        href="{{ user.get_absolute_url }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                                    >
+                                        Profile
+                                    </a>
+                                </li>
+                                {% if user.user_type == 'landlord' %}
+                                    <li>
+                                        <a
+                                            href="{% url 'property_management:dashboard' %}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                                        >
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <form method="POST" action="{% url 'authentication:logout' %}">
+                                        {% csrf_token %}
+                                        <button
+                                            type="submit"
+                                            class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                                        >
+                                            Sign out
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% else %}
+                    <a
+                        href="{% url 'authentication:login' %}"
+                        class="rounded-lg bg-gray-200 px-3 py-1 text-sm font-medium text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-400"
+                    >
+                        Sign In
+                    </a>
+                    <a
+                        href="{% url 'authentication:register' %}"
+                        class="rounded-lg bg-blue-700 px-3 py-1 text-sm font-medium text-white hover:bg-blue-800 dark:bg-blue-600"
+                    >
+                        Sign Up
+                    </a>
+                {% endif %}
 
-				<!-- Rent a Room Button -->
-				<a
-					href="{% url 'property_management:rent-a-room' %}"
-					class="rounded-lg bg-[#3aafa9] px-3 py-1 text-center text-sm font-medium text-white hover:bg-[#319b94] w-32 h-12 flex items-center justify-center">
-					Rent a Room
-				</a>
-			</div>
-		</div>
-	</nav>
+                <!-- Rent a Room Button -->
+                <a
+                    href="{% url 'property_management:rent-a-room' %}"
+                    class="rounded-lg border border-gray-200 bg-gray-100 px-3 py-3 text-sm font-medium text-gray-900 hover:text-[#369e98] hover:border-gray-300 hover:bg-gray-200"
+                >
+                    Rent a Room
+                </a>
+            </div>
+        </div>
+    </nav>
 </header>
+
+<script>
+    const hamburgerButton = document.querySelector('button[aria-controls="hamburger-menu"]');
+    const dropdownMenu = document.getElementById('hamburger-menu');
+    hamburgerButton.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hidden');
+    });
+</script>

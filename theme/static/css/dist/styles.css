@@ -1669,14 +1669,6 @@ input:checked + .toggle-bg {
   bottom: 0px;
 }
 
-.-end-2 {
-  inset-inline-end: -0.5rem;
-}
-
-.-top-2 {
-  top: -0.5rem;
-}
-
 .bottom-0 {
   bottom: 0px;
 }
@@ -1833,14 +1825,6 @@ input:checked + .toggle-bg {
   top: 86px;
 }
 
-.top-3 {
-  top: 0.75rem;
-}
-
-.top-20 {
-  top: 5rem;
-}
-
 .z-10 {
   z-index: 10;
 }
@@ -1952,19 +1936,9 @@ input:checked + .toggle-bg {
   margin-bottom: 2.5rem;
 }
 
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
-}
-
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 
 .my-5 {
@@ -2054,6 +2028,10 @@ input:checked + .toggle-bg {
 
 .mt-\[60px\] {
   margin-top: 60px;
+}
+
+.mt-\[80px\] {
+  margin-top: 80px;
 }
 
 .block {
@@ -2380,10 +2358,6 @@ input:checked + .toggle-bg {
   width: 0.875rem;
 }
 
-.w-32 {
-  width: 8rem;
-}
-
 .w-4 {
   width: 1rem;
 }
@@ -2398,6 +2372,10 @@ input:checked + .toggle-bg {
 
 .w-44 {
   width: 11rem;
+}
+
+.w-48 {
+  width: 12rem;
 }
 
 .w-6 {
@@ -2573,6 +2551,10 @@ input:checked + .toggle-bg {
   max-width: 1240px;
 }
 
+.max-w-\[550px\] {
+  max-width: 550px;
+}
+
 .max-w-\[800px\] {
   max-width: 800px;
 }
@@ -2695,10 +2677,6 @@ input:checked + .toggle-bg {
 
 .resize {
   resize: both;
-}
-
-.list-none {
-  list-style-type: none;
 }
 
 .grid-flow-row {
@@ -2893,14 +2871,6 @@ input:checked + .toggle-bg {
   gap: 9px;
 }
 
-.gap-8 {
-  gap: 2rem;
-}
-
-.gap-11 {
-  gap: 2.75rem;
-}
-
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
@@ -2921,11 +2891,6 @@ input:checked + .toggle-bg {
 
 .gap-y-5 {
   row-gap: 1.25rem;
-}
-
-.gap-x-6 {
-  -moz-column-gap: 1.5rem;
-       column-gap: 1.5rem;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
@@ -3371,6 +3336,11 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.8);
 }
 
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -3634,10 +3604,6 @@ input:checked + .toggle-bg {
   font-family: 'Inter';
 }
 
-.font-\[\'Roboto\'\] {
-  font-family: 'Roboto';
-}
-
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
@@ -3645,6 +3611,11 @@ input:checked + .toggle-bg {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-4xl {
@@ -3671,10 +3642,6 @@ input:checked + .toggle-bg {
 
 .text-\[64px\] {
   font-size: 64px;
-}
-
-.text-\[6vw\] {
-  font-size: 6vw;
 }
 
 .text-\[79px\] {
@@ -3712,10 +3679,6 @@ input:checked + .toggle-bg {
 
 .font-bold {
   font-weight: 700;
-}
-
-.font-extrabold {
-  font-weight: 800;
 }
 
 .font-light {
@@ -4423,11 +4386,6 @@ body {
   border-color: rgb(55 65 81 / var(--tw-border-opacity));
 }
 
-.dark\:border-gray-900:is(.dark *) {
-  --tw-border-opacity: 1;
-  border-color: rgb(17 24 39 / var(--tw-border-opacity));
-}
-
 .dark\:border-green-500:is(.dark *) {
   --tw-border-opacity: 1;
   border-color: rgb(14 159 110 / var(--tw-border-opacity));
@@ -4734,6 +4692,10 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sm\:gap-8 {
+    gap: 2rem;
+  }
+
   .sm\:rounded-lg {
     border-radius: 0.5rem;
   }
@@ -4745,10 +4707,6 @@ body {
   .sm\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
-  }
-
-  .sm\:text-\[5vw\] {
-    font-size: 5vw;
   }
 
   .sm\:text-sm {
@@ -4772,16 +4730,16 @@ body {
     margin-right: 2rem;
   }
 
-  .md\:me-0 {
-    margin-inline-end: 0px;
-  }
-
   .md\:mt-\[80px\] {
     margin-top: 80px;
   }
 
   .md\:flex {
     display: flex;
+  }
+
+  .md\:hidden {
+    display: none;
   }
 
   .md\:h-auto {
@@ -4808,14 +4766,12 @@ body {
     align-items: center;
   }
 
-  .md\:gap-8 {
-    gap: 2rem;
+  .md\:gap-12 {
+    gap: 3rem;
   }
 
-  .md\:space-x-5 > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-x-reverse: 0;
-    margin-right: calc(1.25rem * var(--tw-space-x-reverse));
-    margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
+  .md\:gap-8 {
+    gap: 2rem;
   }
 
   .md\:space-x-8 > :not([hidden]) ~ :not([hidden]) {
@@ -4830,9 +4786,9 @@ body {
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
 
-  .md\:object-contain {
-    -o-object-fit: contain;
-       object-fit: contain;
+  .md\:object-cover {
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 
   .md\:p-8 {
@@ -4852,10 +4808,6 @@ body {
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .md\:text-\[4vw\] {
-    font-size: 4vw;
   }
 
   .md\:text-base {
@@ -4890,8 +4842,9 @@ body {
     padding-right: 4rem;
   }
 
-  .lg\:text-\[3vw\] {
-    font-size: 3vw;
+  .lg\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 }
 
