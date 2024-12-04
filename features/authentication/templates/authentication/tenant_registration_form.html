@@ -4,79 +4,116 @@
 {% load static %}
 
 <main class="h-screen flex justify-center items-center bg-gray-100">
-    <section class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg space-y-10">
+    <section class="bg-white rounded-lg shadow-lg p-6 sm:p-8 lg:p-10 w-full max-w-md sm:max-w-lg lg:max-w-xl space-y-8">
         <!-- Logo -->
         <div class="flex justify-center">
-            <img src="{% static 'images/logo1.png' %}" alt="Logo" class="w-40 h-auto">
+            <img src="{% static 'images/logo1.png' %}" alt="Logo" class="w-24 sm:w-32 lg:w-36 h-auto">
         </div>
 
         <!-- Title -->
         <div class="text-center">
-            <h1 class="text-4xl font-bold text-[#3e3d3d]/95 font-['Inter']">Create Account</h1>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3e3d3d]/95 font-['Inter']">
+                Create Account
+            </h1>
         </div>
 
         <!-- Form -->
-        <form method="POST" class="grid grid-cols-2 gap-7">
+        <form method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-7">
             {% csrf_token %}
             {{ wizard.management_form }}
             
             <!-- Username -->
-            <div>
-                <label for="{{ form.username.id_for_label }}" class="block text-lg font-medium text-gray-900 dark:text-white">{{ form.username.label }}</label>
-                <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" class="block w-full rounded-lg border-1 border-gray-300 p-3 text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="John" required />
+            <div class="col-span-1">
+                <label for="{{ form.username.id_for_label }}" class="block text-sm sm:text-lg font-medium text-gray-900 dark:text-white">
+                    {{ form.username.label }}
+                </label>
+                <input 
+                    type="text" 
+                    id="{{ form.username.id_for_label }}" 
+                    name="{{ form.username.html_name }}" 
+                    class="block w-full rounded-lg border border-gray-300 p-3 text-sm sm:text-base lg:text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" 
+                    placeholder="John" required 
+                />
                 {% if form.username.errors %}
-                    <div class="text-red-500 text-sm pt-2">{{ form.username.errors.0 }}</div>
+                    <div class="text-red-500 text-xs sm:text-sm pt-2">{{ form.username.errors.0 }}</div>
                 {% endif %}
             </div>
 
             <!-- Email -->
-            <div>
-                <label for="{{ form.email.id_for_label }}" class="block text-lg font-medium text-gray-900 dark:text-white">{{ form.email.label }}</label>
-                <input type="email" id="{{ form.email.id_for_label }}" name="{{ form.email.html_name }}" class="block w-full rounded-lg border-1 border-gray-300 p-3 text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="john.doe@mail.com" required />
+            <div class="col-span-1">
+                <label for="{{ form.email.id_for_label }}" class="block text-sm sm:text-lg font-medium text-gray-900 dark:text-white">
+                    {{ form.email.label }}
+                </label>
+                <input 
+                    type="email" 
+                    id="{{ form.email.id_for_label }}" 
+                    name="{{ form.email.html_name }}" 
+                    class="block w-full rounded-lg border border-gray-300 p-3 text-sm sm:text-base lg:text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" 
+                    placeholder="john.doe@mail.com" required 
+                />
                 {% if form.email.errors %}
-                    <div class="text-red-500 text-sm pt-2">{{ form.email.errors.0 }}</div>
+                    <div class="text-red-500 text-xs sm:text-sm pt-2">{{ form.email.errors.0 }}</div>
                 {% endif %}
             </div>
 
             <!-- Password -->
-            <div>
-                <label for="{{ form.password1.id_for_label }}" class="block text-lg font-medium text-gray-900 dark:text-white">{{ form.password1.label }}</label>
-                <input type="password" id="{{ form.password1.id_for_label }}" name="{{ form.password1.html_name }}" class="block w-full rounded-lg border-1 border-gray-300 p-3 text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="•••••••••" required />
+            <div class="col-span-1">
+                <label for="{{ form.password1.id_for_label }}" class="block text-sm sm:text-lg font-medium text-gray-900 dark:text-white">
+                    {{ form.password1.label }}
+                </label>
+                <input 
+                    type="password" 
+                    id="{{ form.password1.id_for_label }}" 
+                    name="{{ form.password1.html_name }}" 
+                    class="block w-full rounded-lg border border-gray-300 p-3 text-sm sm:text-base lg:text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" 
+                    placeholder="•••••••••" required 
+                />
                 {% if form.password1.errors %}
-                    <div class="text-red-500 text-sm pt-2">{{ form.password1.errors.0 }}</div>
+                    <div class="text-red-500 text-xs sm:text-sm pt-2">{{ form.password1.errors.0 }}</div>
                 {% endif %}
             </div>
 
             <!-- Confirm Password -->
-            <div>
-                <label for="{{ form.password2.id_for_label }}" class="block text-lg font-medium text-gray-900 dark:text-white">{{ form.password2.label }}</label>
-                <input type="password" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" class="block w-full rounded-lg border-1 border-gray-300 p-3 text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="•••••••••" required />
+            <div class="col-span-1">
+                <label for="{{ form.password2.id_for_label }}" class="block text-sm sm:text-lg font-medium text-gray-900 dark:text-white">
+                    {{ form.password2.label }}
+                </label>
+                <input 
+                    type="password" 
+                    id="{{ form.password2.id_for_label }}" 
+                    name="{{ form.password2.html_name }}" 
+                    class="block w-full rounded-lg border border-gray-300 p-3 text-sm sm:text-base lg:text-lg text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" 
+                    placeholder="•••••••••" required 
+                />
                 {% if form.password2.errors %}
-                    <div class="text-red-500 text-sm pt-2">{{ form.password2.errors.0 }}</div>
+                    <div class="text-red-500 text-xs sm:text-sm pt-2">{{ form.password2.errors.0 }}</div>
                 {% endif %}
             </div>
 
             <!-- Terms and Register Button -->
             <div class="col-span-2 text-center space-y-4">
-                <p class="text-gray-700 text-lg">
-                    By signing up you agree to the <a href="#" class="text-[#3aafa9] hover:underline">terms and conditions</a>.
+                <p class="text-sm sm:text-base lg:text-lg text-gray-700">
+                    By signing up you agree to the 
+                    <a href="#" class="text-[#3aafa9] hover:underline">terms and conditions</a>.
                 </p>
-                <button type="submit" class="rounded-lg bg-[#3aafa9] w-full py-3 text-lg font-medium text-white hover:bg-[#369e98]">
+                <button 
+                    type="submit" 
+                    class="rounded-lg bg-[#3aafa9] w-full py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-medium text-white hover:bg-[#369e98]">
                     Register
                 </button>
                 {% if form.non_field_errors %}
-                    <div class="text-red-500 text-sm pt-4">{{ form.non_field_errors }}</div>
+                    <div class="text-red-500 text-xs sm:text-sm pt-4">{{ form.non_field_errors }}</div>
                 {% endif %}
             </div>
         </form>
 
         <!-- Login Link -->
         <div class="text-center">
-            <p class="text-gray-700 text-xl">
-                Already have an account? <a href="{% url 'authentication:login' %}" class="text-[#3aafa9] hover:underline">Login</a>
+            <p class="text-sm sm:text-base lg:text-lg text-gray-700">
+                Already have an account? 
+                <a href="{% url 'authentication:login' %}" class="text-[#3aafa9] hover:underline">Login</a>
             </p>
         </div>
     </section>
 </main>
-
 {% endblock %}
