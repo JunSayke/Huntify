@@ -5,9 +5,9 @@
     {% include 'html/header.html' %}
     <main class="mt-[60px] md:mt-[80px] lg:mt-[100px]">
         <section class="">
-            <div class="mx-5 grid grid-cols-1 lg:grid-cols-5 gap-5">
+            <div class="mx-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
                 <!-- Filters Section -->
-                <div class="col-span-1 lg:col-span-1 p-5 bg-gray-50 dark:bg-gray-800 rounded-3xl shadow-lg">
+                <div class="col-span-1 sm:col-span-2 lg:col-span-1 p-5 bg-gray-50 dark:bg-gray-800 rounded-3xl shadow-lg mt-8">
                     <h1 class="text-xl font-semibold text-gray-800 dark:text-white mb-5">Filters</h1>
 
                     <div class="flex flex-col gap-5">
@@ -21,7 +21,7 @@
                             <form method="GET">
                                 <fieldset class="rounded-lg border border-gray-300 p-4 dark:border-gray-600">
                                     <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">Budget</legend>
-                                    <div class="flex space-x-4">
+                                    <div class="flex flex-col sm:flex-row gap-4">
                                         <input
                                             type="number"
                                             name="price_min"
@@ -98,7 +98,7 @@
                 </div>
 
                 <!-- Rooms List Section -->
-                <div class="col-span-1 lg:col-span-4 p-5">
+                <div class="col-span-1 sm:col-span-2 lg:col-span-4 p-5">
                     <h1 class="text-xl font-semibold text-gray-800 dark:text-white mb-5">List of Rooms</h1>
                     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {% if not boarding_rooms %}
@@ -123,39 +123,24 @@
                                                 <span class="text-lg font-medium">{{ boarding_room.name }}<br/><span class="font-semibold text-sm">{{ boarding_room.capacity }} Person/s</span></span>
                                                 <span class="font-semibold text-lg text-[#3aafa9]">₱{{ boarding_room.price }}</span>
                                             </p>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ boarding_room.address }}</p>
+                                            <p class="py-2 text-sm text-gray-600 dark:text-gray-300">{{ boarding_room.address }}</p>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                         {% endfor %}
                     </ul>
-
-                    <!-- Pagination -->
-                    <div class="mt-5 flex justify-center">
-                        <nav class="inline-flex gap-2">
-                            {% if page_obj.has_previous %}
-                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page=1"
-                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
-                                    First
-                                </a>
-                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ page_obj.previous_page_number }}"
-                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
+                    <div class="mt-5 text-center">
+                        {% if boarding_rooms.has_other_pages %}
+                            <div class="pagination">
+                                <span class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 rounded-l-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600">
                                     Previous
-                                </a>
-                            {% endif %}
-
-                            {% if page_obj.has_next %}
-                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ page_obj.next_page_number }}"
-                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
+                                </span>
+                                <span class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 rounded-r-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600">
                                     Next
-                                </a>
-                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ page_obj.paginator.num_pages }}"
-                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
-                                    Last
-                                </a>
-                            {% endif %}
-                        </nav>
+                                </span>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
