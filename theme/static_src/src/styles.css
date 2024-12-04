@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @apply mx-auto min-w-minmax;
-}
-
 .clearfix::after {
     @apply clear-both table content-[''];
 }
