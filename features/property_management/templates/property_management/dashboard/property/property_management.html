@@ -3,64 +3,58 @@
 {% load static %}
 {% block title %}Dashboard - Boarding Houses{% endblock %}
 {% block side_content %}
-    <div class="h-full border p-5">
-        <div class="border p-2">
-            <h1 class="text-2xl">Property Management</h1>
+    <div class="h-full p-5">
+        <div class="p-2">
+            <h1 class="text-2xl font-semibold font-sans">Property Management</h1>
         </div>
-        <div class="border p-2">
-                <button id="property-type-dropdown" data-dropdown-toggle="property-type-dropdown-menu"
-                        data-dropdown-trigger="hover"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button">Property Type
-                    <i class="ms-2 fa-solid fa-chevron-down"></i>
-                </button>
+        <div class="p-2 flex items-center justify-between">
+            <button id="property-type-dropdown" data-dropdown-toggle="property-type-dropdown-menu"
+                    data-dropdown-trigger="hover"
+                    class="text-white bg-[#319b94] hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3] font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center">
+                Property Type
+                <i class="ms-2 fa-solid fa-chevron-down"></i>
+            </button>
 
-                <!-- Dropdown menu -->
-                <div id="property-type-dropdown-menu"
-                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200 text-center"
-                        aria-labelledby="property-type-dropdown">
-                        <li>
-                            <a href="{% url 'property_management:dashboard-boarding-houses' %}"
-                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Boarding
-                                Houses</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'property_management:dashboard-boarding-rooms' %}"
-                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Boarding
-                                Rooms</a>
-                        </li>
-                    </ul>
-                </div>
+            <!-- Dropdown menu -->
+            <div id="property-type-dropdown-menu"
+                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44">
+                <ul class="py-2 text-sm text-gray-700 text-center">
+                    <li>
+                        <a href="{% url 'property_management:dashboard-boarding-houses' %}"
+                           class="block px-4 py-2 hover:bg-gray-100">Boarding Houses</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'property_management:dashboard-boarding-rooms' %}"
+                           class="block px-4 py-2 hover:bg-gray-100">Boarding Rooms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="space-x-2">
                 <a href="{% url 'property_management:create-boarding-room' %}"
-                   class="mx-2 float-right justify-self-end rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                   class="rounded-lg bg-[#319b94] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3]">
                     <i class="fa-solid fa-plus me-2"></i>
                     Add Room
                 </a>
                 <a href="{% url 'property_management:create-boarding-house' %}"
-                   class="mx-2 float-right justify-self-end rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                   class="rounded-lg bg-[#319b94] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3]">
                     <i class="fa-solid fa-plus me-2"></i>
                     Add Boarding House
                 </a>
+            </div>
         </div>
-        <div class="border p-2" id="property-list">
+        <div class="p-2 mt-5" id="property-list">
             <form method="GET">
-                <div class="flex items-center gap-x-5 my-5">
+                <div class="flex items-center gap-x-5">
                     <div class="relative w-96">
-                        <div
-                            class="absolute inset-y-0 start-0 flex items-center ps-3"
-                        >
-                            <button type="submit">
-                                <i class="fas fa-search text-gray-400"></i>
-                            </button>
-
-                        </div>
-                        {{ search_form.query|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Search here" }}
+                        <button type="submit" class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        {{ search_form.query|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 pl-10 py-2 text-sm text-gray-900 focus:ring-[#319b94] focus:border-[#319b94]"|attr:"placeholder:Search here" }}
                     </div>
-                    {{ search_form.search_by|add_class:"rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" }}
+                    {{ search_form.search_by|add_class:"rounded-lg border border-gray-300 bg-gray-50 py-2 px-3 text-sm text-gray-900 focus:ring-[#319b94] focus:border-[#319b94]" }}
                 </div>
             </form>
-            <div id="table-container" class="relative overflow-x-auto pt-5 shadow-md sm:rounded-lg">
+            <div id="table-container" class="relative overflow-x-auto mt-5 shadow-md rounded-lg">
                 {% block table %}
                 {% endblock %}
             </div>

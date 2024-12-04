@@ -154,7 +154,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Inter, Roboto, ui-sans-serif, system-ui, sans-serif;
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -2047,6 +2047,10 @@ input:checked + .toggle-bg {
   margin-top: 80px;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -2327,6 +2331,10 @@ input:checked + .toggle-bg {
   max-height: 100%;
 }
 
+.max-h-\[122px\] {
+  max-height: 122px;
+}
+
 .min-h-52 {
   min-height: 13rem;
 }
@@ -2552,6 +2560,10 @@ input:checked + .toggle-bg {
   width: 100vw;
 }
 
+.w-60 {
+  width: 15rem;
+}
+
 .min-w-96 {
   min-width: 24rem;
 }
@@ -2602,6 +2614,10 @@ input:checked + .toggle-bg {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-\[143px\] {
+  max-width: 143px;
 }
 
 .flex-1 {
@@ -3003,10 +3019,6 @@ input:checked + .toggle-bg {
 
 .self-stretch {
   align-self: stretch;
-}
-
-.justify-self-end {
-  justify-self: end;
 }
 
 .overflow-hidden {
@@ -3625,8 +3637,12 @@ input:checked + .toggle-bg {
   font-family: 'Inter';
 }
 
+.font-sans {
+  font-family: Inter, Roboto, ui-sans-serif, system-ui, sans-serif;
+}
+
 .font-serif {
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: Lora, Merriweather, Georgia, serif;
 }
 
 .text-2xl {
@@ -4131,6 +4147,11 @@ body {
   background-color: rgb(38 124 116 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-\[\#277f7a\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 127 122 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-\[\#278f88\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(39 143 136 / var(--tw-bg-opacity));
@@ -4204,6 +4225,11 @@ body {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 232 232 / var(--tw-bg-opacity));
 }
 
 .hover\:text-\[\#000000\]:hover {
@@ -4313,6 +4339,11 @@ body {
 .focus\:ring-\[\#3aafa9\]:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(58 175 169 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-\[\#68c9c3\]:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(104 201 195 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-blue-300:focus {
@@ -4492,6 +4523,11 @@ body {
 .dark\:bg-red-600:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(224 36 36 / var(--tw-bg-opacity));
+}
+
+.dark\:bg-\[\#319b94\]:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(49 155 148 / var(--tw-bg-opacity));
 }
 
 .dark\:text-\[\#319b94\]:is(.dark *) {
