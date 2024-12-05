@@ -16,7 +16,7 @@ class DashboardRestrictionMiddleware:
 
         # Check conditions
         if request.path.startswith('/dashboard/' ):                
-            if not user.is_authenticated or not hasattr(user, 'user_type') or user.user_type not in ['landlord', 'admin'] or not user.is_superuser or not user.is_staff:
+            if not user.is_authenticated or not hasattr(user, 'user_type') or user.user_type not in ['landlord', 'admin'] :
                 return redirect(settings.LOGIN_URL)
 
         # Allow normal request processing
