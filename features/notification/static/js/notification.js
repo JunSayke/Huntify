@@ -28,7 +28,6 @@ export async function deleteNotification(id) {
 	if (response.ok) {
 		const notificationItem = document.getElementById(`notification-${id}`)
 		notificationItem.remove() // Remove the notification from the DOM
-		if ()
 	} else {
 		console.error("Failed to delete notification")
 	}
