@@ -18,3 +18,4 @@ class EnsureProfileCompleteMiddleware:
                     return redirect('authentication:personal-information')
         response = self.get_response(request)
         return response
+

@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 6c05379872d070d8aae4064e717b3dc164d7fee7
 .clearfix::after {
     @apply clear-both table content-[''];
 }
-
