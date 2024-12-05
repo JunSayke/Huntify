@@ -85,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "features.property_management.middleware.DashboardRestrictionMiddleware", # for dashboard restriction
     'features.authentication.middleware.EnsureProfileCompleteMiddleware',  # for profile completion (Order Matters)
 ]
 
