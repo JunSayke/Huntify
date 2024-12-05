@@ -1,64 +1,33 @@
 {% extends 'html/base.html' %}
-
+{%load static%}
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="mt-[80px] md:mt-[80px] lg:mt-[100px]"> <!-- Adjusted top margin to prevent overlap -->
+    
+    <main class="mt-[80px] md:mt-[70px] lg:mt-[100px]"> <!-- Adjusted top margin to prevent overlap -->
         <section class="relative flex justify-center items-center px-6 md:px-10 lg:px-16">
             <div class="h-auto w-full max-w-[1240px]">
                 <!-- Main Flex Container: Left Content & Right Image -->
                 <div class="flex flex-col-reverse md:flex-row w-full relative">
                     <!-- Left Content Section -->
-                    <div class="w-full md:w-1/2 self-center p-6 md:p-8">
-                        <div class="mx-4 md:mx-8 grid gap-6 md:gap-8">
+                    <div class="w-full md:w-1/2 self-center p-8 md:p-8 ">
+                        <div class=" mx-4 md:mx-8 grid ">
                             <!-- Title -->
-                            <div class="w-[642.50px] h-[136px] relative">
-                                <div class="w-[642px] h-[129px] left-0 top-0 absolute text-[#3aafa9] text-[79px] font-semibold font-['Open Sans'] capitalize">Huntify</div>
-                                <div class="w-[642.50px] left-0 top-[86px] absolute text-[#1d2838] text-[40px] font-semibold font-['Plus Jakarta Sans'] capitalize">Where Home Begins</div>
-                            </div>
-
-                            <!-- Description -->
-                            <div>
-                                <div class="w-full max-w-[550px] text-[#484848]/80 text-2xl sm:text-xl md:text-2xl lg:text-3xl font-normal font-['Plus Jakarta Sans']">
-                                    Looking for a place to stay? We are here to assist you in finding your new home
-                                </div>
-                            </div>
-
-                            <!-- Statistics -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 md:gap-12">
-                                <div class="flex flex-col items-center">
-                                    <p class="text-3xl sm:text-3xl md:text-4xl font-semibold font-['Plus Jakarta Sans']">
-                                        <span class="text-black">2673</span><span class="text-[maroon]">+</span>
-                                    </p>
-                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 font-['Plus Jakarta Sans'] text-center">
-                                        Rooms
-                                    </p>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <p class="text-2xl sm:text-3xl md:text-4xl font-semibold font-['Plus Jakarta Sans']">
-                                        <span class="text-black">535</span><span class="text-[maroon]">+</span>
-                                    </p>
-                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 font-['Plus Jakarta Sans'] text-center">
-                                        Reservations
-                                    </p>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <p class="text-2xl sm:text-3xl md:text-4xl font-semibold font-['Plus Jakarta Sans']">
-                                        <span class="text-black">3467</span><span class="text-[maroon]">+</span>
-                                    </p>
-                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 font-['Plus Jakarta Sans'] text-center">
-                                        Students
-                                    </p>
-                                </div>
+                            <div class="relative flex items-center ">
+                                
+                                    <div class="  top-0 absolute text-[#3aafa9] text-[79px] font-semibold font-['Open Sans'] capitalize">Huntify</div>
+                                    <div class="  top-[86px] absolute text-[#1d2838] text-[40px] font-semibold font-['Plus Jakarta Sans'] capitalize">Where Home Begins</div>
+                               
                             </div>
                         </div>
                     </div>
+                    
+                    
 
                 
                     <!-- Right Image of Main -->
-                    <div class="w-full md:w-1/2 p-6 md:p-8">
+                    <div class="w-full md:w-1/2 ">
                         <div class="relative mx-4 md:mx-8 grid gap-6 md:gap-8">
-                            <img src="https://s3-alpha-sig.figma.com/img/d1b9/491e/ac959b6c01243d3e5ba71c9daff7315c?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MC~TDDkjKVggLw7vpWKMUNAvL6YzYrT1UjLL5ICmUU90JFb2-buE8X-FO-dWMjRQNvpI7wukDIv6vNPG86l~D42ql5n3X9kOlJk5JTRok6p-pCuoJh5CvF5GKVwbceMjDrRyP42sy-wMLx9JI8zSSxKIVN1-C27-hvpY18432mJNmmrM~InN36vY2yD01~cfVq4-3fQlFir6vBiK7E35AzseGPBmyfLQ9Av7w3F29uzEhFT5AUJwK3-pR0h88ZkuUzjTYaEVGcbGsQPWHjxrzrBQRjy0rY6GdxjrpV08Bh-cAzvFdg4JFCZn0yVNVB8PeDq9u2fpSCSLWlA4WRA02g__" 
-                                alt="Huntify Image"
+                            <img src="{% static 'images/landing.png' %}" alt="Logo" 
                                 class="w-full h-auto md:h-full object-cover md:object-cover">
                         </div>
                     </div>
@@ -67,4 +36,5 @@
             </div>
         </section>
     </main>
+   
 {% endblock %}

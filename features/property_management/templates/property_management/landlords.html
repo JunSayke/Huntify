@@ -4,29 +4,35 @@
     <main class="mt-[60px] md:mt-[80px] lg:mt-[100px]">
         <section class="flex place-content-center place-items-center px-[70px]">
             {% if landlords %}
-                <ul class="grid grid-cols-4 gap-5 m-5">
-                    {% for landlord in landlords %}
-                        <li class="p-5 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <a href="{{ landlord.get_absolute_url }}">
-                                <div class="flex flex-col items-center">
-                                    {% if landlord.profile_picture %}
-                                        <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
-                                             src="{{ landlord.profile_picture.url }}"
-                                             alt="{{ landlord.first_name }} image" />
-                                    {% else %}
-                                        <i class="fas fa-user text-[8rem] mb-3 rounded-full shadow-lg text-gray-500"></i>
-                                    {% endif %}
-                                    <p
-                                       class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{ landlord.get_full_name|default:landlord.username }}</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ landlord.address }}</p>
-                                    <span
-                                        class="text-xl font-medium text-gray-500 dark:text-gray-400">⭐ {{ landlord.get_aggregate_rating|default:"No ratings" }}</span>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-5">
+                {% for landlord in landlords %}
+                    <li class="p-5 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <a href="{{ landlord.get_absolute_url }}">
+                            <div class="flex flex-col items-center">
 
-                                </div>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                                {% if landlord.profile_picture %}
+                                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
+                                        src="{{ landlord.profile_picture.url }}"
+                                        alt="{{ landlord.first_name }} image" />
+                                {% else %}
+                                    <div class="flex items-center justify-center w-24 h-24 mb-3 rounded-full shadow-lg bg-gray-200 dark:bg-gray-600">
+                                        <i class="fas fa-user text-4xl text-gray-500 dark:text-gray-400"></i>
+                                    </div>
+                                {% endif %}
+
+                                <p class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
+                                    {{ landlord.get_full_name|default:landlord.username }}
+                                </p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ landlord.address }}</p>
+                                <span class="text-xl font-medium text-gray-500 dark:text-gray-400">
+                                    ⭐ {{ landlord.get_aggregate_rating|default:"No ratings" }}
+                                </span>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            
             {% else %}
                 <p>No landlords found.</p>
             {% endif %}
