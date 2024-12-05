@@ -1934,16 +1934,6 @@ input:checked + .toggle-bg {
   margin-bottom: 1.25rem;
 }
 
-.my-6 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .-mb-px {
   margin-bottom: -1px;
 }
@@ -2625,10 +2615,6 @@ input:checked + .toggle-bg {
   resize: both;
 }
 
-.list-none {
-  list-style-type: none;
-}
-
 .grid-flow-row {
   grid-auto-flow: row;
 }
@@ -3153,9 +3139,14 @@ input:checked + .toggle-bg {
   background-color: rgb(58 175 169 / var(--tw-bg-opacity));
 }
 
-.bg-\[\#d9d9d9\] {
+.bg-\[\#964834\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(217 217 217 / var(--tw-bg-opacity));
+  background-color: rgb(150 72 52 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#def2f1\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(222 242 241 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#f2f3f6\] {
@@ -3923,6 +3914,11 @@ input:checked + .toggle-bg {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 6c05379872d070d8aae4064e717b3dc164d7fee7
 .clearfix::after {
   clear: both;
   display: table;
@@ -3979,6 +3975,11 @@ input:checked + .toggle-bg {
 .hover\:bg-\[\#369e98\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(54 158 152 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-\[\#582a1f\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(88 42 31 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-blue-600:hover {
@@ -4617,6 +4618,7 @@ input:checked + .toggle-bg {
     max-width: 28rem;
   }
 
+>>>>>>> 7f7788c18019de71c4a283fd321b29a30e47645e
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

@@ -39,7 +39,7 @@
                             </span>
                         </h5>
                         <a href="{{ user.get_absolute_url }}"
-                           class="ms-2 float-right text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                           class="ms-2 float-right text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-600 font-medium rounded-lg text-sm px-6 py-2.5 me-2 mb-2">
                             Cancel
                         </a>
                     </div>
@@ -94,43 +94,58 @@
                                            placeholder="MM/DD/YYYY" value="{{ user.birthdate|date:'m/d/Y' }}" readonly />
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-5 flex justify-between items-center">
-                            <div class="flex flex-col space-y-2">
-                                <div class="flex items-center space-x-3">
-                                    <p class="text-sm">
-                                        {% if user.phone_number %}
-                                            {{ user.phone_number }}
-                                        {% else %}
-                                            Phone number not provided
-                                        {% endif %}
-                                    </p>
-                                    <button type="button" 
-                                            data-modal-target="edit-contact-modal"
-                                            data-modal-toggle="edit-contact-modal"
-                                            class="text-xs font-medium text-[#319b94] hover:underline">Edit Phone Number</button>
-                                </div>
-                                <div class="flex items-center space-x-3">
-                                    <p class="text-sm">
-                                        {% if user.address %}
-                                            {{ user.address }}
-                                        {% else %}
-                                            Address not provided
-                                        {% endif %}
-                                    </p>
-                                    <button type="button" 
-                                            data-modal-target="edit-address-modal" 
-                                            data-modal-toggle="edit-address-modal"
-                                            class="text-xs font-medium text-[#319b94] hover:underline">Edit Address</button>
-                                </div>
+
+                            <div class="p-2">
+                                <label for="address" 
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                <p class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#319b94] focus:border-[#319b94] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                    {% if user.address %}
+                                        {{ user.address }}
+                                    {% else %}
+                                        Address not provided
+                                    {% endif %}
+                                </p>
+                                <button type="button" 
+                                        data-modal-target="edit-address-modal" 
+                                        data-modal-toggle="edit-address-modal"
+                                        class="mt-1 text-xs font-medium text-[#319b94] hover:underline">Edit Address</button>
                             </div>
-                            <div class="space-x-3">
+                            
+                            <div class="p-2">
+                                <label for="phone_number" 
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                                <p class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#319b94] focus:border-[#319b94] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                    {% if user.phone_number %}
+                                        {{ user.phone_number }}
+                                    {% else %}
+                                        Phone number not provided
+                                    {% endif %}
+                                </p>
+                                <button type="button" 
+                                        data-modal-target="edit-contact-modal" 
+                                        data-modal-toggle="edit-contact-modal"
+                                        class="mt-1 text-xs font-medium text-[#319b94] hover:underline">Edit Phone Number</button>
+                            </div>
+                            
+
+
+
+                        </div>
+
+                        
+                        <div class="mt-5 flex justify-end items-center">
+                            <div class="space-x-3 flex items-center">
                                 <button type="submit" name="update-user_profile_form" 
-                                        class="text-white bg-[#319b94] hover:bg-[#267c74] rounded-lg text-sm px-5 py-2.5">Save Changes</button>
+                                        class="text-white bg-[#319b94] hover:bg-[#267c74] rounded-lg text-sm px-5 py-2.5">
+                                    Save Changes
+                                </button>
                                 <a href="{% url 'authentication:change-password' %}" 
-                                   class="text-white bg-[#319b94] hover:bg-[#267c74] rounded-lg text-sm px-5 py-2.5">Change Password</a>
+                                   class="text-white bg-[#319b94] hover:bg-[#267c74] rounded-lg text-sm px-5 py-2.5">
+                                    Change Password
+                                </a>
                             </div>
                         </div>
+                        
                     </div>                      
                     
                 </form>
