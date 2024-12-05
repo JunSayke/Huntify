@@ -4,18 +4,22 @@
     <main class="mt-[60px] md:mt-[80px] lg:mt-[100px]">
         <section class="flex place-content-center place-items-center px-[70px]">
             {% if landlords %}
-            <ul class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 m-5">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-5">
                 {% for landlord in landlords %}
                     <li class="p-5 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a href="{{ landlord.get_absolute_url }}">
                             <div class="flex flex-col items-center">
+
                                 {% if landlord.profile_picture %}
                                     <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
-                                         src="{{ landlord.profile_picture.url }}"
-                                         alt="{{ landlord.first_name }} image" />
+                                        src="{{ landlord.profile_picture.url }}"
+                                        alt="{{ landlord.first_name }} image" />
                                 {% else %}
-                                    <i class="fas fa-user text-[8rem] mb-3 rounded-full shadow-lg text-gray-500"></i>
+                                    <div class="flex items-center justify-center w-24 h-24 mb-3 rounded-full shadow-lg bg-gray-200 dark:bg-gray-600">
+                                        <i class="fas fa-user text-4xl text-gray-500 dark:text-gray-400"></i>
+                                    </div>
                                 {% endif %}
+
                                 <p class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
                                     {{ landlord.get_full_name|default:landlord.username }}
                                 </p>
