@@ -2,7 +2,7 @@
 {% block title %}Property Management - Boarding Rooms{% endblock %}
 {% block table %}
     <h1 class="text-center pb-5 text-2xl font-semibold text-gray-900 dark:text-gray-200">Boarding Rooms
-        <span class="text-sm font-normal text-gray-500">({{ total_boarding_rooms }})</span>
+        <span class="text-base font-normal text-gray-500">({{ total_boarding_rooms }})</span>
     </h1>
     <table
         id="property-table"
@@ -80,9 +80,9 @@
                 <td class="px-6 py-4">{{ boarding_room.created_at|date:"m/d/Y" }}</td>
                 <td class="px-6 py-4">{{ boarding_room.price }}</td>
                 <td class="flex items-center px-6 py-4 gap-3">
-                    <a
+                                        <a
                         href="{% url 'property_management:update-boarding-room' pk=boarding_room.id %}"
-                        class="text-nowrap px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        class="text-nowrap px-3 py-2 text-sm font-medium text-center text-white bg-[#319b94] rounded-lg focus:ring-4 focus:outline-none focus:ring-[#319b94] dark:bg-[#319b94] dark:focus:ring-[#258b73]"
                     >
                         <i class="me-2 fa-solid fa-pen-to-square text-sm"></i>
                         Edit
@@ -136,5 +136,4 @@
             {% endif %}
         </div>
     </div>
-
 {% endblock %}
