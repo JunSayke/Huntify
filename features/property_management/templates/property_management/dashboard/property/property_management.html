@@ -7,10 +7,10 @@
         <div class="p-2">
             <h1 class="text-2xl font-semibold font-sans">Property Management</h1>
         </div>
-        <div class="p-2 flex items-center justify-between">
+        <div class="p-2 flex items-center justify-between flex-wrap">
             <button id="property-type-dropdown" data-dropdown-toggle="property-type-dropdown-menu"
-                    data-dropdown-trigger="hover"
-                    class="text-white bg-[#319b94] hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3] font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center">
+                    data-dropdown-trigger="click"
+                    class="text-white bg-[#319b94] hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3] font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center mb-2 sm:mb-0">
                 Property Type
                 <i class="ms-2 fa-solid fa-chevron-down"></i>
             </button>
@@ -29,31 +29,39 @@
                     </li>
                 </ul>
             </div>
-            <div class="space-x-2">
+
+            <!-- Action Buttons -->
+            <div class="space-x-2 flex flex-wrap">
                 <a href="{% url 'property_management:create-boarding-room' %}"
-                   class="rounded-lg bg-[#319b94] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3]">
+                   class="rounded-lg bg-[#319b94] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3] mb-2 sm:mb-0">
                     <i class="fa-solid fa-plus me-2"></i>
                     Add Room
                 </a>
                 <a href="{% url 'property_management:create-boarding-house' %}"
-                   class="rounded-lg bg-[#319b94] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3]">
+                   class="rounded-lg bg-[#319b94] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#277f7a] focus:ring-4 focus:ring-[#68c9c3] mb-2 sm:mb-0">
                     <i class="fa-solid fa-plus me-2"></i>
                     Add Boarding House
                 </a>
             </div>
         </div>
+
+        <!-- Search Form -->
         <div class="p-2 mt-5" id="property-list">
             <form method="GET">
-                <div class="flex items-center gap-x-5">
-                    <div class="relative w-96">
+                <div class="flex flex-col sm:flex-row gap-x-5 gap-y-3">
+                    <div class="relative w-full sm:w-96">
                         <button type="submit" class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                             <i class="fas fa-search"></i>
                         </button>
                         {{ search_form.query|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 pl-10 py-2 text-sm text-gray-900 focus:ring-[#319b94] focus:border-[#319b94]"|attr:"placeholder:Search here" }}
                     </div>
-                    {{ search_form.search_by|add_class:"rounded-lg border border-gray-300 bg-gray-50 py-2 px-3 text-sm text-gray-900 focus:ring-[#319b94] focus:border-[#319b94]" }}
+                    <div class="w-full sm:w-48">
+                        {{ search_form.search_by|add_class:"rounded-lg border border-gray-300 bg-gray-50 py-2 px-3 text-sm text-gray-900 focus:ring-[#319b94] focus:border-[#319b94]" }}
+                    </div>
                 </div>
             </form>
+
+            <!-- Table Section -->
             <div id="table-container" class="relative overflow-x-auto mt-5 shadow-md rounded-lg">
                 {% block table %}
                 {% endblock %}
