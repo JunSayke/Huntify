@@ -2,9 +2,9 @@
 {% block title %}Dashboard{% endblock %}
 {% block content %}
 {% load static %}
-    <main class="flex min-h-screen flex-col md:flex-row">
+    <main class="flex min-h-screen flex-col md:flex-row bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <!-- Sidebar -->
-        <aside class="border-2 p-5 w-full md:w-1/4 lg:w-1/5 xl:w-1/6">
+        <aside class="bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 p-5 w-full md:w-1/4 lg:w-1/5 xl:w-1/6">
             <div class="h-full w-fit p-5">
                 <div class="my-10 p-5">
                     <a href="{% url 'authentication:home' %}">
@@ -18,44 +18,43 @@
                     <nav>
                         <ul class="flex flex-col gap-y-5">
                             <li>
-                                <div class="flex items-center gap-x-2 p-2">
+                                <a href="{% url 'property_management:dashboard' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-people-roof"></i>
-                                    <a href="{% url 'property_management:dashboard' %}">Property Management</a>
-                                </div>
+                                    Property Management
+                                </a>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 p-2">
+                                <a href="{% url 'property_management:booking-management' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-book"></i>
-                                    <a href="{% url 'property_management:booking-management' %}">Booking Management</a>
-                                </div>
+                                    Booking Management
+                                </a>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 p-2">
+                                <a href="{% url 'property_management:tenant-management' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-person-shelter"></i>
-                                    <a href="{% url 'property_management:tenant-management' %}">Tenants</a>
-                                </div>
+                                    Tenants
+                                </a>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 p-2">
-                                    <i class="fa-solid fa-user"></i><a href="{{ user.get_absolute_url }}">View Profile</a>
-                                </div>
+                                <a href="{{ user.get_absolute_url }}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
+                                    <i class="fa-solid fa-user"></i>
+                                    View Profile
+                                </a>
                             </li>
                             <li>
-                                <div class="flex items-center gap-x-2 p-2">
+                                <a href="{% url 'authentication:home' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-house"></i>
-                                    <a href="{% url 'authentication:home' %}">Go back to home</a>
-                                </div>
+                                    Go back to home
+                                </a>
                             </li>
                             <li>
-                                <div class="border p-2">
-                                    <form method="POST" action="{% url 'authentication:logout' %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="block w-full text-red-500">
-                                            <i class="fa-solid fa-right-from-bracket"></i>
-                                            Sign out
-                                        </button>
-                                    </form>
-                                </div>
+                                <form method="POST" action="{% url 'authentication:logout' %}" class="w-full">
+                                    {% csrf_token %}
+                                    <button type="submit" class="block w-full bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md flex items-center gap-x-2">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        Sign out
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </nav>
@@ -64,7 +63,7 @@
         </aside>
         
         <!-- Content Section -->
-        <section class="flex-1 border p-5 md:ml-0 md:flex-1">
+        <section class="flex-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 md:ml-0">
             {% block side_content %}{% endblock %}
         </section>
     </main>

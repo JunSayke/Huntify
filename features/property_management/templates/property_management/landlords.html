@@ -2,16 +2,16 @@
 {% block content %}
     {% include 'html/header.html' %}
     <main class="mt-[60px] md:mt-[80px] lg:mt-[100px]">
-        <section class="flex place-content-center place-items-center px-[70px]">
+        <section class="flex items-center justify-center px-[70px]">
             {% if landlords %}
             <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-5">
                 {% for landlord in landlords %}
-                    <li class="p-5 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <li class="p-5 w-full max-w-sm bg-white border border-gray-300 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
                         <a href="{{ landlord.get_absolute_url }}">
                             <div class="flex flex-col items-center">
 
                                 {% if landlord.profile_picture %}
-                                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
+                                    <img class="w-24 h-24 mb-3 rounded-full"
                                         src="{{ landlord.profile_picture.url }}"
                                         alt="{{ landlord.first_name }} image" />
                                 {% else %}
@@ -20,11 +20,11 @@
                                     </div>
                                 {% endif %}
 
-                                <p class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
+                                <p class="mb-1 text-xl font-bold text-gray-900 dark:text-white mt-2">
                                     {{ landlord.get_full_name|default:landlord.username }}
                                 </p>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">{{ landlord.address }}</p>
-                                <span class="text-xl font-medium text-gray-500 dark:text-gray-400">
+                                <span class="text-md font-medium text-black dark:text-gray-400 mt-4">
                                     ⭐ {{ landlord.get_aggregate_rating|default:"No ratings" }}
                                 </span>
                             </div>

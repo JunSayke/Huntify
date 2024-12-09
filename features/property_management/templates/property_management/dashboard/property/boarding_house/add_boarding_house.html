@@ -5,135 +5,129 @@
 {% block side_content %}
     <form id="create-boarding_house" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="flex justify-between border px-5">
-            <h1 class="text-center">Add Boarding House</h1>
+        <div class="flex justify-between">
+            <h1 class="text-center text-2xl font-semibold mb-6">Add Boarding House</h1>
         </div>
-        <div class="border">
+        <div class="">
             <div class="flex gap-x-5">
-                <div class="flex flex-1 flex-col gap-y-5 border">
-                    <div class="border p-5">
-                        <div>
-                            <label
-                                for="{{ form.name.id_for_label }}"
-                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                            >Boarding House Name</label
-                            >
-                            {{ form.name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|add_error_class:"border-red-500"|attr:"placeholder:Enter boarding house name"|attr:"data-target-input:name" }}
-                            {% if form.name.errors %}
-                                <div
-                                    class="text-red-500 text-sm error">{{ form.name.errors.0 }}</div>
-                            {% endif %}
-                        </div>
+                <div class="flex flex-1 flex-col gap-y-5">
+                    <!-- Boarding House Name -->
+                    <div class="p-5 bg-gray-100 rounded-lg shadow-sm">
+                        <label
+                            for="{{ form.name.id_for_label }}"
+                            class="mb-2 block text-base font-semibold text-gray-900 dark:text-white"
+                        >Boarding House Name</label>
+                        {{ form.name|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-teal-500 focus:ring-teal-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-teal-500 dark:focus:ring-teal-500"|add_error_class:"border-red-500"|attr:"placeholder:Enter boarding house name"|attr:"data-target-input:name" }}
+                        {% if form.name.errors %}
+                            <div class="text-red-500 text-sm error">{{ form.name.errors.0 }}</div>
+                        {% endif %}
                     </div>
-                    <div class="border p-5">
-                        <fieldset class="border py-2">
-                            <legend class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Select an
-                                Address
-                            </legend>
-                            {{ form.province|add_class:"mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:province" }}
+
+                    <!-- Address Fields -->
+                    <div class="p-5 bg-gray-100 rounded-lg shadow-sm">
+                        <fieldset>
+                            <legend class="block text-base font-semibold text-gray-900 dark:text-white">Select an Address</legend>
+                            {{ form.province|add_class:"mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-teal-500 focus:ring-teal-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-teal-500 dark:focus:ring-teal-500"|attr:"data-target-input:province" }}
                             {% if form.province.errors %}
-                                <div
-                                    class="text-red-500 text-sm error">{{ form.province.errors.0 }}</div>
+                                <div class="text-red-500 text-sm error">{{ form.province.errors.0 }}</div>
                             {% endif %}
-                            {{ form.municipality|add_class:"mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:municipality" }}
+                            {{ form.municipality|add_class:"mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-teal-500 focus:ring-teal-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-teal-500 dark:focus:ring-teal-500"|attr:"data-target-input:municipality" }}
                             {% if form.municipality.errors %}
-                                <div
-                                    class="text-red-500 text-sm error">{{ form.municipality.errors.0 }}</div>
+                                <div class="text-red-500 text-sm error">{{ form.municipality.errors.0 }}</div>
                             {% endif %}
-                            {{ form.barangay|add_class:"mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"data-target-input:barangay" }}
+                            {{ form.barangay|add_class:"mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-teal-500 focus:ring-teal-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-teal-500 dark:focus:ring-teal-500"|attr:"data-target-input:barangay" }}
                             {% if form.barangay.errors %}
-                                <div
-                                    class="text-red-500 text-sm error">{{ form.barangay.errors.0 }}</div>
+                                <div class="text-red-500 text-sm error">{{ form.barangay.errors.0 }}</div>
                             {% endif %}
                         </fieldset>
-                        <div class="border py-2">
-                            <div
-                                class="flex h-48 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
-                                <iframe id="map-iframe"
-                                        src=""
-                                        width="100%"
-                                        height="100%"
-                                        style="border:0;"
-                                        allowfullscreen=""
-                                        loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                ></iframe>
-                            </div>
+                    </div>
+
+                    <!-- Map Preview -->
+                    <div class="py-5 bg-gray-100 rounded-lg shadow-sm">
+                        <div class="flex h-48 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                            <iframe id="map-iframe"
+                                    src=""
+                                    width="100%"
+                                    height="100%"
+                                    style="border:0;"
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
                         </div>
                     </div>
-                    <div class="border p-5">
+
+                    <!-- Description -->
+                    <div class="p-5 bg-gray-100 rounded-lg shadow-sm">
                         <label
                             for="{{ form.description.id_for_label }}"
-                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                        >Description</label
-                        >
-                        {{ form.description|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"rows:4"|attr:"placeholder:Enter description here"|attr:"data-target-input:description" }}
+                            class="mb-2 block text-base font-semibold text-gray-900 dark:text-white"
+                        >Description</label>
+                        {{ form.description|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-teal-500 focus:ring-teal-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-teal-500 dark:focus:ring-teal-500"|attr:"rows:4"|attr:"placeholder:Enter description here"|attr:"data-target-input:description" }}
                         {% if form.description.errors %}
-                            <div
-                                class="text-red-500 text-sm error">{{ form.description.errors.0 }}</div>
+                            <div class="text-red-500 text-sm error">{{ form.description.errors.0 }}</div>
                         {% endif %}
                     </div>
                 </div>
-                <div class="flex flex-1 flex-col gap-y-5 border">
-                    <div
-                        class="border p-5"
-                    >
-                        <div class="flex flex-col gap-y-5 w-full items-center justify-center">
-                            <div class="image-preview-container w-full">
-                            </div>
-                            <label
-                                for="{{ form.images.id_for_label }}"
-                                class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 dark:hover:bg-gray-800"
-                            >
-                                <div class="flex flex-col items-center justify-center pb-6 pt-5">
-                                    <svg
-                                        class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 16"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"></path>
-                                    </svg>
-                                    <p class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400">
-                                        Boarding House Images<br />
-                                        <span class="font-semibold">Click to upload</span>
-                                    </p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                                        Maximum of 5 images
-                                    </p>
-                                </div>
-                                {{ form.images|add_class:"hidden"|attr:"data-target-input:images" }}
-                            </label>
-                            {% if form.images.errors %}
-                                <div
-                                    class="text-red-500 text-sm error">{{ form.images.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+              <!-- Image Upload -->
+<div class="flex flex-1 flex-col gap-y-5">
+    <div class="p-5 bg-gray-100 rounded-lg shadow-sm">
+        <div class="image-preview-container w-full max-h-[320px] overflow-y-auto mb-6 border-4 rounded-md">
+            {% for image in existing_images %}
+                <img src="{{ image.image.url }}" class="preview hidden" alt="Image Preview">
+            {% endfor %}
         </div>
-        <div class="border">
+        <label
+            for="{{ form.images.id_for_label }}"
+            class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500"
+        >
+            <div class="flex flex-col items-center justify-center pb-6 pt-5">
+                <svg
+                    class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"></path>
+                </svg>
+                <p class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400">
+                    Boarding House Images<br />
+                    <span class="font-semibold">Click to upload</span>
+                </p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                    Maximum of 5 images
+                </p>
+            </div>
+            {{ form.images|add_class:"hidden"|attr:"data-target-input:images" }}
+        </label>
+        {% if form.images.errors %}
+            <div class="text-red-500 text-sm error">{{ form.images.errors.0 }}</div>
+        {% endif %}
+    </div>
+
+    <!-- Buttons placed below the image section -->
+    <div class="flex justify-end gap-4 p-5">
             {% if form.non_field_errors %}
                 <div
                     class="text-red-500 text-sm error py-5 text-center ">{{ form.non_field_errors }}</div>
             {% endif %}
-            <div class="flex justify-end gap-5 border p-5">
+            <div class="flex justify-end gap-5 p-5">
                 <button
                     type="submit"
                     name="create-boarding_house"
-                    class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
+                    class="rounded-lg bg-[#319b94] px-8 py-3 text-sm font-medium text-white hover:bg-[#287b74] focus:outline-none focus:ring-4 focus:ring-[#319b94]"
+                    >
                     Create
                 </button>
             </div>
-        </div>
+</div>
     </form>
     {% for message in messages %}
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
