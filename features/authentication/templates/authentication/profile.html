@@ -3,15 +3,15 @@
 
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="border-none">
+    <main class="border-none overflow-hidden">
         <section class="h-screen mx-auto">
-            <div class="bg-[#3AAFA9] h-[20%] min-h-52">
+            <div class="h-[20%] min-h-52">
                 <div
                     class="w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
 
                     <div class="col-start-1 place-items-center place-content-center">
                         <div
-                            class="flex size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 bg-gray-50"
+                            class="flex size-48 items-center justify-center rounded-full overflow-hidden border-4 border-gray-400 bg-gray-50"
                         >
                             <img id="profile-pic-preview" src="{{ user_profile.avatar }}" alt="Profile Image"
                                  class="size-full object-cover">
@@ -19,18 +19,18 @@
 
                     </div>
                     <div class="col-start-2 h-1/2 translate-y-full px-5 py-4">
-                        <h5 class="text-lg float-left font-medium">{{ user_profile.get_full_name }}
+                        <h5 class="text-2xl float-left font-bold">{{ user_profile.get_full_name }}
                             {% if user_profile.user_type == 'landlord' %}
-                                <span class="text-sm text-gray-400">(Landlord)</span>
+                                <span class="text-sm text-gray-400 font-medium">(Landlord)</span>
                             {% elif user_profile.user_type == 'tenant' %}
-                                <span class="text-sm text-gray-400">(Tenant)</span>
+                                <span class="text-sm text-gray-400 font-medium">(Tenant)</span>
                             {% endif %}
                             <br />
                             <span class="font-medium text-sm">
                             {% if user_profile.user_type == 'tenant' %}
                                 {{ user_profile.ratings.count }} Reviews
                             {% elif user_profile.user_type == 'landlord' %}
-                                ⭐ {{ user_profile.get_aggregate_rating|default:"No ratings" }} Rating
+                                ⭐ {{ user_profile.get_aggregate_rating|default:"No ratings yet" }}
                             {% elif user_profile.user_type == 'admin' %}
                                 Admin
                             {% endif %}

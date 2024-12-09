@@ -1,10 +1,14 @@
 {% extends 'property_management/dashboard/property/property_management.html' %}
+
 {% block title %}Property Management - Boarding Houses{% endblock %}
+
 {% block table %}
     <h1 class="text-center pb-5 text-2xl font-semibold text-gray-900 dark:text-gray-200">Boarding Houses
         <span class="text-base font-normal text-gray-500">({{ total_boarding_houses }})</span>
     </h1>
-    <div class="overflow-x-auto">
+
+    <!-- Wrapper for the table with fixed height and scrolling enabled -->
+    <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
         <table id="property-table" class="min-w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
             <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -80,6 +84,7 @@
             </tbody>
         </table>
     </div>
+
     <div class="flex items-center justify-between p-5">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">

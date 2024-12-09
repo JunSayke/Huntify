@@ -6,7 +6,7 @@
     {% include 'html/header.html' %}
     <main class="">
         <section class="h-screen mx-auto">
-            <div class="bg-[#3AAFA9] h-[20%] min-h-52">
+            <div class="h-[20%] min-h-52">
                 <form id="update-user_profile_form" method="POST" enctype="multipart/form-data"
                       class="w-4/5 grid grid-cols-[1fr_5fr] grid-rows-[100%_auto] h-full translate-y-1/2 ms-[10%]">
                     {% csrf_token %}
@@ -14,7 +14,7 @@
                         <label for="{{ profile_form.profile_picture.id_for_label }}"
                                class="relative flex items-center justify-center cursor-pointer">
                             <div
-                                class="image-preview-container flex relative size-48 items-center justify-center rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                class="image-preview-container flex relative size-48 items-center justify-center rounded-full overflow-hidden border-4 border-gray-400 cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <img src="{{ user.avatar }}" alt="Profile Image"
                                      class="size-full object-cover">
                             </div>
@@ -27,12 +27,12 @@
                         </label>
                     </div>
                     <div class="col-start-2 h-1/2 translate-y-full px-5 py-4">
-                        <h5 class="text-lg float-left font-medium">{{ user.get_full_name }}<br />
+                        <h5 class="text-2xl float-left font-bold">{{ user.get_full_name }}<br />
                             <span class="font-medium text-sm">
                             {% if user.user_type == 'tenant' %}
                                 {{ user.ratings.count }} Reviews
                             {% elif user.user_type == 'landlord' %}
-                                ⭐ {{ user.get_aggregate_rating|default:"No ratings" }} Rating
+                                ⭐ {{ user.get_aggregate_rating|default:"No ratings yet" }}
                             {% elif user.user_type == 'admin' %}
                                 Admin
                             {% endif %}

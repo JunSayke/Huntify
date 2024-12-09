@@ -3,42 +3,42 @@
     id="properties"
     role="tabpanel"
     aria-labelledby="properties-tab">
-    <ul class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-3">
+    <div class="max-h-[500px] overflow-y-auto">
+        <ul class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-5">
         
         {% for boarding_house in boarding_houses %}
-        <li class="border-2 p-3 rounded-md">
+        <li class="p-5 rounded-md bg-gray-200"> <!-- Slightly lighter background -->
             <a href="{{ boarding_house.get_absolute_url }}">
                 <div class="relative place-items-center">
                     {% if boarding_house.first_image %}
                     <img
                         src="{{ boarding_house.first_image }}"
                         alt="{{ boarding_house.name }}"
-                        class="h-52 w-full object-cover rounded" />
+                        class="h-52 w-full object-cover rounded border-4 border-gray-400" />
                     {% else %}
                     <div class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
                         <svg
-                            class="h-10 w-10 text-gray-200 dark:text-gray-600"
+                            class="h-10 w-10 text-white dark:text-gray-600"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
                             viewBox="0 0 20 18">
                             <path
                                 d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"></path>
                         </svg>
                     </div>
                     {% endif %}
-                    <div class="w-full pt-3 text-sm">
-                        <p class="flex justify-between gap-5">
+                    <div class="w-full pt-3">
+                        <p class="flex justify-between gap-5 text-lg font-medium text-[#319b94]">
                             {{ boarding_house.name }}
                             <!-- <strong>{{ boarding_house.price_range }}</strong> -->
                         </p>
-                        <p class="text-gray-400">{{ boarding_house.address }}</p>
+                        <p class="text-black text-xs mt-3">{{ boarding_house.address }}</p>
                     </div>
                 </div>
             </a>
         </li>
         {% empty %}
-        <li class="w-full justify-center py-4">No properties yet.</li>
+        <li class="w-full justify-center text-gray-700">No properties yet.</li>
         {% endfor %}
     </ul>
 </div>
