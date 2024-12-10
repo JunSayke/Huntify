@@ -1,40 +1,167 @@
 {% extends 'html/base.html' %}
-{%load static%}
+{% load static %}
 {% block content %}
     {% include 'html/header.html' %}
     
-    <main class="mt-[80px] md:mt-[70px] lg:mt-[100px]"> <!-- Adjusted top margin to prevent overlap -->
-        <section class="relative flex justify-center items-center px-6 md:px-10 lg:px-16">
-            <div class="h-auto w-full max-w-[1240px]">
-                <!-- Main Flex Container: Left Content & Right Image -->
-                <div class="flex flex-col-reverse md:flex-row w-full relative">
-                    <!-- Left Content Section -->
-                    <div class="w-full md:w-1/2 self-center p-8 md:p-8 ">
-                        <div class=" mx-4 md:mx-8 grid ">
-                            <!-- Title -->
-                            <div class="relative flex items-center ">
-                                
-                                    <div class="  top-0 absolute text-[#3aafa9] text-[79px] font-semibold font-['Open Sans'] capitalize">Huntify</div>
-                                    <div class="  top-[86px] absolute text-[#1d2838] text-[40px] font-semibold font-['Plus Jakarta Sans'] capitalize">Where Home Begins</div>
-                               
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-
+    <main class="mt-[80px] md:mt-[70px] lg:mt-[70px]">
+        <div class="flex flex-row h-[709px] bg-white rounded-[10px] relative">
+            <!-- Left Section for Text -->
+            <div class="flex flex-col pl-20 pt-[100px] pb-5 justify-start items-start w-full md:w-1/2">
+                <div class="w-[642.50px] h-[136px] relative">
+                    <div class="w-[642px] h-[129px] left-0 top-0 absolute text-[#3aafa9] text-[79px] font-semibold font-['Open Sans'] capitalize">Huntify</div>
+                    <div class="w-[642.50px] left-0 top-[86px] absolute text-[#1d2838] text-[40px] font-semibold font-['Plus Jakarta Sans'] capitalize">Where Home Begins</div>
+                </div>
                 
-                    <!-- Right Image of Main -->
-                    <div class="w-full md:w-1/2 ">
-                        <div class="relative mx-4 md:mx-8 grid gap-6 md:gap-8">
-                            <img src="{% static 'images/landing.png' %}" alt="Logo" 
-                                class="w-full h-auto md:h-full object-cover md:object-cover">
-                        </div>
-                    </div>
+                <div class="text-[#484848]/80 text-2xl font-normal font-['Plus Jakarta Sans'] mt-6">
+                    Looking for a place to stay? We are here to assist you in finding your new home.
+                </div>
+                
+           
 
+
+                <div class="flex flex-row gap-10 mt-8">
+                    <!-- Stats -->
+                    <div class="flex flex-col items-center">
+                        <div class="flex items-center text-4xl font-semibold font-['Plus Jakarta Sans'] text-[#964834]">
+                            <span class="text-[#17242a]">2673</span>
+                            <span>+</span>
+                        </div>
+                        <span class="text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans'] mt-2">Rooms</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="flex items-center text-4xl font-semibold font-['Plus Jakarta Sans'] text-[#964834]">
+                            <span class="text-[#17242a]">535</span>
+                            <span>+</span>
+                        </div>
+                        <span class="text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans'] mt-2">Reservations</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="flex items-center text-4xl font-semibold font-['Plus Jakarta Sans'] text-[#964834]">
+                            <span class="text-[#17242a]">3467</span>
+                            <span>+</span>
+                        </div>
+                        <span class="text-[#6c6b6b] text-base font-normal font-['Plus Jakarta Sans'] mt-2">Students</span>
+                    </div>
                 </div>
             </div>
-        </section>
+
+            <!-- Right Section for Image -->
+            <div class="md:block w-1/2 relative">
+                <img src="{% static 'images/landing.png' %}" alt="Logo" 
+                     class="w-full h-full object-cover rounded-r-[10px]">
+            </div>
+        </div>
+
+
+        <!-- Filter Quick Search -->
+        <div class=" max-w-[320px] sm:max-w-[320px] md:max-w-[320px] p-5 bg-white rounded-[10px] border border-[#a1a7b0] flex flex-wrap justify-between items-center gap-5 mt-10 mx-auto">
+            <div class="w-full text-[#1d2838] text-xl font-semibold font-['Plus Jakarta Sans'] mb-4">
+                Search for available rooms
+            </div>
+        
+            <div class="flex flex-wrap gap-5  mx-auto"> 
+                
+                <div class="flex-1 min-w-[180px] md:min-w-[200px]"> 
+                    <div class="px-4 py-3 bg-white rounded-lg shadow border border-[#a1a7b0]">
+                        <select class="border-none outline-none text-[#17242a] font-normal font-['Plus Jakarta Sans'] w-full p-2 rounded-lg">
+                            <option disabled selected>Select Location</option>
+                            {% for province in provinces %}
+                                <option value="{{ province.id }}">{{ province.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            
+                
+                <div class="flex-1 min-w-[180px] md:min-w-[200px]"> 
+                    <div class="px-4 py-3 bg-white rounded-lg shadow border border-[#a1a7b0]">
+                        <input type="number" class="border-none outline-none text-[#17242a] font-normal font-['Plus Jakarta Sans'] w-full p-2 rounded-lg" placeholder="Min Budget">
+                    </div>
+                </div>
+            
+              
+                <div class="flex-1 min-w-[180px] md:min-w-[200px]"> 
+                    <div class="px-4 py-3 bg-white rounded-lg shadow border border-[#a1a7b0]">
+                        <input type="number" class="border-none outline-none text-[#17242a] font-normal font-['Plus Jakarta Sans'] w-full p-2 rounded-lg" placeholder="Max Budget">
+                    </div>
+                </div>
+            
+                
+                <div class="flex-1 min-w-[180px] md:min-w-[200px]"> 
+                    <button class="h-12 px-[18px] py-3 bg-[#3aafa9] rounded-lg shadow border border-[#c2cae3] w-full transition duration-300 hover:bg-[#2f8e8a] focus:outline-none">
+                        <span class="text-center text-white text-base font-semibold font-['Plus Jakarta Sans'] leading-normal">Search</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    
+
+
     </main>
-   
+
+
+    <!-- About -->
+    <section section id="about" class="bg-white dark:bg-gray-900">
+        <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <img class="w-full rounded-lg" src="https://media.cntraveler.com/photos/66326a96f4b7236f16bb6ea1/2:3/w_1332,h_1998,c_limit/01%20-%20Muse%CC%81e%20d'Orsay%20-%20Icons%20-%20Airbnb%20-%20Credit%20Frederik%20Vercruysse.jpg" alt="office content 1">
+                <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://images.unsplash.com/photo-1663756915304-40b7eda63e41?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGludGVyaW9yJTIwZGVzaWduJTIwbGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D" alt="office content 2">
+            </div>
+            <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+                <h2 class="text-[#1d2838] text-[32px] font-bold font-['Plus Jakarta Sans'] capitalize mb-4">We help you find your perfect home<br/>and manage rentals with ease</h2>
+                <h1 class="text-[#3aafa9] text-[20px] font-bold font-['Plus Jakarta Sans'] capitalize mb-4">About us </h1>
+                <div class="w-[599px]">
+                    <span class="text-[#344053] text-lg font-normal font-['Plus Jakarta Sans']">Welcome to </span>
+                    <span class="text-[#3aafa9] text-lg font-bold font-['Plus Jakarta Sans']">Huntify</span>
+                    <span class="text-[#344053] text-lg font-normal font-['Plus Jakarta Sans']">, where we transform the way you find and manage boarding houses and apartment rentals. With features like detailed property listings, advanced search filters, seamless booking, and comprehensive dashboards for landlords, Huntify bridges the gap between traditional methods and modern technology, making property management and rental searches easier than ever.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide -->
+    <section class="h-auto px-6 py-10 bg-white flex flex-col justify-start items-center gap-8 lg:px-30 lg:py-16">
+        <div class="self-stretch flex flex-col justify-start items-center gap-4">
+          <div class="text-center text-[#3aafa9] text-xl font-semibold font-['Plus Jakarta Sans'] capitalize">Booking Process</div>
+          <div class="text-center text-[#1d2838] text-2xl lg:text-4xl font-bold font-['Plus Jakarta Sans'] capitalize">Fast, intuitive and absolutely safe!</div>
+        </div>
+
+        <div class="w-full grid grid-cols-1 sm:grid-cols-4 gap-10 lg:w-auto lg:px-8 lg:py-6">
+          <div class="flex flex-col justify-start items-start gap-4 px-4 py-6 border-l border-gray-300">
+            <div class="text-[#964834] text-5xl sm:text-6xl lg:text-7xl font-semibold font-['Plus Jakarta Sans']">1</div>
+            <div class="text-[#484848] text-xl sm:text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">Pick a few places</div>
+            <div class="text-[#484848] text-base sm:text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+              Explore hundreds of high-quality rooms, studios, and apartments. Save favorites and look for more. <br/>Finding your dream home could not be easier!<br/><br/>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-start items-start gap-4 px-4 py-6 border-l border-gray-300">
+            <div class="text-[#964834] text-5xl sm:text-6xl lg:text-7xl font-semibold font-['Plus Jakarta Sans']">2</div>
+            <div class="text-[#484848] text-xl sm:text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">Book Your Date</div>
+            <div class="text-[#484848] text-base sm:text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+              Schedule a visit or view more details. We'll make sure you're prepared with all the necessary info. <br/><br/>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-start items-start gap-4 px-4 py-6 border-l border-gray-300">
+            <div class="text-[#964834] text-5xl sm:text-6xl lg:text-7xl font-semibold font-['Plus Jakarta Sans']">3</div>
+            <div class="text-[#484848] text-xl sm:text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">Confirm Booking</div>
+            <div class="text-[#484848] text-base sm:text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+              Once you're satisfied with your choice, complete your booking, and you're ready to move in!
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-start items-start gap-4 px-4 py-6 border-l border-gray-300">
+            <div class="text-[#964834] text-5xl sm:text-6xl lg:text-7xl font-semibold font-['Plus Jakarta Sans']">4</div>
+            <div class="text-[#484848] text-xl sm:text-2xl font-semibold font-['Plus Jakarta Sans'] leading-[60px]">Explore</div>
+            <div class="text-[#484848] text-base sm:text-lg font-normal font-['Plus Jakarta Sans'] leading-loose">
+                Check out the room and see if it feels like the right fit for you. Picture your life here and make sure it ticks all the boxes. If it does, take the leap and make it yours! <br/><br/>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    {% include 'html/footer.html' %}
 {% endblock %}
