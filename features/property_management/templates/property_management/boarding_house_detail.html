@@ -3,103 +3,112 @@
 {% block title %}Boarding House Detail{% endblock %}
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="place-items-center border w-minmax mx-auto mt-[60px] md:mt-[80px] lg:mt-[100px]">
-        <section class="clearfix w-full border p-5">
-            <div class="float-left w-1/2 border p-5">
-                <div class="grid h-[500px] grid-rows-[75%_25%]">
-                    {% for image in boarding_house.get_images %}
-                        <div class="image-container {% if forloop.first %}col-span-4{% endif %} border p-2">
-                            <div
-                                class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700">
-                                {% if image %}
-                                    <img class="boarding-room-image h-full w-full object-cover cursor-pointer"
-                                         data-modal-target="image-modal" data-modal-show="image-modal"
-                                         src="{{ image.image.url }}"
-                                         alt="room-image" />
-                                {% else %}
-                                    <svg class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
-                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                         viewBox="0 0 20 18">
-                                        <path
-                                            d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
-                                    </svg>
-                                {% endif %}
+    <main class="container mx-auto mt-[60px] md:mt-[80px] lg:mt-[100px] space-y-10">
+        <!-- Boarding House Overview -->
+        <section class="bg-white shadow-lg rounded-lg p-6">
+            <div class="flex flex-col md:flex-row gap-10">
+             <!-- Images Section -->
+<div class="w-full md:w-1/2">
+    <div class="p-4 bg-gray-100 rounded-lg">
+        <div class="grid grid-cols-4 gap-4 rounded-md">
+            {% for image in boarding_house.get_images %}
+                <div class="image-container {% if forloop.first %}col-span-4{% else %}col-span-1{% endif %} rounded-md">
+                    <div class="flex h-full items-center justify-center rounded bg-gray-200 text-center dark:bg-gray-700">
+                        {% if image %}
+                            <img class="boarding-room-image {% if forloop.first %}h-80 w-full object-cover{% else %}h-40 w-full object-cover cursor-pointer rounded-md{% endif %}" 
+                                 data-modal-target="image-modal" data-modal-show="image-modal"
+                                 src="{{ image.image.url }}" alt="room-image" />
+                        {% else %}
+                            <div class="flex {% if forloop.first %}h-96 {% else %}h-40{% endif %} w-full items-center justify-center bg-gray-100 text-gray-400 rounded-md">
+                                <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     viewBox="0 0 20 18">
+                                    <path
+                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"></path>
+                                </svg>
                             </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+                <!-- Details and Rooms Section -->
+                <div class="w-full md:w-1/2 space-y-6">
+                    <div class="p-4 bg-gray-100 rounded-lg">
+                        <p class="flex justify-between">
+                            <span class="font-semibold text-lg mb-4">{{ boarding_house.name }}</span>
+                            <span class="text-lg font-semibold text-[#3aafa9]">{{ boarding_house.price_range }}</span>
+                        </p>
+                        <p class="text-sm text-gray-600"><i class="fa-solid fa-location-dot mr-2"></i>{{ boarding_house.address }}</p>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h6 class="font-bold mb-2 text-lg">Description</h6>
+                        <p class="text-gray-600">
+                            <span class="font-semibold">
+                                Landlord:
+                                <a href="{{ landlord.get_absolute_url }}" 
+                                   class="text-[#3aafa9] hover:underline font-medium">{{ landlord.username }}</a>
+                            </span><br />
+                            {{ boarding_house.description }}
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white rounded-lg p-4 shadow-sm border">
+                            <p><strong>Total Rooms</strong><br />
+                                <span>{{ boarding_house.total_rooms }}</span></p>
                         </div>
-                    {% endfor %}
-                </div>
-                <div class="border p-2">
-                    <p class="flex justify-between">
-                        <strong>{{ boarding_house.name }}</strong>
-                        <strong>{{ boarding_house.price_range }}</strong>
-                    </p>
-                    <p><i class="me-2 fa-solid fa-location-dot"></i>{{ boarding_house.address }}</p>
-                </div>
-            </div>
-            <div class="float-left w-1/2 border p-5">
-                <div class="border">
-                    <h6 class="mb-2 font-bold">Description</h6>
-                    <p>
-              <span class="font-medium"
-              >Landlord:
-                <a
-                    href="{{ landlord.get_absolute_url }}"
-                    class="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                >{{ landlord.username }}</a
-                ></span
-              ><br />
-                        {{ boarding_house.description }}
-                    </p>
-                </div>
-                <div class="mt-5 border">
-                    <div class="col-start-2 row-span-2 row-start-4 border">
-                        <div>
-                            <p><strong>Total Rooms</strong><br /><span>{{ boarding_house.total_rooms }}</span></p>
-                            <p><strong>Available Rooms</strong><br /><span>{{ boarding_house.status }}</span></p>
+                        <div class="bg-white rounded-lg p-4 shadow-sm border">
+                            <p><strong>Available Rooms</strong><br />
+                                <span>{{ boarding_house.status }}</span></p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="w-full p-5">
-            <h5 class="font-bold text-center">Rooms</h5>
+
+        <!-- Rooms Section -->
+        <section class="bg-white shadow-lg rounded-lg p-6">
+            <h5 class="font-bold text-center mb-4 text-2xl">Rooms</h5>
             {% if boarding_rooms %}
-                <ol class="grid grid-cols-4 gap-5 mt-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {% for room in boarding_rooms %}
-                        <li class="border p-2">
+                        <div class="bg-gray-100 rounded-lg shadow-md p-4">
                             <a href="{{ room.get_absolute_url }}">
-                                <div class="relative place-items-center">
+                                <div class="relative">
                                     {% if room.first_image %}
                                         <img src="{{ room.first_image }}"
                                              alt="{{ room.name }}"
-                                             class="h-52 w-full object-cover rounded">
+                                             class="h-52 w-full object-cover rounded-t-lg">
                                     {% else %}
-                                        <div
-                                            class="flex h-52 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
-                                            <svg class="h-10 w-10 text-gray-200 dark:text-gray-600"
-                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        <div class="flex h-52 w-full items-center justify-center bg-gray-300">
+                                            <svg class="h-12 w-12 text-gray-400"
+                                                 xmlns="http://www.w3.org/2000/svg"
                                                  fill="currentColor" viewBox="0 0 20 18">
                                                 <path
                                                     d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"></path>
                                             </svg>
                                         </div>
                                     {% endif %}
-                                    <div class="w-full pt-5 text-xs">
-                                        <p class="flex justify-between gap-5">
+                                    <div class="w-full mt-7">
+                                        <p class="flex justify-between gap-5 text-md">
                                             {{ room.name }}
-                                            <strong>{{ room.price }}</strong>
+                                            <strong>₱{{ room.price }}</strong>
                                         </p>
                                     </div>
                                 </div>
                             </a>
-                        </li>
+                        </div>
                     {% endfor %}
-                </ol>
+                </div>
             {% else %}
                 <p class="text-center mt-5">No rooms available.</p>
             {% endif %}
         </section>
     </main>
+
     {% include 'property_management/modals/image_modal.html' %}
     <script type="module" src="{% static 'js/boarding_room_detail.js' %}"></script>
 {% endblock %}

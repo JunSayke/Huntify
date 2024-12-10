@@ -4,178 +4,164 @@
 {% block title %}Boarding Room Detail{% endblock %}
 {% block content %}
     {% include 'html/header.html' %}
-    <main class="place-items-center border mx-auto mt-[60px] md:mt-[80px] lg:mt-[100px]">
-        <section class="clearfix w-full border p-5">
-            <div class="float-left w-1/2 border p-5">
-                <div class="grid h-[500px] grid-rows-[75%_25%]">
-                    {% for image in boarding_room.get_images %}
-                        <div class="image-container {% if forloop.first %}col-span-4{% endif %} border p-2">
-                            <div
-                                class="flex h-full items-center justify-center rounded bg-gray-300 text-center dark:bg-gray-700">
-                                {% if image %}
-                                    <img class="boarding-room-image h-full w-full object-cover cursor-pointer"
-                                         data-modal-target="image-modal" data-modal-show="image-modal"
-                                         src="{{ image.image.url }}"
-                                         alt="room-image" />
-                                {% else %}
-                                    <svg class="placeholder-svg size-10 text-gray-200 dark:text-gray-600"
-                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                         viewBox="0 0 20 18">
-                                        <path
-                                            d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"></path>
-                                    </svg>
-                                {% endif %}
-                            </div>
+    <main class="place-items-center mx-auto mt-[60px] md:mt-[80px] lg:mt-[100px]">
+        <section class="w-full p-5">
+            <div class="flex flex-col md:flex-row gap-5">
+                <!-- Left Column (Images) -->
+                <div class="w-full md:w-1/2 rounded-lg shadow-lg p-5 ">
+                    <div class="p-4 bg-gray-100 rounded-lg">
+                        <div class="grid grid-cols-4 gap-4 rounded-md">
+                            {% for image in boarding_room.get_images %}
+                                <div class="{% if forloop.first %}col-span-4{% else %}col-span-1{% endif %}">
+                                    <div class="flex h-full items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
+                                        {% if image %}
+                                            <img class="boarding-room-image {% if forloop.first %}h-80 w-full object-cover{% else %}h-40 w-full object-cover cursor-pointer rounded-md{% endif %}" 
+                                                 data-modal-target="image-modal" data-modal-show="image-modal"
+                                                 src="{{ image.image.url }}" alt="room-image" />
+                                        {% else %}
+                                            <div class="flex {% if forloop.first %}h-80{% else %}h-40{% endif %} w-full items-center justify-center bg-gray-100 text-gray-400 rounded-md">
+                                                <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                     viewBox="0 0 20 18">
+                                                    <path
+                                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"></path>
+                                                </svg>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
-                </div>
-                <div class="border p-2">
-                    <div class="flex justify-between">
-                        <h6 class="font-bold">{{ boarding_room.name }} <span class="font-semibold text-xs">({{ boarding_room.capacity }} Person/s)</span><span class="font-normal"> / <a
-                            href="{{ boarding_house.get_absolute_url }}"
-                            class="font-medium text-blue-600 hover:underline dark:text-blue-500">{{ boarding_house.name }}</a></span>
+                    </div>
+
+                    <div class="p-5 mt-10 rounded-lg bg-gray-100">
+                        <h6 class="font-bold text-lg flex justify-between">
+                            <span>{{ boarding_room.name }} <span class="font-semibold text-sm">({{ boarding_room.capacity }} Person/s)</span></span>
+                            <span class="font-semibold text-[#319b94]">₱{{ boarding_room.price }} <span class="font-normal text-black">/Bills included</span></span>
                         </h6>
-                        <p class="font-bold">
-                            ₱{{ boarding_room.price }}<span class="font-normal">/Bills included</span>
+                        <p class="flex items-center text-gray-700 mt-5">
+                            <i class="me-2 fa-solid fa-location-dot"></i>
+                            {{ boarding_house.address }}
                         </p>
                     </div>
-                    <p class="flex items-center">
-                        <i class="me-2 fa-solid fa-location-dot"></i>
-                        {{ boarding_house.address }}
-                    </p>
-                </div>
-                <div class="border p-2">
-                    <p>Status: <span>{{ boarding_room.status }}</span></p>
-                </div>
-                <!-- Rating Layout -->
-
-                {% if rating_form %}
-                    <div class="flex items-center justify-center w-full">
-                        <form id="rate-boarding-room-form" method="POST">
-                            {% csrf_token %}
-                            <div class="flex flex-row-reverse justify-center">
-                                {% for rate in rating_form.rating.subwidgets %}
-                                    <input type="radio" id="{{ rate.id_for_label }}"
-                                           name="{{ rating_form.rating.html_name }}"
-                                           value="{{ rate.data.value }}" data-target-input="rating"
-                                           class="peer/input hidden"
-                                           {% if rate.data.value == user_rating.rating %}checked{% endif %}>
-                                    <label for="{{ rate.id_for_label }}"
-                                           class="fas fa-star text-4xl text-gray-600 cursor-pointer peer/label peer-checked/input:text-yellow-400 peer-hover/label:text-yellow-400 hover:text-yellow-400 duration-100">
-                                    </label>
-                                {% endfor %}
-                            </div>
-                            <div class="my-5">
-                                {{ rating_form.feedback|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Write a feedback..." }}
-                            </div>
-                            {% if rating_form.errors %}
-                                <div class="text-red-500 text-sm error">
-                                    {% if rating_form.errors %}
-                                        <p>{{ rating_form.errors.0 }}</p>
-                                    {% endif %}
-                                </div>
-                            {% elif rating.form.non_field_errors %}
-                                <div class="text-red-500 text-sm error">
-                                    {% if rating_form.non_field_errors %}
-                                        <p>{{ rating_form.non_field_errors.0 }}</p>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                            <button type="submit"
-                                    name="rate-boarding-room"
-                                    class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                Submit Rating
-                            </button>
-                        </form>
+                    <div class="p-5 mt-4 bg-gray-100 rounded-lg font-semibold">
+                        <p>Status: <span class="text-gray-600 font-normal">{% if boarding_room.status == 'Available' %}{{ boarding_room.status }}{% else %}{{ boarding_room.status }}{% endif %}</span></p>
                     </div>
-                {% endif %}
-            </div>
-            <div class="float-left w-1/2 border p-5">
-                <div class="border">
-                    <h6 class="mb-2 font-bold">Description</h6>
-                    <p>
-              <span class="font-medium"
-              >Landlord:
-                <a
-                    href="{{ landlord.get_absolute_url }}"
-                    class="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                >{{ landlord.username }}</a
-                ></span
-              ><br />
-                        {{ boarding_room.description }}
-                    </p>
-                </div>
-                <div class="border my-5">
-                    <h5 class="mb-2 font-bold">Tags</h5>
-                    <div>
-                        {% if boarding_room.tags.all %}
-                            <ul class="flex flex-wrap gap-2">
-                                {% for room_tag in boarding_room.tags.all %}
-                                    <li class="p-2 bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ room_tag.tag.name }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <p>No tags available</p>
-                        {% endif %}
-                    </div>
-                </div>
-                <!--
-                    Edge case:
-                        1. If the boarding room is available, the user can request to book the room.
-                        2. If the user has already requested to book the room, the user can cancel the booking.
-                        3. If the user is a boarding room tenant to the boarding room, the user cannot request to book the room.
-                        4. If an unauthenticated user views the boarding room, the user cannot request to book the room.
-                -->
-                {% if boarding_room.is_available %}
-                    {% if flag == 'already_rented' %}
-                        <div class="border p-2">
-                            <p class="font-bold text-red-600">You are currently a tenant on this room.</p>
-                        </div>
-                    {% elif request_booking_form %}
-                        {% if flag == 'booking_in_progress' %}
-                            <div class="border p-2">
-                                <p class="font-bold">Booking Request</p>
-                                <p class="font-medium">Status:
-                                    <span>{{ request_booking_form.instance.status|title }}</span></p>
-                                <p class="font-medium">Date Created:
-                                    <span>{{ request_booking_form.instance.created_at }}</span></p>
-                            </div>
-                            <form id="cancel-booking-form" method="POST">
+                    
+                    <!-- Rating Layout -->
+                    {% if rating_form %}
+                        <div class="mt-5">
+                            <form id="rate-boarding-room-form" method="POST" class="bg-gray-100 p-5 rounded-lg shadow-md">
                                 {% csrf_token %}
-                                <input type="hidden" name="cancel-booking"
-                                       value="{{ request_booking_form.instance.id }}">
-                                <button type="submit"
-                                        data-modal-target="confirmation-modal"
-                                        data-modal-show="confirmation-modal"
-                                        class="cancel-booking-button rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                    Cancel Booking
+                                <div class="flex justify-center">
+                                    {% for rate in rating_form.rating.subwidgets %}
+                                        <input type="radio" id="{{ rate.id_for_label }}"
+                                               name="{{ rating_form.rating.html_name }}"
+                                               value="{{ rate.data.value }}" data-target-input="rating"
+                                               class="peer/input hidden"
+                                               {% if rate.data.value == user_rating.rating %}checked{% endif %}>
+                                        <label for="{{ rate.id_for_label }}"
+                                               class="fas fa-star text-4xl text-gray-600 cursor-pointer peer/label peer-checked/input:text-yellow-400 peer-hover/label:text-yellow-400 hover:text-yellow-400 duration-100">
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                <div class="my-5">
+                                    {{ rating_form.feedback|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"placeholder:Write a feedback..." }}
+                                </div>
+                                {% if rating_form.errors %}
+                                    <div class="text-red-500 text-sm">
+                                        <p>{{ rating_form.errors.0 }}</p>
+                                    </div>
+                                {% elif rating.form.non_field_errors %}
+                                    <div class="text-red-500 text-sm">
+                                        <p>{{ rating_form.non_field_errors.0 }}</p>
+                                    </div>
+                                {% endif %}
+                                <button type="submit" name="rate-boarding-room"
+                                        class="rounded-lg bg-[#319b94] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#319b94]">
+                                    Submit Rating
                                 </button>
                             </form>
-                        {% else %}
-                            <div class="mt-5 border">
-                                {% include 'property_management/forms/request_booking_form.html' with form=request_booking_form %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Right Column (Description and Booking) -->
+                <div class="w-full md:w-1/2 p-5 rounded-lg shadow-lg text-gray-600">
+                    <div class="p-4 bg-gray-100 rounded-lg">
+                        <h6 class="mb-2 font-bold text-black">Description</h6>
+                        <p>
+                            <span class="font-semibold">Landlord: <a href="{{ landlord.get_absolute_url }}"
+                                                                   class="text-[#3aafa9] hover:underline font-medium">{{ landlord.username }}</a></span>
+                            <br />
+                            {{ boarding_room.description }}
+                        </p>
+                    </div>
+                    <div class="my-5 p-4 bg-gray-100 rounded-lg">
+                        <h5 class="mb-2 font-bold text-black">Tags</h5>
+                        <div>
+                            {% if boarding_room.tags.all %}
+                                <ul class="flex flex-wrap gap-2">
+                                    {% for room_tag in boarding_room.tags.all %}
+                                        <li class="p-2 bg-gray-300 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ room_tag.tag.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No tags available</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if boarding_room.is_available %}
+                        {% if flag == 'already_rented' %}
+                            <div class="bg-red-200 p-4 rounded-lg">
+                                <p class="font-bold text-red-600">You are currently a tenant on this room.</p>
                             </div>
+                        {% elif request_booking_form %}
+                            {% if flag == 'booking_in_progress' %}
+                                <div class="bg-yellow-200 p-4 rounded-lg">
+                                    <p class="font-bold mb-4">Booking Request</p>
+                                    <p>Status: <span class="font-medium">{{ request_booking_form.instance.status|title }}</span></p>
+                                    <p>Date Created: <span class="font-medium">{{ request_booking_form.instance.created_at }}</span></p>
+                                </div>
+                                <form id="cancel-booking-form" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="cancel-booking"
+                                           value="{{ request_booking_form.instance.id }}">
+                                    <button type="submit"
+                                            data-modal-target="confirmation-modal"
+                                            data-modal-show="confirmation-modal"
+                                            class="mt-4 cancel-booking-button rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                        Cancel Booking
+                                    </button>
+                                </form>
+                            {% else %}
+                                <div class="mt-5">
+                                    {% include 'property_management/forms/request_booking_form.html' with form=request_booking_form %}
+                                </div>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
             </div>
         </section>
-        <section class="w-full" id="ratings-section">
-            <div class="border p-2">
-                <h6 class="text-center text-4xl flex-1">Ratings</h6>
-                <div class="flex items-center justify-center">
+
+        <section class="w-1/2 mt-5" id="ratings-section">
+            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                <h6 class="text-center text-3xl font-semibold">Ratings</h6>
+                <div class="flex items-center justify-center mt-2">
                     <i class="fas fa-star text-yellow-400 me-2"></i>
-                    <p class="ms-2 text-sm font-bold text-gray-900 dark:text-white">{{ boarding_room.get_aggregate_rating|default:"No ratings yet" }}</p>
+                    <p class="text-sm font-bold text-gray-900 dark:text-white">{{ boarding_room.get_aggregate_rating|default:"No ratings yet" }}</p>
                     <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-                    <a href="#ratings-section"
-                       class="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{{ boarding_room.ratings.count }}
-                        reviews</a>
+                    <a href="#ratings-section" class="text-sm font-medium text-gray-900 underline dark:text-white">
+                        {{ boarding_room.ratings.count }} reviews
+                    </a>
                 </div>
+
                 {% if boarding_room.ratings.all %}
                     <ul>
                         {% for room_rating in boarding_room.ratings.all %}
-                            <li class="border p-2 mb-2">
-                                <article class="p-5">
+                            <li class="border-b p-4 bg-white rounded-lg mt-5 mb-3">
+                                <article>
                                     <div class="flex items-center mb-4">
                                         <a href="{{ room_rating.user.get_absolute_url }}">
                                             {% if room_rating.user.profile_picture %}
@@ -185,27 +171,26 @@
                                                 <i class="fa-solid fa-user text-4xl text-center w-10 h-10 me-4 rounded-full"></i>
                                             {% endif %}
                                         </a>
-                                        <div class="font-medium dark:text-white">
+                                        <div class="font-medium">
                                             <p>{{ room_rating.user.username }}
                                                 <time datetime="{{ room_rating.user.date_joined }}"
-                                                      class="block text-sm text-gray-500 dark:text-gray-400">
+                                                      class="text-sm text-gray-500 dark:text-gray-400">
                                                     Joined on {{ room_rating.user.date_joined|date:"F d, Y" }}
                                                 </time>
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
+                                    <div class="flex items-center mb-2">
                                         {% for i in "12345" %}
                                             <i class="fa-star fas {% if forloop.counter <= room_rating.rating %}text-yellow-400{% else %}text-gray-400{% endif %}"></i>
                                         {% endfor %}
                                     </div>
                                     <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400">
-                                        <p>Reviewed in the {{ room_rating.user.address }} on
-                                            <time
-                                                datetime="{{ room_rating.updated_at }}">{{ room_rating.updated_at|date:"F d, Y" }}</time>
+                                        <p>Reviewed at {{ room_rating.user.address }} on
+                                            <time datetime="{{ room_rating.updated_at }}">{{ room_rating.updated_at|date:"F d, Y" }}</time>
                                         </p>
                                     </footer>
-                                    <p class="mb-2 text-gray-500 dark:text-gray-400">{{ room_rating.feedback }}</p>
+                                    <p class="text-gray-500 dark:text-gray-400">{{ room_rating.feedback }}</p>
                                 </article>
                             </li>
                         {% endfor %}
@@ -214,8 +199,10 @@
             </div>
         </section>
     </main>
+
     {% include 'property_management/modals/image_modal.html' %}
     {% include 'html/modals/confirmation-modal.html' with icon='<i class="fa-solid fa-circle-exclamation me-2 text-4xl text-gray-400 dark:text-gray-500 m-5"></i>' %}
+
     {% for message in messages %}
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
             {% include 'html/modals/success_modal.html' with message=message %}
