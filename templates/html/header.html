@@ -38,7 +38,7 @@
 
           <li>
             <a
-              href="#about"
+              href="{% url 'authentication:home' %}#about"
               class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'about' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
             >
               About Us
@@ -234,10 +234,9 @@
                   Landlord
                 </a>
               </li>
-
               <li>
                 <a
-                  href="#about"
+                  href="{% url 'authentication:home' %}#about"
                   class="block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-200"
                 >
                   About Us
