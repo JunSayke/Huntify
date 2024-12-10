@@ -1,4 +1,4 @@
-{% load humanize %} {% for notification in notifications %}
+{% load humanize %} {% for notification in notifications|slice:5 %}
 <li class="p-5 text-sm font-normal border-b border-gray-500">
 	<div class="text-sm font-semibold text-gray-900 dark:text-white">
 		{{ notification.title }}

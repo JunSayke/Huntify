@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <TaskOptions isEnabled="false">
+    <TaskOptions isEnabled="true">
       <option name="arguments" value="--plugin=&quot;D:\Programming\PY Projects\Django\huntify_project\theme\static_src\node_modules\prettier-plugin-tailwindcss\dist\index.mjs&quot; --write $FileName$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
