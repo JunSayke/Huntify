@@ -35,14 +35,7 @@
               Home
             </a>
           </li>
-          <li>
-            <a
-              href="{% url 'property_management:landlords' %}"
-              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'landlords' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
-            >
-              Landlord
-            </a>
-          </li>
+
           <li>
             <a
               href="#about"
@@ -51,6 +44,20 @@
               About Us
             </a>
           </li>
+
+          
+
+          <li>
+            <a
+              href="{% url 'property_management:landlords' %}"
+              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'landlords' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
+            >
+              Landlords
+            </a>
+          </li>
+
+         
+
         </ul>
       </div>
 
@@ -218,6 +225,7 @@
                   Home
                 </a>
               </li>
+
               <li>
                 <a
                   href="{% url 'property_management:landlords' %}"
@@ -226,6 +234,7 @@
                   Landlord
                 </a>
               </li>
+
               <li>
                 <a
                   href="#about"
@@ -234,6 +243,7 @@
                   About Us
                 </a>
               </li>
+              
             </ul>
           </div>
         </div>
