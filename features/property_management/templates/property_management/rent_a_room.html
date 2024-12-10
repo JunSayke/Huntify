@@ -130,17 +130,31 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <div class="mt-5 text-center">
-                        {% if boarding_rooms.has_other_pages %}
-                            <div class="pagination">
-                                <span class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 rounded-l-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600">
+                    <!-- Pagination -->
+                    <div class="mt-5 flex justify-center">
+                        <nav class="inline-flex gap-2">
+                            {% if page_obj.has_previous %}
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page=1"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
+                                    First
+                                </a>
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ page_obj.previous_page_number }}"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                                     Previous
-                                </span>
-                                <span class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 rounded-r-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600">
+                                </a>
+                            {% endif %}
+
+                            {% if page_obj.has_next %}
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ page_obj.next_page_number }}"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
                                     Next
-                                </span>
-                            </div>
-                        {% endif %}
+                                </a>
+                                <a href="?{% if request.GET.price_min %}price_min={{ request.GET.price_min }}&{% endif %}price_max={{ request.GET.price_max }}&address={{ request.GET.address }}&page={{ page_obj.paginator.num_pages }}"
+                                   class="flex items-center justify-center rounded-lg bg-[#3aafa9] py-2 px-4 text-sm font-medium text-white hover:bg-[#319b94] focus:outline-none focus:ring-4 focus:ring-[#319b94] dark:bg-[#3aafa9] dark:hover:bg-[#319b94] dark:focus:ring-[#319b94]">
+                                    Last
+                                </a>
+                            {% endif %}
+                        </nav>
                     </div>
                 </div>
             </div>

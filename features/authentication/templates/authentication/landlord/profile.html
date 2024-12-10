@@ -1,47 +1,54 @@
-{% extends 'authentication/profile.html' %}
-
-{% block side_content %}
+{% extends 'authentication/profile.html' %} {% block side_content %}
 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
-        data-tabs-toggle="#default-tab-content" role="tablist">
-        <li class="me-2" role="presentation">
-            <button
-                class="inline-block p-4 border-b-2 rounded-t-lg hover:text-[#319b94] hover:border-[#319b94] focus:outline-none"
-                id="properties-tab"
-                data-tabs-target="#properties"
-                type="button"
-                role="tab"
-                aria-controls="properties"
-                aria-selected="false">
-                Properties
-            </button>
-        </li>
-        {% if request.user == user_profile %}
-            <li class="me-2" role="presentation">
-                <button
-                    class="inline-block p-4 border-b-2 rounded-t-lg hover:text-[#319b94] hover:border-[#319b94] focus:outline-none"
-                    id="notifications-tab"
-                    data-tabs-target="#notifications"
-                    type="button"
-                    role="tab"
-                    aria-controls="notifications"
-                    aria-selected="false">
-                    Notifications
-                </button>
-            </li>
-        {% endif %}
-    </ul>
+  <ul
+    class="-mb-px flex flex-wrap text-center text-sm font-medium"
+    id="default-tab"
+    data-tabs-toggle="#default-tab-content"
+    role="tablist"
+  >
+    <li class="me-2" role="presentation">
+      <a
+        href="?tab=properties"
+        class="inline-block rounded-t-lg border-b-2 p-4 hover:border-[#319b94] hover:text-[#319b94] focus:outline-none"
+        id="properties-tab"
+        data-tabs-target="#properties"
+        type="button"
+        role="tab"
+        aria-controls="properties"
+        aria-selected="false"
+      >
+        Properties
+      </a>
+    </li>
+    {% if request.user == user_profile %}
+    <li class="me-2" role="presentation">
+      <a
+        href="?tab=notifications"
+        class="inline-block rounded-t-lg border-b-2 p-4 hover:border-[#319b94] hover:text-[#319b94] focus:outline-none"
+        id="notifications-tab"
+        data-tabs-target="#notifications"
+        type="button"
+        role="tab"
+        aria-controls="notifications"
+        aria-selected="false"
+      >
+        Notifications
+      </a>
+    </li>
+    {% endif %}
+  </ul>
 
-    <style>
+  <style>
     [aria-selected="true"] {
-        color: #319b94 !important;
-        border-color: #319b94 !important;
+      color: #319b94 !important;
+      border-color: #319b94 !important;
     }
-    </style>
+  </style>
 </div>
 
 <div id="default-tab-content">
-    {% include 'authentication/profile_tab/properties_tab.html' with boarding_houses=user_profile.boarding_houses.all|dictsortreversed:"created_at" %}
+  <!-- prettier-ignore -->
+  {% include 'authentication/profile_tab/properties_tab.html' with boarding_houses=user_profile.boarding_houses.all|dictsortreversed:"created_at" %}
     {% if request.user == user_profile %}
         {% include 'authentication/profile_tab/notification_tab.html' with notifications=request.user.notifications.all %}
     {% endif %}

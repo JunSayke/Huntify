@@ -415,10 +415,10 @@ class BookingListView(ListView):
         queryset = queryset.filter(boarding_room__boarding_house__landlord=self.request.user)
         # Handle search query
         query = self.request.GET.get('query', '')
-        search_by = self.request.GET.get('search_by', 'tenant')  # Default to 'name' if not specified
+        search_by = self.request.GET.get('search_by', 'tenant')  # Default to 'tenant' if not specified
         if query:
             if search_by == 'tenant':
-                queryset = queryset.filter(tenant__name_icontains=query)
+                queryset = queryset.filter(tenant__username__icontains=query)
             elif search_by == 'boarding_room':
                 queryset = queryset.filter(boarding_room__name__icontains=query)
             elif search_by == 'boarding_house':
@@ -429,15 +429,17 @@ class BookingListView(ListView):
         direction = self.request.GET.get('direction', 'asc')  # Default direction is ascending
         if sort_by:
             if sort_by == 'tenant':
-                pass
+                queryset = queryset.order_by(f"{'-' if direction == 'desc' else ''}tenant__name")
             elif sort_by == 'status':
-                pass
+                queryset = queryset.order_by(f"{'-' if direction == 'desc' else ''}status")
             elif sort_by == 'boarding_room':
-                pass
+                queryset = queryset.order_by(f"{'-' if direction == 'desc' else ''}boarding_room__name")
             elif sort_by == 'boarding_house':
-                pass
+                queryset = queryset.order_by(f"{'-' if direction == 'desc' else ''}boarding_room__boarding_house__name")
             elif sort_by == 'created_at':
-                pass
+                queryset = queryset.order_by(f"{'-' if direction == 'desc' else ''}created_at")
+            elif sort_by == 'updated_at':
+                queryset = queryset.order_by(f"{'-' if direction == 'desc' else ''}updated_at")
 
         return queryset
 
@@ -578,12 +580,21 @@ class RoomTenantListView(ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(boarding_room__boarding_house__landlord=self.request.user)
 
+        # Handle search query
+        query = self.request.GET.get('query', '')
+        search_by = self.request.GET.get('search_by', 'tenant')  # Default to 'tenant' if not specified
+        if query:
+            if search_by == 'tenant':
+                queryset = queryset.filter(tenant__username__icontains=query)
+            elif search_by == 'boarding_room':
+                queryset = queryset.filter(boarding_room__name__icontains=query)
+
         tenant_status = self.kwargs.get('tenant_status')
 
-        if tenant_status == 'checked-in':
-            queryset = queryset.filter(check_out_date__isnull=True)
-        elif tenant_status == 'checked-out':
+        if tenant_status == 'checked-out':
             queryset = queryset.filter(check_out_date__isnull=False)
+        else:
+            queryset = queryset.filter(check_out_date__isnull=True)
 
         return queryset
 
@@ -602,6 +613,7 @@ class RoomTenantListView(ListView):
 
             with transaction.atomic():
                 messages.success(request, "Tenant has been checkout successfully.")
+                create_notification(room_tenant.tenant, "Checked Out", "You have been checked out by your landlord.")
                 # Checkout the tenant
                 room_tenant.check_out_date = timezone.now()
                 room_tenant.save()

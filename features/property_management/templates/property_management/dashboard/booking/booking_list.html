@@ -1,179 +1,222 @@
 {% extends 'property_management/dashboard/booking/booking_management.html' %}
-{% load static %}
+<!-- prettier-ignore -->
+{%load static %}
 {% block table %}
-    <h1 class="text-center pb-5 text-2xl font-semibold text-gray-900 dark:text-gray-200">Incoming Bookings
-        <span class="text-sm font-normal text-gray-500">({{ total_bookings }})</span>
-    </h1>
-    <table
-        id="booking-table"
-        class="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right"
-    >
-        <thead
-            class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+<h1
+  class="pb-5 text-center text-2xl font-semibold text-gray-900 dark:text-gray-200"
+>
+  Incoming Bookings
+  <span class="text-sm font-normal text-gray-500">({{ total_bookings }})</span>
+</h1>
+<table
+  id="booking-table"
+  class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400"
+>
+  <thead
+    class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+  >
+    <tr>
+      <th scope="col" class="px-6 py-3">
+        <a
+          href="?sort=name&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}"
         >
-        <tr>
-            <th scope="col" class="px-6 py-3">
-                <a href="?sort=name&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
-                    Tenant
-                    <i class="ms-2 fa-solid fa-sort"></i>
-                </a>
-            </th>
-            <th scope="col" class="px-6 py-3">
-                <a href="?sort=status&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
-                    Status
-                    <i class="ms-2 fa-solid fa-sort"></i>
-                </a>
-            </th>
-            <th scope="col" class="px-6 py-3">
-                <a href="?sort=boarding_house&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
-                    Room
-                    <i class="ms-2 fa-solid fa-sort"></i>
-                </a>
-            </th>
-            <th scope="col" class="px-6 py-3">
-                <a href="?sort=boarding_house&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
-                    Boarding House
-                    <i class="ms-2 fa-solid fa-sort"></i>
-                </a>
-            </th>
-            <th
-                scope="col"
-                class="px-6 py-3"
-                data-type="date"
-                data-format="MM/DD/YYYY"
-            >
-                <a href="?sort=created_at&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
-                    Date Created
-                    <i class="ms-2 fa-solid fa-sort"></i>
-                </a>
-            </th>
-            <th
-                scope="col"
-                class="px-6 py-3"
-                data-type="date"
-                data-format="MM/DD/YYYY"
-            >
-                <a href="?sort=updated_at&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}">
-                    Date Updated
-                    <i class="ms-2 fa-solid fa-sort"></i>
-                </a>
-            </th>
-            <th scope="col" class="px-6 py-3" data-sortable="false">
-                Action
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        {% if not bookings %}
-            <tr>
-                <td colspan="6" class="text-center py-5 text-gray-500 dark:text-gray-400">
-                    No bookings found.
-                </td>
-            </tr>
-        {% endif %}
-        {% for booking in bookings %}
-            <tr
-                class="bg-white dark:bg-gray-800"
-            >
-                <th
-                    scope="row"
-                    class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                >
-                    <a href="{{ booking.tenant.get_absolute_url }}">{{ booking.tenant.username }}</a>
-                </th>
-                <td class="px-6 py-4">{{ booking.status|title }}</td>
-                <td class="px-6 py-4"><a
-                    href="{{ booking.boarding_room.get_absolute_url }}">{{ booking.boarding_room.name }}</a></td>
-                <td class="px-6 py-4"><a
-                    href="{{ booking.boarding_room.boarding_house.get_absolute_url }}">{{ booking.boarding_room.boarding_house.name }}</a>
-                </td>
-                <td class="px-6 py-4">{{ booking.created_at|date:"m/d/Y" }}</td>
-                <td class="px-6 py-4">{{ booking.updated_at|date:"m/d/Y" }}</td>
-                <td class="flex items-center px-6 py-4">
-                    <a href="{{ booking.get_absolute_url }}"
-                       class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800">
-                        Preview
-                    </a>
+          Tenant
+          <i class="fa-solid fa-sort ms-2"></i>
+        </a>
+      </th>
+      <th scope="col" class="px-6 py-3">
+        <a
+          href="?sort=status&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}"
+        >
+          Status
+          <i class="fa-solid fa-sort ms-2"></i>
+        </a>
+      </th>
+      <th scope="col" class="px-6 py-3">
+        <a
+          href="?sort=boarding_house&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}"
+        >
+          Room
+          <i class="fa-solid fa-sort ms-2"></i>
+        </a>
+      </th>
+      <th scope="col" class="px-6 py-3">
+        <a
+          href="?sort=boarding_house&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}"
+        >
+          Boarding House
+          <i class="fa-solid fa-sort ms-2"></i>
+        </a>
+      </th>
+      <th
+        scope="col"
+        class="px-6 py-3"
+        data-type="date"
+        data-format="MM/DD/YYYY"
+      >
+        <a
+          href="?sort=created_at&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}"
+        >
+          Date Created
+          <i class="fa-solid fa-sort ms-2"></i>
+        </a>
+      </th>
+      <th
+        scope="col"
+        class="px-6 py-3"
+        data-type="date"
+        data-format="MM/DD/YYYY"
+      >
+        <a
+          href="?sort=updated_at&direction={% if request.GET.direction == 'asc' %}desc{% else %}asc{% endif %}&query={{ request.GET.query }}"
+        >
+          Date Updated
+          <i class="fa-solid fa-sort ms-2"></i>
+        </a>
+      </th>
+      <th scope="col" class="px-6 py-3" data-sortable="false">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if not bookings %}
+    <tr>
+      <td colspan="6" class="py-5 text-center text-gray-500 dark:text-gray-400">
+        No bookings found.
+      </td>
+    </tr>
+    {% endif %} {% for booking in bookings %}
+    <tr class="bg-white dark:bg-gray-800">
+      <th
+        scope="row"
+        class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+      >
+        <a href="{{ booking.tenant.get_absolute_url }}"
+          >{{ booking.tenant.username }}</a
+        >
+      </th>
+      <td class="px-6 py-4">{{ booking.status|title }}</td>
+      <td class="px-6 py-4">
+        <a href="{{ booking.boarding_room.get_absolute_url }}"
+          >{{ booking.boarding_room.name }}</a
+        >
+      </td>
+      <td class="px-6 py-4">
+        <a href="{{ booking.boarding_room.boarding_house.get_absolute_url }}"
+          >{{ booking.boarding_room.boarding_house.name }}</a
+        >
+      </td>
+      <td class="px-6 py-4">{{ booking.created_at|date:"m/d/Y" }}</td>
+      <td class="px-6 py-4">{{ booking.updated_at|date:"m/d/Y" }}</td>
+      <td class="flex items-center px-6 py-4">
+        <a
+          href="{{ booking.get_absolute_url }}"
+          class="mb-2 me-2 rounded-lg border border-blue-700 px-5 py-2.5 text-center text-sm font-medium text-blue-700 hover:bg-blue-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-600 dark:hover:text-white dark:focus:ring-blue-800"
+        >
+          Preview
+        </a>
 
-                    {% if booking.status == 'pending' %}
-                        <form id="approve-booking-form" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="approve-booking" value="{{ booking.id }}">
-                            <button
-                                data-modal-target="confirmation-modal"
-                                data-modal-show="confirmation-modal"
-                                type="submit"
-                                data-action-button="approve-booking"
-                                class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
-                            >
-                                Approve
-                            </button>
-                        </form>
-                        <form id="reject-booking-form" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="reject-booking" value="{{ booking.id }}">
-                            <button
-                                data-modal-target="confirmation-modal"
-                                data-modal-show="confirmation-modal"
-                                type="submit"
-                                data-action-button="reject-booking"
-                                class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                            >
-                                Reject
-                            </button>
-                        </form>
-                    {% elif booking.status == 'approved' %}
-                        <form id="complete-booking-form" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="complete-booking" value="{{ booking.id }}">
-                            <button
-                                data-modal-target="confirmation-modal"
-                                data-modal-show="confirmation-modal"
-                                type="submit"
-                                data-action-button="complete-booking"
-                                class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
-                            >
-                                Check-in
-                            </button>
-                        </form>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="flex items-center justify-between p-5">
-        <!-- Help text -->
-        <span class="text-sm text-gray-700 dark:text-gray-400">
-      Showing <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.number }}</span> of <span
-            class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.num_pages }}</span> Entries
+        {% if booking.status == 'pending' %}
+        <form class="approve-booking-form" method="POST">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="approve-booking"
+            value="{{ booking.id }}"
+          />
+          <button
+            data-modal-target="confirmation-modal"
+            data-modal-show="confirmation-modal"
+            type="submit"
+            data-action-button="approve-booking"
+            class="mb-2 me-2 rounded-lg border border-green-700 px-5 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+          >
+            Approve
+          </button>
+        </form>
+        <form class="reject-booking-form" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="reject-booking" value="{{ booking.id }}" />
+          <button
+            data-modal-target="confirmation-modal"
+            data-modal-show="confirmation-modal"
+            type="submit"
+            data-action-button="reject-booking"
+            class="mb-2 me-2 rounded-lg border border-red-700 px-5 py-2.5 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900"
+          >
+            Reject
+          </button>
+        </form>
+        {% elif booking.status == 'approved' %}
+        <form class="complete-booking-form" method="POST">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="complete-booking"
+            value="{{ booking.id }}"
+          />
+          <button
+            data-modal-target="confirmation-modal"
+            data-modal-show="confirmation-modal"
+            type="submit"
+            data-action-button="complete-booking"
+            class="mb-2 me-2 rounded-lg border border-green-700 px-5 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+          >
+            Check-in
+          </button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="flex items-center justify-between p-5">
+  <!-- Help text -->
+  <span class="text-sm text-gray-700 dark:text-gray-400">
+    Showing
+    <span class="font-semibold text-gray-900 dark:text-white"
+      >{{ page_obj.number }}</span
+    >
+    of
+    <span class="font-semibold text-gray-900 dark:text-white"
+      >{{ page_obj.paginator.num_pages }}</span
+    >
+    Entries
   </span>
-        <!-- Buttons -->
-        <div class="inline-flex mt-2 xs:mt-0">
-            {% if page_obj.has_previous %}
-                <a href="?page=1"
-                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                    First
-                </a>
-                <a href="?page={{ page_obj.previous_page_number }}"
-                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                    Prev
-                </a>
-            {% endif %}
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.paginator.num_pages }}"
-                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                    Next
-                </a>
-                <a href="?page={{ page_obj.paginator.num_pages }}"
-                   class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                    Last
-                </a>
-            {% endif %}
-        </div>
-    </div>
-    <script type="module" src="{% static 'js/booking_list.js' %}"></script>
-    {% include 'html/modals/confirmation-modal.html' with icon='<i class="fa-solid fa-circle-exclamation me-2 text-4xl text-gray-400 dark:text-gray-500 m-5"></i>' %}
+  <!-- Buttons -->
+  <div class="xs:mt-0 mt-2 inline-flex">
+    {% if page_obj.has_previous %}
+    <a
+      href="?page=1"
+      class="mb-2 me-2 rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+    >
+      First
+    </a>
+    <a
+      href="?page={{ page_obj.previous_page_number }}"
+      class="mb-2 me-2 rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+    >
+      Prev
+    </a>
+    {% endif %} {% if page_obj.has_next %}
+    <a
+      href="?page={{ page_obj.paginator.num_pages }}"
+      class="mb-2 me-2 rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+    >
+      Next
+    </a>
+    <a
+      href="?page={{ page_obj.paginator.num_pages }}"
+      class="mb-2 me-2 rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+    >
+      Last
+    </a>
+    {% endif %}
+  </div>
+</div>
+<script type="module" src="{% static 'js/booking_list.js' %}"></script>
+    <!-- prettier-ignore -->
+{% include 'html/modals/confirmation-modal.html' with icon='<i class="fa-solid fa-circle-exclamation m-5 me-2 text-4xl text-gray-400 dark:text-gray-500"></i>' %}
     {% for message in messages %}
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
             {% include 'html/modals/success_modal.html' with message=message %}

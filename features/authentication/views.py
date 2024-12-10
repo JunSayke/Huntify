@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.views import LoginView as DjangoLoginView, PasswordChangeView
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DetailView, TemplateView
@@ -91,6 +91,31 @@ class ProfileView(DetailView):
             booking.save()
             messages.success(request, "Booking cancelled successfully.")
             return redirect(self.object.get_absolute_url())
+        elif 'mark-read-notification' in request.POST:
+            from features.notification.models import Notification
+            notification_id = request.POST.get('mark-read-notification')
+            notification = get_object_or_404(Notification, id=notification_id)
+
+            # Ensure only authorized users can mark notification as read
+            if notification.user != request.user:
+                return HttpResponseForbidden("You are not allowed to mark this notification as read.")
+
+            notification.is_read = True
+            notification.save()
+            messages.success(request, "Notification marked as read.")
+            return HttpResponseRedirect(f"{self.object.get_absolute_url()}?tab=notifications")
+        elif 'delete-notification' in request.POST:
+            from features.notification.models import Notification
+            notification_id = request.POST.get('delete-notification')
+            notification = get_object_or_404(Notification, id=notification_id)
+
+            # Ensure only authorized users can delete notification
+            if notification.user != request.user:
+                return HttpResponseForbidden("You are not allowed to delete this notification.")
+
+            notification.delete()
+            messages.success(request, "Notification deleted.")
+            return HttpResponseRedirect(f"{self.object.get_absolute_url()}?tab=notifications")
 
         return self.render_to_response(context)
 

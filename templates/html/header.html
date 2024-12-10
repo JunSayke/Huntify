@@ -1,148 +1,253 @@
-{% load static %}
-{% load custom_tag %}
+{% load static %} {% load custom_tag %}
 
 <header>
-    <nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-[#319b94] dark:border-gray-600" role="navigation">
-        <div class="container mx-auto flex flex-wrap items-center justify-between px-6 py-3">
-            <!-- Logo -->
-            <a href="#" class="flex items-center space-x-3">
-                <div class="p-2">
-                    <img src="{% static 'images/logo1.png' %}" alt="Logo" class="h-12 object-contain" />
-                </div>
-            </a>
-
-            <!-- Navigation Links -->
-            <div id="menu" class="hidden w-full flex-col md:flex md:w-auto md:flex-row md:items-center">
-                <ul class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-8">
-                    <li>
-                        <a href="{% url 'authentication:home' %}" class="block px-4 py-2 text-base font-medium font-['Plus Jakarta Sans'] text-white hover:text-gray-200 {% if request.resolver_match.url_name == 'home' %}text-gray-200{% endif %}">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'property_management:landlords' %}" class="block px-4 py-2 text-base font-medium font-['Plus Jakarta Sans'] text-white hover:text-gray-200 {% if request.resolver_match.url_name == 'landlords' %}text-gray-200{% endif %}">
-                            Landlord
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about" class="block px-4 py-2 text-base font-medium font-['Plus Jakarta Sans'] text-white hover:text-gray-200 {% if request.resolver_match.url_name == 'about' %}text-gray-200{% endif %}">
-                            About Us
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex items-center space-x-5">
-                {% if user.is_authenticated %}
-                    <!-- Notification Button -->
-                    <div class="flex items-center">
-                        <button type="button" id="notification-menu-button" aria-expanded="false" data-dropdown-toggle="notification-dropdown" data-dropdown-placement="bottom" class="relative w-12 h-12 flex items-center justify-center">
-                            <span class="sr-only">Open notification menu</span>
-                            {% call_method 'notification.Notification' 'get_user_unread_notifications' request.user as notifications %}
-                            {% if notifications %}
-                                <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-[#1f7a76] rounded-full -top-2 -end-2">
-                                    {{ notifications.count }}
-                                </div>
-                            {% endif %}
-                            <i class="fa-solid fa-bell text-2xl text-white hover:text-gray-200"></i>
-                        </button>
-                        <div
-                            class="z-50 my-2 hidden list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
-                            id="notification-dropdown">
-                            <ul class="flex items-center flex-col"></ul>
-                            <div class="flex">
-                                <a href="{% url 'authentication:my-profile' %}" class="text-sm font-medium text-[#1f7a76] hover:underline p-3 mx-auto">View All</a>
-                            </div>
-                            <script type="module" src="{% static 'js/notification.js' %}"></script>
-                        </div>
-                    </div>
-
-                    <!-- Profile Menu -->
-                    <div class="relative">
-                        <button type="button" id="user-menu-button" class="flex items-center" aria-expanded="false" data-dropdown-toggle="user-dropdown">
-                            <span class="sr-only">Open user menu</span>
-                            <img class="h-10 w-10 rounded-full object-cover" src="{{ user.avatar }}" alt="{{ user.username }}" />
-                        </button>
-                        <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 dark:bg-gray-700 dark:divide-gray-600">
-                            <div class="px-4 py-3">
-                                <span class="block text-sm text-[#1f7a76]">{{ user.username }}</span>
-                                <span class="block truncate text-sm text-gray-500">{{ user.email }}</span>
-                            </div>
-                            <ul class="py-2">
-                                <li>
-                                    <a href="{{ user.get_absolute_url }}" class="block px-4 py-2 text-sm text-[#1f7a76] hover:bg-gray-100">
-                                        Profile
-                                    </a>
-                                </li>
-                                {% if user.user_type == 'landlord' %}
-                                    <li>
-                                        <a href="{% url 'property_management:dashboard' %}" class="block px-4 py-2 text-sm text-[#1f7a76] hover:bg-gray-100">
-                                            Dashboard
-                                        </a>
-                                    </li>
-                                {% endif %}
-                                <li>
-                                    <form method="POST" action="{% url 'authentication:logout' %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                                            Sign out
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                {% else %}
-                    <a href="{% url 'authentication:login' %}" class="rounded-lg bg-[#369e98] px-3 py-1 text-sm font-medium text-white hover:bg-[#317d74] w-32 h-9 flex items-center justify-center">
-                        Sign In
-                    </a>
-                {% endif %}
-
-                <!-- Rent a Room Button -->
-                <a href="{% url 'property_management:rent-a-room' %}" class="rounded-lg bg-white border border-gray-300 px-3 py-1 text-center text-sm font-medium text-[#1f7a76] hover:bg-gray-100 hover:border-gray-400 w-32 h-9 flex items-center justify-center">
-                    Rent a Room
-                </a>
-
-                <!-- Hamburger Menu Button (Moved) -->
-                <div class="relative md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center rounded-md p-2 text-white hover:text-gray-200 dark:hover:bg-gray-700" aria-controls="hamburger-menu" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
-                    </button>
-
-                    <!-- Hamburger Menu Dropdown -->
-                    <div id="hamburger-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 dark:bg-gray-700 dark:divide-gray-600">
-                        <ul class="flex flex-col space-y-2">
-                            <li>
-                                <a href="{% url 'authentication:home' %}" class="block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-200">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'property_management:landlords' %}" class="block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-200">
-                                    Landlord
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#about" class="block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-200">
-                                    About Us
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <nav
+    class="fixed top-0 z-50 w-full border-b border-gray-200 bg-[#319b94] dark:border-gray-600"
+    role="navigation"
+  >
+    <div
+      class="container mx-auto flex flex-wrap items-center justify-between px-6 py-3"
+    >
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-3">
+        <div class="p-2">
+          <img
+            src="{% static 'images/logo1.png' %}"
+            alt="Logo"
+            class="h-12 object-contain"
+          />
         </div>
-    </nav>
+      </a>
+
+      <!-- Navigation Links -->
+      <div
+        id="menu"
+        class="hidden w-full flex-col md:flex md:w-auto md:flex-row md:items-center"
+      >
+        <ul
+          class="flex flex-col space-y-2 md:flex-row md:space-x-8 md:space-y-0"
+        >
+          <li>
+            <a
+              href="{% url 'authentication:home' %}"
+              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'home' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="{% url 'property_management:landlords' %}"
+              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'landlords' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
+            >
+              Landlord
+            </a>
+          </li>
+          <li>
+            <a
+              href="#about"
+              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'about' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
+            >
+              About Us
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-5">
+        {% if user.is_authenticated %}
+        <!-- Notification Button -->
+        <div class="flex items-center">
+          <button
+            type="button"
+            id="notification-menu-button"
+            aria-expanded="false"
+            data-dropdown-toggle="notification-dropdown"
+            data-dropdown-placement="bottom"
+            class="relative flex h-12 w-12 items-center justify-center"
+          >
+            <span class="sr-only">Open notification menu</span>
+            <!-- prettier-ignore -->
+            {% call_method 'notification.Notification' 'get_user_unread_notifications' request.user as notifications %}
+            {% if notifications %}
+            <div
+              class="absolute -end-2 -top-2 inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-[#1f7a76] bg-red-500 text-xs font-bold text-white"
+            >
+              {{ notifications.count }}
+            </div>
+            {% endif %}
+            <i
+              class="fa-solid fa-bell text-2xl text-white hover:text-gray-200"
+            ></i>
+          </button>
+          <div
+            class="z-50 my-2 hidden list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
+            id="notification-dropdown"
+          >
+            <ul class="flex flex-col items-center"></ul>
+            <div class="flex">
+              <a
+                href="{% url 'authentication:my-profile' %}?tab=notifications"
+                class="mx-auto p-3 text-sm font-medium text-[#1f7a76] hover:underline"
+                >View All</a
+              >
+            </div>
+            <script
+              type="module"
+              src="{% static 'js/notification.js' %}"
+            ></script>
+          </div>
+        </div>
+
+        <!-- Profile Menu -->
+        <div class="relative">
+          <button
+            type="button"
+            id="user-menu-button"
+            class="flex items-center"
+            aria-expanded="false"
+            data-dropdown-toggle="user-dropdown"
+          >
+            <span class="sr-only">Open user menu</span>
+            <img
+              class="h-10 w-10 rounded-full object-cover"
+              src="{{ user.avatar }}"
+              alt="{{ user.username }}"
+            />
+          </button>
+          <div
+            id="user-dropdown"
+            class="absolute right-0 z-50 mt-2 hidden w-48 rounded-md bg-white shadow-lg dark:divide-gray-600 dark:bg-gray-700"
+          >
+            <div class="px-4 py-3">
+              <span class="block text-sm text-[#1f7a76]"
+                >{{ user.username }}</span
+              >
+              <span class="block truncate text-sm text-gray-500"
+                >{{ user.email }}</span
+              >
+            </div>
+            <ul class="py-2">
+              <li>
+                <a
+                  href="{{ user.get_absolute_url }}"
+                  class="block px-4 py-2 text-sm text-[#1f7a76] hover:bg-gray-100"
+                >
+                  Profile
+                </a>
+              </li>
+              {% if user.user_type == 'landlord' %}
+              <li>
+                <a
+                  href="{% url 'property_management:dashboard' %}"
+                  class="block px-4 py-2 text-sm text-[#1f7a76] hover:bg-gray-100"
+                >
+                  Dashboard
+                </a>
+              </li>
+              {% endif %}
+              <li>
+                <form method="POST" action="{% url 'authentication:logout' %}">
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
+                  >
+                    Sign out
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% else %}
+        <a
+          href="{% url 'authentication:login' %}"
+          class="flex h-9 w-32 items-center justify-center rounded-lg bg-[#369e98] px-3 py-1 text-sm font-medium text-white hover:bg-[#317d74]"
+        >
+          Sign In
+        </a>
+        {% endif %}
+
+        <!-- Rent a Room Button -->
+        <a
+          href="{% url 'property_management:rent-a-room' %}"
+          class="flex h-9 w-32 items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-1 text-center text-sm font-medium text-[#1f7a76] hover:border-gray-400 hover:bg-gray-100"
+        >
+          Rent a Room
+        </a>
+
+        <!-- Hamburger Menu Button (Moved) -->
+        <div class="relative md:hidden">
+          <button
+            type="button"
+            class="inline-flex items-center justify-center rounded-md p-2 text-white hover:text-gray-200 dark:hover:bg-gray-700"
+            aria-controls="hamburger-menu"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+
+          <!-- Hamburger Menu Dropdown -->
+          <div
+            id="hamburger-menu"
+            class="absolute right-0 z-50 mt-2 hidden w-48 rounded-md bg-white shadow-lg dark:divide-gray-600 dark:bg-gray-700"
+          >
+            <ul class="flex flex-col space-y-2">
+              <li>
+                <a
+                  href="{% url 'authentication:home' %}"
+                  class="block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-200"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="{% url 'property_management:landlords' %}"
+                  class="block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-200"
+                >
+                  Landlord
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-200"
+                >
+                  About Us
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <script>
-    const hamburgerButton = document.querySelector('button[aria-controls="hamburger-menu"]');
-    const dropdownMenu = document.getElementById('hamburger-menu');
-    hamburgerButton.addEventListener('click', () => {
-        dropdownMenu.classList.toggle('hidden');
-    });
+  const hamburgerButton = document.querySelector(
+    'button[aria-controls="hamburger-menu"]',
+  );
+  const dropdownMenu = document.getElementById("hamburger-menu");
+  hamburgerButton.addEventListener("click", () => {
+    dropdownMenu.classList.toggle("hidden");
+  });
 </script>

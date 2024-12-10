@@ -1,45 +1,69 @@
 {% load humanize %}
 
 <div
-    class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
-    id="notifications"
-    role="tabpanel"
-    aria-labelledby="notifications-tab">
-    <ul
-        class="flex flex-col items-center sm:items-start"
-        id="notification-container">
-        {% for notification in notifications %}
-        <li
-            class="p-5 w-full font-normal flex justify-between items-center sm:items-start gap-6"
-            id="notification-{{ notification.id }}">
-            <div class="flex-1">
-                <div class="text-sm font-semibold text-gray-900 dark:text-white">
-                    {{ notification.title }}
-                </div>
-                <div class="text-sm font-normal">{{ notification.message }}</div>
-                <span class="text-xs font-medium text-blue-600 dark:text-blue-500">
-                    {{ notification.created_at|naturaltime }}
-                </span>
-            </div>
-            <div class="flex space-x-2 mt-2 sm:mt-0">
-                {% if not notification.is_read %}
-                <button
-                    data-action-button="mark-read-notification"
-                    class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
-                    data-id="{{ notification.id }}">
-                    <i class="fa-solid fa-check"></i>
-                </button>
-                {% endif %}
-                <button
-                    data-action-button="delete-notification"
-                    class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
-                    data-id="{{ notification.id }}">
-                    <i class="fa-solid fa-trash-can"></i>
-                </button>
-            </div>
-        </li>
-        {% empty %}
-        <li class="w-full justify-center">No notifications yet.</li>
-        {% endfor %}
-    </ul>
+  class="hidden rounded-lg bg-gray-50 p-4 dark:bg-gray-800"
+  id="notifications"
+  role="tabpanel"
+  aria-labelledby="notifications-tab"
+>
+  <ul
+    class="flex flex-col items-center sm:items-start"
+    id="notification-container"
+  >
+    {% for notification in notifications %}
+    <li
+      class="flex w-full items-center justify-between gap-6 p-5 font-normal sm:items-start"
+      id="notification-{{ notification.id }}"
+    >
+      <div class="flex-1">
+        <div class="text-sm font-semibold text-gray-900 dark:text-white">
+          {{ notification.title }}
+        </div>
+        <div class="text-sm font-normal">{{ notification.message }}</div>
+        <span class="text-xs font-medium text-blue-600 dark:text-blue-500">
+          {{ notification.created_at|naturaltime }}
+        </span>
+      </div>
+      <div class="mt-2 flex space-x-2 sm:mt-0">
+        {% if not notification.is_read %}
+        <form class="mark-read-notification-form" method="POST">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="mark-read-notification"
+            value="{{ notification.id }}"
+          />
+          <button
+            type="submit"
+            data-action-button="mark-read-notification"
+            class="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            data-id="{{ notification.id }}"
+          >
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </form>
+        {% endif %}
+        <form class="delete-notification-form" method="POST">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="delete-notification"
+            value="{{ notification.id }}"
+          />
+          <button
+            data-modal-target="confirmation-modal"
+            data-modal-show="confirmation-modal"
+            data-action-button="delete-notification"
+            class="rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+            data-id="{{ notification.id }}"
+          >
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </form>
+      </div>
+    </li>
+    {% empty %}
+    <li class="w-full justify-center">No notifications yet.</li>
+    {% endfor %}
+  </ul>
 </div>

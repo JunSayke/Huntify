@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", async function() {
             };
 
             modal.confirmButtonEl.addEventListener("click", async () => {
-                console.log(modal.formEl);
                 if (modal.formEl) {
                     modal.formEl.submit();
                 }
@@ -35,22 +34,22 @@ document.addEventListener("DOMContentLoaded", async function() {
                     case "complete-booking":
                         event.preventDefault();
                         modal.textEl.textContent = `Are you sure you want to check-in this booking? This cannot be undone.`;
-                        modal.formEl = button.closest("form#complete-booking-form");
+                        modal.formEl = button.closest("form.complete-booking-form");
                         break;
                     case "approve-booking":
                         event.preventDefault();
                         modal.textEl.textContent = `Are you sure you want to approve this booking? This cannot be undone.`;
-                        modal.formEl = button.closest("form#approve-booking-form");
+                        modal.formEl = button.closest("form.approve-booking-form");
                         break;
                     case "reject-booking":
                         event.preventDefault();
                         modal.textEl.textContent = `Are you sure you want to reject this booking? This cannot be undone.`;
-                        modal.formEl = button.closest("form#reject-booking-form");
+                        modal.formEl = button.closest("form.reject-booking-form");
                         break;
                     case "delete-booking":
                         event.preventDefault();
                         modal.textEl.textContent = `Are you sure you want to delete this booking? This cannot be undone.`;
-                        modal.formEl = button.closest("form#delete-booking-form");
+                        modal.formEl = button.closest("form.delete-booking-form");
                         break;
                     default:
                         break;
