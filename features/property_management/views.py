@@ -559,6 +559,17 @@ class BookingDetailView(DetailView):
             messages.success(request, "Booking completed successfully.")
             return HttpResponseRedirect(self.object.get_absolute_url())
 
+        elif 'delete-booking' in request.POST:
+            booking_id = request.POST.get('delete-booking')
+            booking = get_object_or_404(Booking, id=booking_id)
+
+            if booking.boarding_room.boarding_house.landlord != request.user:
+                return HttpResponseForbidden("You are not allowed to delete this booking.")
+
+            booking.delete()
+            messages.success(request, "Booking deleted successfully.")
+            return redirect('property_management:booking-management')
+
         return self.render_to_response(context)
 
 
