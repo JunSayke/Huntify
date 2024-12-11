@@ -1,22 +1,129 @@
 {% extends 'property_management/dashboard/base.html' %}
 {% load static %}
 {% block side_content %}
-    <h1>Booking Detail</h1>
-    <p>{{ booking.tenant.get_full_name }}</p>
-    <p>{{ booking.boarding_room.name }}</p>
-    <p>{{ booking.visit_date }}</p>
-    <p>{{ booking.visit_time|date:"H:i" }}</p>
-    <p>{{ booking.status }}</p>
-    <p>{{ booking.first_name }}</p>
-    <p>{{ booking.last_name }}</p>
-    <p>{{ booking.email }}</p>
-    <p>{{ booking.contact_number }}</p>
-    <p>{{ booking.message }}</p>
-    <p>{{ booking.created_at }}</p>
-    <p>{{ booking.updated_at }}</p>
+<div class="bg-white overflow-hidden shadow rounded-lg border">
+    <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Booking Details
+        </h3>
+        <p class="mt-5 max-w-2xl text-sm text-gray-500">
+            Detailed information about the booking
+        </p>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+        <dl class="sm:divide-y sm:divide-gray-200">
+            <!-- Tenant Information -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Tenant Name
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.tenant.get_full_name }}
+                </dd>
+            </div>
+            <!-- Boarding Room -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Boarding Room
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.boarding_room.name }}
+                </dd>
+            </div>
+            <!-- Visit Date -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Visit Date
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.visit_date }}
+                </dd>
+            </div>
+            <!-- Visit Time -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Visit Time
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.visit_time|date:"H:i" }}
+                </dd>
+            </div>
+            <!-- Status -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Status
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.status }}
+                </dd>
+            </div>
+            <!-- Contact Information -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    First Name
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.first_name }}
+                </dd>
+            </div>
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Last Name
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.last_name }}
+                </dd>
+            </div>
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Email
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.email }}
+                </dd>
+            </div>
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Contact Number
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.contact_number }}
+                </dd>
+            </div>
+            <!-- Message -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Message
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.message }}
+                </dd>
+            </div>
+            <!-- Timestamps -->
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Created At
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.created_at }}
+                </dd>
+            </div>
+            <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-semibold text-gray-900">
+                    Updated At
+                </dt>
+                <dd class="mt-1 text-sm text-gray-500 sm:mt-0 sm:col-span-2">
+                    {{ booking.updated_at }}
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
 
+<!-- Action Buttons -->
+<div class="mt-6">
     {% if booking.status == 'pending' %}
-        <form id="approve-booking-form" method="POST">
+        <form id="approve-booking-form" method="POST" class="inline-block">
             {% csrf_token %}
             <input type="hidden" name="approve-booking" value="{{ booking.id }}">
             <button
@@ -29,7 +136,7 @@
                 Approve
             </button>
         </form>
-        <form id="reject-booking-form" method="POST">
+        <form id="reject-booking-form" method="POST" class="inline-block">
             {% csrf_token %}
             <input type="hidden" name="reject-booking" value="{{ booking.id }}">
             <button
@@ -71,11 +178,13 @@
             </button>
         </form>
     {% endif %}
+</div>
 
-    {% include 'html/modals/confirmation-modal.html' with icon='<i class="fa-solid fa-circle-exclamation me-2 text-4xl text-gray-400 dark:text-gray-500 m-5"></i>' %}
-    {% for message in messages %}
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-            {% include 'html/modals/success_modal.html' with message=message %}
-        {% endif %}
-    {% endfor %}
+<!-- Include Modals -->
+{% include 'html/modals/confirmation-modal.html' with icon='<i class="fa-solid fa-circle-exclamation me-2 text-4xl text-gray-400 dark:text-gray-500 m-5"></i>' %}
+{% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        {% include 'html/modals/success_modal.html' with message=message %}
+    {% endif %}
+{% endfor %}
 {% endblock %}
