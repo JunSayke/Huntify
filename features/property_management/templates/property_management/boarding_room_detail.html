@@ -97,12 +97,12 @@
                         </p>
                     </div>
                     <div class="my-5 p-4 bg-gray-100 rounded-lg">
-                        <h5 class="mb-2 font-bold text-black">Tags</h5>
+                        <h5 class="mb-4 font-bold text-black">Tags</h5>
                         <div>
                             {% if boarding_room.tags.all %}
                                 <ul class="flex flex-wrap gap-2">
                                     {% for room_tag in boarding_room.tags.all %}
-                                        <li class="p-2 bg-gray-300 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ room_tag.tag.name }}</li>
+                                        <li class="rounded-xl p-2 bg-[#3aafa9] text-white text-sm font-medium px-4 py-2 dark:bg-gray-700 dark:text-gray-300">{{ room_tag.tag.name }}</li>
                                     {% endfor %}
                                 </ul>
                             {% else %}

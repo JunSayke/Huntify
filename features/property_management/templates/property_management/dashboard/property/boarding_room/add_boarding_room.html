@@ -167,7 +167,7 @@
                             {% for tag in form.tags.subwidgets %}
                                 <div class="me-4 flex items-center">
                                     <input id="{{ tag.id_for_label }}" type="checkbox"
-                                           name="{{ form.tags.name }}"
+                                           name="{{ form.tags.html_name }}"
                                            value="{{ tag.data.value }}"
                                            data-target-input="tags"
                                            class="w-4 h-4 text-[#319b94] bg-gray-100 border-gray-300 rounded focus:ring-[#319b94]">
