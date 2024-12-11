@@ -18,31 +18,31 @@
                     <nav>
                         <ul class="flex flex-col gap-y-5">
                             <li>
-                                <a href="{% url 'property_management:dashboard' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
+                                <a href="{% url 'property_management:dashboard' %}" class="block w-full text-left text-gray-900 dark:text-gray-100 px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-people-roof"></i>
                                     Property Management
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'property_management:booking-management' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
+                                <a href="{% url 'property_management:booking-management' %}" class="block w-full text-left text-gray-900 dark:text-gray-100 px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-book"></i>
                                     Booking Management
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'property_management:tenant-management' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
+                                <a href="{% url 'property_management:tenant-management' %}" class="block w-full text-left text-gray-900 dark:text-gray-100 px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-person-shelter"></i>
                                     Tenants
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ user.get_absolute_url }}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
+                                <a href="{{ user.get_absolute_url }}" class="block w-full text-left text-gray-900 dark:text-gray-100 px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-user"></i>
                                     View Profile
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'authentication:home' %}" class="block w-full text-left bg-[#319b94] text-white hover:bg-[#26776f] px-4 py-2 rounded-md flex items-center gap-x-2">
+                                <a href="{% url 'authentication:home' %}" class="block w-full text-left text-gray-900 dark:text-gray-100 px-4 py-2 rounded-md flex items-center gap-x-2">
                                     <i class="fa-solid fa-house"></i>
                                     Go back to home
                                 </a>
@@ -50,7 +50,7 @@
                             <li>
                                 <form method="POST" action="{% url 'authentication:logout' %}" class="w-full">
                                     {% csrf_token %}
-                                    <button type="submit" class="block w-full bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md flex items-center gap-x-2">
+                                    <button type="submit" class="block w-full text-gray-900 px-4 py-2 rounded-md flex items-center gap-x-2">
                                         <i class="fa-solid fa-right-from-bracket"></i>
                                         Sign out
                                     </button>

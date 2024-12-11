@@ -3,7 +3,7 @@
 {% block side_content %}
 <div class="bg-white overflow-hidden shadow rounded-lg border">
     <div class="px-4 py-5 sm:px-6">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
+        <h3 class="text-lg leading-6 text-gray-900 font-semibold">
             Booking Details
         </h3>
         <p class="mt-5 max-w-2xl text-sm text-gray-500">
@@ -180,6 +180,7 @@
     {% endif %}
 </div>
 
+<script type="module" src="{% static 'js/booking_detail.js' %}"></script>
 <!-- Include Modals -->
 {% include 'html/modals/confirmation-modal.html' with icon='<i class="fa-solid fa-circle-exclamation me-2 text-4xl text-gray-400 dark:text-gray-500 m-5"></i>' %}
 {% for message in messages %}

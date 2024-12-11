@@ -2,7 +2,7 @@
 
 <header>
   <nav
-    class="fixed top-0 z-50 w-full border-b border-gray-200 bg-[#319b94] dark:border-gray-600"
+    class="fixed top-0 z-50 w-full border-b border-gray-200 bg-white dark:border-gray-600"
     role="navigation"
   >
     <div
@@ -30,7 +30,7 @@
           <li>
             <a
               href="{% url 'authentication:home' %}"
-              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'home' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
+              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'home' %}text-gray-700{% endif %} block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-700"
             >
               Home
             </a>
@@ -39,24 +39,20 @@
           <li>
             <a
               href="{% url 'authentication:home' %}#about"
-              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'about' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
+              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'about' %}text-gray-700{% endif %} block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-700"
             >
               About Us
             </a>
           </li>
 
-          
-
           <li>
             <a
               href="{% url 'property_management:landlords' %}"
-              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'landlords' %}text-gray-200{% endif %} block px-4 py-2 text-base font-medium text-white hover:text-gray-200"
+              class="font-['Plus Jakarta Sans'] {% if request.resolver_match.url_name == 'landlords' %}text-gray-700{% endif %} block px-4 py-2 text-base font-medium text-[#1f7a76] hover:text-gray-700"
             >
               Landlords
             </a>
           </li>
-
-         
 
         </ul>
       </div>
@@ -79,13 +75,13 @@
             {% call_method 'notification.Notification' 'get_user_unread_notifications' request.user as notifications %}
             {% if notifications %}
             <div
-              class="absolute -end-2 -top-2 inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-[#1f7a76] bg-red-500 text-xs font-bold text-white"
+              class="absolute -end-2 -top-2 inline-flex h-6 w-6 items-center justify-center rounded-full border-2 bg-red-500 text-xs font-bold text-white"
             >
               {{ notifications.count }}
             </div>
             {% endif %}
             <i
-              class="fa-solid fa-bell text-2xl text-white hover:text-gray-200"
+              class="fa-solid fa-bell text-2xl hover:text-gray-700"
             ></i>
           </button>
           <div
@@ -128,12 +124,8 @@
             class="absolute right-0 z-50 mt-2 hidden w-48 rounded-md bg-white shadow-lg dark:divide-gray-600 dark:bg-gray-700"
           >
             <div class="px-4 py-3">
-              <span class="block text-sm text-[#1f7a76]"
-                >{{ user.username }}</span
-              >
-              <span class="block truncate text-sm text-gray-500"
-                >{{ user.email }}</span
-              >
+              <span class="block text-sm text-[#1f7a76]">{{ user.username }}</span>
+              <span class="block truncate text-sm text-gray-500">{{ user.email }}</span>
             </div>
             <ul class="py-2">
               <li>
@@ -189,7 +181,7 @@
         <div class="relative md:hidden">
           <button
             type="button"
-            class="inline-flex items-center justify-center rounded-md p-2 text-white hover:text-gray-200 dark:hover:bg-gray-700"
+            class="inline-flex items-center justify-center rounded-md p-2 text-[#1f7a76] hover:text-gray-200 dark:hover:bg-gray-700"
             aria-controls="hamburger-menu"
             aria-expanded="false"
           >
@@ -242,7 +234,7 @@
                   About Us
                 </a>
               </li>
-              
+
             </ul>
           </div>
         </div>
