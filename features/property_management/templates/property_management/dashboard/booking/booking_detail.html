@@ -72,6 +72,7 @@
         </form>
     {% endif %}
 
+    <script type="module" src="{% static 'js/booking_detail.js' %}"></script>
     {% include 'html/modals/confirmation-modal.html' with icon='<i class="fa-solid fa-circle-exclamation me-2 text-4xl text-gray-400 dark:text-gray-500 m-5"></i>' %}
     {% for message in messages %}
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
