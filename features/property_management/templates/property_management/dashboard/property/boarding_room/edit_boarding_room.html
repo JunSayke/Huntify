@@ -103,18 +103,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" p-5 bg-gray-100 rounded-lg shadow-sm">
-                        <label
-                            for="{{ form.description.id_for_label }}"
-                            class="mb-2 block text-base font-semibold text-gray-900 dark:text-white"
-                        >Description</label
-                        >
+                    <div class="p-5 bg-gray-100 rounded-lg shadow-sm">
+                        <label for="{{ form.description.id_for_label }}"
+                               class="mb-2 block text-base font-semibold text-gray-900 dark:text-white">
+                            Description
+                        </label>
                         {{ form.description|add_class:"block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-[#319b94] focus:ring-[#319b94] dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"|attr:"rows:4"|attr:"placeholder:Write your description here..."|attr:"data-target-input:description" }}
                         {% if form.description.errors %}
-                            <div
-                                class="text-red-500 text-sm error">{{ form.description.errors.0 }}</div>
+                            <div class="text-red-500 text-sm error">{{ form.description.errors.0 }}</div>
                         {% endif %}
                     </div>
+                    
+                    <!-- Status and Available checkbox -->
+<div class="p-5 bg-gray-100 rounded-lg shadow-sm">
+    <label for="{{ form.is_available.id_for_label }}"
+           class="mb-2 block text-base font-semibold text-gray-900 dark:text-white">
+        Status
+    </label>
+    <div class="flex items-center space-x-2">
+        {{ form.is_available|add_class:"form-checkbox h-4 w-4 text-[#3aafa9] transition duration-150 ease-in-out rounded focus:ring-[#319b94]" }}
+        <span class="text-sm text-gray-900 dark:text-white">Available</span>
+    </div>
+</div>
                 </div>
     <!-- Image Upload -->
     <div class="flex flex-1 flex-col gap-y-5">
@@ -157,7 +167,6 @@
                 <div class="text-red-500 text-sm error">{{ form.images.errors.0 }}</div>
             {% endif %}
         </div>
-
 
         <!-- Tags Section -->
         <div class="flex flex-1 flex-col gap-y-5 mt-0">
