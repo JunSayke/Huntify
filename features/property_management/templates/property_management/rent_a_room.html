@@ -99,7 +99,7 @@
 
                 <!-- Rooms List Section -->
                 <div class="col-span-1 sm:col-span-2 lg:col-span-4 p-5">
-                    <h1 class="text-xl font-semibold text-gray-800 dark:text-white mb-5">List of Rooms</h1>
+                    <h1 class="text-xl font-semibold text-gray-800 dark:text-white mb-5">List of Rooms <span class="text-xs">({{ total_boarding_rooms }})</span></h1>
                     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {% if not boarding_rooms %}
                             <p class="text-center col-span-4 py-5 text-gray-500 dark:text-gray-400">No boarding rooms found.</p>

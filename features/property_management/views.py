@@ -252,7 +252,7 @@ class RentARoomListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset = super().get_queryset()
+        queryset = self.get_queryset()
         context['total_boarding_rooms'] = queryset.count()
         context['tags'] = Tag.objects.filter(type=Tag.Type.BOARDING_ROOM)
         context['selected_tags'] = self.request.GET.getlist('tags')

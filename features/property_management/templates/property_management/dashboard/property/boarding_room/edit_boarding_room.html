@@ -116,76 +116,80 @@
                         {% endif %}
                     </div>
                 </div>
-<!-- Image Upload -->
-<div class="flex flex-1 flex-col gap-y-5">
-    <div class="p-5 bg-gray-100 rounded-lg shadow-sm">
-        <div class="image-preview-container w-full max-h-[320px] overflow-y-auto mb-6 border-4 rounded-md">
-            {% for image in form.initial.images %}
-                <img src="{{ image }}" class="preview hidden" alt="Image Preview">
-            {% endfor %}
-        </div>
-        <label
-            for="{{ form.images.id_for_label }}"
-            class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500"
-        >
-            <div class="flex flex-col items-center justify-center pb-6 pt-5">
-                <svg
-                    class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 16"
-                >
-                    <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"></path>
-                </svg>
-                <p class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400">
-                    Boarding House Images<br />
-                    <span class="font-semibold">Click to upload</span>
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">
-                    Maximum of 5 images
-                </p>
+    <!-- Image Upload -->
+    <div class="flex flex-1 flex-col gap-y-5">
+        <div class="p-5 bg-gray-100 rounded-lg shadow-sm">
+            <div class="image-preview-container w-full max-h-[320px] overflow-y-auto mb-6 border-4 rounded-md">
+                {% for image in form.initial.images %}
+                    <img src="{{ image }}" class="preview hidden" alt="Image Preview">
+                {% endfor %}
             </div>
-            {{ form.images|add_class:"hidden"|attr:"data-target-input:images" }}
-        </label>
-        {% if form.images.errors %}
-            <div class="text-red-500 text-sm error">{{ form.images.errors.0 }}</div>
-        {% endif %}
-    </div>
-
-
-<!-- Tags Section -->
-<div class="flex flex-1 flex-col gap-y-5 mt-0">
-    <fieldset class="p-5 bg-gray-100 rounded-lg shadow-sm">
-        <legend
-            class="text-base font-semibold text-gray-900 dark:text-gray-300"
-        >
-            Tags
-        </legend>
-        <div class="grid grid-flow-row grid-cols-3 gap-y-2">
-            {% for tag in form.tags.subwidgets %}
-                <div class="me-4 flex items-center">
-                    <input id="{{ tag.id_for_label }}" type="checkbox"
-                           name="{{ form.tags.name }}"
-                           value="{{ tag.data.value }}"
-                           data-target-input="tags"
-                           class="w-4 h-4 text-[#319b94] bg-gray-100 border-gray-300 rounded focus:ring-[#319b94]">
-                    <label for="{{ tag.id_for_label }}"
-                           class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ tag.choice_label }}</label>
+            <label
+                for="{{ form.images.id_for_label }}"
+                class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500"
+            >
+                <div class="flex flex-col items-center justify-center pb-6 pt-5">
+                    <svg
+                        class="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"></path>
+                    </svg>
+                    <p class="mb-2 text-center text-sm text-gray-500 dark:text-gray-400">
+                        Boarding House Images<br />
+                        <span class="font-semibold">Click to upload</span>
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        Maximum of 5 images
+                    </p>
                 </div>
-            {% endfor %}
+                {{ form.images|add_class:"hidden"|attr:"data-target-input:images" }}
+            </label>
+            {% if form.images.errors %}
+                <div class="text-red-500 text-sm error">{{ form.images.errors.0 }}</div>
+            {% endif %}
         </div>
-        {% if form.tags.errors %}
-            <div class="text-red-500 text-sm error">{{ form.tags.errors.0 }}</div>
-        {% endif %}
-    </fieldset>
-</div>
-</div>
+
+
+        <!-- Tags Section -->
+        <div class="flex flex-1 flex-col gap-y-5 mt-0">
+            <fieldset class="p-5 bg-gray-100 rounded-lg shadow-sm">
+                <legend
+                    class="text-base font-semibold text-gray-900 dark:text-gray-300"
+                >
+                    Tags
+                </legend>
+                <div class="grid grid-flow-row grid-cols-3 gap-y-2">
+                    {% for tag in form.tags.subwidgets %}
+                        <div class="me-4 flex items-center">
+                            <input id="{{ tag.id_for_label }}" type="checkbox"
+                                   name="{{ form.tags.html_name }}"
+                                   value="{{ tag.data.value }}"
+                                   data-target-input="tags"
+                                   class="w-4 h-4 text-[#319b94] bg-gray-100 border-gray-300 rounded focus:ring-[#319b94]"
+                                    {% if tag.data.selected %}
+                                       checked
+                                    {% endif %}
+                                >
+                            <label for="{{ tag.id_for_label }}"
+                                   class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ tag.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if form.tags.errors %}
+                    <div class="text-red-500 text-sm error">{{ form.tags.errors.0 }}</div>
+                {% endif %}
+            </fieldset>
+        </div>
+    </div>
 </div>
 
         </div>

@@ -59,6 +59,6 @@
             {% include 'authentication/profile_tab/bookings_tab.html' with bookings=bookings %}
             {% include 'authentication/profile_tab/notification_tab.html' with notifications=request.user.notifications.all %}
         {% endif %}
-        {% include 'authentication/profile_tab/ratings_tab.html' with user_ratings=request.user.ratings.all %}
+        {% include 'authentication/profile_tab/ratings_tab.html' with user_ratings=user_profile.ratings.all %}
     </div>
 {% endblock %}
