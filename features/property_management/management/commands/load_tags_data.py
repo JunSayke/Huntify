@@ -14,10 +14,18 @@ class Command(BaseCommand):
 
         boarding_room_tags = [
             'Air Conditioning',
-            '1 Person',
-            '2 Persons',
-            '3 Persons',
-            '4 Persons',
+            'WiFi',
+            'Parking',
+            'Laundry',
+            'Fully Furnished',
+            'Pet-Friendly',
+            'En-suite Bathroom',
+            'Kitchen Access',
+            'Security Lock ',
+            'Balcony',
+            'Quiet Area',
+            'City View',
+            'Cable TV',
         ]
 
         self.helper_create_tags(boarding_house_tags, Tag.Type.BOARDING_HOUSE)

@@ -80,7 +80,7 @@
                                                     type="checkbox"
                                                     name="tags"
                                                     value="{{ room_tag.id }}"
-                                                    class="form-checkbox h-4 w-4 text-[#3aafa9] transition duration-150 ease-in-out"
+                                                    class="form-checkbox h-4 w-4 text-[#3aafa9] transition duration-150 ease-in-out focus:ring-[#319b94]"
                                                     {% if room_tag.id|stringformat:"s" in selected_tags %}checked{% endif %}
                                                 />
                                                 <span class="ml-2 text-gray-700 dark:text-gray-300">{{ room_tag.name }}</span>
