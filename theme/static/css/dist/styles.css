@@ -2290,6 +2290,11 @@ input:checked + .toggle-bg {
   height: auto;
 }
 
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .h-full {
   height: 100%;
 }
@@ -2300,35 +2305,6 @@ input:checked + .toggle-bg {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[200px\] {
-  height: 200px;
-}
-
-.h-\[80\%\] {
-  height: 80%;
-}
-
-.h-\[50\%\] {
-  height: 50%;
-}
-
-.h-\[100rem\] {
-  height: 100rem;
-}
-
-.h-\[50rem\] {
-  height: 50rem;
-}
-
-.h-\[44rem\] {
-  height: 44rem;
-}
-
-.h-fit {
-  height: -moz-fit-content;
-  height: fit-content;
 }
 
 .max-h-\[122px\] {
@@ -2660,6 +2636,20 @@ input:checked + .toggle-bg {
   transform: none;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
+
 .cursor-default {
   cursor: default;
 }
@@ -2977,6 +2967,10 @@ input:checked + .toggle-bg {
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.\!scroll-smooth {
+  scroll-behavior: smooth !important;
 }
 
 .truncate {
@@ -5049,10 +5043,6 @@ input:checked + .toggle-bg {
 
   .lg\:h-36 {
     height: 9rem;
-  }
-
-  .lg\:h-\[80\%\] {
-    height: 80%;
   }
 
   .lg\:h-\[700px\] {
