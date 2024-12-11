@@ -1,13 +1,21 @@
-{% load humanize %} {% for notification in notifications|slice:5 %}
-<li class="p-5 text-sm font-normal border-b border-gray-500">
-	<div class="text-sm font-semibold text-gray-900 dark:text-white">
-		{{ notification.title }}
-	</div>
-	<div class="text-sm font-normal">{{ notification.message }}</div>
-	<span class="text-xs font-medium text-[#319b94] dark:text-[#319b94]">
-		{{ notification.created_at|naturaltime }}
-	</span>
-</li>
-{% empty %}
-<li class="p-5">No notifications available.</li>
-{% endfor %}
+{% load humanize %} 
+<ul>
+    {% for notification in notifications|slice:5 %}
+        <li class="p-5 text-sm font-normal border-b border-gray-300 last:border-b-0">
+            <div class="text-sm font-semibold text-gray-900 dark:text-white">
+                {{ notification.title }}
+            </div>
+            <div class="text-sm font-normal">
+                {{ notification.message }}
+            </div>
+            <span class="text-xs font-medium text-[#319b94] dark:text-[#319b94]">
+                {{ notification.created_at|naturaltime }}
+            </span>
+        </li>
+    {% empty %}
+        <li class="p-5 text-center text-gray-500">
+            No notifications available.
+        </li>
+    {% endfor %}
+</ul>
+
