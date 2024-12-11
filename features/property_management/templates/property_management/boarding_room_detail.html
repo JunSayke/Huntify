@@ -52,7 +52,7 @@
                         <div class="mt-5">
                             <form id="rate-boarding-room-form" method="POST" class="bg-gray-100 p-5 rounded-lg shadow-md">
                                 {% csrf_token %}
-                                <div class="flex justify-center">
+                                <div class="flex justify-center flex-row-reverse">
                                     {% for rate in rating_form.rating.subwidgets %}
                                         <input type="radio" id="{{ rate.id_for_label }}"
                                                name="{{ rating_form.rating.html_name }}"
