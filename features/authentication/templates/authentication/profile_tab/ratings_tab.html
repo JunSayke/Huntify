@@ -23,7 +23,7 @@
                         <i class="fa-star fas {% if forloop.counter <= user_rating.rating %}text-yellow-400{% else %}text-gray-400{% endif %}"></i>
                         {% endfor %}
                     </p>
-                    <p class="text-sm text-gray-700 dark:text-gray-400">
+                    <p class="text-sm text-gray-700 dark:text-gray-400 mt-4">
                         Reviewed on <time datetime="{{ user_rating.updated_at }}">{{ user_rating.updated_at|date:"F d, Y" }}</time>
                     </p>
                     <p class="mt-2 text-sm text-gray-700 dark:text-gray-400">{{ user_rating.feedback }}</p>
